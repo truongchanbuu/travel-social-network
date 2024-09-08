@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
-import '../../constants/types.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
   const AppBottomNavigationBar({super.key});
