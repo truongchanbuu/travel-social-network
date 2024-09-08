@@ -1,25 +1,30 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/constants.dart';
-import 'package:travel_social_network/firebase_options.dart';
-import 'package:travel_social_network/injection_container.dart';
+
+import './firebase_options.dart';
+import './config/themes/app_theme.dart';
+import './cores/constants/constants.dart';
+import './injection_container.dart';
+import 'features/auth/presentation/pages/account_detail_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: appName,
-      home: SafeArea(
-        child: Placeholder(),
+      theme: themes(),
+      home: const SafeArea(
+        child: AccountDetailPage(),
       ),
     );
   }
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeDependencies();
   runApp(const MyApp());

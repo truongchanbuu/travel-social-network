@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/constants.dart';
 
 class AppName extends StatelessWidget {
   const AppName({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const double fontSize = 18;
+    const double fontSize = 20.0;
 
     return RichText(
       text: const TextSpan(
         children: [
           TextSpan(
-            text: 'Travelround',
+            text: 'Traveround',
             style: TextStyle(
-              color: appNameLogoPrimaryColor,
+              color: Colors.white,
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),
@@ -22,7 +21,7 @@ class AppName extends StatelessWidget {
           TextSpan(
             text: '.com',
             style: TextStyle(
-              color: appNameLogoSecondaryColor,
+              color: Colors.yellow,
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),

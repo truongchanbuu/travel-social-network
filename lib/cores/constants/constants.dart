@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 // App
-const appName = 'Travelround.com';
+const String appName = 'Traveround';
 
 // Color
-const primaryColor = Colors.blueAccent;
-const secondaryColor = Colors.white;
-const appNameLogoPrimaryColor = Colors.white;
-const appNameLogoSecondaryColor = Colors.yellow;
+const Color primaryColor = Colors.blueAccent;
+const Color secondaryColor = Colors.white;
+const Color textButtonColor = Colors.white;
+Color scaffoldBackgroundColor = Colors.grey.shade200;
+
+// Border Radius
+BorderRadius inputFieldBorderRadius = BorderRadius.circular(5);
+
+// Spacing
+const SizedBox verticalInputSpacing = SizedBox(height: 22);
 
 // API
-const baseUrl = 'http://localhost:3000/api';
+const String baseUrl = 'http://localhost:3000/api';

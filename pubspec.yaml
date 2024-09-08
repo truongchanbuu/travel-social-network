@@ -51,6 +51,15 @@ dependencies:
   retrofit: ^4.2.0
   json_annotation: ^4.9.0
 
+  # Image
+  flutter_svg_provider: ^1.0.7
+
+  # UI
+  google_fonts: ^6.2.1
+  country_flags: ^3.0.0
+  country_code_picker_plus: ^0.0.6
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,9 +89,13 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/
+    - assets/shared/
+    - assets/shared/icons/
+    - assets/shared/json/
+    - assets/auth/images/
+    - assets/auth/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
