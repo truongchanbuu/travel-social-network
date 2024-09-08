@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/shared/widgets/app_name_logo.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../widgets/hero_image.dart';
 import '../widgets/social_button.dart';
 import '../widgets/social_icon.dart';
@@ -77,7 +79,9 @@ class AuthMethodPage extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.blue,
+      backgroundColor: primaryColor,
+      title: const AppName(),
+      centerTitle: true,
       leading: IconButton(
         onPressed: () {},
         icon: const Icon(Icons.chevron_left),
