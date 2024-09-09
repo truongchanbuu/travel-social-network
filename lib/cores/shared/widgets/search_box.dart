@@ -5,7 +5,7 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius = BorderRadius.circular(999);
+    BorderRadius borderRadius = BorderRadius.circular(10);
 
     return Material(
       elevation: 10,
@@ -14,6 +14,8 @@ class SearchBox extends StatelessWidget {
         textInputAction: TextInputAction.search,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
           border: OutlineInputBorder(
             borderRadius: borderRadius,
             borderSide: BorderSide.none,
