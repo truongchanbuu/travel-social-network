@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/settings/presentations/widgets/switch_setting_item.dart';
 
+import '../widgets/switch_setting_item.dart';
 import '../widgets/multiple_choice_setting_item.dart';
 
 class SettingsPage extends StatelessWidget {
