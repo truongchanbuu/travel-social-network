@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/constants/tours.dart';
+
+import '../../data/models/tour.dart';
 
 class RecommendedToursSection extends StatefulWidget {
   const RecommendedToursSection({super.key});
@@ -9,7 +12,13 @@ class RecommendedToursSection extends StatefulWidget {
 }
 
 class _RecommendedToursSectionState extends State<RecommendedToursSection> {
-  late final List<Map<String, String>> recommendedTours;
+  late final List<Tour> recommendedTours;
+
+  @override
+  void initState() {
+    super.initState();
+    recommendedTours = generateSampleTours();
+  }
 
   @override
   Widget build(BuildContext context) {

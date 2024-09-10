@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../../cores/enums/booking_status.dart';
 
@@ -10,6 +7,7 @@ class TourEntity extends Equatable {
   final String tourName;
   final String tourDescription;
   final num tourPrice;
+  final List<String> imageUrls;
   final String departure;
   final String destination;
   final int duration;
@@ -27,6 +25,7 @@ class TourEntity extends Equatable {
     required this.tourName,
     required this.tourDescription,
     required this.tourPrice,
+    required this.imageUrls,
     required this.departure,
     required this.destination,
     required this.duration,
@@ -47,6 +46,7 @@ class TourEntity extends Equatable {
       tourDescription,
       tourPrice,
       departure,
+      imageUrls,
       destination,
       duration,
       startDateTime,

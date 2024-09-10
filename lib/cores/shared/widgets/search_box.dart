@@ -6,7 +6,7 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius = BorderRadius.circular(10);
+    BorderRadius borderRadius = BorderRadius.circular(999);
 
     return Material(
       elevation: elevation,

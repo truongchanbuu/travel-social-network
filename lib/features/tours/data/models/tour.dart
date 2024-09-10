@@ -9,6 +9,7 @@ class Tour extends TourEntity {
     required super.tourName,
     required super.tourDescription,
     required super.tourPrice,
+    required super.imageUrls,
     required super.departure,
     required super.destination,
     required super.duration,
@@ -27,6 +28,7 @@ class Tour extends TourEntity {
       tourName: tourName,
       tourDescription: tourDescription,
       tourPrice: tourPrice,
+      imageUrls: imageUrls,
       departure: departure,
       destination: destination,
       duration: duration,
@@ -56,6 +58,7 @@ class Tour extends TourEntity {
       rating: entity.rating,
       bookingStatus: entity.bookingStatus,
       updatedAt: entity.updatedAt,
+      imageUrls: entity.imageUrls,
     );
   }
 
@@ -90,6 +93,7 @@ class Tour extends TourEntity {
       rating: rating ?? this.rating,
       bookingStatus: bookingStatus ?? this.bookingStatus,
       updatedAt: updatedAt ?? this.updatedAt,
+      imageUrls: imageUrls,
     );
   }
 
@@ -109,6 +113,7 @@ class Tour extends TourEntity {
       'rating': rating,
       'bookingStatus': bookingStatus,
       'updatedAt': updatedAt?.millisecondsSinceEpoch,
+      'imageUrls': imageUrls,
     };
   }
 
@@ -133,6 +138,7 @@ class Tour extends TourEntity {
       updatedAt: map['updatedAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'])
           : null,
+      imageUrls: map['imageUrls'] ?? [],
     );
   }
 
