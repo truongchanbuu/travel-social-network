@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../data/models/tour.dart';
+import '../widgets/section_heading.dart';
 
 class RecommendedToursSection extends StatefulWidget {
   const RecommendedToursSection({super.key});
@@ -22,6 +23,12 @@ class _RecommendedToursSectionState extends State<RecommendedToursSection> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: SectionHeading(title: 'Recommended Tours'),
+        ),
+      ],
+    );
   }
 }

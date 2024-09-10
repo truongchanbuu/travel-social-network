@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/destination_list.dart';
+import '../widgets/section_heading.dart';
 
 class PopularDestinationSection extends StatelessWidget {
   const PopularDestinationSection({super.key});
@@ -11,15 +12,7 @@ class PopularDestinationSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Popular Destinations',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 10),
+        SectionHeading(title: 'Popular Destinations'),
         SizedBox(
           width: double.infinity,
           height: 200,
