@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SearchBox extends StatelessWidget {
-  const SearchBox({super.key});
+  final double elevation;
+  const SearchBox({super.key, this.elevation = 0});
 
   @override
   Widget build(BuildContext context) {
     BorderRadius borderRadius = BorderRadius.circular(10);
 
     return Material(
-      elevation: 10,
+      elevation: elevation,
       borderRadius: borderRadius,
       child: TextField(
         textInputAction: TextInputAction.search,
@@ -18,7 +19,12 @@ class SearchBox extends StatelessWidget {
           filled: true,
           border: OutlineInputBorder(
             borderRadius: borderRadius,
-            borderSide: BorderSide.none,
+            borderSide: elevation == 0
+                ? const BorderSide(
+                    width: 0.5,
+                    color: Colors.grey,
+                  )
+                : BorderSide.none,
           ),
           hintText: 'Search your wonderful trips!',
           contentPadding: const EdgeInsets.all(18),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/shared/widgets/search_box.dart';
-import '../widgets/home_page_header.dart';
+import '../../../../cores/constants/constants.dart';
+import '../widgets/home_app_bar.dart';
+import '../widgets/popular_destination_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,47 +12,42 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final double _appBarHeight = 180;
+  late final ScrollController _scrollController;
+
+  final double _appBarScrollLimit = 90;
+
+  bool _isTitleShowed = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController = ScrollController()..addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.offset > _appBarScrollLimit) {
+      setState(() {
+        _isTitleShowed = true;
+      });
+    } else {
+      setState(() {
+        _isTitleShowed = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
-          SliverAppBar(
-            pinned: true,
-            backgroundColor: Colors.white,
-            expandedHeight: _appBarHeight,
-            collapsedHeight: kToolbarHeight + 20,
-            stretch: false,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const SearchBox(),
-              collapseMode: CollapseMode.pin,
-              titlePadding: const EdgeInsets.all(10),
-              expandedTitleScale: 1,
-              background: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.blue,
-                      Colors.lightBlue,
-                      Colors.white,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                width: double.maxFinite,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: HomePageHeader(username: 'Buu Truong'),
-                ),
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => Container(),
+          HomeAppBar(isTitleShowed: _isTitleShowed),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(homePagePadding),
+              child: PopularDestinationSection(),
             ),
           ),
         ],

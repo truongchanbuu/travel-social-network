@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
 import '../widgets/account_detail_section.dart';
 import '../widgets/account_section_item.dart';
 import '../widgets/user_avatar.dart';
@@ -11,11 +10,44 @@ class AccountDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: scaffoldBackgroundColor,
-      body: ListView(
-        children: [
-          _buildAvatarSection(),
-          _buildSecuritySection(),
+      // body: ListView(
+      //   children: [
+      //     _buildAvatarSection(),
+      //     _buildSecuritySection(),
+      //   ],
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                color: Colors.white,
+              ),
+              title: const Text('User Profile'),
+              centerTitle: true,
+              collapseMode: CollapseMode.pin,
+              titlePadding:
+                  const EdgeInsets.only(bottom: 16), // Adjust as needed
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate.fixed([
+              _buildAvatarSection(),
+              _buildSecuritySection(),
+              _buildAvatarSection(),
+              _buildSecuritySection(),
+              _buildAvatarSection(),
+              _buildSecuritySection(),
+              _buildAvatarSection(),
+              _buildSecuritySection(),
+              _buildAvatarSection(),
+              _buildSecuritySection(),
+              _buildAvatarSection(),
+              _buildSecuritySection(),
+            ]),
+          ),
         ],
       ),
     );
