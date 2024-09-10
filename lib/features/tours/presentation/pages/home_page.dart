@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/home_page_header.dart';
 import '../../../../cores/shared/widgets/search_box.dart';
+import '../widgets/home_page_header.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             flexibleSpace: FlexibleSpaceBar(
               title: const SearchBox(),
               collapseMode: CollapseMode.pin,
-              titlePadding: const EdgeInsets.all(50),
+              titlePadding: const EdgeInsets.all(10),
               expandedTitleScale: 1,
               background: Container(
                 decoration: const BoxDecoration(
@@ -35,7 +35,10 @@ class _HomePageState extends State<HomePage> {
                     colors: [
                       Colors.blue,
                       Colors.lightBlue,
+                      Colors.white,
                     ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
                 ),
                 width: double.maxFinite,

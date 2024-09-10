@@ -93,7 +93,6 @@ flutter:
     - assets/
     - assets/shared/
     - assets/shared/icons/
-    - assets/shared/json/
     - assets/auth/images/
     - assets/auth/icons/
 

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class AccountDetailSection extends StatelessWidget {
   final String title;
-  const AccountDetailSection({super.key, required this.title});
+  final List<Widget> items;
+  const AccountDetailSection({
+    super.key,
+    required this.title,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +20,10 @@ class AccountDetailSection extends StatelessWidget {
             fontSize: 12,
             color: Colors.grey,
           ),
+        ),
+        const SizedBox(height: 5),
+        Column(
+          children: items,
         )
       ],
     );
