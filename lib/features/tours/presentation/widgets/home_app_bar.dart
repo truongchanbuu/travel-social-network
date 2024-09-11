@@ -15,57 +15,70 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double appBarHeight = 180;
-    return SliverAppBar(
-      bottom: bottom,
-      pinned: true,
-      backgroundColor: Colors.white,
-      expandedHeight: appBarHeight,
-      collapsedHeight: kToolbarHeight + 40,
-      flexibleSpace: FlexibleSpaceBar(
-        title: isTitleShowed
-            ? Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: homePagePadding, vertical: 10),
-                width: double.maxFinite,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 0.5,
-                      color: Colors.grey,
+    return SliverLayoutBuilder(
+      builder: (context, constraints) {
+        double appBarHeight = 180;
+
+        if (constraints.crossAxisExtent <= 350) {
+          appBarHeight = 200;
+        }
+
+        if (constraints.crossAxisExtent <= 250) {
+          appBarHeight = 250;
+        }
+
+        return SliverAppBar(
+          bottom: bottom,
+          pinned: true,
+          backgroundColor: Colors.white,
+          expandedHeight: appBarHeight,
+          collapsedHeight: kToolbarHeight + 40,
+          flexibleSpace: FlexibleSpaceBar(
+            title: isTitleShowed
+                ? Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: homePagePadding, vertical: 10),
+                    width: double.maxFinite,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 0.5,
+                          color: Colors.grey,
+                        ),
+                      ),
                     ),
-                  ),
+                    child: const SearchBox())
+                : null,
+            centerTitle: true,
+            collapseMode: CollapseMode.pin,
+            expandedTitleScale: 1,
+            background: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blue,
+                    Colors.lightBlue,
+                    Colors.white,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                child: const SearchBox())
-            : null,
-        centerTitle: true,
-        collapseMode: CollapseMode.pin,
-        expandedTitleScale: 1,
-        background: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.blue,
-                Colors.lightBlue,
-                Colors.white,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              ),
+              width: double.maxFinite,
+              child: const Padding(
+                padding: EdgeInsets.all(homePagePadding),
+                child: Column(
+                  children: [
+                    HomePageHeader(username: 'Buu Truong'),
+                    SizedBox(height: 10),
+                    SearchBox(elevation: 10),
+                  ],
+                ),
+              ),
             ),
           ),
-          width: double.maxFinite,
-          child: const Padding(
-            padding: EdgeInsets.all(homePagePadding),
-            child: Column(
-              children: [
-                HomePageHeader(username: 'Buu Truong'),
-                SizedBox(height: 10),
-                SearchBox(elevation: 10),
-              ],
-            ),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

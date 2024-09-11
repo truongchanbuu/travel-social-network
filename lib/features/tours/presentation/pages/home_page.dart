@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../widgets/destination_list.dart';
 import '../widgets/home_app_bar.dart';
-import '../widgets/popular_destination_section.dart';
+import '../widgets/homepage_section_heading.dart';
+import '../widgets/tours_grid_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,18 +40,54 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const double padding = 20;
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          HomeAppBar(isTitleShowed: _isTitleShowed),
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(homePagePadding),
-              child: PopularDestinationSection(),
-            ),
-          ),
-        ],
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth < 200) {
+            return const Center(
+              child: Text(
+                'Sorry! This screen size is not supported',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            );
+          }
+
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              HomeAppBar(isTitleShowed: _isTitleShowed),
+              const HomepageSectionHeading(
+                title: 'Popular Destinations',
+                padding: padding,
+              ),
+              const SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                sliver: SliverToBoxAdapter(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: DestinationList(),
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 20)),
+              const HomepageSectionHeading(
+                title: 'Recommended Tours',
+                padding: padding,
+              ),
+              const SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                sliver: ToursGridView(),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

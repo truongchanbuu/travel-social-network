@@ -54,11 +54,15 @@ dependencies:
   # Image
   flutter_svg_provider: ^1.0.7
 
+  # Utils
+  equatable: ^2.0.5
+
   # UI
   google_fonts: ^6.2.1
   country_flags: ^3.0.0
   country_code_picker_plus: ^0.0.6
-  equatable: ^2.0.5
+  flutter_staggered_grid_view: ^0.7.0
+  cached_network_image: ^3.4.1
 
 
 dev_dependencies:

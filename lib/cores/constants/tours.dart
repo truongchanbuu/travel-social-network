@@ -7,18 +7,10 @@ import '../enums/booking_status.dart';
 
 List<Tour> generateSampleTours() {
   final random = Random();
-  final locations = [
-    'Hà Nội',
-    'TP.HCM',
-    'Đà Nẵng',
-    'Hội An',
-    'Huế',
-    'Nha Trang',
-    'Đà Lạt',
-    'Phú Quốc',
-    'Sapa',
-    'Hạ Long'
-  ];
+  final locations = List.generate(
+    10,
+    (index) => 'Location $index',
+  );
 
   final descriptions = [
     'Khám phá vẻ đẹp và văn hóa độc đáo',
@@ -49,7 +41,7 @@ List<Tour> generateSampleTours() {
       currentGroupSize: random.nextInt(20),
       rating: (random.nextInt(50) + 1) / 10, // 0.1 to 5.0
       bookingStatus: stringToEnum(
-          ['available', 'almost_full', 'full'][random.nextInt(3)],
+          ['available', 'unavailable', 'full'][random.nextInt(3)],
           BookingStatus.values),
       updatedAt: DateTime.now().subtract(Duration(days: random.nextInt(30))),
       imageUrls: const [
