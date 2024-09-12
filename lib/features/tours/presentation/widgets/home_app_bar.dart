@@ -28,10 +28,13 @@ class HomeAppBar extends StatelessWidget {
           collapsedHeight: kToolbarHeight + 40,
           flexibleSpace: FlexibleSpaceBar(
             title: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: homePagePadding),
-                width: double.maxFinite,
-                child: const SearchBox()),
+              padding: const EdgeInsets.symmetric(horizontal: homePagePadding),
+              width: double.maxFinite,
+              child: const SearchBox(
+                elevation: 5,
+                hintText: 'Search your wonderful trips!',
+              ),
+            ),
             centerTitle: true,
             collapseMode: CollapseMode.pin,
             expandedTitleScale: 1,
@@ -54,7 +57,6 @@ class HomeAppBar extends StatelessWidget {
                   children: [
                     HomePageHeader(username: 'Buu Truong'),
                     SizedBox(height: 10),
-                    // SearchBox(elevation: 10),
                   ],
                 ),
               ),

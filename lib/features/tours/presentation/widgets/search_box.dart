@@ -5,12 +5,14 @@ class SearchBox extends StatelessWidget {
   final double radius;
   final Color? fillColor;
   final bool enabled;
+  final String? hintText;
   const SearchBox({
     super.key,
     this.elevation = 0,
     this.radius = 999,
     this.fillColor,
     this.enabled = false,
+    this.hintText,
   });
 
   @override
@@ -40,7 +42,7 @@ class SearchBox extends StatelessWidget {
                     )
                   : BorderSide.none,
             ),
-            hintText: 'Search your wonderful trips!',
+            hintText: hintText,
             contentPadding: const EdgeInsets.all(18),
             suffixIcon: Container(
               padding: const EdgeInsets.all(15),
