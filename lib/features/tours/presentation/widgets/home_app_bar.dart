@@ -1,54 +1,37 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/shared/widgets/search_box.dart';
 import 'home_page_header.dart';
+import 'search_box.dart';
 
 class HomeAppBar extends StatelessWidget {
-  final bool isTitleShowed;
-  final PreferredSize? bottom;
-  const HomeAppBar({
-    super.key,
-    this.isTitleShowed = false,
-    this.bottom,
-  });
+  const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SliverLayoutBuilder(
       builder: (context, constraints) {
-        double appBarHeight = 180;
+        double width = constraints.crossAxisExtent;
 
-        if (constraints.crossAxisExtent <= 350) {
-          appBarHeight = 200;
-        }
+        double appBarHeight = 150;
 
-        if (constraints.crossAxisExtent <= 250) {
-          appBarHeight = 250;
+        if (width <= 500 && width > 350) {
+          appBarHeight = 170;
+        } else if (width <= 350) {
+          appBarHeight = 230;
         }
 
         return SliverAppBar(
-          bottom: bottom,
           pinned: true,
           backgroundColor: Colors.white,
           expandedHeight: appBarHeight,
           collapsedHeight: kToolbarHeight + 40,
           flexibleSpace: FlexibleSpaceBar(
-            title: isTitleShowed
-                ? Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: homePagePadding, vertical: 10),
-                    width: double.maxFinite,
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          width: 0.5,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                    child: const SearchBox())
-                : null,
+            title: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: homePagePadding),
+                width: double.maxFinite,
+                child: const SearchBox()),
             centerTitle: true,
             collapseMode: CollapseMode.pin,
             expandedTitleScale: 1,
@@ -71,7 +54,7 @@ class HomeAppBar extends StatelessWidget {
                   children: [
                     HomePageHeader(username: 'Buu Truong'),
                     SizedBox(height: 10),
-                    SearchBox(elevation: 10),
+                    // SearchBox(elevation: 10),
                   ],
                 ),
               ),

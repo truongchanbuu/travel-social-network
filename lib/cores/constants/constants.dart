@@ -18,5 +18,19 @@ const SizedBox verticalInputSpacing = SizedBox(height: 22);
 // Padding
 const double homePagePadding = 20;
 
+// Tour Item Size
+const List<double> tourItemSizes = [
+  200,
+  250,
+  300,
+  320,
+  350,
+  380,
+  400,
+  420,
+  450,
+  500
+];
+
 // API
 const String baseUrl = 'http://localhost:3000/api';

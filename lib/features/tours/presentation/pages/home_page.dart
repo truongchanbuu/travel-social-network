@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/shared/widgets/unsupported_screen.dart';
 import '../widgets/destination_list.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/homepage_section_heading.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   final double _appBarScrollLimit = 90;
 
-  bool _isTitleShowed = false;
+  bool _isScrolled = false;
 
   @override
   void initState() {
@@ -29,11 +30,11 @@ class _HomePageState extends State<HomePage> {
   void _onScroll() {
     if (_scrollController.offset > _appBarScrollLimit) {
       setState(() {
-        _isTitleShowed = true;
+        _isScrolled = true;
       });
     } else {
       setState(() {
-        _isTitleShowed = false;
+        _isScrolled = false;
       });
     }
   }
@@ -45,28 +46,18 @@ class _HomePageState extends State<HomePage> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 200) {
-            return const Center(
-              child: Text(
-                'Sorry! This screen size is not supported',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            );
+            return const UnsupportedScreen();
           }
 
           return CustomScrollView(
             controller: _scrollController,
-            slivers: [
-              HomeAppBar(isTitleShowed: _isTitleShowed),
-              const HomepageSectionHeading(
+            slivers: const [
+              HomeAppBar(),
+              HomepageSectionHeading(
                 title: 'Popular Destinations',
                 padding: padding,
               ),
-              const SliverPadding(
+              SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: padding),
                 sliver: SliverToBoxAdapter(
                   child: SizedBox(
@@ -76,12 +67,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const SliverToBoxAdapter(child: SizedBox(height: 20)),
-              const HomepageSectionHeading(
+              SliverToBoxAdapter(child: SizedBox(height: 20)),
+              HomepageSectionHeading(
                 title: 'Recommended Tours',
                 padding: padding,
               ),
-              const SliverPadding(
+              SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: padding),
                 sliver: ToursGridView(),
               ),

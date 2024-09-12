@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:travel_social_network/cores/constants/tours.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../../../cores/shared/widgets/app_progressing_indicator.dart';
 import '../../data/models/tour.dart';
 
@@ -40,9 +42,13 @@ class _ToursGridViewState extends State<ToursGridView> {
           childCount: recommendedTours.length,
           itemBuilder: (context, index) {
             Tour tour = recommendedTours[index];
-            double randomWidth = _getRandomWidth();
-            double randomHeight = _getRandomHeight();
-            double size = randomHeight / 5;
+
+            double height = tourItemSizes[index % tourItemSizes.length];
+            if (constraints.crossAxisExtent <= 350) {
+              height = 300;
+            }
+
+            double size = height / 5;
 
             const double borderRadius = 10;
 
@@ -54,8 +60,7 @@ class _ToursGridViewState extends State<ToursGridView> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
-                width: randomWidth,
-                height: randomHeight,
+                height: height,
                 child: GridTile(
                   footer: Container(
                     padding: const EdgeInsets.all(10.0),
@@ -102,13 +107,5 @@ class _ToursGridViewState extends State<ToursGridView> {
         );
       },
     );
-  }
-
-  double _getRandomWidth() {
-    return Random().nextDouble() * MediaQuery.of(context).size.width;
-  }
-
-  double _getRandomHeight() {
-    return Random().nextInt(500 - 200 + 1) + 200;
   }
 }
