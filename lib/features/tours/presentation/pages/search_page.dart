@@ -19,16 +19,23 @@ class _SearchPageState extends State<SearchPage> {
 
   AppBar _buildAppBar() {
     return AppBar(
+      titleSpacing: 0,
       backgroundColor: Colors.white,
-      centerTitle: true,
       shape: const Border(
         bottom: BorderSide(width: 1, color: Colors.black),
       ),
+      centerTitle: true,
       title: const SearchBox(
         enabled: true,
         elevation: 5,
         radius: 5,
         fillColor: Colors.white,
+      ),
+      leading: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.close),
+        color: Colors.black,
+        tooltip: 'Close',
       ),
     );
   }
