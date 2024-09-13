@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/shared/widgets/unsupported_screen.dart';
 import '../widgets/home/destination_list.dart';
 import '../widgets/home/home_app_bar.dart';
+import '../widgets/home/homepage_fab.dart';
 import '../widgets/home/homepage_section_heading.dart';
 import '../widgets/home/tours_grid_view.dart';
 
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     const double padding = 20;
     return Scaffold(
+      floatingActionButton: const HomePageFloatingActionButton(),
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 200) {

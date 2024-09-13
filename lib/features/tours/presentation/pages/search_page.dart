@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/search/search_box.dart';
 import '../../../../cores/constants/constants.dart';
+import '../widgets/search/recent_search.dart';
+import '../widgets/search/search_box.dart';
 import '../widgets/search/search_recommendation.dart';
+import '../widgets/search/search_title.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -12,10 +14,17 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  List<String> recentSearches = [];
+
+  @override
+  void initState() {
+    super.initState();
+    recentSearches = ['Singapore', 'ThaiLand'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: _buildAppBar(),
       body: _buildBody(),
     );
@@ -41,7 +50,9 @@ class _SearchPageState extends State<SearchPage> {
         hintText: 'Searching...',
       ),
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
         icon: const Icon(Icons.close),
         color: primaryColor,
         tooltip: 'Close',
@@ -70,25 +81,37 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildBody() {
-    return const SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Recommendations',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+    const SizedBox spacing = SizedBox(height: 10);
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (recentSearches.isNotEmpty) ...[
+            SearchTitle(
+              title: 'Recent Search',
+              suffix: GestureDetector(
+                onTap: () {},
+                child: const Text(
+                  'Clear',
+                  style: TextStyle(color: primaryColor),
+                ),
               ),
-              semanticsLabel: 'Recommendations',
             ),
-            SizedBox(height: 10),
-            SearchRecommendations(),
+            spacing,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: RecentSearch(recentSearches: recentSearches),
+            ),
+            spacing,
           ],
-        ),
+          const SearchTitle(title: 'Recommendations'),
+          spacing,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: defaultPadding),
+            child: SearchRecommendations(),
+          ),
+        ],
       ),
     );
   }

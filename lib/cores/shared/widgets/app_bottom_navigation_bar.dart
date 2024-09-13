@@ -17,8 +17,10 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   void initState() {
     super.initState();
     icons = [
-      const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      const BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Social'),
+      const BottomNavigationBarItem(
+          icon: Icon(Icons.home_filled), label: 'Home'),
+      const BottomNavigationBarItem(
+          icon: Icon(Icons.travel_explore), label: 'Social'),
       const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
     ];
   }

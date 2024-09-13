@@ -27,11 +27,11 @@ List<Tour> generateSampleTours() {
 
     return Tour(
       tourId: 'TOUR${index.toString().padLeft(3, '0')}',
-      tourName:
-          '${locations[random.nextInt(locations.length)]} ${duration} ngày',
+      tourName: '${locations[random.nextInt(locations.length)]} $duration ngày',
       tourDescription: descriptions[random.nextInt(descriptions.length)],
       tourPrice:
           (random.nextInt(9000) + 1000) * 1000.0, // 1,000,000 to 10,000,000 VND
+      createdBy: ['BT', 'TCB', 'ABC'][Random().nextInt(3)],
       departure: locations[random.nextInt(locations.length)],
       destination: locations[random.nextInt(locations.length)],
       duration: duration,

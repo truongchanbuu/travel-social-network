@@ -1,6 +1,8 @@
+import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../cores/constants/constants.dart';
+import './search_item.dart';
+import './expanded_button.dart';
 
 class SearchRecommendations extends StatefulWidget {
   const SearchRecommendations({super.key});
@@ -10,6 +12,10 @@ class SearchRecommendations extends StatefulWidget {
 }
 
 class _SearchRecommendationsState extends State<SearchRecommendations> {
+  bool _isExpanded = false;
+  int minLines = 2;
+  late int maxLines = minLines;
+
   List<String> recommendations = List.empty(growable: true);
 
   @override
@@ -25,44 +31,34 @@ class _SearchRecommendationsState extends State<SearchRecommendations> {
       'Around Singapore',
       'Meeting the kangaroo at Australia',
       'Dynamic Life at New York City',
-    ];
+    ]
+      ..take(6)
+      ..shuffle();
   }
 
   @override
   Widget build(BuildContext context) {
     const double spacing = 10;
 
-    return Wrap(
+    return ExtendedWrap(
       textDirection: TextDirection.ltr,
       direction: Axis.horizontal,
       runSpacing: spacing,
       spacing: spacing,
+      minLines: minLines,
+      maxLines: maxLines,
+      overflowWidget: ExpandedButton(
+        isExpanded: _isExpanded,
+        onPressed: () => setState(() {
+          _isExpanded = !_isExpanded;
+          maxLines = _isExpanded ? recommendations.length : minLines;
+        }),
+      ),
       children: recommendations.map(_buildRecommendationItem).toList(),
     );
   }
 
   Widget _buildRecommendationItem(String recommendation) {
-    const BorderRadius borderRadius = BorderRadius.all(Radius.circular(10));
-
-    return InkWell(
-      onTap: () {},
-      borderRadius: borderRadius,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: borderRadius,
-          border: Border.all(color: primaryColor),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Text(
-            recommendation,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-    );
+    return SearchItem(title: recommendation);
   }
 }

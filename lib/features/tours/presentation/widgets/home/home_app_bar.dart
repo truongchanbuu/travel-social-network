@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../cores/constants/constants.dart';
-import 'home_page_header.dart';
+import '../../pages/search_page.dart';
 import '../search/search_box.dart';
+import 'home_page_header.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -17,7 +18,11 @@ class HomeAppBar extends StatelessWidget {
 
         if (width <= 500 && width > 350) {
           appBarHeight = 170;
-        } else if (width <= 350) {
+        } else if (width <= 350 && width >= 250) {
+          appBarHeight = 180;
+        } else if (width < 250 && width >= 210) {
+          appBarHeight = 200;
+        } else if (width < 210) {
           appBarHeight = 230;
         }
 
@@ -30,7 +35,8 @@ class HomeAppBar extends StatelessWidget {
             title: Container(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               width: double.maxFinite,
-              child: const SearchBox(
+              child: SearchBox(
+                onTap: () => _navigateToSearchPage(context),
                 elevation: 5,
                 hintText: 'Search your wonderful trips!',
               ),
@@ -62,6 +68,32 @@ class HomeAppBar extends StatelessWidget {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void _navigateToSearchPage(BuildContext context) {
+    Navigator.push(context, _createSearchPageRoute());
+  }
+
+  Route _createSearchPageRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const SearchPage(),
+      transitionDuration:
+          const Duration(milliseconds: pageChangeTransitionDuration),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const Offset begin = Offset(0.0, 1.0);
+        const Offset end = Offset.zero;
+        const Curve curve = Curves.fastOutSlowIn;
+
+        Animatable<Offset> tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
         );
       },
     );

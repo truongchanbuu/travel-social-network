@@ -18,6 +18,9 @@ const SizedBox verticalInputSpacing = SizedBox(height: 22);
 // Padding
 const double defaultPadding = 20;
 
+// Duration
+const int pageChangeTransitionDuration = 500;
+
 // Tour Item Size
 const List<double> tourItemSizes = [
   200,

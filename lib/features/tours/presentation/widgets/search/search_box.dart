@@ -61,6 +61,10 @@ class SearchBox extends StatelessWidget {
                   : BorderSide.none,
             ),
             hintText: hintText,
+            hintStyle: const TextStyle(
+              color: Colors.grey,
+              fontSize: 13,
+            ),
             contentPadding: const EdgeInsets.all(18),
             suffixIcon: searchIcon
                 ? Container(

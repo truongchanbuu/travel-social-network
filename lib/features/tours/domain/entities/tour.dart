@@ -7,6 +7,7 @@ class TourEntity extends Equatable {
   final String tourName;
   final String tourDescription;
   final num tourPrice;
+  final String createdBy;
   final List<String> imageUrls;
   final String departure;
   final String destination;
@@ -25,6 +26,7 @@ class TourEntity extends Equatable {
     required this.tourName,
     required this.tourDescription,
     required this.tourPrice,
+    required this.createdBy,
     required this.imageUrls,
     required this.departure,
     required this.destination,
@@ -45,6 +47,7 @@ class TourEntity extends Equatable {
       tourName,
       tourDescription,
       tourPrice,
+      createdBy,
       departure,
       imageUrls,
       destination,
