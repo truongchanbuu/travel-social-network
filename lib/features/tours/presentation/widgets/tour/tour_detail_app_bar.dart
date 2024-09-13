@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import '../../../../../cores/shared/widgets/app_progressing_indicator.dart';
 
 class TourDetailAppBar extends StatelessWidget {
-  const TourDetailAppBar({super.key});
+  final Color titleColor;
+  final double expandedHeight;
+  const TourDetailAppBar({
+    super.key,
+    required this.expandedHeight,
+    required this.titleColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    const double expandedHeight = 250;
-
     return SliverAppBar(
       pinned: true,
       backgroundColor: Colors.white,
@@ -17,8 +21,8 @@ class TourDetailAppBar extends StatelessWidget {
       automaticallyImplyLeading: true,
       leadingWidth: 40,
       titleSpacing: 0,
-      title: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
+      title: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,7 +31,7 @@ class TourDetailAppBar extends StatelessWidget {
               child: Text(
                 'Underwater World Pattaya',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: titleColor,
                 ),
                 semanticsLabel: 'Underwater World Pattaya',
                 maxLines: 1,
@@ -35,9 +39,15 @@ class TourDetailAppBar extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Icon(Icons.favorite_outline),
-            SizedBox(width: 10),
-            Icon(Icons.share),
+            Icon(
+              Icons.favorite_outline,
+              color: titleColor,
+            ),
+            const SizedBox(width: 10),
+            Icon(
+              Icons.share,
+              color: titleColor,
+            ),
           ],
         ),
       ),

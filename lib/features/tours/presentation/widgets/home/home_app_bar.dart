@@ -39,7 +39,7 @@ class HomeAppBar extends StatelessWidget {
         return 170;
       case double w when w >= 250:
         return 180;
-      case double w when w >= 210:
+      case double w when w >= 225:
         return 200;
       default:
         return 230;

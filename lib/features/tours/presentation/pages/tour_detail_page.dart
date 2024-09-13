@@ -14,15 +14,49 @@ class TourDetailPage extends StatefulWidget {
 }
 
 class _TourDetailPageState extends State<TourDetailPage> {
+  Color titleColor = Colors.white;
+  final double expandedHeight = 250;
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final double maxOffset = expandedHeight - kToolbarHeight;
+    final double scrollOffset = _scrollController.offset;
+
+    if (_scrollController.hasClients && scrollOffset > maxOffset) {
+      setState(() {
+        titleColor = Colors.black;
+      });
+    } else {
+      titleColor = Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
-          const TourDetailAppBar(),
+          TourDetailAppBar(
+            expandedHeight: expandedHeight,
+            titleColor: titleColor,
+          ),
           ...List.generate(
             100,
-                (index) => SliverToBoxAdapter(
+            (index) => SliverToBoxAdapter(
               child: Text('$index'),
             ),
           )
