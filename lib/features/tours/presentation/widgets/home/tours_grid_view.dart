@@ -6,9 +6,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:travel_social_network/cores/constants/tours.dart';
 
-import '../../../../cores/constants/constants.dart';
-import '../../../../cores/shared/widgets/app_progressing_indicator.dart';
-import '../../data/models/tour.dart';
+import '../../../../../cores/constants/constants.dart';
+import '../../../../../cores/shared/widgets/app_progressing_indicator.dart';
+import '../../../data/models/tour.dart';
 
 class ToursGridView extends StatefulWidget {
   const ToursGridView({super.key});

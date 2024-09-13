@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/popular_destination.dart';
-import '../../../../cores/constants/types.dart';
+import '../../../../../cores/constants/popular_destination.dart';
+import '../../../../../cores/constants/types.dart';
 import 'destination_item.dart';
 
 class DestinationList extends StatelessWidget {

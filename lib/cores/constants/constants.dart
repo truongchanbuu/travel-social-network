@@ -16,7 +16,7 @@ BorderRadius inputFieldBorderRadius = BorderRadius.circular(5);
 const SizedBox verticalInputSpacing = SizedBox(height: 22);
 
 // Padding
-const double homePagePadding = 20;
+const double defaultPadding = 20;
 
 // Tour Item Size
 const List<double> tourItemSizes = [

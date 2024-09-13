@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/utils/date_time_utils.dart';
-import '../widgets/badge_notification.dart';
+import '../../../../../cores/utils/date_time_utils.dart';
+import '../badge_notification.dart';
 
 class HomePageHeader extends StatelessWidget {
   final String username;

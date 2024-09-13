@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../../cores/constants/constants.dart';
 import 'home_page_header.dart';
-import 'search_box.dart';
+import '../search/search_box.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -28,7 +28,7 @@ class HomeAppBar extends StatelessWidget {
           collapsedHeight: kToolbarHeight + 40,
           flexibleSpace: FlexibleSpaceBar(
             title: Container(
-              padding: const EdgeInsets.symmetric(horizontal: homePagePadding),
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               width: double.maxFinite,
               child: const SearchBox(
                 elevation: 5,
@@ -52,7 +52,7 @@ class HomeAppBar extends StatelessWidget {
               ),
               width: double.maxFinite,
               child: const Padding(
-                padding: EdgeInsets.all(homePagePadding),
+                padding: EdgeInsets.all(defaultPadding),
                 child: Column(
                   children: [
                     HomePageHeader(username: 'Buu Truong'),

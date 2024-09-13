@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../cores/constants/constants.dart';
+
 class SearchBox extends StatelessWidget {
   final double elevation;
   final double radius;
   final Color? fillColor;
   final bool enabled;
   final String? hintText;
+  final bool searchIcon;
+  final bool autofocus;
+  final TextEditingController? controller;
+  final VoidCallback? onTap;
+
   const SearchBox({
     super.key,
     this.elevation = 0,
@@ -13,6 +20,10 @@ class SearchBox extends StatelessWidget {
     this.fillColor,
     this.enabled = false,
     this.hintText,
+    this.searchIcon = true,
+    this.controller,
+    this.autofocus = false,
+    this.onTap,
   });
 
   @override
@@ -23,16 +34,23 @@ class SearchBox extends StatelessWidget {
       elevation: elevation,
       borderRadius: borderRadius,
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         borderRadius: borderRadius,
         splashColor: Colors.grey,
         child: TextField(
+          autofocus: autofocus,
+          controller: controller,
           enabled: enabled,
+          cursorColor: primaryColor,
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             fillColor: fillColor,
             filled: fillColor != null,
+            focusColor: primaryColor,
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: primaryColor),
+            ),
             border: OutlineInputBorder(
               borderRadius: borderRadius,
               borderSide: elevation == 0
@@ -44,10 +62,12 @@ class SearchBox extends StatelessWidget {
             ),
             hintText: hintText,
             contentPadding: const EdgeInsets.all(18),
-            suffixIcon: Container(
-              padding: const EdgeInsets.all(15),
-              child: const Icon(Icons.search),
-            ),
+            suffixIcon: searchIcon
+                ? Container(
+                    padding: const EdgeInsets.all(15),
+                    child: const Icon(Icons.search),
+                  )
+                : null,
           ),
         ),
       ),
