@@ -4,12 +4,12 @@ import '../../constants/constants.dart';
 
 class AppProgressingIndicator extends StatelessWidget {
   final double? size;
-  final String? sematicLabel;
+  final String? semanticLabel;
   final double? value;
   const AppProgressingIndicator({
     super.key,
     this.size,
-    this.sematicLabel,
+    this.semanticLabel,
     this.value,
   });
 
@@ -23,7 +23,7 @@ class AppProgressingIndicator extends StatelessWidget {
           value: value,
           semanticsValue: '$value%',
           backgroundColor: primaryColor,
-          semanticsLabel: sematicLabel ?? 'Loading',
+          semanticsLabel: semanticLabel ?? 'Loading',
         ),
       ),
     );
