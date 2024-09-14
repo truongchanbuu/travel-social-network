@@ -1,6 +1,7 @@
 import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../cores/constants/constants.dart';
 import './search_item.dart';
 import './expanded_button.dart';
 
@@ -41,7 +42,7 @@ class _SearchRecommendationsState extends State<SearchRecommendations> {
     const double spacing = 10;
 
     return ExtendedWrap(
-      textDirection: TextDirection.ltr,
+      textDirection: defaultTextDirection,
       direction: Axis.horizontal,
       runSpacing: spacing,
       spacing: spacing,

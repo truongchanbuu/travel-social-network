@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../data/models/tour.dart';
+import '../widgets/tour/info_section.dart';
 import '../widgets/tour/tour_detail_app_bar.dart';
 
 class TourDetailPage extends StatefulWidget {
-  // final Tour tour;
+  final Tour tour;
   const TourDetailPage({
     super.key,
-    // required this.tour,
+    required this.tour,
   });
 
   @override
@@ -14,6 +16,7 @@ class TourDetailPage extends StatefulWidget {
 }
 
 class _TourDetailPageState extends State<TourDetailPage> {
+  late final Tour tour;
   Color titleColor = Colors.white;
   final double expandedHeight = 250;
   late final ScrollController _scrollController;
@@ -21,6 +24,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
   @override
   void initState() {
     super.initState();
+    tour = widget.tour;
     _scrollController = ScrollController()..addListener(_onScroll);
   }
 
@@ -36,11 +40,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
     final double scrollOffset = _scrollController.offset;
 
     if (_scrollController.hasClients && scrollOffset > maxOffset) {
-      setState(() {
-        titleColor = Colors.black;
-      });
+      setState(() => titleColor = Colors.black);
     } else {
-      titleColor = Colors.white;
+      setState(() => titleColor = Colors.white);
     }
   }
 
@@ -53,13 +55,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
           TourDetailAppBar(
             expandedHeight: expandedHeight,
             titleColor: titleColor,
+            tour: tour,
           ),
-          ...List.generate(
-            100,
-            (index) => SliverToBoxAdapter(
-              child: Text('$index'),
-            ),
-          )
+          const SliverToBoxAdapter(child: InfoSection()),
         ],
       ),
     );

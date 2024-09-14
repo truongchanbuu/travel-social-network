@@ -16,7 +16,6 @@ class ContinueButton extends StatelessWidget {
         ),
       ),
       child: const Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(

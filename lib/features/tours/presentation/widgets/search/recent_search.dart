@@ -1,7 +1,9 @@
 import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/tours/presentation/widgets/search/expanded_button.dart';
 import 'package:travel_social_network/features/tours/presentation/widgets/search/search_item.dart';
+
+import '../../../../../cores/constants/constants.dart';
+import 'expanded_button.dart';
 
 class RecentSearch extends StatefulWidget {
   final List<String> recentSearches;
@@ -21,7 +23,7 @@ class _RecentSearchState extends State<RecentSearch> {
     const double spacing = 10;
 
     return ExtendedWrap(
-      textDirection: TextDirection.ltr,
+      textDirection: defaultTextDirection,
       direction: Axis.horizontal,
       runSpacing: spacing,
       spacing: spacing,

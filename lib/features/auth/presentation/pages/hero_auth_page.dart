@@ -47,7 +47,6 @@ class _HeroAuthPageState extends State<HeroAuthPage> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const HeroImage(),
             spacing,
@@ -71,7 +70,7 @@ class _HeroAuthPageState extends State<HeroAuthPage> {
       overflow: TextOverflow.ellipsis,
       semanticsLabel: 'Exclusive Offers for you - with only simple step!',
       textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr,
+      textDirection: defaultTextDirection,
     );
   }
 

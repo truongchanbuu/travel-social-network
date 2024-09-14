@@ -15,7 +15,6 @@ class AccountBriefInfo extends StatelessWidget {
         color: Colors.white,
         padding: const EdgeInsets.all(20),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 25,

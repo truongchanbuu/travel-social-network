@@ -20,7 +20,6 @@ class AccountSectionItem extends StatelessWidget {
         leading: leading,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(title),
             value,

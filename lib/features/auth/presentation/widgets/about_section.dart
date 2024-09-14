@@ -13,7 +13,6 @@ class AboutSection extends StatelessWidget {
       child: const Padding(
         padding: EdgeInsets.all(20.0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconWithText(iconData: Icons.info_outline, text: 'About $appName'),

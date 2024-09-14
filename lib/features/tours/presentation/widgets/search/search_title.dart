@@ -21,7 +21,6 @@ class SearchTitle extends StatelessWidget {
       padding:
           const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
@@ -32,7 +31,7 @@ class SearchTitle extends StatelessWidget {
               fontSize: 16,
             ),
             semanticsLabel: title,
-            textDirection: TextDirection.ltr,
+            textDirection: defaultTextDirection,
             overflow: TextOverflow.ellipsis,
           ),
           if (suffix != null) suffix!,

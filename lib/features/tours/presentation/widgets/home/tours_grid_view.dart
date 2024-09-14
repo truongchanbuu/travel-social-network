@@ -98,6 +98,7 @@ class _ToursGridViewState extends State<ToursGridView> {
       cacheKey: tour.tourId,
       imageUrl: tour.imageUrls[Random().nextInt(tour.imageUrls.length)],
       fit: BoxFit.cover,
+      alignment: Alignment.center,
       progressIndicatorBuilder: (context, url, downloadProgress) =>
           AppProgressingIndicator(
         size: size,

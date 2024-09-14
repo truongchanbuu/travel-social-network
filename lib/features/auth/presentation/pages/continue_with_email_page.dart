@@ -49,7 +49,7 @@ class ContinueWithEmailPage extends StatelessWidget {
                       floatingLabelStyle: const TextStyle(color: primaryColor),
                     ),
                     cursorColor: primaryColor,
-                    textDirection: TextDirection.ltr,
+                    textDirection: defaultTextDirection,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.send,
                   ),

@@ -66,7 +66,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                   counterText: '',
                 ),
                 maxLength: 15,
-                textDirection: TextDirection.ltr,
+                textDirection: defaultTextDirection,
                 cursorColor: primaryColor,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 keyboardType: TextInputType.phone,

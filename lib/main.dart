@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/constants/tours.dart';
 
 import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
@@ -17,10 +18,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: themes(),
-      home: const SafeArea(
+      home: SafeArea(
         child: Scaffold(
           bottomNavigationBar: AppBottomNavigationBar(),
-          body: TourDetailPage(),
+          body: TourDetailPage(
+            tour: generateSampleTours()[0],
+          ),
         ),
       ),
     );

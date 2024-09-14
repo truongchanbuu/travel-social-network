@@ -31,7 +31,7 @@ class PhoneCodeBottomSheet extends StatelessWidget {
                 prefixIcon: const Icon(Icons.search),
               ),
               textAlign: TextAlign.start,
-              textDirection: TextDirection.ltr,
+              textDirection: defaultTextDirection,
             ),
           ),
           Expanded(
@@ -52,7 +52,6 @@ class PhoneCodeBottomSheet extends StatelessWidget {
     return ListTile(
       title: Text(countryCode['name'] ?? 'N/A'),
       leading: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -48,7 +48,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         counterText: '',
       ),
       obscureText: _isHidden,
-      textDirection: TextDirection.ltr,
+      textDirection: defaultTextDirection,
       cursorColor: primaryColor,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.send,

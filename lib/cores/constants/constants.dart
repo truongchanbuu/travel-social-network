@@ -21,6 +21,9 @@ const double defaultPadding = 20;
 // Duration
 const int pageChangeTransitionDuration = 500;
 
+// TextDirection
+const TextDirection defaultTextDirection = TextDirection.ltr;
+
 // Tour Item Size
 const List<double> tourItemSizes = [
   200,
