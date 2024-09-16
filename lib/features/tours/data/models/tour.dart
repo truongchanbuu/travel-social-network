@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:travel_social_network/cores/utils/enum_utils.dart';
+
 import '../../../../cores/enums/booking_status.dart';
 import '../../domain/entities/tour.dart';
 
@@ -117,7 +119,7 @@ class Tour extends TourEntity {
       'maxGroupSize': maxGroupSize,
       'currentGroupSize': currentGroupSize,
       'rating': rating,
-      'bookingStatus': bookingStatus,
+      'bookingStatus': enumToString(bookingStatus),
       'updatedAt': updatedAt?.millisecondsSinceEpoch,
       'imageUrls': imageUrls,
     };
@@ -138,10 +140,7 @@ class Tour extends TourEntity {
       maxGroupSize: map['maxGroupSize']?.toInt() ?? 0,
       currentGroupSize: map['currentGroupSize']?.toInt() ?? 0,
       rating: map['rating']?.toDouble() ?? 0.0,
-      bookingStatus: BookingStatus.values.firstWhere(
-        (status) => status.toString().split('.').last == map['bookingStatus'],
-        orElse: () => BookingStatus.unavailable,
-      ),
+      bookingStatus: stringToEnum(map['bookingStatus'], BookingStatus.values),
       updatedAt: map['updatedAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'])
           : null,

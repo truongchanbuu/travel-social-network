@@ -31,58 +31,77 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    Color titleColor = widget.titleColor;
+    BoxDecoration buttonOverlay = BoxDecoration(
+      color: Colors.black.withOpacity(0.3),
+      shape: BoxShape.circle,
+    );
+
     return SliverAppBar(
       pinned: true,
       backgroundColor: Colors.white,
       expandedHeight: widget.expandedHeight,
       automaticallyImplyLeading: true,
-      leadingWidth: 40,
+      leadingWidth: 50,
+      leading: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Container(
+          margin: const EdgeInsets.only(left: 5),
+          decoration: widget.titleColor == Colors.white ? buttonOverlay : null,
+          child: Icon(Icons.arrow_back, color: widget.titleColor),
+        ),
+      ),
       titleSpacing: 0,
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            Color titleColor = widget.titleColor;
-            if (constraints.maxWidth > 500) {
-              titleColor = primaryColor;
-            }
-
-            return Row(
-              mainAxisAlignment: widget.titleColor == Colors.white
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.spaceBetween,
-              children: [
-                if (widget.titleColor != Colors.white)
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Text(
-                        tour.tourName,
-                        style: TextStyle(
-                          color: widget.titleColor,
-                          fontSize: 16,
-                        ),
-                        semanticsLabel: tour.tourName,
-                        maxLines: 1,
-                        textDirection: defaultTextDirection,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+        child: Row(
+          mainAxisAlignment: widget.titleColor == Colors.white
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.spaceBetween,
+          children: [
+            if (widget.titleColor != Colors.white)
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    tour.tourName,
+                    style: TextStyle(
+                      color: widget.titleColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                GestureDetector(
-                  onTap: () => setState(() => _isFavorite = !_isFavorite),
-                  child: Icon(
-                    _isFavorite ? Icons.favorite : Icons.favorite_outline,
-                    color: _isFavorite ? Colors.pink : titleColor,
+                    semanticsLabel: tour.tourName,
+                    maxLines: 1,
+                    textDirection: defaultTextDirection,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Icon(
+              ),
+            GestureDetector(
+              onTap: () => setState(() => _isFavorite = !_isFavorite),
+              child: Container(
+                decoration:
+                    widget.titleColor == Colors.white ? buttonOverlay : null,
+                padding: const EdgeInsets.all(10),
+                child: Icon(
+                  _isFavorite ? Icons.favorite : Icons.favorite_outline,
+                  color: _isFavorite ? Colors.pink : titleColor,
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () => debugPrint('Share'),
+              child: Container(
+                decoration:
+                    widget.titleColor == Colors.white ? buttonOverlay : null,
+                padding: const EdgeInsets.all(10),
+                child: Icon(
                   Icons.share,
                   color: titleColor,
                 ),
-              ],
-            );
-          },
+              ),
+            ),
+          ],
         ),
       ),
       flexibleSpace: FlexibleSpaceBar(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../cores/constants/constants.dart';
+import '../tour/tour_detail_location.dart';
 
 class InfoSection extends StatelessWidget {
   const InfoSection({super.key});
@@ -13,13 +14,7 @@ class InfoSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 5,
-            spreadRadius: 5,
-            color: Colors.grey.withOpacity(0.1),
-          ),
-        ],
+        boxShadow: [detailSectionBoxShadow],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +38,7 @@ class InfoSection extends StatelessWidget {
             ),
           ),
           _buildReviewAndRating(),
-          _buildBriefInfo(),
+          _buildBriefInfo(context),
         ],
       ),
     );
@@ -101,7 +96,7 @@ class InfoSection extends StatelessWidget {
     );
   }
 
-  Widget _buildBriefInfo() {
+  Widget _buildBriefInfo(BuildContext context) {
     const Icon trailing = Icon(
       Icons.chevron_right,
       color: primaryColor,
@@ -110,7 +105,6 @@ class InfoSection extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          onTap: () {},
           leading: const Icon(
             Icons.access_time_outlined,
             color: primaryColor,
@@ -121,27 +115,29 @@ class InfoSection extends StatelessWidget {
             text: const TextSpan(
               children: [
                 TextSpan(
-                  text: 'Open',
+                  text: 'Duration',
                   style: TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextSpan(text: ' | '),
-                TextSpan(text: 'Open at 8:00 - 22:00')
+                TextSpan(text: '5 days')
               ],
             ),
           ),
-          subtitle: const Text(
-            'Weekdays',
-            semanticsLabel: 'Weekdays',
-            overflow: TextOverflow.ellipsis,
-            textDirection: defaultTextDirection,
-          ),
-          trailing: trailing,
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) => const Padding(
+                padding: EdgeInsets.all(defaultPadding),
+                child: TourDetailLocation(),
+              ),
+            );
+          },
           leading: const Icon(
             Icons.location_on,
             color: primaryColor,

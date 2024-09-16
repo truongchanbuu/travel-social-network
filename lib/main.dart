@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
+import 'package:travel_social_network/features/tours/presentation/widgets/tour/available_date_list.dart';
 
 import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
@@ -20,10 +21,8 @@ class MyApp extends StatelessWidget {
       theme: themes(),
       home: SafeArea(
         child: Scaffold(
-          bottomNavigationBar: AppBottomNavigationBar(),
-          body: TourDetailPage(
-            tour: generateSampleTours()[0],
-          ),
+          bottomNavigationBar: const AppBottomNavigationBar(),
+          body: TourDetailPage(tour: generateSampleTours()[0]),
         ),
       ),
     );

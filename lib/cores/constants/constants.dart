@@ -10,7 +10,15 @@ const Color textButtonColor = Colors.white;
 Color scaffoldBackgroundColor = Colors.grey.shade200;
 
 // Border Radius
-BorderRadius inputFieldBorderRadius = BorderRadius.circular(5);
+const BorderRadius inputFieldBorderRadius =
+    BorderRadius.all(Radius.circular(5));
+
+// Box Shadow
+BoxShadow detailSectionBoxShadow = BoxShadow(
+  blurRadius: 5,
+  spreadRadius: 5,
+  color: Colors.grey.withOpacity(0.1),
+);
 
 // Spacing
 const SizedBox verticalInputSpacing = SizedBox(height: 22);

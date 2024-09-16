@@ -53,16 +53,16 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
             Expanded(
               flex: 3,
               child: TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Phone number',
                   semanticCounterText: 'Maximum length of phone number',
                   border: OutlineInputBorder(
                     borderRadius: inputFieldBorderRadius,
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  floatingLabelStyle: const TextStyle(color: primaryColor),
+                  floatingLabelStyle: TextStyle(color: primaryColor),
                   counterText: '',
                 ),
                 maxLength: 15,

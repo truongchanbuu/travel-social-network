@@ -37,16 +37,16 @@ class ContinueWithEmailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: inputFieldBorderRadius,
                       ),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: primaryColor),
                       ),
                       hintText: 'abc@example.com',
                       labelText: 'Email',
-                      floatingLabelStyle: const TextStyle(color: primaryColor),
+                      floatingLabelStyle: TextStyle(color: primaryColor),
                     ),
                     cursorColor: primaryColor,
                     textDirection: defaultTextDirection,

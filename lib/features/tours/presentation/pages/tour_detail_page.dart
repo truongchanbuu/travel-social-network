@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/features/tours/presentation/widgets/tour/tour_desc_modal.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../data/models/tour.dart';
 import '../widgets/tour/info_section.dart';
+import '../widgets/tour/tour_desc.dart';
 import '../widgets/tour/tour_detail_app_bar.dart';
+import '../widgets/tour/available_date_list.dart';
+import '../widgets/tour/ticket_grid_view.dart';
 
 class TourDetailPage extends StatefulWidget {
   final Tour tour;
@@ -17,14 +22,23 @@ class TourDetailPage extends StatefulWidget {
 
 class _TourDetailPageState extends State<TourDetailPage> {
   late final Tour tour;
+  List<String> tickets = List.empty(growable: true);
+
   Color titleColor = Colors.white;
   final double expandedHeight = 250;
   late final ScrollController _scrollController;
+  DateTime? selectedDate;
 
   @override
   void initState() {
     super.initState();
     tour = widget.tour;
+    tickets = [
+      'Depart with Vietnam Airlines',
+      'Depart with VietJet',
+      'Depart with Bamboo Airline',
+      'Depart with Singapore Airline',
+    ];
     _scrollController = ScrollController()..addListener(_onScroll);
   }
 
@@ -58,7 +72,137 @@ class _TourDetailPageState extends State<TourDetailPage> {
             tour: tour,
           ),
           const SliverToBoxAdapter(child: InfoSection()),
+          _buildServiceSection(),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          TicketGridView(tickets: tickets),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          _buildOutstandingFeaturesDesc(),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          _buildTourSchedule(),
         ],
+      ),
+    );
+  }
+
+  Widget _buildTourSchedule() {
+    return SliverToBoxAdapter(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.5,
+        padding:
+            const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [detailSectionBoxShadow],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeadingText('Tour Schedule'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOutstandingFeaturesDesc() {
+    return SliverToBoxAdapter(
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.4,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [detailSectionBoxShadow],
+        ),
+        padding:
+            const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              child: _buildHeadingText('Outstanding Features'),
+            ),
+            const SizedBox(height: 10),
+            Expanded(child: TourDesc(content: tour.tourDescription)),
+            TextButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) =>
+                        TourDescModal(content: tour.tourDescription),
+                  );
+                },
+                style: TextButton.styleFrom(
+                  shape: const BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                    side: BorderSide(width: 0.5, color: Colors.grey),
+                  ),
+                  backgroundColor: primaryColor,
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Show more',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                    Icon(
+                      Icons.keyboard_double_arrow_down,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ],
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildServiceSection() {
+    return SliverToBoxAdapter(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          color: Colors.white,
+          boxShadow: [detailSectionBoxShadow],
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeadingText('Services'),
+            AvailableDateList(
+              onSelectDate: (date) => setState(() {
+                if (date == selectedDate) {
+                  selectedDate = null;
+                } else {
+                  selectedDate = date;
+                }
+              }),
+              selectedDate: selectedDate,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeadingText(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 10,
+      ),
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
       ),
     );
   }

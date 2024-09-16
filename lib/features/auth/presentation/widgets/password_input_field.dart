@@ -38,7 +38,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         ),
         labelText: 'Password',
         semanticCounterText: 'Password should be at least 8 characters',
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: inputFieldBorderRadius,
         ),
         focusedBorder: const OutlineInputBorder(
