@@ -1,11 +1,14 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/shared/widgets/app_progressing_indicator.dart';
+import '../../../../../cores/shared/widgets/error_image.dart';
 import '../../../data/models/tour.dart';
+import '../../pages/media_view_page.dart';
 
 class TourDetailThumb extends StatefulWidget {
   final Tour tour;
@@ -31,16 +34,24 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
   @override
   Widget build(BuildContext context) {
     Color textColor = Colors.white;
+    const int minimumImageShowed = 5;
 
     return GestureDetector(
-      onTap: () => debugPrint('All Photos'),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MediaViewPage(
+                tourId: tour.tourId,
+                tourName: tour.tourName,
+                imageUrls: tour.imageUrls),
+          )),
       child: Stack(
         fit: StackFit.expand,
         clipBehavior: Clip.none,
         children: [
           CarouselSlider.builder(
             carouselController: _carouselSliderController,
-            itemCount: widget.tour.imageUrls.length,
+            itemCount: min(tour.imageUrls.length, minimumImageShowed),
             itemBuilder: _buildImageItem,
             options: CarouselOptions(
               autoPlay: false,
@@ -56,9 +67,8 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
-              padding: const EdgeInsets.only(left: 9, top: 5, bottom: 5),
-              margin: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding, vertical: 10),
+              padding: const EdgeInsets.only(left: 8, top: 5, bottom: 5),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
                 borderRadius: const BorderRadius.all(Radius.circular(999)),
@@ -89,12 +99,14 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: tour.imageUrls
+                  .take(minimumImageShowed)
+                  .toList()
                   .asMap()
                   .entries
                   .map(
-                    (url) => GestureDetector(
+                    (entry) => GestureDetector(
                       onTap: () =>
-                          _carouselSliderController.animateToPage(url.key),
+                          _carouselSliderController.animateToPage(entry.key),
                       child: Container(
                         width: 12,
                         height: 12,
@@ -107,7 +119,7 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
                                       ? Colors.white
                                       : primaryColor)
                                   .withOpacity(
-                                      _currentIndex == url.key ? 0.9 : 0.4),
+                                      _currentIndex == entry.key ? 0.9 : 0.4),
                         ),
                       ),
                     ),
@@ -120,29 +132,22 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
     );
   }
 
-  Widget _buildImageItem(BuildContext context, int index, int pageViewIndex) {
-    return CachedNetworkImage(
-      imageUrl: tour.imageUrls[index],
-      fit: BoxFit.cover,
-      alignment: Alignment.center,
-      cacheKey: tour.tourId,
-      errorWidget: (context, error, stackTrace) => Container(
-        color: Colors.black.withOpacity(0.2),
-        child: Center(
-          child: Icon(
-            Icons.image,
-            size: 50,
-            color: Colors.grey,
-            semanticLabel: 'Image of ${tour.tourName}',
-          ),
+  Widget _buildImageItem(BuildContext context, int index, int pageViewIndex) =>
+      CachedNetworkImage(
+        imageUrl: tour.imageUrls[index],
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+        cacheKey: '${tour.tourId}_img_$index',
+        errorWidget: (context, error, stackTrace) => ErrorImage(
+          semanticLabel:
+              'Loading the image at $index index for tour with name ${tour.tourName}',
         ),
-      ),
-      progressIndicatorBuilder: (context, child, loadingProgress) =>
-          AppProgressingIndicator(
-        size: 50,
-        semanticLabel: 'Loading ${tour.tourName}',
-        value: loadingProgress.progress,
-      ),
-    );
-  }
+        progressIndicatorBuilder: (context, child, loadingProgress) =>
+            AppProgressingIndicator(
+          size: 50,
+          semanticLabel:
+              'Loading the image at $index index for tour with name ${tour.tourName}',
+          value: loadingProgress.progress,
+        ),
+      );
 }

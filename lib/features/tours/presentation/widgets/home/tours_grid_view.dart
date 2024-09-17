@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
+import 'package:travel_social_network/cores/shared/widgets/error_image.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/shared/widgets/app_progressing_indicator.dart';
@@ -48,8 +49,11 @@ class _ToursGridViewState extends State<ToursGridView> {
     );
   }
 
-  Widget _buildTourItem(
-      {required Tour tour, required double height, required bool isNarrow}) {
+  Widget _buildTourItem({
+    required Tour tour,
+    required double height,
+    required bool isNarrow,
+  }) {
     const double borderRadius = 10;
 
     return Material(
@@ -104,16 +108,9 @@ class _ToursGridViewState extends State<ToursGridView> {
         size: size,
         value: downloadProgress.progress,
       ),
-      errorWidget: (context, url, error) => Container(
-        color: Colors.black.withOpacity(0.2),
-        child: Center(
-          child: Icon(
-            Icons.image,
-            size: size,
-            color: Colors.grey,
-            semanticLabel: 'Placeholder Image',
-          ),
-        ),
+      errorWidget: (context, url, error) => ErrorImage(
+        size: size,
+        semanticLabel: 'Loading thumb for tour with name ${tour.tourName}',
       ),
     );
   }

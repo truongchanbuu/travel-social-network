@@ -137,6 +137,7 @@ List<Tour> generateSampleTours() {
         'https://th.bing.com/th/id/R.e944c88f1d2d1edb6bc53c844c8ca19b?rik=TJCOq1cbousOeA&pid=ImgRaw&r=0',
         'https://th.bing.com/th/id/OIP.-NQNxC10BBqVrgrrEsbqEQHaE8?rs=1&pid=ImgDetMain',
         'https://th.bing.com/th/id/R.1dffa41fb03608caa46c671546c3d5ae?rik=aIiH3mllTi5YuQ&pid=ImgRaw&r=0',
+        'https://th.bing.com/th/id/OIP.sMjzntteYQEhozCqlmKP8AHaFL?rs=1&pid=ImgDetMain'
       ],
     );
   });

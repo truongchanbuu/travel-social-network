@@ -1,10 +1,9 @@
-import 'dart:convert';
-
-import 'package:travel_social_network/cores/utils/enum_utils.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../../cores/enums/ticket_type.dart';
+import '../../../../cores/utils/enum_utils.dart';
 
-class TicketEntity {
+class TicketEntity extends Equatable {
   final String ticketId;
   final String ticketName;
   final String tourId;
@@ -16,7 +15,7 @@ class TicketEntity {
   final String refundPolicy;
   final num discount;
 
-  TicketEntity({
+  const TicketEntity({
     required this.ticketId,
     required this.ticketName,
     required this.tourId,
@@ -26,7 +25,7 @@ class TicketEntity {
     required this.ticketDescription,
     required this.ticketType,
     required this.refundPolicy,
-    this.discount = 0,
+    required this.discount,
   });
 
   TicketEntity copyWith({
@@ -55,74 +54,24 @@ class TicketEntity {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'ticketId': ticketId,
-      'ticketName': ticketName,
-      'tourId': tourId,
-      'bookingDate': bookingDate.millisecondsSinceEpoch,
-      'tourDate': tourDate,
-      'ticketPrice': ticketPrice,
-      'ticketDescription': ticketDescription,
-      'ticketType': enumToString(ticketType),
-      'refundPolicy': refundPolicy,
-      'discount': discount,
-    };
-  }
-
-  factory TicketEntity.fromMap(Map<String, dynamic> map) {
-    return TicketEntity(
-      ticketId: map['ticketId'] ?? '',
-      ticketName: map['ticketName'] ?? '',
-      tourId: map['tourId'] ?? '',
-      bookingDate: DateTime.fromMillisecondsSinceEpoch(map['bookingDate']),
-      tourDate: map['tourDate'] ?? '',
-      ticketPrice: map['ticketPrice'] ?? 0,
-      ticketDescription: map['ticketDescription'] ?? '',
-      ticketType: stringToEnum(map['ticketType'], TicketType.values),
-      refundPolicy: map['refundPolicy'] ?? '',
-      discount: map['discount'] ?? 0,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory TicketEntity.fromJson(String source) =>
-      TicketEntity.fromMap(json.decode(source));
-
   @override
   String toString() {
     return 'TicketEntity(ticketId: $ticketId, ticketName: $ticketName, tourId: $tourId, bookingDate: $bookingDate, tourDate: $tourDate, ticketPrice: $ticketPrice, ticketDescription: $ticketDescription, ticketType: $ticketType, refundPolicy: $refundPolicy, discount: $discount)';
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is TicketEntity &&
-        other.ticketId == ticketId &&
-        other.ticketName == ticketName &&
-        other.tourId == tourId &&
-        other.bookingDate == bookingDate &&
-        other.tourDate == tourDate &&
-        other.ticketPrice == ticketPrice &&
-        other.ticketDescription == ticketDescription &&
-        other.ticketType == ticketType &&
-        other.refundPolicy == refundPolicy &&
-        other.discount == discount;
-  }
-
-  @override
-  int get hashCode {
-    return ticketId.hashCode ^
-        ticketName.hashCode ^
-        tourId.hashCode ^
-        bookingDate.hashCode ^
-        tourDate.hashCode ^
-        ticketPrice.hashCode ^
-        ticketDescription.hashCode ^
-        ticketType.hashCode ^
-        refundPolicy.hashCode ^
-        discount.hashCode;
+  List<Object> get props {
+    return [
+      ticketId,
+      ticketName,
+      tourId,
+      bookingDate,
+      tourDate,
+      ticketPrice,
+      ticketDescription,
+      ticketType,
+      refundPolicy,
+      discount,
+    ];
   }
 }

@@ -21,7 +21,7 @@ class AppProgressingIndicator extends StatelessWidget {
       child: Center(
         child: CircularProgressIndicator(
           value: value,
-          semanticsValue: '$value%',
+          semanticsValue: '${value ?? 0 * 100}%',
           backgroundColor: primaryColor,
           semanticsLabel: semanticLabel ?? 'Loading',
         ),

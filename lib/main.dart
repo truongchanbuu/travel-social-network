@@ -1,14 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
-import 'package:travel_social_network/features/tours/presentation/widgets/tour/available_date_list.dart';
+import 'package:travel_social_network/features/tours/presentation/pages/media_view_page.dart';
 
 import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
 import './firebase_options.dart';
 import './injection_container.dart';
 import 'cores/shared/widgets/app_bottom_navigation_bar.dart';
-import 'features/tours/presentation/pages/tour_detail_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,7 +24,12 @@ class MyApp extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           bottomNavigationBar: const AppBottomNavigationBar(),
-          body: TourDetailPage(tour: generateSampleTours()[0]),
+          // body: TourDetailPage(tour: generateSampleTours()[1]),
+          body: MediaViewPage(
+            tourId: generateSampleTours()[0].tourId,
+            tourName: generateSampleTours()[0].tourName,
+            imageUrls: generateSampleTours()[0].imageUrls,
+          ),
         ),
       ),
     );
