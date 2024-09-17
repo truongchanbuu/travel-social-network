@@ -13,6 +13,9 @@ import 'features/tours/presentation/pages/tour_detail_page.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // TODO: Add the view of list of images and videos
+  // TODO: Change the tickets UI -> Need to make a bottom sheet for it and add a model for ticket
+  // TODO: Tour Schedule UI
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
