@@ -7,7 +7,7 @@ import 'ticket_grid_view.dart';
 class TicketBottomSheet extends StatefulWidget {
   final List<String> tickets;
   final DateTime? selectedDate;
-  final Function(DateTime? date) onSelectDate;
+  final void Function(DateTime? date) onSelectDate;
   const TicketBottomSheet({
     super.key,
     required this.tickets,
@@ -20,6 +20,14 @@ class TicketBottomSheet extends StatefulWidget {
 }
 
 class _TicketBottomSheetState extends State<TicketBottomSheet> {
+  DateTime? selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = widget.selectedDate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -47,9 +55,21 @@ class _TicketBottomSheetState extends State<TicketBottomSheet> {
             ),
           ),
           const SizedBox(height: 10),
-          AvailableDateList(
-            onSelectDate: widget.onSelectDate,
-            selectedDate: widget.selectedDate,
+          Padding(
+            padding: EdgeInsets.zero,
+            child: AvailableDateList(
+              onSelectDate: (date) {
+                widget.onSelectDate(date);
+                setState(() {
+                  if (date == selectedDate) {
+                    selectedDate = null;
+                  } else {
+                    selectedDate = date;
+                  }
+                });
+              },
+              selectedDate: selectedDate,
+            ),
           ),
           Expanded(
             child: TicketGridView(

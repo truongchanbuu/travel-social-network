@@ -84,6 +84,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    const SliverToBoxAdapter spacing =
+        SliverToBoxAdapter(child: SizedBox(height: 10));
+
     return Scaffold(
       body: CustomScrollView(
         controller: _scrollController,
@@ -93,13 +96,16 @@ class _TourDetailPageState extends State<TourDetailPage> {
             titleColor: titleColor,
             tour: tour,
           ),
+          spacing,
           const SliverToBoxAdapter(child: InfoSection()),
-          _buildServiceSection(),
-          _buildTicketSection(),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-          _buildOutstandingFeaturesDesc(),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          spacing,
           _buildTourSchedule(),
+          spacing,
+          _buildServiceSection(),
+          spacing,
+          _buildTicketSection(),
+          spacing,
+          _buildOutstandingFeaturesDesc(),
         ],
       ),
     );
@@ -180,39 +186,40 @@ class _TourDetailPageState extends State<TourDetailPage> {
               const SizedBox(height: 10),
               Expanded(child: TourDesc(content: tour.tourDescription)),
               TextButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      useSafeArea: true,
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) =>
-                          TourDescModal(content: tour.tourDescription),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    shape: const BeveledRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(3)),
-                      side: BorderSide(width: 0.5, color: Colors.grey),
-                    ),
-                    backgroundColor: primaryColor,
+                onPressed: () {
+                  showModalBottomSheet(
+                    useSafeArea: true,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) =>
+                        TourDescModal(content: tour.tourDescription),
+                  );
+                },
+                style: TextButton.styleFrom(
+                  shape: const BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                    side: BorderSide(width: 0.5, color: Colors.grey),
                   ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Show more',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      ),
-                      Icon(
-                        Icons.keyboard_double_arrow_down,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                    ],
-                  ))
+                  backgroundColor: primaryColor,
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Show more',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                    Icon(
+                      Icons.keyboard_double_arrow_down,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

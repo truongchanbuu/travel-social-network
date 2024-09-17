@@ -31,6 +31,7 @@ class TourDescModal extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 10),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(

@@ -33,12 +33,15 @@ class TicketItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 5),
-              const Text(
-                'See detail',
-                style: TextStyle(
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
+              GestureDetector(
+                onTap: () => debugPrint('See Detail'),
+                child: const Text(
+                  'See detail',
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
               ),
               const Divider(color: Colors.grey, thickness: 0.5),

@@ -22,7 +22,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
 
   List<DateTime> availableDates = List.empty(growable: true);
 
-  double? _itemWidth;
+  double _itemWidth = 60;
 
   @override
   void initState() {
@@ -37,36 +37,38 @@ class _AvailableDateListState extends State<AvailableDateList> {
       DateTime(2024, 12, 6),
       DateTime(2024, 12, 9),
     ];
+
+    if (widget.selectedDate != null) {
+      WidgetsFlutterBinding.ensureInitialized()
+          .addPostFrameCallback((_) => _scrollToDate());
+    }
   }
 
   @override
-  void didUpdateWidget(covariant AvailableDateList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      _scrollToDate();
-    });
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   void _scrollToDate() {
-    if (widget.selectedDate == null || _itemWidth == null) return;
-    if (availableDates.length * _itemWidth! <
-        MediaQuery.of(context).size.width) {
-      return;
-    }
-
+    if (widget.selectedDate == null) return;
     int itemIndex = availableDates.indexOf(widget.selectedDate!);
     if (itemIndex == -1) return;
 
-    double position = (itemIndex >= availableDates.length - 3
-            ? availableDates.length + 2
-            : itemIndex) *
-        _itemWidth!;
+    double position = itemIndex * _itemWidth;
 
     _scrollController.animateTo(
       position,
       duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant AvailableDateList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    WidgetsFlutterBinding.ensureInitialized()
+        .addPostFrameCallback((_) => _scrollToDate());
   }
 
   @override
@@ -108,7 +110,9 @@ class _AvailableDateListState extends State<AvailableDateList> {
   Widget _buildAvailableDate() {
     return Expanded(
       child: LayoutBuilder(builder: (context, constraints) {
-        _itemWidth ??= constraints.maxWidth / availableDates.length;
+        _itemWidth = (constraints.maxWidth / availableDates.length + (2 * 10))
+            .ceil()
+            .toDouble();
 
         return SingleChildScrollView(
           controller: _scrollController,
@@ -134,13 +138,20 @@ class _AvailableDateListState extends State<AvailableDateList> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          boxShadow: [detailSectionBoxShadow],
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 1,
+              spreadRadius: 1,
+              color: Colors.grey.withOpacity(0.2),
+            ),
+          ],
           border: isSameDate
               ? Border.all(
                   color: primaryColor,
                   width: borderWidth,
                 )
-              : Border.all(width: borderWidth, color: Colors.transparent),
+              : Border.all(
+                  width: borderWidth, color: Colors.grey.withOpacity(0.3)),
         ),
         padding: const EdgeInsets.all(15),
         margin: const EdgeInsets.symmetric(horizontal: 5),
