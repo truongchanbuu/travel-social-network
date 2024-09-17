@@ -88,7 +88,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 6),
             GestureDetector(
               onTap: () => debugPrint('Share'),
               child: Container(

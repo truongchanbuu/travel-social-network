@@ -130,6 +130,7 @@ class InfoSection extends StatelessWidget {
         ListTile(
           onTap: () {
             showModalBottomSheet(
+              useSafeArea: true,
               isScrollControlled: true,
               context: context,
               builder: (context) => const Padding(
