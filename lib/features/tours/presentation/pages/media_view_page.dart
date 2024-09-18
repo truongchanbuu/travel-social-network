@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/shared/pages/full_screen_image_page.dart';
-import 'package:travel_social_network/cores/shared/widgets/error_image.dart';
 
+import '../../../../cores/shared/pages/full_screen_image_page.dart';
 import '../../../../cores/shared/widgets/app_progressing_indicator.dart';
+import '../../../../cores/shared/widgets/error_image.dart';
 
 class MediaViewPage extends StatefulWidget {
   final String tourId;

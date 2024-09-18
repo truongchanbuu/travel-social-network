@@ -43,14 +43,13 @@ class _TicketBottomSheetState extends State<TicketBottomSheet> {
               ),
             ),
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: const Center(
-              child: Text(
-                'Tickets Booking',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+            alignment: Alignment.center,
+            child: const Text(
+              'Tickets Booking',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
           ),

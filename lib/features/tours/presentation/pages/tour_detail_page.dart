@@ -10,6 +10,7 @@ import '../widgets/tour/ticket_grid_view.dart';
 import '../widgets/tour/tour_desc.dart';
 import '../widgets/tour/tour_desc_modal.dart';
 import '../widgets/tour/tour_detail_app_bar.dart';
+import '../widgets/tour/tour_schedule_bottom_sheet.dart';
 import '../widgets/tour/tour_schedule_list.dart';
 
 class TourDetailPage extends StatefulWidget {
@@ -99,7 +100,6 @@ class _TourDetailPageState extends State<TourDetailPage> {
             titleColor: titleColor,
             tour: tour,
           ),
-          spacing,
           const SliverToBoxAdapter(child: InfoSection()),
           // if (schedules.isNotEmpty)
           ...[spacing, _buildTourSchedule()],
@@ -109,10 +109,14 @@ class _TourDetailPageState extends State<TourDetailPage> {
           _buildTicketSection(),
           spacing,
           _buildOutstandingFeaturesDesc(),
+          spacing,
+          _buildOwnerInfoSection(),
         ],
       ),
     );
   }
+
+  Widget _buildOwnerInfoSection() => const SliverToBoxAdapter();
 
   Widget _buildTicketSection() => SliverToBoxAdapter(
         child: Column(
@@ -166,8 +170,29 @@ class _TourDetailPageState extends State<TourDetailPage> {
             children: [
               _buildHeadingText('Tour Schedule'),
               const SizedBox(height: 10),
-              const TourScheduleList(
-                tourSchedule: [],
+              Expanded(child: TourScheduleList(tourSchedule: schedules)),
+              GestureDetector(
+                onTap: () => showModalBottomSheet(
+                  context: context,
+                  useSafeArea: true,
+                  isScrollControlled: true,
+                  builder: (context) =>
+                      TourScheduleBottomSheet(schedules: schedules),
+                ),
+                child: Container(
+                  color: Colors.transparent,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(10.0),
+                  child: const Text(
+                    'See Detail Tour Itinerary',
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -239,7 +264,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
             color: Colors.white,
             boxShadow: [detailSectionBoxShadow],
           ),
-          margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

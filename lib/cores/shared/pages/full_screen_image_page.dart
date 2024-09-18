@@ -56,6 +56,7 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
+          fontSize: 16,
         ),
       ),
     );

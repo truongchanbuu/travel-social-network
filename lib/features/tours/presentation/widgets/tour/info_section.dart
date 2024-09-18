@@ -9,8 +9,8 @@ class InfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-      padding: const EdgeInsets.all(10),
+      padding:
+          const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(10)),

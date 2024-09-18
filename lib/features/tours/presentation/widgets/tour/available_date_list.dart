@@ -74,7 +74,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
           _buildDatePicker(),
