@@ -1,21 +1,23 @@
 const tourSchedules = [
   {
-    "day": 1,
+    "day": "1",
     "date": "2024-09-20",
+    "briefDesc":
+        "A tour schedule for a day provides a detailed plan broken down into specific parts of the day: morning, noon, afternoon, evening, and night. Each part contains a list of activities scheduled for that time, with information about the time, location, description, transportation, and type of activity (e.g., dining, sightseeing, relaxing). This structure allows travelers to clearly see what is planned for each segment of the day and helps them manage their time and expectations efficiently throughout the tour.",
     "activities": [
       {
         "time": "08:00",
         "location": "Hanoi",
         "activity": "Depart from Hanoi by bus",
         "transportation": "Bus",
-        "activityType": "transportation" // Icons.directions_bus
+        "activityType": "transportation",
       },
       {
         "time": "10:30",
         "location": "Bai Dinh Pagoda, Ninh Binh",
         "activity": "Visit Bai Dinh Pagoda",
         "transportation": "Walking",
-        "activityType": "sightseeing" // Icons.visibility
+        "activityType": "sightseeing",
       },
       {
         "time": "12:30",
@@ -41,8 +43,10 @@ const tourSchedules = [
     ]
   },
   {
-    "day": 2,
+    "day": "2",
     "date": "2024-09-21",
+    "briefDesc":
+        "A tour schedule for a day provides a detailed plan broken down into specific parts of the day: morning, noon, afternoon, evening, and night. Each part contains a list of activities scheduled for that time, with information about the time, location, description, transportation, and type of activity (e.g., dining, sightseeing, relaxing). This structure allows travelers to clearly see what is planned for each segment of the day and helps them manage their time and expectations efficiently throughout the tour.",
     "activities": [
       {
         "time": "07:00",
@@ -82,8 +86,10 @@ const tourSchedules = [
     ]
   },
   {
-    "day": 3,
+    "day": "3",
     "date": "2024-09-22",
+    "briefDesc":
+        "A tour schedule for a day provides a detailed plan broken down into specific parts of the day: morning, noon, afternoon, evening, and night. Each part contains a list of activities scheduled for that time, with information about the time, location, description, transportation, and type of activity (e.g., dining, sightseeing, relaxing). This structure allows travelers to clearly see what is planned for each segment of the day and helps them manage their time and expectations efficiently throughout the tour.",
     "activities": [
       {
         "time": "08:00",
@@ -123,8 +129,10 @@ const tourSchedules = [
     ]
   },
   {
-    "day": 4,
+    "day": "4",
     "date": "2024-09-23",
+    "briefDesc":
+        "A tour schedule for a day provides a detailed plan broken down into specific parts of the day: morning, noon, afternoon, evening, and night. Each part contains a list of activities scheduled for that time, with information about the time, location, description, transportation, and type of activity (e.g., dining, sightseeing, relaxing). This structure allows travelers to clearly see what is planned for each segment of the day and helps them manage their time and expectations efficiently throughout the tour.",
     "activities": [
       {
         "time": "07:30",
@@ -157,8 +165,10 @@ const tourSchedules = [
     ]
   },
   {
-    "day": 5,
+    "day": "5",
     "date": "2024-09-24",
+    "briefDesc":
+        "A tour schedule for a day provides a detailed plan broken down into specific parts of the day: morning, noon, afternoon, evening, and night. Each part contains a list of activities scheduled for that time, with information about the time, location, description, transportation, and type of activity (e.g., dining, sightseeing, relaxing). This structure allows travelers to clearly see what is planned for each segment of the day and helps them manage their time and expectations efficiently throughout the tour.",
     "activities": [
       {
         "time": "06:30",

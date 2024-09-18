@@ -1,55 +1,63 @@
 import 'dart:convert';
-import 'package:travel_social_network/cores/utils/enum_utils.dart';
 
-import '../../../../cores/enums/activity_type.dart';
+import '../../domain/entities/tour_schedule.dart';
+import 'tour_activity.dart';
 
-class TourSchedule {
-  final String time;
-  final String location;
-  final String description;
-  final String transportation;
-  final ActivityType activityType;
+class TourSchedule extends TourScheduleEntity {
   TourSchedule({
-    required this.time,
-    required this.location,
-    required this.description,
-    required this.transportation,
-    required this.activityType,
-  });
+    required super.day,
+    required super.date,
+    required super.briefDesc,
+    required List<TourActivity> activities,
+  }) : super(activities: activities.map((a) => a.toEntity()).toList());
+
+  TourScheduleEntity toEntity() {
+    return TourScheduleEntity(
+        day: day, date: date, activities: activities, briefDesc: briefDesc);
+  }
+
+  factory TourSchedule.fromEntity(TourScheduleEntity entity) {
+    return TourSchedule(
+      day: entity.day,
+      date: entity.date,
+      briefDesc: entity.briefDesc,
+      activities: entity.activities.map(TourActivity.fromEntity).toList(),
+    );
+  }
 
   TourSchedule copyWith({
-    String? time,
-    String? location,
-    String? description,
-    String? transportation,
-    ActivityType? activityType,
+    String? day,
+    DateTime? date,
+    String? briefDesc,
+    List<TourActivity>? activities,
   }) {
     return TourSchedule(
-      time: time ?? this.time,
-      location: location ?? this.location,
-      description: description ?? this.description,
-      transportation: transportation ?? this.transportation,
-      activityType: activityType ?? this.activityType,
+      day: day ?? this.day,
+      date: date ?? this.date,
+      briefDesc: briefDesc ?? this.briefDesc,
+      activities:
+          activities ?? this.activities.map(TourActivity.fromEntity).toList(),
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'time': time,
-      'location': location,
-      'description': description,
-      'transportation': transportation,
-      'activityType': enumToString(activityType),
+      'day': day,
+      'date': date.toIso8601String(),
+      'briefDesc': briefDesc,
+      'activities':
+          activities.map((activity) => (activity as TourActivity).toMap()),
     };
   }
 
   factory TourSchedule.fromMap(Map<String, dynamic> map) {
     return TourSchedule(
-      time: map['time'] ?? '',
-      location: map['location'] ?? '',
-      description: map['description'] ?? '',
-      transportation: map['transportation'] ?? '',
-      activityType: stringToEnum(map['activityType'], ActivityType.values),
+      day: map['day'] ?? '',
+      date: DateTime.parse(map['date']),
+      briefDesc: map['briefDesc'],
+      activities: (map['activities'] as List<Map<String, dynamic>>)
+          .map(TourActivity.fromMap)
+          .toList(),
     );
   }
 
@@ -57,30 +65,4 @@ class TourSchedule {
 
   factory TourSchedule.fromJson(String source) =>
       TourSchedule.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'TourSchedule(time: $time, location: $location, description: $description, transportation: $transportation, activityType: $activityType)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is TourSchedule &&
-        other.time == time &&
-        other.location == location &&
-        other.description == description &&
-        other.transportation == transportation &&
-        other.activityType == activityType;
-  }
-
-  @override
-  int get hashCode {
-    return time.hashCode ^
-        location.hashCode ^
-        description.hashCode ^
-        transportation.hashCode ^
-        activityType.hashCode;
-  }
 }

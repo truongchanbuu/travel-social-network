@@ -12,7 +12,6 @@ import 'cores/shared/widgets/app_bottom_navigation_bar.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // TODO: Change the tickets UI -> Need to make a bottom sheet for it and add a model for ticket
   // TODO: Tour Schedule UI
   @override
   Widget build(BuildContext context) {

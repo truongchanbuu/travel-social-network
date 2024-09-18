@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../data/models/tour.dart';
+import '../../domain/entities/tour_schedule.dart';
 import '../widgets/tour/available_date_list.dart';
 import '../widgets/tour/info_section.dart';
 import '../widgets/tour/ticket_bottom_sheet.dart';
@@ -9,6 +10,7 @@ import '../widgets/tour/ticket_grid_view.dart';
 import '../widgets/tour/tour_desc.dart';
 import '../widgets/tour/tour_desc_modal.dart';
 import '../widgets/tour/tour_detail_app_bar.dart';
+import '../widgets/tour/tour_schedule_list.dart';
 
 class TourDetailPage extends StatefulWidget {
   final Tour tour;
@@ -23,6 +25,7 @@ class TourDetailPage extends StatefulWidget {
 
 class _TourDetailPageState extends State<TourDetailPage> {
   late final Tour tour;
+  List<TourScheduleEntity> schedules = List.empty(growable: true);
   List<String> tickets = List.empty(growable: true);
 
   Color titleColor = Colors.white;
@@ -98,8 +101,8 @@ class _TourDetailPageState extends State<TourDetailPage> {
           ),
           spacing,
           const SliverToBoxAdapter(child: InfoSection()),
-          spacing,
-          _buildTourSchedule(),
+          // if (schedules.isNotEmpty)
+          ...[spacing, _buildTourSchedule()],
           spacing,
           _buildServiceSection(),
           spacing,
@@ -162,6 +165,10 @@ class _TourDetailPageState extends State<TourDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeadingText('Tour Schedule'),
+              const SizedBox(height: 10),
+              const TourScheduleList(
+                tourSchedule: [],
+              ),
             ],
           ),
         ),
