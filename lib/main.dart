@@ -12,7 +12,6 @@ import 'cores/shared/widgets/app_bottom_navigation_bar.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // TODO: Tour Schedule UI
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

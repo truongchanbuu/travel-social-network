@@ -66,7 +66,7 @@ class InfoSection extends StatelessWidget {
                   bottomLeft: Radius.circular(ratingBorderRadius),
                   bottomRight: Radius.circular(ratingBorderRadius),
                 ),
-                color: Colors.indigo,
+                color: primaryColor,
               ),
               padding: const EdgeInsetsDirectional.all(5),
               child: const Text(
