@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/tours/presentation/widgets/tour/ticket_item.dart';
+
+import 'ticket_item.dart';
 
 class TicketGridView extends StatelessWidget {
   final List<String> tickets;
@@ -15,18 +16,13 @@ class TicketGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double spacing = 10;
-    const int maxRows = 4;
+    const int maxRows = 2;
+    const double maxCrossAxisExtent = 600;
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        const double maxCrossAxisExtent = 600;
+        double mainAxisExtent = _determineMainAxisExtent(constraints.maxWidth);
         double crossAxisExtent = constraints.maxWidth;
-        double mainAxisExtent = 150;
-        if (crossAxisExtent < 290 && crossAxisExtent > 190) {
-          mainAxisExtent = 200;
-        } else if (crossAxisExtent <= 190) {
-          mainAxisExtent = 250;
-        }
 
         int columns = (crossAxisExtent / maxCrossAxisExtent).ceil();
         int rows = min(maxRows, (tickets.length / columns).ceil());
@@ -39,12 +35,20 @@ class TicketGridView extends StatelessWidget {
               maxCrossAxisExtent: maxCrossAxisExtent,
               mainAxisExtent: mainAxisExtent,
             ),
-            itemBuilder: (context, index) => TicketItem(ticket: tickets[index]),
-            itemCount: tickets.length,
+            itemBuilder: (context, index) =>
+                RepaintBoundary(child: TicketItem(ticket: tickets[index])),
+            itemCount: scrollable ? tickets.length : columns * rows,
             physics: !scrollable ? const NeverScrollableScrollPhysics() : null,
           ),
         );
       },
     );
   }
+
+  double _determineMainAxisExtent(double crossAxisWidth) =>
+      switch (crossAxisWidth) {
+        < 290 && > 190 => 200,
+        <= 190 => 250,
+        _ => 150,
+      };
 }

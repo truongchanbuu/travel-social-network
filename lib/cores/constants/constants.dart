@@ -50,5 +50,8 @@ const List<double> tourItemSizes = [
   500
 ];
 
+// Item
+const int maxReviewItem = 7;
+
 // API
 const String baseUrl = 'http://localhost:3000/api';

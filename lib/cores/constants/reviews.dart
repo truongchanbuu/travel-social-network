@@ -8,7 +8,7 @@ List<ReviewEntity> sampleReviews = [
     content:
         "Amazing tour! The guide was very friendly and the views were breathtaking.",
     rating: 5.0,
-    createdAt: DateTime(2024, 8, 10),
+    createdAt: DateTime.now().subtract(const Duration(seconds: 3)),
     updatedAt: null,
     images: [
       "https://th.bing.com/th/id/R.dd21d63169902d40baec0b8766fe0b48?rik=FtLIp5D3lCmg3Q&pid=ImgRaw&r=0",
@@ -62,7 +62,7 @@ List<ReviewEntity> sampleReviews = [
     tourId: "TOUR-1",
     content: "Nice tour, but the accommodation was a bit disappointing.",
     rating: 3.0,
-    createdAt: DateTime(2024, 8, 15),
+    createdAt: DateTime.now().subtract(const Duration(hours: 2)),
     updatedAt: null,
     images: [],
   ),
@@ -122,7 +122,7 @@ List<ReviewEntity> sampleReviews = [
     tourId: "TOUR-1",
     content: "The tour was decent, but some activities felt too rushed.",
     rating: 3.8,
-    createdAt: DateTime(2024, 8, 21),
+    createdAt: DateTime.now().subtract(const Duration(minutes: 3)),
     updatedAt: null,
     images: ["image13.jpg"],
   ),

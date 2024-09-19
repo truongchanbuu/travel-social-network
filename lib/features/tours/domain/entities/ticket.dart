@@ -27,37 +27,6 @@ class TicketEntity extends Equatable {
     required this.discount,
   });
 
-  TicketEntity copyWith({
-    String? ticketId,
-    String? ticketName,
-    String? tourId,
-    DateTime? bookingDate,
-    String? tourDate,
-    num? ticketPrice,
-    String? ticketDescription,
-    TicketType? ticketType,
-    String? refundPolicy,
-    num? discount,
-  }) {
-    return TicketEntity(
-      ticketId: ticketId ?? this.ticketId,
-      ticketName: ticketName ?? this.ticketName,
-      tourId: tourId ?? this.tourId,
-      bookingDate: bookingDate ?? this.bookingDate,
-      tourDate: tourDate ?? this.tourDate,
-      ticketPrice: ticketPrice ?? this.ticketPrice,
-      ticketDescription: ticketDescription ?? this.ticketDescription,
-      ticketType: ticketType ?? this.ticketType,
-      refundPolicy: refundPolicy ?? this.refundPolicy,
-      discount: discount ?? this.discount,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'TicketEntity(ticketId: $ticketId, ticketName: $ticketName, tourId: $tourId, bookingDate: $bookingDate, tourDate: $tourDate, ticketPrice: $ticketPrice, ticketDescription: $ticketDescription, ticketType: $ticketType, refundPolicy: $refundPolicy, discount: $discount)';
-  }
-
   @override
   List<Object> get props {
     return [

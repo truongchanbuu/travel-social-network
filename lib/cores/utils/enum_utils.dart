@@ -11,23 +11,12 @@ String enumToString<T>(T value) {
   return T.toString().split('.').last;
 }
 
-IconData getActivityIcon(ActivityType type) {
-  switch (type) {
-    case ActivityType.dining:
-      return Icons.restaurant;
-    case ActivityType.breakfast:
-      return Icons.free_breakfast;
-    case ActivityType.lunch:
-      return Icons.lunch_dining;
-    case ActivityType.sightseeing:
-      return Icons.camera_alt;
-    case ActivityType.rest:
-      return Icons.bed;
-    case ActivityType.exploring:
-      return Icons.map;
-    case ActivityType.transportation:
-      return Icons.directions_bus;
-    default:
-      return Icons.help_outline;
-  }
-}
+IconData getActivityIcon(ActivityType type) => switch (type) {
+      ActivityType.dining => Icons.restaurant,
+      ActivityType.breakfast => Icons.free_breakfast,
+      ActivityType.lunch => Icons.lunch_dining,
+      ActivityType.sightseeing => Icons.camera_alt,
+      ActivityType.rest => Icons.bed,
+      ActivityType.exploring => Icons.map,
+      ActivityType.transportation => Icons.directions_bus,
+    };

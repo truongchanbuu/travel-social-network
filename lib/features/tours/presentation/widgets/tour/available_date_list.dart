@@ -127,7 +127,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
 
   Widget _buildAvailableDateItem(DateTime date) {
     bool isSameDate = widget.selectedDate != null &&
-        widget.selectedDate!.compareTo(date) == 0;
+        DateTimeUtils.isToday(widget.selectedDate!);
 
     const double borderWidth = 1;
 
@@ -164,7 +164,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
               ),
             ),
             Text(
-              DateTimeUtils.formatDateTime(date),
+              DateTimeUtils.formatDate(date),
               style: TextStyle(
                 color: isSameDate ? primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,

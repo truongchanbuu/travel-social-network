@@ -61,9 +61,4 @@ class TourEntity extends Equatable {
       updatedAt,
     ];
   }
-
-  @override
-  String toString() {
-    return 'TourEntity(tourId: $tourId, tourName: $tourName, tourDescription: $tourDescription, tourPrice: $tourPrice, departure: $departure, destination: $destination, duration: $duration, startDateTime: $startDateTime, endDateTime: $endDateTime, maxGroupSize: $maxGroupSize, currentGroupSize: $currentGroupSize, rating: $rating, bookingStatus: $bookingStatus, updatedAt: $updatedAt)';
-  }
 }

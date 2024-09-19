@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/features/tours/presentation/pages/review_detail_page.dart';
 import 'package:travel_social_network/features/tours/presentation/pages/tour_detail_page.dart';
 
 import './config/themes/app_theme.dart';
@@ -18,10 +19,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: themes(),
-      home: SafeArea(
+      home: const SafeArea(
         child: Scaffold(
-          bottomNavigationBar: const AppBottomNavigationBar(),
-          body: TourDetailPage(tour: generateSampleTours()[1]),
+          bottomNavigationBar: AppBottomNavigationBar(),
+          body: ReviewDetailPage(
+            tourId: 'TOUR-1',
+            tourName: 'DA LAT FOR 2 DAYS',
+            tourRating: 4.9,
+          ),
         ),
       ),
     );
