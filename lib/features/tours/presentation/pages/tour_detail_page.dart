@@ -15,6 +15,7 @@ import '../widgets/tour/tour_more_info.dart';
 import '../widgets/tour/tour_reviews_and_rating.dart';
 import '../widgets/tour/tour_schedule_bottom_sheet.dart';
 import '../widgets/tour/tour_schedule_list.dart';
+import 'review_detail_page.dart';
 
 class TourDetailPage extends StatefulWidget {
   final Tour tour;
@@ -130,14 +131,21 @@ class _TourDetailPageState extends State<TourDetailPage> {
           ),
           padding: const EdgeInsets.symmetric(
               horizontal: defaultPadding, vertical: 5),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TourDetailHeadingText(
+                onTap: _showReviewDetailPage,
                 title: 'Reviews & Rating',
-                trailingIcon: Icons.chevron_right,
+                trailing: const Text(
+                  'View all',
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: TourReviewsAndRating(reviews: []),
               ),
@@ -330,5 +338,14 @@ class _TourDetailPageState extends State<TourDetailPage> {
         selectedDate = date;
       }
     });
+  }
+
+  void _showReviewDetailPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ReviewDetailPage(tourId: tour.tourId),
+      ),
+    );
   }
 }

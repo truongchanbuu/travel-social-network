@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../cores/enums/ticket_type.dart';
-import '../../../../cores/utils/enum_utils.dart';
 
 class TicketEntity extends Equatable {
   final String ticketId;

@@ -114,7 +114,7 @@ List<Tour> generateSampleTours() {
     final endDate = startDate.add(Duration(days: duration));
 
     return Tour(
-      tourId: 'TOUR${index.toString().padLeft(3, '0')}',
+      tourId: 'TOUR-$index',
       tourName: '${locations[random.nextInt(locations.length)]} $duration ngày',
       tourDescription: description,
       tourPrice:

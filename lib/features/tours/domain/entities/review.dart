@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 
 class ReviewEntity extends Equatable {
   final String reviewId;

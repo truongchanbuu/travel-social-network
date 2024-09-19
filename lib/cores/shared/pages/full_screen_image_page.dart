@@ -67,9 +67,8 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
 
     return SizedBox(
       height: height,
-      child: ListView.separated(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, index) => const SizedBox(width: 5),
         itemCount: widget.imageUrls.length,
         itemBuilder: (context, index) => GestureDetector(
           onTap: () => _pageController.jumpToPage(index),

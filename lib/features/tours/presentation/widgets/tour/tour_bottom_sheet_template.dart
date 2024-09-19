@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../cores/constants/constants.dart';
-
 class TourBottomSheetTemplate extends StatelessWidget {
   final String title;
   final List<Widget> children;

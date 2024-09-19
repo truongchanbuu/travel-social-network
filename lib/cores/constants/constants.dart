@@ -33,8 +33,8 @@ const int pageChangeTransitionDuration = 500;
 const TextDirection defaultTextDirection = TextDirection.ltr;
 
 // Size
-const double reviewBoxSize = 300;
-const double reviewBoxHeight = 200;
+const double reviewBoxSize = 320;
+const double reviewBoxHeight = 260;
 
 // Tour Item Size
 const List<double> tourItemSizes = [

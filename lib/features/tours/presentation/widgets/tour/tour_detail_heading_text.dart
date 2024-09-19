@@ -5,38 +5,46 @@ import '../../../../../cores/constants/constants.dart';
 class TourDetailHeadingText extends StatelessWidget {
   final String title;
   final IconData? leadingIcon;
-  final IconData? trailingIcon;
+  final Widget? trailing;
+  final void Function()? onTap;
+
   const TourDetailHeadingText({
     super.key,
     required this.title,
     this.leadingIcon,
-    this.trailingIcon,
+    this.trailing,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-        overflow: TextOverflow.ellipsis,
-      ),
-      leading: leadingIcon != null
-          ? Icon(
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (leadingIcon != null)
+            Icon(
               leadingIcon,
               color: primaryColor,
-            )
-          : null,
-      trailing: trailingIcon != null
-          ? Icon(
-              trailingIcon,
-              color: primaryColor,
-            )
-          : null,
+            ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          if (trailing != null) trailing!,
+        ],
+      ),
     );
   }
 }

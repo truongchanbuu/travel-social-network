@@ -4,18 +4,21 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R1",
     userId: "U1",
-    tourId: "T1",
+    tourId: "TOUR-1",
     content:
         "Amazing tour! The guide was very friendly and the views were breathtaking.",
     rating: 5.0,
     createdAt: DateTime(2024, 8, 10),
     updatedAt: null,
-    images: ["image1.jpg", "image2.jpg"],
+    images: [
+      "https://th.bing.com/th/id/R.dd21d63169902d40baec0b8766fe0b48?rik=FtLIp5D3lCmg3Q&pid=ImgRaw&r=0",
+      "image2.jpg"
+    ],
   ),
   ReviewEntity(
     reviewId: "R2",
     userId: "U2",
-    tourId: "T1",
+    tourId: "TOUR-2",
     content:
         "Great experience, but the transportation could have been smoother.",
     rating: 4.0,
@@ -26,7 +29,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R3",
     userId: "U3",
-    tourId: "T2",
+    tourId: "TOUR-1",
     content: "Loved the activities, but the food was not great.",
     rating: 3.5,
     createdAt: DateTime(2024, 8, 12),
@@ -36,7 +39,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R4",
     userId: "U4",
-    tourId: "T2",
+    tourId: "TOUR-3",
     content: "The itinerary was well-planned and the guide was knowledgeable.",
     rating: 4.5,
     createdAt: DateTime(2024, 8, 13),
@@ -46,7 +49,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R5",
     userId: "U5",
-    tourId: "T3",
+    tourId: "TOUR-5",
     content: "The trip was fantastic! The local cuisine was a highlight.",
     rating: 5.0,
     createdAt: DateTime(2024, 8, 14),
@@ -56,7 +59,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R6",
     userId: "U6",
-    tourId: "T3",
+    tourId: "TOUR-1",
     content: "Nice tour, but the accommodation was a bit disappointing.",
     rating: 3.0,
     createdAt: DateTime(2024, 8, 15),
@@ -66,7 +69,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R7",
     userId: "U7",
-    tourId: "T4",
+    tourId: "TOUR-7",
     content: "Enjoyed the trip, especially the hiking part!",
     rating: 4.0,
     createdAt: DateTime(2024, 8, 16),
@@ -76,7 +79,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R8",
     userId: "U8",
-    tourId: "T4",
+    tourId: "TOUR-2",
     content: "A bit rushed, but the locations were stunning.",
     rating: 3.8,
     createdAt: DateTime(2024, 8, 17),
@@ -86,7 +89,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R9",
     userId: "U9",
-    tourId: "T5",
+    tourId: "TOUR-2",
     content: "Had a relaxing and peaceful experience, highly recommended.",
     rating: 5.0,
     createdAt: DateTime(2024, 8, 18),
@@ -96,7 +99,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R10",
     userId: "U10",
-    tourId: "T5",
+    tourId: "TOUR-5",
     content: "The tour was good, but the bus ride was too long.",
     rating: 3.5,
     createdAt: DateTime(2024, 8, 19),
@@ -106,7 +109,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R11",
     userId: "U11",
-    tourId: "T6",
+    tourId: "TOUR-11",
     content: "The guide was excellent and the landscapes were beautiful.",
     rating: 4.8,
     createdAt: DateTime(2024, 8, 20),
@@ -116,7 +119,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R12",
     userId: "U12",
-    tourId: "T6",
+    tourId: "TOUR-1",
     content: "The tour was decent, but some activities felt too rushed.",
     rating: 3.8,
     createdAt: DateTime(2024, 8, 21),
@@ -126,7 +129,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R13",
     userId: "U13",
-    tourId: "T7",
+    tourId: "TOUR-1",
     content: "The itinerary was packed, but overall an enjoyable trip.",
     rating: 4.0,
     createdAt: DateTime(2024, 8, 22),
@@ -136,7 +139,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R14",
     userId: "U14",
-    tourId: "T7",
+    tourId: "TOUR-12",
     content: "Wonderful experience! Loved every moment of it.",
     rating: 5.0,
     createdAt: DateTime(2024, 8, 23),
@@ -146,7 +149,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R15",
     userId: "U15",
-    tourId: "T8",
+    tourId: "TOUR-17",
     content: "A great trip, but it could have been more organized.",
     rating: 3.9,
     createdAt: DateTime(2024, 8, 24),
@@ -156,7 +159,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R16",
     userId: "U16",
-    tourId: "T8",
+    tourId: "TOUR-12",
     content: "The activities were fun, but the hotel was below average.",
     rating: 3.5,
     createdAt: DateTime(2024, 8, 25),
@@ -166,7 +169,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R17",
     userId: "U17",
-    tourId: "T9",
+    tourId: "TOUR-12",
     content: "Great cultural experience, and the food was incredible.",
     rating: 4.7,
     createdAt: DateTime(2024, 8, 26),
@@ -176,7 +179,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R18",
     userId: "U18",
-    tourId: "T9",
+    tourId: "TOUR-15",
     content: "The tour was good, but the weather wasn't great.",
     rating: 3.6,
     createdAt: DateTime(2024, 8, 27),
@@ -186,7 +189,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R19",
     userId: "U19",
-    tourId: "T10",
+    tourId: "TOUR-10",
     content: "An enjoyable trip with a great group of people.",
     rating: 4.5,
     createdAt: DateTime(2024, 8, 28),
@@ -196,7 +199,7 @@ List<ReviewEntity> sampleReviews = [
   ReviewEntity(
     reviewId: "R20",
     userId: "U20",
-    tourId: "T10",
+    tourId: "TOUR-10",
     content: "The trip was okay, but not as exciting as expected.",
     rating: 3.2,
     createdAt: DateTime(2024, 8, 29),
