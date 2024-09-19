@@ -53,6 +53,40 @@ class Tour extends TourEntity {
     );
   }
 
+  TourEntity toEntity() {
+    return TourEntity(
+      tourId: tourId,
+      tourName: tourName,
+      tourDescription: tourDescription,
+      createdBy: createdBy,
+      tickets: tickets,
+      imageUrls: imageUrls,
+      departure: departure,
+      destination: destination,
+      duration: duration,
+      startedDate: startedDate,
+      endDate: endDate,
+      rating: rating,
+    );
+  }
+
+  factory Tour.fromEntity(TourEntity entity) {
+    return Tour(
+      tourId: entity.tourId,
+      tourName: entity.tourName,
+      tourDescription: entity.tourDescription,
+      createdBy: entity.createdBy,
+      tickets: entity.tickets,
+      imageUrls: entity.imageUrls,
+      departure: entity.departure,
+      destination: entity.destination,
+      duration: entity.duration,
+      startedDate: entity.startedDate,
+      endDate: entity.endDate,
+      rating: entity.rating,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       "tourId": tourId,

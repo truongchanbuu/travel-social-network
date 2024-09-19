@@ -38,6 +38,30 @@ class TicketType extends TicketTypeEntity {
     );
   }
 
+  TicketTypeEntity toEntity() {
+    return TicketTypeEntity(
+      ticketTypeId: ticketTypeId,
+      ticketTypeName: ticketTypeName,
+      tourId: tourId,
+      ticketPrice: ticketPrice,
+      ticketDescription: ticketDescription,
+      category: category,
+      quantity: quantity,
+    );
+  }
+
+  factory TicketType.fromEntity(TicketTypeEntity entity) {
+    return TicketType(
+      ticketTypeId: entity.ticketTypeId,
+      ticketTypeName: entity.ticketTypeName,
+      tourId: entity.tourId,
+      ticketPrice: entity.ticketPrice,
+      ticketDescription: entity.ticketDescription,
+      category: entity.category,
+      quantity: entity.quantity,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       "ticketTypeId": ticketTypeId,

@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:travel_social_network/cores/utils/enum_utils.dart';
+import 'package:travel_social_network/cores/constants/tickets.dart';
 
 import '../../features/tours/data/models/tour.dart';
-import '../enums/booking_status.dart';
 
 List<Tour> generateSampleTours() {
   final random = Random();
@@ -117,21 +116,14 @@ List<Tour> generateSampleTours() {
       tourId: 'TOUR-$index',
       tourName: '${locations[random.nextInt(locations.length)]} $duration ngày',
       tourDescription: description,
-      tourPrice:
-          (random.nextInt(9000) + 1000) * 1000.0, // 1,000,000 to 10,000,000 VND
       createdBy: ['BT', 'TCB', 'ABC'][Random().nextInt(3)],
       departure: locations[random.nextInt(locations.length)],
       destination: locations[random.nextInt(locations.length)],
       duration: duration,
-      startDateTime: startDate,
-      endDateTime: endDate,
-      maxGroupSize: random.nextInt(20) + 5,
-      currentGroupSize: random.nextInt(20),
+      tickets: sampleTickets,
+      startedDate: startDate,
+      endDate: endDate,
       rating: (random.nextInt(50) + 1) / 10, // 0.1 to 5.0
-      bookingStatus: stringToEnum(
-          ['available', 'unavailable', 'full'][random.nextInt(3)],
-          BookingStatus.values),
-      updatedAt: DateTime.now().subtract(Duration(days: random.nextInt(30))),
       imageUrls: const [
         'https://th.bing.com/th/id/OIP.wdbT6M2mBkQTu3dH7psDjgHaDs?rs=1&pid=ImgDetMain',
         'https://th.bing.com/th/id/R.e944c88f1d2d1edb6bc53c844c8ca19b?rik=TJCOq1cbousOeA&pid=ImgRaw&r=0',
