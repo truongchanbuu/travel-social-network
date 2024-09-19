@@ -1,64 +1,50 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../cores/enums/booking_status.dart';
+import '../../data/models/ticket_type.dart';
 
 class TourEntity extends Equatable {
   final String tourId;
   final String tourName;
   final String tourDescription;
-  final num tourPrice;
   final String createdBy;
+  final List<TicketType> tickets;
   final List<String> imageUrls;
   final String departure;
   final String destination;
   final int duration;
-  final DateTime startDateTime;
-  final DateTime endDateTime;
-  final int maxGroupSize;
-  final int currentGroupSize;
+  final DateTime startedDate;
+  final DateTime endDate;
   final double rating;
-  final BookingStatus bookingStatus;
-  final DateTime createdAt = DateTime.now();
-  final DateTime? updatedAt;
 
-  TourEntity({
+  const TourEntity({
     required this.tourId,
     required this.tourName,
     required this.tourDescription,
-    required this.tourPrice,
     required this.createdBy,
+    required this.tickets,
     required this.imageUrls,
     required this.departure,
     required this.destination,
     required this.duration,
-    required this.startDateTime,
-    required this.endDateTime,
-    required this.maxGroupSize,
-    required this.currentGroupSize,
+    required this.startedDate,
+    required this.endDate,
     required this.rating,
-    required this.bookingStatus,
-    this.updatedAt,
   });
 
   @override
-  List<Object?> get props {
+  List<Object> get props {
     return [
       tourId,
       tourName,
       tourDescription,
-      tourPrice,
       createdBy,
-      departure,
+      tickets,
       imageUrls,
+      departure,
       destination,
       duration,
-      startDateTime,
-      endDateTime,
-      maxGroupSize,
-      currentGroupSize,
+      startedDate,
+      endDate,
       rating,
-      bookingStatus,
-      updatedAt,
     ];
   }
 }

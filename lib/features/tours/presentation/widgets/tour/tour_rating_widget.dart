@@ -16,6 +16,7 @@ class TourRatingWidget extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 7),
       child: RichText(
+        overflow: TextOverflow.ellipsis,
         text: TextSpan(children: [
           TextSpan(
             text: rating.toStringAsFixed(1),

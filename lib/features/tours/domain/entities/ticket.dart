@@ -1,29 +1,21 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../cores/enums/ticket_type.dart';
-
 class TicketEntity extends Equatable {
   final String ticketId;
-  final String ticketName;
   final String tourId;
-  final DateTime bookingDate;
-  final String tourDate;
+  final String ticketTypeId;
+  final String customerId;
+  final DateTime purchasedDate;
   final num ticketPrice;
-  final String ticketDescription;
-  final TicketType ticketType;
-  final String refundPolicy;
-  final num discount;
+  final double discount;
 
   const TicketEntity({
     required this.ticketId,
-    required this.ticketName,
     required this.tourId,
-    required this.bookingDate,
-    required this.tourDate,
+    required this.ticketTypeId,
+    required this.customerId,
+    required this.purchasedDate,
     required this.ticketPrice,
-    required this.ticketDescription,
-    required this.ticketType,
-    required this.refundPolicy,
     required this.discount,
   });
 
@@ -31,14 +23,11 @@ class TicketEntity extends Equatable {
   List<Object> get props {
     return [
       ticketId,
-      ticketName,
       tourId,
-      bookingDate,
-      tourDate,
+      ticketTypeId,
+      customerId,
+      purchasedDate,
       ticketPrice,
-      ticketDescription,
-      ticketType,
-      refundPolicy,
       discount,
     ];
   }

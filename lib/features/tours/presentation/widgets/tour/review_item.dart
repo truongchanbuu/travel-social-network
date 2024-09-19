@@ -8,7 +8,14 @@ import 'tour_review_image_list.dart';
 
 class ReviewItem extends StatelessWidget {
   final ReviewEntity review;
-  const ReviewItem({super.key, required this.review});
+  final bool isLimited;
+  final int contentMaxLines;
+  const ReviewItem({
+    super.key,
+    required this.review,
+    this.isLimited = true,
+    this.contentMaxLines = 3,
+  });
 
   String _getFormattedDateTime(DateTime date) => DateTimeUtils.isToday(date)
       ? DateTimeUtils.getTimeAgo(date)
@@ -16,7 +23,8 @@ class ReviewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> imageUrls = review.images.take(maxReviewItem).toList();
+    List<String> imageUrls =
+        isLimited ? review.images.take(maxReviewItem).toList() : review.images;
 
     return Container(
       width: reviewBoxSize,
@@ -37,6 +45,7 @@ class ReviewItem extends StatelessWidget {
         children: [
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -51,6 +60,7 @@ class ReviewItem extends StatelessWidget {
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         TourRatingWidget(rating: review.rating),
                       ],
@@ -65,7 +75,7 @@ class ReviewItem extends StatelessWidget {
                   ),
                   textDirection: defaultTextDirection,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
+                  maxLines: contentMaxLines,
                 ),
                 const SizedBox(height: 8),
                 if (imageUrls.isNotEmpty) ...[

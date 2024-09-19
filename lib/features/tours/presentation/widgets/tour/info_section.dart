@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../cores/constants/constants.dart';
+import '../../../domain/entities/tour.dart';
+import '../../pages/review_detail_page.dart';
 import '../tour/tour_detail_location.dart';
 
 class InfoSection extends StatelessWidget {
-  const InfoSection({super.key});
+  final TourEntity tour;
+  const InfoSection({super.key, required this.tour});
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +40,19 @@ class InfoSection extends StatelessWidget {
               ),
             ),
           ),
-          _buildReviewAndRating(),
+          _buildReviewAndRating(context),
           _buildBriefInfo(context),
         ],
       ),
     );
   }
 
-  Widget _buildReviewAndRating() {
+  Widget _buildReviewAndRating(context) {
     const double ratingBorderRadius = 20;
     const Color reviewNumberTextColor = Colors.grey;
 
     return GestureDetector(
-      onTap: () => debugPrint('Reviews and Ratings'),
+      onTap: () => _showReviewDetailPage(context),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: const BoxDecoration(
@@ -155,5 +158,17 @@ class InfoSection extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _showReviewDetailPage(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ReviewDetailPage(
+            tourId: tour.tourId,
+            tourName: tour.tourName,
+            tourRating: tour.rating,
+          ),
+        ));
   }
 }

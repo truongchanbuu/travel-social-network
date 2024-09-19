@@ -1,154 +1,134 @@
-import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'package:travel_social_network/cores/utils/enum_utils.dart';
-
-import '../../../../cores/enums/booking_status.dart';
 import '../../domain/entities/tour.dart';
+import 'ticket_type.dart';
 
+part 'tour.g.dart';
+
+@JsonSerializable()
 class Tour extends TourEntity {
-  Tour({
+  const Tour({
     required super.tourId,
     required super.tourName,
     required super.tourDescription,
-    required super.tourPrice,
     required super.createdBy,
+    required super.tickets,
     required super.imageUrls,
     required super.departure,
     required super.destination,
     required super.duration,
-    required super.startDateTime,
-    required super.endDateTime,
-    required super.maxGroupSize,
-    required super.currentGroupSize,
+    required super.startedDate,
+    required super.endDate,
     required super.rating,
-    required super.bookingStatus,
-    super.updatedAt,
   });
-
-  TourEntity toEntity() {
-    return TourEntity(
-      tourId: tourId,
-      tourName: tourName,
-      tourDescription: tourDescription,
-      tourPrice: tourPrice,
-      createdBy: createdBy,
-      imageUrls: imageUrls,
-      departure: departure,
-      destination: destination,
-      duration: duration,
-      startDateTime: startDateTime,
-      endDateTime: endDateTime,
-      maxGroupSize: maxGroupSize,
-      currentGroupSize: currentGroupSize,
-      rating: rating,
-      bookingStatus: bookingStatus,
-      updatedAt: updatedAt,
-    );
-  }
-
-  factory Tour.fromEntity(TourEntity entity) {
-    return Tour(
-      tourId: entity.tourId,
-      tourName: entity.tourName,
-      tourDescription: entity.tourDescription,
-      tourPrice: entity.tourPrice,
-      createdBy: entity.createdBy,
-      departure: entity.departure,
-      destination: entity.destination,
-      duration: entity.duration,
-      startDateTime: entity.startDateTime,
-      endDateTime: entity.endDateTime,
-      maxGroupSize: entity.maxGroupSize,
-      currentGroupSize: entity.currentGroupSize,
-      rating: entity.rating,
-      bookingStatus: entity.bookingStatus,
-      updatedAt: entity.updatedAt,
-      imageUrls: entity.imageUrls,
-    );
-  }
 
   Tour copyWith({
     String? tourId,
     String? tourName,
     String? tourDescription,
-    num? tourPrice,
     String? createdBy,
+    List<TicketType>? tickets,
+    List<String>? imageUrls,
     String? departure,
     String? destination,
     int? duration,
-    DateTime? startDateTime,
-    DateTime? endDateTime,
-    int? maxGroupSize,
-    int? currentGroupSize,
+    DateTime? startedDate,
+    DateTime? endDate,
     double? rating,
-    BookingStatus? bookingStatus,
-    DateTime? updatedAt,
   }) {
     return Tour(
       tourId: tourId ?? this.tourId,
       tourName: tourName ?? this.tourName,
       tourDescription: tourDescription ?? this.tourDescription,
-      tourPrice: tourPrice ?? this.tourPrice,
       createdBy: createdBy ?? this.createdBy,
+      tickets: tickets ?? this.tickets,
+      imageUrls: imageUrls ?? this.imageUrls,
       departure: departure ?? this.departure,
       destination: destination ?? this.destination,
       duration: duration ?? this.duration,
-      startDateTime: startDateTime ?? this.startDateTime,
-      endDateTime: endDateTime ?? this.endDateTime,
-      maxGroupSize: maxGroupSize ?? this.maxGroupSize,
-      currentGroupSize: currentGroupSize ?? this.currentGroupSize,
+      startedDate: startedDate ?? this.startedDate,
+      endDate: endDate ?? this.endDate,
       rating: rating ?? this.rating,
-      bookingStatus: bookingStatus ?? this.bookingStatus,
-      updatedAt: updatedAt ?? this.updatedAt,
-      imageUrls: imageUrls,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'tourId': tourId,
-      'tourName': tourName,
-      'tourDescription': tourDescription,
-      'tourPrice': tourPrice,
-      'createdBy': createdBy,
-      'departure': departure,
-      'destination': destination,
-      'duration': duration,
-      'startDateTime': startDateTime.millisecondsSinceEpoch,
-      'endDateTime': endDateTime.millisecondsSinceEpoch,
-      'maxGroupSize': maxGroupSize,
-      'currentGroupSize': currentGroupSize,
-      'rating': rating,
-      'bookingStatus': enumToString(bookingStatus),
-      'updatedAt': updatedAt?.millisecondsSinceEpoch,
-      'imageUrls': imageUrls,
+    return <String, dynamic>{
+      "tourId": tourId,
+      "tourName": tourName,
+      "tourDescription": tourDescription,
+      "createdBy": createdBy,
+      "tickets": tickets.map((x) => x.toMap()).toList(),
+      "imageUrls": imageUrls,
+      "departure": departure,
+      "destination": destination,
+      "duration": duration,
+      "startedDate": startedDate.toUtc().toIso8601String(),
+      "endDate": endDate.toUtc().toIso8601String(),
+      "rating": rating,
     };
   }
 
   factory Tour.fromMap(Map<String, dynamic> map) {
     return Tour(
-      tourId: map['tourId'] ?? '',
-      tourName: map['tourName'] ?? '',
-      tourDescription: map['tourDescription'] ?? '',
-      tourPrice: map['tourPrice'] ?? 0,
-      createdBy: map['createdBy'] ?? '',
-      departure: map['departure'] ?? '',
-      destination: map['destination'] ?? '',
-      duration: map['duration']?.toInt() ?? 0,
-      startDateTime: DateTime.fromMillisecondsSinceEpoch(map['startDateTime']),
-      endDateTime: DateTime.fromMillisecondsSinceEpoch(map['endDateTime']),
-      maxGroupSize: map['maxGroupSize']?.toInt() ?? 0,
-      currentGroupSize: map['currentGroupSize']?.toInt() ?? 0,
-      rating: map['rating']?.toDouble() ?? 0.0,
-      bookingStatus: stringToEnum(map['bookingStatus'], BookingStatus.values),
-      updatedAt: map['updatedAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'])
-          : null,
-      imageUrls: map['imageUrls'] ?? [],
+      tourId: map["tourId"],
+      tourName: map["tourName"],
+      tourDescription: map["tourDescription"],
+      createdBy: map["createdBy"],
+      tickets: List<TicketType>.from(
+          map["tickets"].map((x) => TicketType.fromMap(x))),
+      imageUrls: List<String>.from(map["imageUrls"]),
+      departure: map["departure"],
+      destination: map["destination"],
+      duration: map["duration"]?.toInt(),
+      startedDate: DateTime.parse(map["startedDate"]).toLocal(),
+      endDate: DateTime.parse(map["endDate"]).toLocal(),
+      rating: map["rating"]?.toDouble(),
     );
   }
 
-  String toJson() => json.encode(toMap());
+  factory Tour.fromJson(Map<String, dynamic> json) => _$TourFromJson(json);
 
-  factory Tour.fromJson(String source) => Tour.fromMap(json.decode(source));
+  Map<String, dynamic> toJson() => _$TourToJson(this);
+
+  @override
+  String toString() {
+    return "Tour(tourId: $tourId, tourName: $tourName, tourDescription: $tourDescription, createdBy: $createdBy, tickets: $tickets, imageUrls: $imageUrls, departure: $departure, destination: $destination, duration: $duration, startedDate: $startedDate, endDate: $endDate, rating: $rating)";
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Tour &&
+        other.tourId == tourId &&
+        other.tourName == tourName &&
+        other.tourDescription == tourDescription &&
+        other.createdBy == createdBy &&
+        listEquals(other.tickets, tickets) &&
+        listEquals(other.imageUrls, imageUrls) &&
+        other.departure == departure &&
+        other.destination == destination &&
+        other.duration == duration &&
+        other.startedDate == startedDate &&
+        other.endDate == endDate &&
+        other.rating == rating;
+  }
+
+  @override
+  int get hashCode {
+    return tourId.hashCode ^
+        tourName.hashCode ^
+        tourDescription.hashCode ^
+        createdBy.hashCode ^
+        tickets.hashCode ^
+        imageUrls.hashCode ^
+        departure.hashCode ^
+        destination.hashCode ^
+        duration.hashCode ^
+        startedDate.hashCode ^
+        endDate.hashCode ^
+        rating.hashCode;
+  }
 }

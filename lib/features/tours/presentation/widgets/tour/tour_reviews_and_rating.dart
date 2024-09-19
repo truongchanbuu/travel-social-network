@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../cores/constants/constants.dart';
-import '../../../domain/entities/review.dart';
 import '../../../../../cores/constants/reviews.dart';
+import '../../../domain/entities/review.dart';
 import 'review_item.dart';
 
 class TourReviewsAndRating extends StatefulWidget {
@@ -68,15 +68,15 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
             ),
           ],
         ),
+        const SizedBox(height: 10),
         _buildReviews(),
       ],
     );
   }
 
   Widget _buildReviews() {
-    return Container(
+    return SizedBox(
       height: reviewBoxHeight,
-      padding: const EdgeInsets.all(10),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => ReviewItem(review: reviews[index]),

@@ -104,7 +104,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
             titleColor: titleColor,
             tour: tour,
           ),
-          const SliverToBoxAdapter(child: InfoSection()),
+          SliverToBoxAdapter(child: InfoSection(tour: tour)),
           // if (schedules.isNotEmpty)
           ...[spacing, _buildTourSchedule()],
           spacing,

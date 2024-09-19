@@ -1,4 +1,4 @@
-enum TicketType {
+enum TicketCategory {
   adult,
   child,
   free,

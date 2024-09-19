@@ -3,8 +3,7 @@ import 'package:travel_social_network/cores/constants/reviews.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../domain/entities/review.dart';
-import '../widgets/tour/review_detail_item.dart';
-import '../widgets/tour/tour_rating_widget.dart';
+import '../widgets/tour/review_item.dart';
 
 class ReviewDetailPage extends StatefulWidget {
   final String tourId;
@@ -90,8 +89,12 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
       );
 
   Widget _buildReviewList() => ListView.builder(
-        itemBuilder: (context, index) =>
-            ReviewDetailItem(review: reviews[index]),
+        itemBuilder: (context, index) => SizedBox(
+            height: 240,
+            child: ReviewItem(
+              review: reviews[index],
+              isLimited: false,
+            )),
         itemCount: reviews.length,
       );
 
