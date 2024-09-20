@@ -164,11 +164,7 @@ class InfoSection extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ReviewDetailPage(
-            tourId: tour.tourId,
-            tourName: tour.tourName,
-            tourRating: tour.rating,
-          ),
+          builder: (context) => ReviewDetailPage(tourId: tour.tourId),
         ));
   }
 }

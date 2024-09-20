@@ -6,7 +6,7 @@ List<ReviewEntity> sampleReviews = [
     userId: "U1",
     tourId: "TOUR-1",
     content:
-        "Amazing tour! The guide was very friendly and the views were breathtaking.",
+        "Amazing tour! The guide was very friendly and the views were breathtaking. Amazing tour! The guide was very friendly and the views were breathtaking.",
     rating: 5.0,
     createdAt: DateTime.now().subtract(const Duration(seconds: 3)),
     updatedAt: null,

@@ -7,14 +7,8 @@ import '../widgets/tour/review_item.dart';
 
 class ReviewDetailPage extends StatefulWidget {
   final String tourId;
-  final String tourName;
-  final double tourRating;
-  const ReviewDetailPage({
-    super.key,
-    required this.tourName,
-    required this.tourId,
-    required this.tourRating,
-  });
+  final String? reviewId;
+  const ReviewDetailPage({super.key, required this.tourId, this.reviewId});
 
   @override
   State<ReviewDetailPage> createState() => _ReviewDetailPageState();
@@ -24,6 +18,9 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
   List<ReviewEntity> reviews = List.empty(growable: true);
   int totalReviews = 0;
 
+  double tourRating = 0;
+  String tourName = 'Tour Da Lat';
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +28,17 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
     reviews = sampleReviews
         .where((review) => review.tourId == widget.tourId)
         .toList();
+
+    if (widget.reviewId != null) {
+      reviews = reviews
+          .where((review) => review.reviewId == widget.reviewId)
+          .toList();
+    }
+
+    // Get tour info later
+    tourRating = 4.3;
+    tourName = 'Dalat';
+
     totalReviews = reviews.length;
   }
 
@@ -66,8 +74,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
           text: TextSpan(
             children: [
               TextSpan(
-                text:
-                    '${widget.tourRating} ${classification(widget.tourRating)}',
+                text: '$tourRating ${classification(tourRating)}',
                 style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.bold,
@@ -105,7 +112,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.tourName,
+              tourName,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,

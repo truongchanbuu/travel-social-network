@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'additional_tour_info_bottom_sheet.dart';
 import '../../../../../cores/constants/constants.dart';
+import 'additional_tour_info_bottom_sheet.dart';
 
 class TourMoreInfo extends StatelessWidget {
   const TourMoreInfo({super.key});
@@ -69,7 +72,7 @@ class TourMoreInfo extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          onTap: () {},
+          onTap: () => _callToServiceProvider(context, "0123456789"),
           leading: const Icon(Icons.phone),
           title: const Text('Contact service provider'),
           trailing: const Icon(
@@ -94,5 +97,46 @@ class TourMoreInfo extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _callToServiceProvider(
+    BuildContext context,
+    String phoneNumber,
+  ) async {
+    ScaffoldMessengerState scaffoldMessengerState =
+        ScaffoldMessenger.of(context);
+    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+
+    try {
+      if (!await canLaunchUrl(phoneUri)) {
+        _showSnackBar(scaffoldMessengerState, 'Could not make the phone call');
+        return;
+      }
+
+      await launchUrl(
+        phoneUri,
+        mode: defaultTargetPlatform == TargetPlatform.iOS
+            ? LaunchMode.externalApplication
+            : LaunchMode.platformDefault,
+      );
+    } on PlatformException catch (e) {
+      _showSnackBar(scaffoldMessengerState, 'Platform error: ${e.message}');
+    } on FormatException catch (e) {
+      _showSnackBar(
+          scaffoldMessengerState, 'Invalid phone number: ${e.message}');
+    } catch (e) {
+      _showSnackBar(scaffoldMessengerState,
+          'Error launching phone call: ${e.toString()}');
+    }
+  }
+
+  void _showSnackBar(
+      ScaffoldMessengerState scaffoldMessengerState, String message) {
+    SnackBar snackBar = SnackBar(
+      content: Text(message),
+      dismissDirection: DismissDirection.startToEnd,
+    );
+
+    scaffoldMessengerState.showSnackBar(snackBar);
   }
 }
