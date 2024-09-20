@@ -49,9 +49,9 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
       appBar: _buildAppBar(),
       body: Column(
         children: [
-          const SizedBox(height: 10),
-          _buildRating(),
-          const SizedBox(height: 10),
+          if (widget.reviewId == null) ...[
+            _buildRating(),
+          ],
           const Divider(
             thickness: 1,
             color: Colors.grey,
@@ -69,7 +69,10 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+        margin: const EdgeInsets.symmetric(
+          horizontal: defaultPadding,
+          vertical: 10,
+        ),
         child: RichText(
           text: TextSpan(
             children: [
@@ -97,11 +100,14 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
 
   Widget _buildReviewList() => ListView.builder(
         itemBuilder: (context, index) => SizedBox(
-            height: 240,
-            child: ReviewItem(
-              review: reviews[index],
-              isLimited: false,
-            )),
+          height: reviewItemDetailPageHeight,
+          child: ReviewItem(
+            review: reviews[index],
+            isLimited: false,
+            imageSize: reviewItemDetailImageSize,
+            clickable: widget.reviewId == null,
+          ),
+        ),
         itemCount: reviews.length,
       );
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../data/models/tour.dart';
@@ -19,11 +20,8 @@ import '../widgets/tour/tour_schedule_list.dart';
 import 'review_detail_page.dart';
 
 class TourDetailPage extends StatefulWidget {
-  final Tour tour;
-  const TourDetailPage({
-    super.key,
-    required this.tour,
-  });
+  final String tourId;
+  const TourDetailPage({super.key, required this.tourId});
 
   @override
   State<TourDetailPage> createState() => _TourDetailPageState();
@@ -42,7 +40,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
   @override
   void initState() {
     super.initState();
-    tour = widget.tour;
+    tour = generateSampleTours()
+        .where((tour) => tour.tourId == widget.tourId)
+        .first;
     tickets = [
       'Depart with Vietnam Airlines',
       'Depart with VietJet',

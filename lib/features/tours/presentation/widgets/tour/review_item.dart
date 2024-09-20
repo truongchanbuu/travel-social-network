@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/tours/presentation/pages/review_detail_page.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/utils/date_time_utils.dart';
 import '../../../domain/entities/review.dart';
+import '../../pages/review_detail_page.dart';
 import 'tour_rating_widget.dart';
 import 'tour_review_image_list.dart';
 
@@ -11,11 +11,15 @@ class ReviewItem extends StatelessWidget {
   final ReviewEntity review;
   final bool isLimited;
   final int contentMaxLines;
+  final double? imageSize;
+  final bool clickable;
   const ReviewItem({
     super.key,
     required this.review,
     this.isLimited = true,
     this.contentMaxLines = 3,
+    this.imageSize,
+    this.clickable = true,
   });
 
   String _getFormattedDateTime(DateTime date) => DateTimeUtils.isToday(date)
@@ -28,10 +32,10 @@ class ReviewItem extends StatelessWidget {
         isLimited ? review.images.take(maxReviewItem).toList() : review.images;
 
     return GestureDetector(
-      onTap: () => _showReviewItemDetail(context),
+      onTap: () => clickable ? _showReviewItemDetail(context) : null,
       child: Container(
         width: reviewBoxSize,
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(defaultPadding),
         decoration: BoxDecoration(
           border: Border.all(width: 0.5, color: Colors.grey),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -91,6 +95,7 @@ class ReviewItem extends StatelessWidget {
                     TourReviewImageList(
                       reviewId: review.reviewId,
                       imageUrls: imageUrls,
+                      imageSize: imageSize,
                     ),
                     const SizedBox(height: 10)
                   ],

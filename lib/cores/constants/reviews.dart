@@ -12,7 +12,8 @@ List<ReviewEntity> sampleReviews = [
     updatedAt: null,
     images: [
       "https://th.bing.com/th/id/R.dd21d63169902d40baec0b8766fe0b48?rik=FtLIp5D3lCmg3Q&pid=ImgRaw&r=0",
-      "image2.jpg"
+      "image2.jpg",
+      "image3.jpg"
     ],
   ),
   ReviewEntity(

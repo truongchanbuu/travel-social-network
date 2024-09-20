@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           bottomNavigationBar: AppBottomNavigationBar(),
-          body: TourDetailPage(tour: generateSampleTours()[0]),
+          body: TourDetailPage(tourId: generateSampleTours()[0].tourId),
         ),
       ),
     );

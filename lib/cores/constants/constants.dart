@@ -24,7 +24,7 @@ BoxShadow detailSectionBoxShadow = BoxShadow(
 const SizedBox verticalInputSpacing = SizedBox(height: 22);
 
 // Padding
-const double defaultPadding = 20;
+const double defaultPadding = 10;
 
 // Duration
 const int pageChangeTransitionDuration = 500;
@@ -34,7 +34,9 @@ const TextDirection defaultTextDirection = TextDirection.ltr;
 
 // Size
 const double reviewBoxSize = 320;
-const double reviewBoxHeight = 260;
+const double reviewBoxHeight = 280;
+const double reviewItemDetailPageHeight = 350;
+const double reviewItemDetailImageSize = 140;
 
 // Tour Item Size
 const List<double> tourItemSizes = [
