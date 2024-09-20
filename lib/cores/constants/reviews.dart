@@ -1,4 +1,4 @@
-import 'package:travel_social_network/features/tours/domain/entities/review.dart';
+import '../../features/review/domain/entities/review.dart';
 
 List<ReviewEntity> sampleReviews = [
   ReviewEntity(

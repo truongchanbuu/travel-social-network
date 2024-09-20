@@ -2,10 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:travel_social_network/cores/constants/tickets.dart';
+import 'package:travel_social_network/features/tour/domain/entities/tour.dart';
 
-import '../../features/tours/data/models/tour.dart';
-
-List<Tour> generateSampleTours() {
+List<TourEntity> generateSampleTours() {
   final random = Random();
   final locations = List.generate(
     10,
@@ -112,7 +111,7 @@ List<Tour> generateSampleTours() {
     final duration = random.nextInt(10) + 1;
     final endDate = startDate.add(Duration(days: duration));
 
-    return Tour(
+    return TourEntity(
       tourId: 'TOUR-1',
       tourName: '${locations[random.nextInt(locations.length)]} $duration ngày',
       tourDescription: description,

@@ -42,6 +42,9 @@ const double reviewItemDetailPageHeight = 350;
 const double reviewItemDetailImageSize = 140;
 const double circleAvatarRadius = 25;
 const double ticketItemWidth = 500;
+const double tourDetailPageExpandedAppBarHeight = 250;
+const double ticketDetailPageExpandedAppBarHeight = 250;
+const double imageIndicatorHeight = 80;
 
 // Tour Item Size
 const List<double> tourItemSizes = [
@@ -59,6 +62,8 @@ const List<double> tourItemSizes = [
 
 // Item
 const int maxReviewItem = 7;
+
+const int minimumImageShowed = 5;
 
 // API
 const String baseUrl = 'http://localhost:3000/api';

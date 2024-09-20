@@ -7,10 +7,6 @@ T stringToEnum<T>(String key, List<T> values) {
       orElse: () => throw ArgumentError('No enum value with that key'));
 }
 
-String enumToString<T>(T value) {
-  return T.toString().split('.').last;
-}
-
 IconData getActivityIcon(ActivityType type) => switch (type) {
       ActivityType.dining => Icons.restaurant,
       ActivityType.breakfast => Icons.free_breakfast,

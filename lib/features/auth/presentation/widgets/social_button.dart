@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
+
 class SocialButton extends StatelessWidget {
   final String title;
   final Color? textColor;
