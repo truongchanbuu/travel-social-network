@@ -32,7 +32,7 @@ class SearchTitle extends StatelessWidget {
             ),
             semanticsLabel: title,
             textDirection: defaultTextDirection,
-            overflow: TextOverflow.ellipsis,
+            overflow: defaultTextOverflow,
           ),
           if (suffix != null) suffix!,
         ],

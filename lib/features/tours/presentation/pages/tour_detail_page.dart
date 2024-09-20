@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/constants/tickets.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
@@ -43,33 +44,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
     tour = generateSampleTours()
         .where((tour) => tour.tourId == widget.tourId)
         .first;
-    tickets = [
-      'Depart with Vietnam Airlines',
-      'Depart with VietJet',
-      'Depart with Bamboo Airline',
-      'Depart with Singapore Airline',
-      'Depart with Malaysia Airline',
-      'Depart with Indonesia Airline',
-      'Depart with US Airline',
-      'Depart with Taiwan Airline',
-      'Depart with Greenland Airline',
-      'Depart with Iceland Airline',
-      'Depart with Belgium Airline',
-      'Depart with Cambodia Airline',
-      'Depart with India Airline',
-      'Depart with Poland Airline',
-      'Depart with France Airline',
-      'Depart with Taiwan Airline',
-      'Depart with JP Airline',
-      'Depart with Laos Airline',
-      'Depart with Taiwan Airline',
-      'Depart with Taiwan Airline',
-      'Depart with Finland Airline',
-      'Depart with New Zealand Airline',
-      'Depart with Australia Airline',
-      'Depart with Thailand Airline',
-      'Depart with China Airline',
-    ];
+    tickets = sampleTickets.map((ticket) => ticket.ticketTypeId).toList();
     _scrollController = ScrollController()..addListener(_onScroll);
   }
 

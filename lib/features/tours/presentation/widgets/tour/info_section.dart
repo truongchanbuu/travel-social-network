@@ -33,7 +33,7 @@ class InfoSection extends StatelessWidget {
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
-                overflow: TextOverflow.ellipsis,
+                overflow: defaultTextOverflow,
                 semanticsLabel: 'Underwater World Pattaya',
                 textDirection: defaultTextDirection,
                 maxLines: 1,

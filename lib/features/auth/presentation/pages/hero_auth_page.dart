@@ -67,7 +67,7 @@ class _HeroAuthPageState extends State<HeroAuthPage> {
         color: Colors.black,
       ),
       maxLines: 3,
-      overflow: TextOverflow.ellipsis,
+      overflow: defaultTextOverflow,
       semanticsLabel: 'Exclusive Offers for you - with only simple step!',
       textAlign: TextAlign.center,
       textDirection: defaultTextDirection,

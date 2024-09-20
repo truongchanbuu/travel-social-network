@@ -32,11 +32,16 @@ const int pageChangeTransitionDuration = 500;
 // TextDirection
 const TextDirection defaultTextDirection = TextDirection.ltr;
 
+// Overflow
+const TextOverflow defaultTextOverflow = TextOverflow.ellipsis;
+
 // Size
 const double reviewBoxSize = 320;
 const double reviewBoxHeight = 280;
 const double reviewItemDetailPageHeight = 350;
 const double reviewItemDetailImageSize = 140;
+const double circleAvatarRadius = 25;
+const double ticketItemWidth = 500;
 
 // Tour Item Size
 const List<double> tourItemSizes = [

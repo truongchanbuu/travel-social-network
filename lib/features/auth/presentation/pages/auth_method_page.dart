@@ -23,7 +23,7 @@ class AuthMethodPage extends StatelessWidget {
               child: Text(
                 'No support for this viewport',
                 textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
+                overflow: defaultTextOverflow,
                 semanticsLabel: 'No support for this viewport',
               ),
             );
@@ -41,7 +41,7 @@ class AuthMethodPage extends StatelessWidget {
                   const Text(
                     'Sign in/Sign up',
                     semanticsLabel: 'Sign in / Sign up',
-                    overflow: TextOverflow.ellipsis,
+                    overflow: defaultTextOverflow,
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class AuthMethodPage extends StatelessWidget {
                       SizedBox(width: 5),
                       Text(
                         'Enjoy the privilege of membership',
-                        overflow: TextOverflow.ellipsis,
+                        overflow: defaultTextOverflow,
                         style: TextStyle(color: descColor),
                       ),
                     ],
@@ -155,7 +155,7 @@ class AuthMethodPage extends StatelessWidget {
     );
 
     return RichText(
-      overflow: TextOverflow.ellipsis,
+      overflow: defaultTextOverflow,
       maxLines: 3,
       textAlign: TextAlign.center,
       text: TextSpan(children: <TextSpan>[

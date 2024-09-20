@@ -17,7 +17,7 @@ class AccountBriefInfo extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              radius: 25,
+              radius: circleAvatarRadius,
               child: Image(
                 image: const Svg('assets/auth/images/female_avatars.svg'),
                 errorBuilder: (context, error, stackTrace) => const Icon(

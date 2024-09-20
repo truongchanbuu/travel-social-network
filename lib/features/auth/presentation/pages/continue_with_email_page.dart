@@ -30,9 +30,9 @@ class ContinueWithEmailPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.ellipsis,
+                      overflow: defaultTextOverflow,
                     ),
-                    overflow: TextOverflow.ellipsis,
+                    overflow: defaultTextOverflow,
                     maxLines: 3,
                   ),
                   const SizedBox(height: 15),

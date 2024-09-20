@@ -1,58 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/constants/tickets.dart';
 
 import '../../../../../cores/constants/constants.dart';
+import '../../../domain/entities/ticket_type.dart';
+import '../../pages/tour_detail_ticket_page.dart';
 
-class TicketItem extends StatelessWidget {
-  final String ticket;
-  const TicketItem({super.key, required this.ticket});
+class TicketItem extends StatefulWidget {
+  final String ticketId;
+  const TicketItem({super.key, required this.ticketId});
+
+  @override
+  State<TicketItem> createState() => _TicketItemState();
+}
+
+class _TicketItemState extends State<TicketItem> {
+  late final TicketTypeEntity ticketType;
+
+  @override
+  void initState() {
+    super.initState();
+    ticketType = sampleTickets
+        .where((ticket) => ticket.ticketTypeId == widget.ticketId)
+        .first;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        bool isOverflowed = constraints.maxWidth < 260;
+    bool isOverflowed = MediaQuery.of(context).size.width < 260;
 
-        return Container(
-          width: 500,
-          margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-          decoration: BoxDecoration(
-            border: Border.all(width: 0.5, color: Colors.grey),
-            borderRadius: const BorderRadius.all(Radius.circular(5)),
-            color: Colors.white,
-          ),
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                ticket,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
+    return GestureDetector(
+      onTap: () => _showDetailTicketPage(context),
+      child: Container(
+        key: ValueKey('TICKET-${ticketType.tourId}-${ticketType.ticketTypeId}'),
+        width: ticketItemWidth,
+        margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+        decoration: BoxDecoration(
+          border: Border.all(width: 0.5, color: Colors.grey),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          color: Colors.white,
+        ),
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${ticketType.ticketTypeName} - ${ticketType.ticketDescription}',
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
               ),
-              const SizedBox(height: 5),
-              GestureDetector(
-                onTap: () => debugPrint('See Detail'),
-                child: const Text(
-                  'See detail',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
+              maxLines: 2,
+              textDirection: defaultTextDirection,
+              overflow: defaultTextOverflow,
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              'See detail',
+              style: TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
               ),
-              const Divider(color: Colors.grey, thickness: 0.5),
-              const SizedBox(height: 10),
-              Row(
+            ),
+            const Divider(color: Colors.grey, thickness: 0.5),
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: () => debugPrint('PRICE DETAIL'),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'VND 7,890,000',
-                    style: TextStyle(
+                  Text(
+                    'VND ${ticketType.ticketPrice}',
+                    style: const TextStyle(
                       color: Colors.deepOrangeAccent,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -61,14 +82,14 @@ class TicketItem extends StatelessWidget {
                   if (!isOverflowed) _buildSelectButton(),
                 ],
               ),
-              if (isOverflowed) ...[
-                const SizedBox(height: 10),
-                _buildSelectButton(),
-              ]
-            ],
-          ),
-        );
-      },
+            ),
+            if (isOverflowed) ...[
+              const SizedBox(height: 10),
+              _buildSelectButton(),
+            ]
+          ],
+        ),
+      ),
     );
   }
 
@@ -94,6 +115,15 @@ class TicketItem extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: 14,
         ),
+      ),
+    );
+  }
+
+  void _showDetailTicketPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TourDetailTicketPage(ticketId: widget.ticketId),
       ),
     );
   }

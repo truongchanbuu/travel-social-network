@@ -58,7 +58,7 @@ class ReviewItem extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () => _showProfile,
-                        child: const CircleAvatar(radius: 25),
+                        child: const CircleAvatar(radius: circleAvatarRadius),
                       ),
                       const SizedBox(width: 10),
                       Column(
@@ -72,7 +72,7 @@ class ReviewItem extends StatelessWidget {
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
-                              overflow: TextOverflow.ellipsis,
+                              overflow: defaultTextOverflow,
                             ),
                           ),
                           TourRatingWidget(rating: review.rating),
@@ -87,7 +87,7 @@ class ReviewItem extends StatelessWidget {
                       fontSize: 16,
                     ),
                     textDirection: defaultTextDirection,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: defaultTextOverflow,
                     maxLines: contentMaxLines,
                   ),
                   const SizedBox(height: 8),

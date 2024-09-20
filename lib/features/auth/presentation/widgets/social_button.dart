@@ -32,7 +32,7 @@ class SocialButton extends StatelessWidget {
               child: Text(
                 title,
                 semanticsLabel: title,
-                overflow: TextOverflow.ellipsis,
+                overflow: defaultTextOverflow,
               ),
             ),
             titleTextStyle: TextStyle(

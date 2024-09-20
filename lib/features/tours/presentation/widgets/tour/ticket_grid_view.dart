@@ -21,22 +21,22 @@ class TicketGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double mainAxisExtent = _determineMainAxisExtent(constraints.maxWidth);
+        double itemHeight = _determineItemHeight(constraints.maxWidth);
         double crossAxisExtent = constraints.maxWidth;
 
         int columns = (crossAxisExtent / maxCrossAxisExtent).ceil();
         int rows = min(maxRows, (tickets.length / columns).ceil());
 
         return SizedBox(
-          height: mainAxisExtent * rows + spacing * (rows - 1),
+          height: itemHeight * rows + spacing * (rows - 1),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               mainAxisSpacing: spacing,
               maxCrossAxisExtent: maxCrossAxisExtent,
-              mainAxisExtent: mainAxisExtent,
+              mainAxisExtent: itemHeight,
             ),
             itemBuilder: (context, index) =>
-                RepaintBoundary(child: TicketItem(ticket: tickets[index])),
+                RepaintBoundary(child: TicketItem(ticketId: tickets[index])),
             itemCount: scrollable ? tickets.length : columns * rows,
             physics: !scrollable ? const NeverScrollableScrollPhysics() : null,
           ),
@@ -45,10 +45,10 @@ class TicketGridView extends StatelessWidget {
     );
   }
 
-  double _determineMainAxisExtent(double crossAxisWidth) =>
+  double _determineItemHeight(double crossAxisWidth) =>
       switch (crossAxisWidth) {
         < 290 && > 190 => 200,
         <= 190 => 250,
-        _ => 150,
+        _ => 180,
       };
 }

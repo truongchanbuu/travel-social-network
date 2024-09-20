@@ -25,7 +25,7 @@ class TourScheduleIconText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(iconData, color: iconColor),
+        Flexible(child: Icon(iconData, color: iconColor)),
         const SizedBox(width: 5),
         Text(
           title,
@@ -34,6 +34,8 @@ class TourScheduleIconText extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: textFontSize,
           ),
+          textDirection: defaultTextDirection,
+          overflow: defaultTextOverflow,
         )
       ],
     );

@@ -72,7 +72,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                     semanticsLabel: tour.tourName,
                     maxLines: 1,
                     textDirection: defaultTextDirection,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: defaultTextOverflow,
                   ),
                 ),
               ),

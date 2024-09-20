@@ -41,9 +41,10 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
           context,
           MaterialPageRoute(
             builder: (context) => MediaViewPage(
-                tourId: tour.tourId,
-                tourName: tour.tourName,
-                imageUrls: tour.imageUrls),
+              tourId: tour.tourId,
+              tourName: tour.tourName,
+              imageUrls: tour.imageUrls,
+            ),
           )),
       child: Stack(
         fit: StackFit.expand,
@@ -119,7 +120,7 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
                                       ? Colors.white
                                       : primaryColor)
                                   .withOpacity(
-                                      _currentIndex == entry.key ? 0.9 : 0.4),
+                                      _currentIndex == entry.key ? 1 : 0.4),
                         ),
                       ),
                     ),

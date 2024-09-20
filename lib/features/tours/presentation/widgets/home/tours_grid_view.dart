@@ -89,7 +89,7 @@ class _ToursGridViewState extends State<ToursGridView> {
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,
-          overflow: TextOverflow.ellipsis,
+          overflow: defaultTextOverflow,
         ),
       ),
     );

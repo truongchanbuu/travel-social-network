@@ -40,7 +40,7 @@ class TourDetailHeadingText extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  overflow: defaultTextOverflow,
                 ),
               ),
             ),

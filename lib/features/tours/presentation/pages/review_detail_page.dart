@@ -124,7 +124,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
-              overflow: TextOverflow.ellipsis,
+              overflow: defaultTextOverflow,
               textDirection: defaultTextDirection,
             ),
             const Text(
@@ -134,7 +134,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),
-              overflow: TextOverflow.ellipsis,
+              overflow: defaultTextOverflow,
               textDirection: defaultTextDirection,
             ),
           ],
