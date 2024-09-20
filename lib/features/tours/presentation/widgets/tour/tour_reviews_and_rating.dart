@@ -53,7 +53,7 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
                   style: TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
                 Text(
@@ -61,7 +61,7 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 13,
                   ),
                 ),
               ],

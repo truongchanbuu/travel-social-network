@@ -107,6 +107,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
     );
   }
 
+  // TODO: Can be optimized
   Widget _buildAvailableDate() {
     return Expanded(
       child: LayoutBuilder(builder: (context, constraints) {

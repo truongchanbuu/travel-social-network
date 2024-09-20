@@ -20,30 +20,33 @@ class TourDetailHeadingText extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (leadingIcon != null)
-            Icon(
-              leadingIcon,
-              color: primaryColor,
-            ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (leadingIcon != null)
+              Icon(
+                leadingIcon,
+                color: primaryColor,
+              ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
             ),
-          ),
-          if (trailing != null) trailing!,
-        ],
+            if (trailing != null) trailing!,
+          ],
+        ),
       ),
     );
   }

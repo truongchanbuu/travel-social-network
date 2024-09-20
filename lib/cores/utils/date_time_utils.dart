@@ -7,6 +7,9 @@ class DateTimeUtils {
   static bool isToday(DateTime date) =>
       now.day == date.day && now.month == date.month && now.year == date.year;
 
+  static bool isSameDate(DateTime d1, DateTime d2) =>
+      d1.day == d2.day && d1.month == d2.month && d1.year == d2.year;
+
   static String getThePeriodOfTheDay() {
     final int hour = now.hour;
 

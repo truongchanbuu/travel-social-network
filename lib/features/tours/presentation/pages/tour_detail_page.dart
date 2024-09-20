@@ -11,6 +11,7 @@ import '../widgets/tour/tour_desc.dart';
 import '../widgets/tour/tour_desc_modal.dart';
 import '../widgets/tour/tour_detail_app_bar.dart';
 import '../widgets/tour/tour_detail_heading_text.dart';
+import '../widgets/tour/tour_detail_section_container.dart';
 import '../widgets/tour/tour_more_info.dart';
 import '../widgets/tour/tour_reviews_and_rating.dart';
 import '../widgets/tour/tour_schedule_bottom_sheet.dart';
@@ -92,9 +93,6 @@ class _TourDetailPageState extends State<TourDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    const SliverToBoxAdapter spacing =
-        SliverToBoxAdapter(child: SizedBox(height: 20));
-
     return Scaffold(
       body: CustomScrollView(
         controller: _scrollController,
@@ -104,75 +102,73 @@ class _TourDetailPageState extends State<TourDetailPage> {
             titleColor: titleColor,
             tour: tour,
           ),
-          SliverToBoxAdapter(child: InfoSection(tour: tour)),
-          // if (schedules.isNotEmpty)
-          ...[spacing, _buildTourSchedule()],
-          spacing,
-          _buildServiceSection(),
-          spacing,
-          _buildTicketSection(),
-          spacing,
-          _buildOutstandingFeaturesDesc(),
-          spacing,
-          _buildReviewsAndRating(),
-          spacing,
-          _buildMoreInfoSection(),
-          spacing,
+          ...buildDetailSections(context),
         ],
       ),
     );
   }
 
-  Widget _buildReviewsAndRating() => SliverToBoxAdapter(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [detailSectionBoxShadow],
-          ),
-          padding: const EdgeInsets.symmetric(
-              horizontal: defaultPadding, vertical: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TourDetailHeadingText(
-                onTap: _showReviewDetailPage,
-                title: 'Reviews & Rating',
-                trailing: const Text(
-                  'View all',
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+  List<Widget> buildDetailSections(BuildContext context) => [
+        _buildInfoSection(),
+
+        // if (schedules.isNotEmpty) ...[
+        _buildSpacing(),
+        _buildTourSchedule(),
+
+        _buildSpacing(),
+        _buildServiceSection(),
+        _buildSpacing(),
+        _buildTicketSection(),
+        _buildSpacing(),
+        _buildOutstandingFeaturesDesc(),
+        _buildSpacing(),
+        _buildReviewsAndRating(),
+        _buildSpacing(),
+        _buildMoreInfoSection(),
+        _buildSpacing(),
+      ];
+
+  Widget _buildSpacing() => const TourDetailSectionContainer(
+      isPadding: false, child: SizedBox(height: 20));
+
+  Widget _buildInfoSection() =>
+      TourDetailSectionContainer(child: InfoSection(tour: tour));
+
+  Widget _buildReviewsAndRating() => TourDetailSectionContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TourDetailHeadingText(
+              onTap: _showReviewDetailPage,
+              title: 'Reviews & Rating',
+              trailing: const Text(
+                'View all',
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: TourReviewsAndRating(reviews: []),
-              ),
-            ],
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: TourReviewsAndRating(reviews: []),
+            ),
+          ],
         ),
       );
 
-  Widget _buildMoreInfoSection() => SliverToBoxAdapter(
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: defaultPadding, vertical: 5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [detailSectionBoxShadow],
-          ),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TourDetailHeadingText(title: 'More Info'),
-              TourMoreInfo(),
-            ],
-          ),
+  Widget _buildMoreInfoSection() => const TourDetailSectionContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TourDetailHeadingText(title: 'More Info'),
+            TourMoreInfo(),
+          ],
         ),
       );
 
-  Widget _buildTicketSection() => SliverToBoxAdapter(
+  Widget _buildTicketSection() => TourDetailSectionContainer(
+        isPadding: false,
         child: Column(
           children: [
             TicketGridView(tickets: tickets),
@@ -180,16 +176,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: TextButton(
-                onPressed: () => showModalBottomSheet(
-                  useSafeArea: true,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => TicketBottomSheet(
-                    tickets: tickets,
-                    selectedDate: selectedDate,
-                    onSelectDate: _selectTravelDate,
-                  ),
-                ),
+                onPressed: () => _showAllTickets(context),
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey.withOpacity(0.2),
                   shape: const RoundedRectangleBorder(
@@ -210,123 +197,99 @@ class _TourDetailPageState extends State<TourDetailPage> {
         ),
       );
 
-  Widget _buildTourSchedule() => SliverToBoxAdapter(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.5,
-          padding: const EdgeInsets.symmetric(
-              horizontal: defaultPadding, vertical: 5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [detailSectionBoxShadow],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TourDetailHeadingText(title: 'Tour Schedule'),
-              Expanded(child: TourScheduleList(tourSchedule: schedules)),
-              GestureDetector(
-                onTap: () => showModalBottomSheet(
-                  context: context,
+  Widget _buildTourSchedule() => TourDetailSectionContainer(
+        height: MediaQuery.of(context).size.height * 0.5,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TourDetailHeadingText(title: 'Tour Schedule'),
+            Expanded(child: TourScheduleList(tourSchedule: schedules)),
+            GestureDetector(
+              onTap: () => showModalBottomSheet(
+                context: context,
+                useSafeArea: true,
+                isScrollControlled: true,
+                builder: (context) =>
+                    TourScheduleBottomSheet(schedules: schedules),
+              ),
+              child: Container(
+                color: Colors.transparent,
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10.0),
+                child: const Text(
+                  'See Detail Tour Itinerary',
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget _buildOutstandingFeaturesDesc() => TourDetailSectionContainer(
+        height: MediaQuery.of(context).size.height * 0.4,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: TourDetailHeadingText(title: 'Outstanding Features'),
+            ),
+            Expanded(child: TourDesc(content: tour.tourDescription)),
+            TextButton(
+              onPressed: () {
+                showModalBottomSheet(
                   useSafeArea: true,
                   isScrollControlled: true,
+                  context: context,
                   builder: (context) =>
-                      TourScheduleBottomSheet(schedules: schedules),
+                      TourDescModal(content: tour.tourDescription),
+                );
+              },
+              style: TextButton.styleFrom(
+                shape: const BeveledRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(3)),
+                  side: BorderSide(width: 0.5, color: Colors.grey),
                 ),
-                child: Container(
-                  color: Colors.transparent,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10.0),
-                  child: const Text(
-                    'See Detail Tour Itinerary',
+                backgroundColor: primaryColor,
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Show more',
                     style: TextStyle(
-                      color: primaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
                   ),
-                ),
+                  Icon(
+                    Icons.keyboard_double_arrow_down,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
 
-  Widget _buildOutstandingFeaturesDesc() => SliverToBoxAdapter(
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.4,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [detailSectionBoxShadow],
-          ),
-          padding: const EdgeInsets.symmetric(
-              horizontal: defaultPadding, vertical: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                child: TourDetailHeadingText(title: 'Outstanding Features'),
-              ),
-              Expanded(child: TourDesc(content: tour.tourDescription)),
-              TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    useSafeArea: true,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) =>
-                        TourDescModal(content: tour.tourDescription),
-                  );
-                },
-                style: TextButton.styleFrom(
-                  shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(3)),
-                    side: BorderSide(width: 0.5, color: Colors.grey),
-                  ),
-                  backgroundColor: primaryColor,
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Show more',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                    ),
-                    Icon(
-                      Icons.keyboard_double_arrow_down,
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-  Widget _buildServiceSection() => SliverToBoxAdapter(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            color: Colors.white,
-            boxShadow: [detailSectionBoxShadow],
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TourDetailHeadingText(title: 'Services'),
-              AvailableDateList(
-                onSelectDate: _selectTravelDate,
-                selectedDate: selectedDate,
-              ),
-            ],
-          ),
+  Widget _buildServiceSection() => TourDetailSectionContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TourDetailHeadingText(title: 'Services'),
+            AvailableDateList(
+              onSelectDate: _selectTravelDate,
+              selectedDate: selectedDate,
+            ),
+          ],
         ),
       );
 
@@ -349,6 +312,19 @@ class _TourDetailPageState extends State<TourDetailPage> {
           tourName: tour.tourName,
           tourRating: tour.rating,
         ),
+      ),
+    );
+  }
+
+  void _showAllTickets(BuildContext context) {
+    showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => TicketBottomSheet(
+        tickets: tickets,
+        selectedDate: selectedDate,
+        onSelectDate: _selectTravelDate,
       ),
     );
   }

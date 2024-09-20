@@ -13,12 +13,12 @@ class TicketGridView extends StatelessWidget {
     this.scrollable = false,
   });
 
+  static const double spacing = 10;
+  static const int maxRows = 2;
+  static const double maxCrossAxisExtent = 600;
+
   @override
   Widget build(BuildContext context) {
-    const double spacing = 10;
-    const int maxRows = 2;
-    const double maxCrossAxisExtent = 600;
-
     return LayoutBuilder(
       builder: (context, constraints) {
         double mainAxisExtent = _determineMainAxisExtent(constraints.maxWidth);
