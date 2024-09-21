@@ -9,6 +9,7 @@ import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../shared/widgets/detail_section_container.dart';
 import '../../../shared/widgets/detail_section_spacer.dart';
 import '../../../shared/widgets/quill_content.dart';
+import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../../ticket/presentations/widgets/available_date_list.dart';
 import '../../../ticket/presentations/widgets/ticket_bottom_sheet.dart';
 import '../../../ticket/presentations/widgets/ticket_grid_view.dart';
@@ -30,22 +31,26 @@ class TourDetailPage extends StatefulWidget {
 }
 
 class _TourDetailPageState extends State<TourDetailPage> {
+  late final ScrollController _scrollController;
   late final TourEntity tour;
+
   List<TourScheduleEntity> schedules = List.empty(growable: true);
-  List<String> ticketIds = List.empty(growable: true);
+  List<TicketTypeEntity> tickets = List.empty(growable: true);
+  List<DateTime> availableDates = List.empty(growable: true);
 
   Color titleColor = Colors.white;
-  late final ScrollController _scrollController;
   DateTime? selectedDate;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
+
     tour = generateSampleTours()
         .where((tour) => tour.tourId == widget.tourId)
         .first;
-    ticketIds = sampleTickets.map((ticket) => ticket.ticketTypeId).toList();
-    _scrollController = ScrollController()..addListener(_onScroll);
+    tickets = tour.tickets;
+    availableDates = tickets.map((ticket) => ticket.createdAt).toList();
   }
 
   @override
@@ -143,7 +148,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
         isPadding: false,
         child: Column(
           children: [
-            TicketGridView(tickets: ticketIds),
+            TicketGridView(tickets: tickets),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -258,6 +263,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
           children: [
             const DetailHeadingText(title: 'Services'),
             AvailableDateList(
+              availableDates: availableDates,
               onSelectDate: _selectTravelDate,
               selectedDate: selectedDate,
             ),
@@ -290,7 +296,8 @@ class _TourDetailPageState extends State<TourDetailPage> {
       isScrollControlled: true,
       context: context,
       builder: (context) => TicketBottomSheet(
-        tickets: ticketIds,
+        availableDates: availableDates,
+        tickets: tickets,
         selectedDate: selectedDate,
         onSelectDate: _selectTravelDate,
       ),

@@ -46,6 +46,8 @@ final String ticketInfo = jsonEncode([
   {"insert": "Price: 99.99\n"},
 ]);
 
+final now = DateTime.now();
+
 final List<TicketTypeEntity> sampleTickets = List.generate(
   10,
   (i) => TicketTypeEntity(
@@ -61,5 +63,7 @@ final List<TicketTypeEntity> sampleTickets = List.generate(
     refundPolicyId: 'RF-${i + 1}',
     reschedulePolicyId: 'RS-${i + 1}',
     redemptionMethodDesc: redemptionMethodDesc,
+    createdAt: now.add(Duration(days: i)),
+    expiredAt: now.add(Duration(days: Random().nextInt(20) + 10)),
   ),
 );

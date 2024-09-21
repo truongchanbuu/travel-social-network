@@ -16,7 +16,7 @@ class ToursGridView extends StatefulWidget {
 }
 
 class _ToursGridViewState extends State<ToursGridView> {
-  late final List<TourEntity> recommendedTours;
+  List<TourEntity> recommendedTours = List.empty(growable: true);
 
   @override
   void initState() {

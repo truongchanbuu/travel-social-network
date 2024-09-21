@@ -5,10 +5,13 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 
 class AvailableDateList extends StatefulWidget {
+  final List<DateTime> availableDates;
   final DateTime? selectedDate;
   final void Function(DateTime? date) onSelectDate;
+
   const AvailableDateList({
     super.key,
+    required this.availableDates,
     required this.onSelectDate,
     this.selectedDate,
   });
@@ -28,15 +31,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    availableDates = [
-      DateTime(2024, 10, 10),
-      DateTime(2024, 10, 15),
-      DateTime(2024, 10, 22),
-      DateTime(2024, 11, 1),
-      DateTime(2024, 11, 5),
-      DateTime(2024, 12, 6),
-      DateTime(2024, 12, 9),
-    ];
+    availableDates = widget.availableDates;
 
     if (widget.selectedDate != null) {
       WidgetsFlutterBinding.ensureInitialized()
@@ -52,10 +47,14 @@ class _AvailableDateListState extends State<AvailableDateList> {
 
   void _scrollToDate() {
     if (widget.selectedDate == null) return;
-    int itemIndex = availableDates.indexOf(widget.selectedDate!);
+    int itemIndex = availableDates
+        .map(DateTimeUtils.formatFullDate)
+        .toList()
+        .indexOf(DateTimeUtils.formatFullDate(widget.selectedDate!));
     if (itemIndex == -1) return;
 
     double position = itemIndex * _itemWidth;
+    print(position);
 
     _scrollController.animateTo(
       position,
@@ -111,7 +110,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
   Widget _buildAvailableDate() {
     return Expanded(
       child: LayoutBuilder(builder: (context, constraints) {
-        _itemWidth = (constraints.maxWidth / availableDates.length + (2 * 10))
+        _itemWidth = ((constraints.maxWidth / availableDates.length) + (2 * 20))
             .ceil()
             .toDouble();
 
@@ -165,7 +164,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
               ),
             ),
             Text(
-              DateTimeUtils.formatDate(date),
+              DateTimeUtils.formatDayAndMonth(date),
               style: TextStyle(
                 color: isSameDate ? primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,
@@ -178,17 +177,26 @@ class _AvailableDateListState extends State<AvailableDateList> {
   }
 
   void _showDatePicker() async {
+    final DateTime nearestDate = availableDates.reduce(
+        (currentDate, nextDate) =>
+            currentDate.isBefore(nextDate) ? currentDate : nextDate);
+    final DateTime furthestDate = availableDates.reduce(
+        (currentDate, nextDate) =>
+            currentDate.isAfter(nextDate) ? currentDate : nextDate);
+
     var selectedDate = await showCalendarDatePicker2Dialog(
       context: context,
       config: CalendarDatePicker2WithActionButtonsConfig(
         allowSameValueSelection: false,
         currentDate: widget.selectedDate,
-        firstDate: availableDates.first,
-        lastDate: availableDates.last,
+        firstDate: nearestDate,
+        lastDate: furthestDate,
         calendarViewMode: CalendarDatePicker2Mode.day,
         calendarType: CalendarDatePicker2Type.single,
         selectedDayHighlightColor: primaryColor,
-        selectableDayPredicate: (day) => availableDates.contains(day),
+        selectableDayPredicate: (day) => !availableDates.contains(day),
+        selectedDayTextStyle:
+            const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
       ),
       dialogSize: Size(MediaQuery.of(context).size.width,
           MediaQuery.of(context).size.height * 0.5),

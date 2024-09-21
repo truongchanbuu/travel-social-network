@@ -2,15 +2,19 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/ticket_type.dart';
 import 'ticket_item.dart';
 
 class TicketGridView extends StatelessWidget {
-  final List<String> tickets;
+  final List<TicketTypeEntity> tickets;
   final bool scrollable;
+  final Widget Function(int index)? itemBuilder;
+
   const TicketGridView({
     super.key,
     required this.tickets,
     this.scrollable = false,
+    this.itemBuilder,
   });
 
   static const double spacing = 10;
@@ -35,8 +39,9 @@ class TicketGridView extends StatelessWidget {
               maxCrossAxisExtent: maxCrossAxisExtent,
               mainAxisExtent: itemHeight,
             ),
-            itemBuilder: (context, index) =>
-                RepaintBoundary(child: TicketItem(ticketId: tickets[index])),
+            itemBuilder: (context, index) => RepaintBoundary(
+              child: TicketItem(ticketId: tickets[index].ticketTypeId),
+            ),
             itemCount: scrollable ? tickets.length : columns * rows,
             physics: !scrollable ? const NeverScrollableScrollPhysics() : null,
           ),

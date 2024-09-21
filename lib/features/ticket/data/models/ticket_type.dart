@@ -20,6 +20,9 @@ class TicketType extends TicketTypeEntity {
     required super.refundPolicyId,
     required super.reschedulePolicyId,
     required super.redemptionMethodDesc,
+    required super.createdAt,
+    super.updatedAt,
+    required super.expiredAt,
   });
 
   TicketType copyWith({
@@ -34,6 +37,9 @@ class TicketType extends TicketTypeEntity {
     String? refundPolicyId,
     String? reschedulePolicyId,
     String? redemptionMethodDesc,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? expiredAt,
   }) {
     return TicketType(
       ticketTypeId: ticketTypeId ?? this.ticketTypeId,
@@ -47,6 +53,9 @@ class TicketType extends TicketTypeEntity {
       refundPolicyId: refundPolicyId ?? this.refundPolicyId,
       reschedulePolicyId: reschedulePolicyId ?? this.reschedulePolicyId,
       redemptionMethodDesc: redemptionMethodDesc ?? this.redemptionMethodDesc,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      expiredAt: expiredAt ?? this.expiredAt,
     );
   }
 
@@ -63,6 +72,9 @@ class TicketType extends TicketTypeEntity {
       refundPolicyId: refundPolicyId,
       reschedulePolicyId: reschedulePolicyId,
       redemptionMethodDesc: redemptionMethodDesc,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      expiredAt: expiredAt,
     );
   }
 
@@ -79,6 +91,9 @@ class TicketType extends TicketTypeEntity {
       refundPolicyId: entity.refundPolicyId,
       reschedulePolicyId: entity.reschedulePolicyId,
       redemptionMethodDesc: entity.redemptionMethodDesc,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+      expiredAt: entity.expiredAt,
     );
   }
 
@@ -95,6 +110,9 @@ class TicketType extends TicketTypeEntity {
       "refundPolicyId": refundPolicyId,
       "reschedulePolicyId": reschedulePolicyId,
       "redemptionMethodDesc": redemptionMethodDesc,
+      "createdAt": createdAt,
+      "updatedAt": updatedAt,
+      "expiredAt": expiredAt,
     };
   }
 
@@ -111,6 +129,9 @@ class TicketType extends TicketTypeEntity {
       refundPolicyId: map["refundPolicyId"],
       reschedulePolicyId: map["reschedulePolicyId"],
       redemptionMethodDesc: map["redemptionMethodDesc"],
+      createdAt: DateTime.tryParse(map['createdAt']) ?? DateTime.now(),
+      updatedAt: DateTime.tryParse(map['updatedAt']),
+      expiredAt: DateTime.parse(map['expiredAt']),
     );
   }
 

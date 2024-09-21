@@ -4,6 +4,7 @@ import 'package:travel_social_network/cores/constants/tickets.dart';
 import '../../../../../cores/constants/constants.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../pages/ticket_detail_page.dart';
+import 'ticket_brief_info.dart';
 
 class TicketItem extends StatefulWidget {
   final String ticketId;
@@ -14,12 +15,12 @@ class TicketItem extends StatefulWidget {
 }
 
 class _TicketItemState extends State<TicketItem> {
-  late final TicketTypeEntity ticketType;
+  late final TicketTypeEntity ticket;
 
   @override
   void initState() {
     super.initState();
-    ticketType = sampleTickets
+    ticket = sampleTickets
         .where((ticket) => ticket.ticketTypeId == widget.ticketId)
         .first;
   }
@@ -31,7 +32,7 @@ class _TicketItemState extends State<TicketItem> {
     return GestureDetector(
       onTap: () => _showDetailTicketPage(context),
       child: Container(
-        key: ValueKey('TICKET-${ticketType.tourId}-${ticketType.ticketTypeId}'),
+        key: ValueKey('TICKET-${ticket.tourId}-${ticket.ticketTypeId}'),
         width: ticketItemWidth,
         margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
         decoration: BoxDecoration(
@@ -43,29 +44,11 @@ class _TicketItemState extends State<TicketItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${ticketType.ticketTypeName} - For ${ticketType.category.name.toUpperCase()}',
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              ),
-              maxLines: 2,
-              textDirection: defaultTextDirection,
-              overflow: defaultTextOverflow,
+            TicketBriefInfo(
+              ticketName: ticket.ticketTypeName,
+              ticketCategory: ticket.category.name.toUpperCase(),
+              ticketDescription: ticket.ticketDescription,
             ),
-            if (ticketType.ticketDescription.isNotEmpty)
-              Text(
-                ticketType.ticketDescription,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-                overflow: defaultTextOverflow,
-                textDirection: defaultTextDirection,
-                maxLines: 2,
-              ),
             const SizedBox(height: 5),
             const Text(
               'See detail',
@@ -84,9 +67,9 @@ class _TicketItemState extends State<TicketItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'VND ${ticketType.ticketPrice}',
+                    'VND ${ticket.ticketPrice}',
                     style: const TextStyle(
-                      color: Colors.deepOrangeAccent,
+                      color: currencyTextColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),

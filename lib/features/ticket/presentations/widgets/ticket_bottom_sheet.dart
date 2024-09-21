@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../../tour/presentation/widgets/tour_bottom_sheet_template.dart';
+import '../../domain/entities/ticket_type.dart';
 import 'available_date_list.dart';
 import 'ticket_grid_view.dart';
 
 class TicketBottomSheet extends StatefulWidget {
-  final List<String> tickets;
+  final List<TicketTypeEntity> tickets;
   final DateTime? selectedDate;
+  final List<DateTime> availableDates;
+
   final void Function(DateTime? date) onSelectDate;
   const TicketBottomSheet({
     super.key,
     required this.tickets,
     required this.onSelectDate,
+    required this.availableDates,
     this.selectedDate,
   });
 
@@ -21,11 +25,13 @@ class TicketBottomSheet extends StatefulWidget {
 
 class _TicketBottomSheetState extends State<TicketBottomSheet> {
   DateTime? selectedDate;
+  List<DateTime> availableDates = List.empty(growable: true);
 
   @override
   void initState() {
     super.initState();
     selectedDate = widget.selectedDate;
+    availableDates = widget.availableDates;
   }
 
   @override
@@ -36,6 +42,7 @@ class _TicketBottomSheetState extends State<TicketBottomSheet> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: AvailableDateList(
+            availableDates: availableDates,
             onSelectDate: (date) {
               widget.onSelectDate(date);
               setState(() {

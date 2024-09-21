@@ -32,11 +32,14 @@ class DateTimeUtils {
         GetTimeAgo.setCustomLocaleMessages('vi', VietnameseMessages());
         return GetTimeAgo.parse(date, locale: 'vi');
       default:
-        return formatDate(date);
+        return formatDayAndMonth(date);
     }
   }
 
-  static String formatDate(DateTime date, [String languageCode = 'en']) {
+  static String formatFullDate(DateTime date, [String languageCode = 'en']) =>
+      DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY).format(date);
+
+  static String formatDayAndMonth(DateTime date, [String languageCode = 'en']) {
     DateFormat vietnameseFormat = DateFormat('d \'thg\' M');
     DateFormat englishFormat = DateFormat('dd MMM');
 

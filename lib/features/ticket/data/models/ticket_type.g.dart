@@ -18,6 +18,11 @@ TicketType _$TicketTypeFromJson(Map<String, dynamic> json) => TicketType(
       refundPolicyId: json['refundPolicyId'] as String,
       reschedulePolicyId: json['reschedulePolicyId'] as String,
       redemptionMethodDesc: json['redemptionMethodDesc'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
+      expiredAt: DateTime.parse(json['expiredAt'] as String),
     );
 
 Map<String, dynamic> _$TicketTypeToJson(TicketType instance) =>
@@ -27,12 +32,15 @@ Map<String, dynamic> _$TicketTypeToJson(TicketType instance) =>
       'tourId': instance.tourId,
       'ticketPrice': instance.ticketPrice,
       'ticketDescription': instance.ticketDescription,
+      'expiredAt': instance.expiredAt.toIso8601String(),
       'category': _$TicketCategoryEnumMap[instance.category]!,
       'quantity': instance.quantity,
       'ticketInfo': instance.ticketInfo,
       'redemptionMethodDesc': instance.redemptionMethodDesc,
       'refundPolicyId': instance.refundPolicyId,
       'reschedulePolicyId': instance.reschedulePolicyId,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
     };
 
 const _$TicketCategoryEnumMap = {

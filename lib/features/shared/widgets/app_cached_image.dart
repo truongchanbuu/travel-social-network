@@ -11,6 +11,8 @@ class AppCachedImage extends StatelessWidget {
   final String? loadingSemanticLabel;
   final double loadingIndicatorSize;
   final double? errorImageSize;
+  final double? width;
+  final double? height;
 
   const AppCachedImage({
     super.key,
@@ -20,11 +22,15 @@ class AppCachedImage extends StatelessWidget {
     this.loadingSemanticLabel,
     this.loadingIndicatorSize = 50,
     this.errorImageSize,
+    this.width,
+    this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
+      width: width,
+      height: height,
       imageUrl: imageUrl,
       fit: BoxFit.cover,
       alignment: Alignment.center,

@@ -24,7 +24,7 @@ class ReviewItem extends StatelessWidget {
 
   String _getFormattedDateTime(DateTime date) => DateTimeUtils.isToday(date)
       ? DateTimeUtils.getTimeAgo(date)
-      : DateTimeUtils.formatDate(date);
+      : DateTimeUtils.formatDayAndMonth(date);
 
   @override
   Widget build(BuildContext context) {

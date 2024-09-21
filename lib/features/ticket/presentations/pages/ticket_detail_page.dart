@@ -4,17 +4,21 @@ import 'package:travel_social_network/cores/constants/policies.dart';
 import 'package:travel_social_network/cores/constants/tickets.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/date_time_utils.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../shared/widgets/detail_section_container.dart';
-import '../../../shared/widgets/detail_section_spacer.dart';
 import '../../../shared/widgets/quill_content.dart';
 import '../../domain/entities/policy.dart';
 import '../../domain/entities/ticket_type.dart';
+import '../widgets/ticket_brief_info.dart';
 import '../widgets/ticket_page_app_bar.dart';
 
 class TicketDetailPage extends StatefulWidget {
   final String ticketId;
-  const TicketDetailPage({super.key, required this.ticketId});
+  final DateTime? selectedDate;
+
+  const TicketDetailPage(
+      {super.key, required this.ticketId, this.selectedDate});
 
   @override
   State<TicketDetailPage> createState() => _TicketDetailPageState();
@@ -29,6 +33,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   late final PolicyEntity reschedulePolicy;
 
   bool _isVisible = false;
+  DateTime? selectedDate;
 
   @override
   void initState() {
@@ -50,6 +55,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       'redemption': true,
       'policy': true,
     };
+    selectedDate = widget.selectedDate;
   }
 
   @override
@@ -83,15 +89,18 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             isVisible: _isVisible,
             expandedHeight: ticketDetailPageExpandedAppBarHeight,
           ),
-          const DetailSectionSpacer(),
           _buildBriefInfo(),
           _buildPriceSection(),
           _buildDetailSections()
         ],
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(top: BorderSide(width: 0.5, color: Colors.grey)),
+        ),
         padding: const EdgeInsets.all(defaultPadding),
         child: ElevatedButton(
+          // TODO: pop -> push
           onPressed: () {},
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
@@ -113,25 +122,19 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
     );
   }
 
+  Widget _buildBriefInfo() => DetailSectionContainer(
+        isPadding: false,
+        child: TicketBriefInfo(
+          ticketName: ticket.ticketTypeName,
+          ticketCategory: ticket.category.name.toUpperCase(),
+          ticketDescription: ticket.ticketDescription,
+        ),
+      );
+
   Widget _buildDetailSections() {
     return SliverToBoxAdapter(
       child: ExpansionPanelList(
-        expansionCallback: (panelIndex, isExpanded) => setState(() {
-          switch (panelIndex) {
-            case 0:
-              sectionExpandedMap['about'] = isExpanded;
-              break;
-            case 1:
-              sectionExpandedMap['expiration'] = isExpanded;
-              break;
-            case 2:
-              sectionExpandedMap['redemption'] = isExpanded;
-              break;
-            case 3:
-              sectionExpandedMap['policy'] = isExpanded;
-              break;
-          }
-        }),
+        expansionCallback: _setExpandedState,
         expandedHeaderPadding: EdgeInsets.zero,
         children: [
           _buildAboutTicket(),
@@ -142,35 +145,6 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       ),
     );
   }
-
-  Widget _buildBriefInfo() => DetailSectionContainer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${ticket.ticketTypeName} - For ${ticket.category.name.toUpperCase()}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-              textDirection: defaultTextDirection,
-              overflow: defaultTextOverflow,
-              maxLines: 2,
-            ),
-            Text(
-              ticket.ticketDescription,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-              textDirection: defaultTextDirection,
-              overflow: defaultTextOverflow,
-              maxLines: 2,
-            )
-          ],
-        ),
-      );
 
   Widget _buildPriceSection() => DetailSectionContainer(
         child: Container(
@@ -204,29 +178,45 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         isExpanded: sectionExpandedMap['about'] ?? true,
       );
 
-  ExpansionPanel _buildVoucherExpiration() => ExpansionPanel(
-        backgroundColor: backGroundExpansionItemColor,
-        headerBuilder: (context, isExpanded) =>
-            const DetailHeadingText(title: 'Voucher Expiration'),
-        canTapOnHeader: true,
-        body: const ListTile(
-          leading: Icon(
-            Icons.calendar_month,
-            color: subtitleTicketDetailColor,
-          ),
-          title: Text(
-            'Use on selected visit day',
-            style: TextStyle(
-              color: subtitleTicketDetailColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-            overflow: defaultTextOverflow,
-            textDirection: defaultTextDirection,
-          ),
+  ExpansionPanel _buildVoucherExpiration() {
+    const double fontSize = 14;
+    return ExpansionPanel(
+      backgroundColor: backGroundExpansionItemColor,
+      headerBuilder: (context, isExpanded) =>
+          const DetailHeadingText(title: 'Voucher Expiration'),
+      canTapOnHeader: true,
+      body: ListTile(
+        leading: const Icon(
+          Icons.calendar_month,
+          color: subtitleTicketDetailColor,
         ),
-        isExpanded: sectionExpandedMap['expiration'] ?? true,
-      );
+        title: RichText(
+          overflow: defaultTextOverflow,
+          textDirection: defaultTextDirection,
+          text: TextSpan(children: [
+            const TextSpan(
+              text: 'Available to use on ',
+              style: TextStyle(
+                color: subtitleTicketDetailColor,
+                fontSize: fontSize,
+              ),
+            ),
+            TextSpan(
+              text: selectedDate == null
+                  ? 'visit date'
+                  : DateTimeUtils.formatFullDate(selectedDate!),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: fontSize,
+                color: subtitleTicketDetailColor,
+              ),
+            ),
+          ]),
+        ),
+      ),
+      isExpanded: sectionExpandedMap['expiration'] ?? true,
+    );
+  }
 
   ExpansionPanel _buildRedemptionMethod() => ExpansionPanel(
         backgroundColor: backGroundExpansionItemColor,
@@ -301,4 +291,21 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       subtitle: Text(subtitle),
     );
   }
+
+  void _setExpandedState(int index, bool isExpanded) => setState(() {
+        switch (index) {
+          case 0:
+            sectionExpandedMap['about'] = isExpanded;
+            break;
+          case 1:
+            sectionExpandedMap['expiration'] = isExpanded;
+            break;
+          case 2:
+            sectionExpandedMap['redemption'] = isExpanded;
+            break;
+          case 3:
+            sectionExpandedMap['policy'] = isExpanded;
+            break;
+        }
+      });
 }

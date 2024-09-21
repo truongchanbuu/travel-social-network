@@ -10,6 +10,7 @@ const Color textButtonColor = Colors.white;
 Color scaffoldBackgroundColor = Colors.grey.shade200;
 const Color backGroundExpansionItemColor = Colors.white;
 const Color subtitleTicketDetailColor = Colors.amber;
+const Color currencyTextColor = Colors.orange;
 
 // Border Radius
 const BorderRadius inputFieldBorderRadius =

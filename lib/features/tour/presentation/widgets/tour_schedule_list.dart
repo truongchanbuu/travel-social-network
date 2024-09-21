@@ -22,7 +22,7 @@ class TourScheduleList extends StatefulWidget {
 }
 
 class _TourScheduleListState extends State<TourScheduleList> {
-  late final List<TourScheduleEntity> schedules;
+  List<TourScheduleEntity> schedules = List.empty(growable: true);
 
   @override
   void initState() {
