@@ -1,0 +1,4 @@
+enum PolicyType {
+  refund,
+  reschedule,
+}

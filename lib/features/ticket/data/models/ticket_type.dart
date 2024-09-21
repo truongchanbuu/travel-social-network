@@ -17,6 +17,9 @@ class TicketType extends TicketTypeEntity {
     required super.category,
     required super.quantity,
     required super.ticketInfo,
+    required super.refundPolicyId,
+    required super.reschedulePolicyId,
+    required super.redemptionMethodDesc,
   });
 
   TicketType copyWith({
@@ -28,6 +31,9 @@ class TicketType extends TicketTypeEntity {
     TicketCategory? category,
     int? quantity,
     String? ticketInfo,
+    String? refundPolicyId,
+    String? reschedulePolicyId,
+    String? redemptionMethodDesc,
   }) {
     return TicketType(
       ticketTypeId: ticketTypeId ?? this.ticketTypeId,
@@ -38,6 +44,9 @@ class TicketType extends TicketTypeEntity {
       category: category ?? this.category,
       quantity: quantity ?? this.quantity,
       ticketInfo: ticketInfo ?? this.ticketInfo,
+      refundPolicyId: refundPolicyId ?? this.refundPolicyId,
+      reschedulePolicyId: reschedulePolicyId ?? this.reschedulePolicyId,
+      redemptionMethodDesc: redemptionMethodDesc ?? this.redemptionMethodDesc,
     );
   }
 
@@ -51,6 +60,9 @@ class TicketType extends TicketTypeEntity {
       category: category,
       quantity: quantity,
       ticketInfo: ticketInfo,
+      refundPolicyId: refundPolicyId,
+      reschedulePolicyId: reschedulePolicyId,
+      redemptionMethodDesc: redemptionMethodDesc,
     );
   }
 
@@ -64,6 +76,9 @@ class TicketType extends TicketTypeEntity {
       category: entity.category,
       quantity: entity.quantity,
       ticketInfo: entity.ticketInfo,
+      refundPolicyId: entity.refundPolicyId,
+      reschedulePolicyId: entity.reschedulePolicyId,
+      redemptionMethodDesc: entity.redemptionMethodDesc,
     );
   }
 
@@ -77,6 +92,9 @@ class TicketType extends TicketTypeEntity {
       "category": category.name,
       "quantity": quantity,
       "ticketInfo": ticketInfo,
+      "refundPolicyId": refundPolicyId,
+      "reschedulePolicyId": reschedulePolicyId,
+      "redemptionMethodDesc": redemptionMethodDesc,
     };
   }
 
@@ -90,6 +108,9 @@ class TicketType extends TicketTypeEntity {
       category: stringToEnum(map["category"], TicketCategory.values),
       quantity: map["quantity"]?.toInt(),
       ticketInfo: map["ticketInfo"],
+      refundPolicyId: map["refundPolicyId"],
+      reschedulePolicyId: map["reschedulePolicyId"],
+      redemptionMethodDesc: map["redemptionMethodDesc"],
     );
   }
 

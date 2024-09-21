@@ -15,6 +15,9 @@ TicketType _$TicketTypeFromJson(Map<String, dynamic> json) => TicketType(
       category: $enumDecode(_$TicketCategoryEnumMap, json['category']),
       quantity: (json['quantity'] as num).toInt(),
       ticketInfo: json['ticketInfo'] as String,
+      refundPolicyId: json['refundPolicyId'] as String,
+      reschedulePolicyId: json['reschedulePolicyId'] as String,
+      redemptionMethodDesc: json['redemptionMethodDesc'] as String,
     );
 
 Map<String, dynamic> _$TicketTypeToJson(TicketType instance) =>
@@ -27,6 +30,9 @@ Map<String, dynamic> _$TicketTypeToJson(TicketType instance) =>
       'category': _$TicketCategoryEnumMap[instance.category]!,
       'quantity': instance.quantity,
       'ticketInfo': instance.ticketInfo,
+      'redemptionMethodDesc': instance.redemptionMethodDesc,
+      'refundPolicyId': instance.refundPolicyId,
+      'reschedulePolicyId': instance.reschedulePolicyId,
     };
 
 const _$TicketCategoryEnumMap = {

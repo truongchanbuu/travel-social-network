@@ -13,6 +13,9 @@ class TicketTypeEntity extends Equatable {
   final TicketCategory category;
   final int quantity;
   final String ticketInfo;
+  final String redemptionMethodDesc;
+  final String refundPolicyId;
+  final String reschedulePolicyId;
 
   const TicketTypeEntity({
     required this.ticketTypeId,
@@ -23,6 +26,9 @@ class TicketTypeEntity extends Equatable {
     required this.category,
     required this.quantity,
     required this.ticketInfo,
+    required this.redemptionMethodDesc,
+    required this.refundPolicyId,
+    required this.reschedulePolicyId,
   });
 
   @override
@@ -36,6 +42,9 @@ class TicketTypeEntity extends Equatable {
       category,
       quantity,
       ticketInfo,
+      redemptionMethodDesc,
+      refundPolicyId,
+      reschedulePolicyId,
     ];
   }
 }
