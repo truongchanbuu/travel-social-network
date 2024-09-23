@@ -105,7 +105,10 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
         ),
       ),
       flexibleSpace: FlexibleSpaceBar(
-        background: TourDetailThumb(tourId: tour.tourId),
+        background: IgnorePointer(
+          ignoring: titleColor != Colors.white,
+          child: TourDetailThumb(tourId: tour.tourId),
+        ),
       ),
     );
   }

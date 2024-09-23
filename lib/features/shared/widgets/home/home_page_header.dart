@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../badge_notification.dart';
 
@@ -39,7 +40,7 @@ class HomePageHeader extends StatelessWidget {
           ),
         ),
         const Padding(
-          padding: EdgeInsets.only(left: 10.0),
+          padding: EdgeInsets.only(left: defaultPadding),
           child: BadgeNotification(badges: 10),
         ),
       ],

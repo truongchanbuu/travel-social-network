@@ -11,6 +11,7 @@ import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
 import './firebase_options.dart';
 import './injection_container.dart';
+import 'features/shared/pages/home/home_page.dart';
 import 'features/shared/widgets/app_bottom_navigation_bar.dart';
 import 'features/shared/widgets/item_counter.dart';
 
@@ -26,9 +27,9 @@ class MyApp extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           bottomNavigationBar: AppBottomNavigationBar(),
-          body:
-              // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
-              TourDetailPage(tourId: generateSampleTours()[0].tourId),
+          body: HomePage(),
+          // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
+          // TourDetailPage(tourId: generateSampleTours()[0].tourId),
           // TicketDetailPage(ticketId: tour1Tickets[0].ticketTypeId),
           // AddTicketTypeItem(ticket: tour1Tickets.first),
         ),

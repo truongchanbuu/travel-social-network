@@ -18,7 +18,7 @@ class HomeAppBar extends StatelessWidget {
           pinned: true,
           backgroundColor: Colors.white,
           expandedHeight: appBarHeight,
-          collapsedHeight: kToolbarHeight + 40,
+          collapsedHeight: kToolbarHeight + 30,
           flexibleSpace: FlexibleSpaceBar(
             title: _buildSearchBox(context),
             centerTitle: true,
@@ -29,21 +29,6 @@ class HomeAppBar extends StatelessWidget {
         );
       },
     );
-  }
-
-  double _calculateAppBarHeight(double width) {
-    switch (width) {
-      case double w when w > 500:
-        return 150;
-      case double w when w > 350:
-        return 170;
-      case double w when w >= 250:
-        return 180;
-      case double w when w >= 225:
-        return 200;
-      default:
-        return 230;
-    }
   }
 
   Widget _buildSearchBox(BuildContext context) {
@@ -72,8 +57,8 @@ class HomeAppBar extends StatelessWidget {
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
+            SizedBox(height: defaultPadding),
             HomePageHeader(username: 'Buu Truong'),
-            SizedBox(height: 10),
           ],
         ),
       ),
@@ -99,5 +84,20 @@ class HomeAppBar extends StatelessWidget {
         );
       },
     );
+  }
+
+  double _calculateAppBarHeight(double width) {
+    switch (width) {
+      case double w when w > 500:
+        return 150;
+      case double w when w > 350:
+        return 170;
+      case double w when w >= 250:
+        return 180;
+      case double w when w >= 225:
+        return 200;
+      default:
+        return 230;
+    }
   }
 }

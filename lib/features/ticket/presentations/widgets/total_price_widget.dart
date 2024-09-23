@@ -44,7 +44,10 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildTotalPrice(),
-        if (_isPopUp) _buildSelectedTicketDetailList(),
+        if (_isPopUp) ...[
+          _buildSelectedTicketDetailList(),
+          const SizedBox(height: 10),
+        ],
         _buildBookingButton(),
       ],
     );

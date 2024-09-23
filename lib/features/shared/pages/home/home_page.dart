@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../widgets/unsupported_screen.dart';
 import '../../widgets/home/destination_list.dart';
 import '../../widgets/home/home_app_bar.dart';
@@ -17,7 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    const double padding = 20;
     return Scaffold(
       floatingActionButton: const HomePageFloatingActionButton(),
       body: LayoutBuilder(
@@ -31,10 +31,10 @@ class _HomePageState extends State<HomePage> {
               HomeAppBar(),
               HomepageSectionHeading(
                 title: 'Popular Destinations',
-                padding: padding,
+                padding: defaultPadding,
               ),
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: padding),
+                padding: EdgeInsets.symmetric(horizontal: defaultPadding),
                 sliver: SliverToBoxAdapter(
                   child: SizedBox(
                     width: double.infinity,
@@ -46,10 +46,10 @@ class _HomePageState extends State<HomePage> {
               SliverToBoxAdapter(child: SizedBox(height: 20)),
               HomepageSectionHeading(
                 title: 'Recommended Tours',
-                padding: padding,
+                padding: defaultPadding,
               ),
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: padding),
+                padding: EdgeInsets.symmetric(horizontal: defaultPadding),
                 sliver: ToursGridView(),
               ),
             ],

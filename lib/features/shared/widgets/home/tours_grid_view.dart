@@ -6,6 +6,7 @@ import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../tour/domain/entities/tour.dart';
+import '../../../tour/presentation/pages/tour_detail_page.dart';
 import '../app_cached_image.dart';
 
 class ToursGridView extends StatefulWidget {
@@ -24,59 +25,55 @@ class _ToursGridViewState extends State<ToursGridView> {
     recommendedTours = generateSampleTours();
   }
 
+  static const double borderRadius = 10;
+
   @override
   Widget build(BuildContext context) {
-    return SliverLayoutBuilder(
-      builder: (context, constraints) {
-        final isNarrow = constraints.crossAxisExtent <= 350;
-        final crossAxisCount = isNarrow ? 1 : 2;
+    final double screenWidth = MediaQuery.of(context).size.width;
 
-        return SliverMasonryGrid.count(
-          crossAxisCount: crossAxisCount,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          childCount: recommendedTours.length,
-          itemBuilder: (context, index) => _buildTourItem(
-            tour: recommendedTours[index],
-            height:
-                isNarrow ? 300 : tourItemSizes[index % tourItemSizes.length],
-            isNarrow: isNarrow,
-          ),
-        );
-      },
+    int crossAxisCount = min(screenWidth ~/ 200, maxItemCount);
+
+    return SliverMasonryGrid.count(
+      crossAxisCount: crossAxisCount,
+      mainAxisSpacing: 20,
+      crossAxisSpacing: 20,
+      childCount: recommendedTours.length,
+      itemBuilder: (context, index) => _buildTourItem(
+        tour: recommendedTours[index],
+        height: crossAxisCount == 1
+            ? recommendedTourItemSize
+            : tourItemSizes[index % tourItemSizes.length],
+      ),
     );
   }
 
-  Widget _buildTourItem({
-    required TourEntity tour,
-    required double height,
-    required bool isNarrow,
-  }) {
-    const double borderRadius = 10;
-
+  Widget _buildTourItem({required TourEntity tour, required double height}) {
     return Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(borderRadius),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Container(
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
-        child: GridTile(
-          footer: _buildFooter(tour.tourName, borderRadius),
-          child: _buildImage(tour, height),
+      child: GestureDetector(
+        onTap: () => _navigateToTourDetail(tour.tourId),
+        child: Container(
+          height: height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: GridTile(
+            footer: _buildFooter(tour.tourName),
+            child: _buildImage(tour),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildFooter(String tourName, double borderRadius) {
+  Widget _buildFooter(String tourName) {
     return Container(
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.3),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(borderRadius),
           bottomRight: Radius.circular(borderRadius),
         ),
@@ -93,11 +90,18 @@ class _ToursGridViewState extends State<ToursGridView> {
     );
   }
 
-  Widget _buildImage(TourEntity tour, double height) => AppCachedImage(
+  Widget _buildImage(TourEntity tour) => AppCachedImage(
         imageUrl: tour.imageUrls[Random().nextInt(tour.imageUrls.length)],
         cacheKey: tour.tourId,
         loadingSemanticLabel:
             'Loading thumb for tour with name ${tour.tourName}',
         errorSemanticLabel: 'Thumb of ${tour.tourName} tour',
+      );
+
+  void _navigateToTourDetail(String tourId) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TourDetailPage(tourId: tourId),
+        ),
       );
 }

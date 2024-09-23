@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
+
 class DestinationItem extends StatelessWidget {
   final String imageUrl;
   final String name;
@@ -28,9 +30,11 @@ class DestinationItem extends StatelessWidget {
             ),
           ),
         ),
-        child: Card(
-          elevation: 10,
-          shadowColor: Colors.grey,
+        child: Container(
+          decoration: BoxDecoration(
+            boxShadow: [detailSectionBoxShadow],
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image(
             width: width,
@@ -40,9 +44,7 @@ class DestinationItem extends StatelessWidget {
             errorBuilder: (context, error, stackTrace) => const SizedBox(
               width: width,
               height: height,
-              child: Center(
-                child: Icon(Icons.image),
-              ),
+              child: Center(child: Icon(Icons.image)),
             ),
           ),
         ),

@@ -41,6 +41,8 @@ class TicketItem extends StatelessWidget {
               ticketName: ticket.ticketTypeName,
               ticketCategory: ticket.category.name.toUpperCase(),
               ticketDescription: ticket.ticketDescription,
+              titleFontSize: 16,
+              subtitleFontSize: 13,
               isPaddingTitle: false,
             ),
             const SizedBox(height: 5),
@@ -49,7 +51,7 @@ class TicketItem extends StatelessWidget {
               style: TextStyle(
                 color: primaryColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 12,
               ),
             ),
             const Divider(color: Colors.grey, thickness: 0.5),
@@ -65,7 +67,7 @@ class TicketItem extends StatelessWidget {
                     style: const TextStyle(
                       color: currencyTextColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 14,
+                      fontSize: 16,
                     ),
                   ),
                   if (!isOverflowed) _buildSelectButton(context),

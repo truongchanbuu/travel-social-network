@@ -151,7 +151,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
             TicketGridView(
               tickets: tickets,
               itemBuilder: (BuildContext context, int index) => TicketItem(
-                  ticket: tickets[index], selectedDate: selectedDate),
+                ticket: tickets[index],
+                selectedDate: selectedDate,
+              ),
             ),
             const SizedBox(height: 10),
             Padding(

@@ -69,6 +69,8 @@ const List<double> tourItemSizes = [
   450,
   500
 ];
+const double recommendedTourItemSize = 250;
+const int maxItemCount = 4;
 
 // Item
 const int maxReviewItem = 7;
