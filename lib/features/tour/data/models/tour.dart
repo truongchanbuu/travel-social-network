@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../ticket/data/models/ticket_type.dart';
@@ -18,8 +17,7 @@ class Tour extends TourEntity {
     required super.departure,
     required super.destination,
     required super.duration,
-    required super.startedDate,
-    required super.endDate,
+    required super.startDates,
     required super.rating,
   }) : super(tickets: tickets.map((ticket) => ticket.toEntity()).toList());
 
@@ -33,8 +31,7 @@ class Tour extends TourEntity {
     String? departure,
     String? destination,
     int? duration,
-    DateTime? startedDate,
-    DateTime? endDate,
+    List<DateTime>? startDates,
     double? rating,
   }) {
     return Tour(
@@ -47,8 +44,7 @@ class Tour extends TourEntity {
       departure: departure ?? this.departure,
       destination: destination ?? this.destination,
       duration: duration ?? this.duration,
-      startedDate: startedDate ?? this.startedDate,
-      endDate: endDate ?? this.endDate,
+      startDates: startDates ?? this.startDates,
       rating: rating ?? this.rating,
     );
   }
@@ -64,8 +60,7 @@ class Tour extends TourEntity {
       departure: departure,
       destination: destination,
       duration: duration,
-      startedDate: startedDate,
-      endDate: endDate,
+      startDates: startDates,
       rating: rating,
     );
   }
@@ -81,8 +76,7 @@ class Tour extends TourEntity {
       departure: entity.departure,
       destination: entity.destination,
       duration: entity.duration,
-      startedDate: entity.startedDate,
-      endDate: entity.endDate,
+      startDates: entity.startDates,
       rating: entity.rating,
     );
   }
@@ -98,8 +92,7 @@ class Tour extends TourEntity {
       "departure": departure,
       "destination": destination,
       "duration": duration,
-      "startedDate": startedDate.toUtc().toIso8601String(),
-      "endDate": endDate.toUtc().toIso8601String(),
+      "startDates": startDates,
       "rating": rating,
     };
   }
@@ -110,14 +103,12 @@ class Tour extends TourEntity {
       tourName: map["tourName"],
       tourDescription: map["tourDescription"],
       createdBy: map["createdBy"],
-      tickets: List<TicketType>.from(
-          map["tickets"].map((x) => TicketType.fromMap(x))),
+      tickets: List<TicketType>.from(map["tickets"].map(TicketType.fromMap)),
       imageUrls: List<String>.from(map["imageUrls"]),
       departure: map["departure"],
       destination: map["destination"],
       duration: map["duration"]?.toInt(),
-      startedDate: DateTime.parse(map["startedDate"]).toLocal(),
-      endDate: DateTime.parse(map["endDate"]).toLocal(),
+      startDates: map["startDates"],
       rating: map["rating"]?.toDouble(),
     );
   }
@@ -125,44 +116,4 @@ class Tour extends TourEntity {
   factory Tour.fromJson(Map<String, dynamic> json) => _$TourFromJson(json);
 
   Map<String, dynamic> toJson() => _$TourToJson(this);
-
-  @override
-  String toString() {
-    return "Tour(tourId: $tourId, tourName: $tourName, tourDescription: $tourDescription, createdBy: $createdBy, tickets: $tickets, imageUrls: $imageUrls, departure: $departure, destination: $destination, duration: $duration, startedDate: $startedDate, endDate: $endDate, rating: $rating)";
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Tour &&
-        other.tourId == tourId &&
-        other.tourName == tourName &&
-        other.tourDescription == tourDescription &&
-        other.createdBy == createdBy &&
-        listEquals(other.tickets, tickets) &&
-        listEquals(other.imageUrls, imageUrls) &&
-        other.departure == departure &&
-        other.destination == destination &&
-        other.duration == duration &&
-        other.startedDate == startedDate &&
-        other.endDate == endDate &&
-        other.rating == rating;
-  }
-
-  @override
-  int get hashCode {
-    return tourId.hashCode ^
-        tourName.hashCode ^
-        tourDescription.hashCode ^
-        createdBy.hashCode ^
-        tickets.hashCode ^
-        imageUrls.hashCode ^
-        departure.hashCode ^
-        destination.hashCode ^
-        duration.hashCode ^
-        startedDate.hashCode ^
-        endDate.hashCode ^
-        rating.hashCode;
-  }
 }

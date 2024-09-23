@@ -48,6 +48,13 @@ const double ticketItemWidth = 500;
 const double tourDetailPageExpandedAppBarHeight = 250;
 const double ticketDetailPageExpandedAppBarHeight = 250;
 const double imageIndicatorHeight = 80;
+const double dashLength = 10;
+
+// Icons
+const IconData refundableIcon = Icons.money;
+const IconData nonrefundableIcon = Icons.money_off;
+const IconData rescheduledIcon = Icons.event_available;
+const IconData noRescheduledIcon = Icons.event_busy;
 
 // Tour Item Size
 const List<double> tourItemSizes = [
@@ -65,7 +72,6 @@ const List<double> tourItemSizes = [
 
 // Item
 const int maxReviewItem = 7;
-
 const int minimumImageShowed = 5;
 
 // API

@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           bottomNavigationBar: AppBottomNavigationBar(),
           body:
-              // AddNumberVisitorPage(ticketId: sampleTickets.first.ticketTypeId),
-              // TourDetailPage(tourId: generateSampleTours()[0].tourId),
-              // TicketDetailPage(ticketId: sampleTickets[0].ticketTypeId),
-              AddTicketTypeItem(ticket: sampleTickets.first),
+              // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
+              TourDetailPage(tourId: generateSampleTours()[0].tourId),
+          // TicketDetailPage(ticketId: tour1Tickets[0].ticketTypeId),
+          // AddTicketTypeItem(ticket: tour1Tickets.first),
         ),
       ),
     );

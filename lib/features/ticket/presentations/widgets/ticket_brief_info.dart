@@ -4,30 +4,35 @@ import '../../../../cores/constants/constants.dart';
 
 class TicketBriefInfo extends StatelessWidget {
   final String ticketName;
-  final String ticketCategory;
+  final String? ticketCategory;
   final String ticketDescription;
   final double? titleFontSize;
   final double? subtitleFontSize;
   final Widget? leading;
   final Widget? trailing;
+  final bool isPaddingTitle;
 
   const TicketBriefInfo({
     super.key,
     required this.ticketName,
-    required this.ticketCategory,
+    this.ticketCategory,
     required this.ticketDescription,
     this.leading,
     this.trailing,
     this.titleFontSize,
     this.subtitleFontSize,
+    this.isPaddingTitle = true,
   });
 
   @override
   Widget build(BuildContext context) => ListTile(
         leading: leading,
+        contentPadding: isPaddingTitle ? null : EdgeInsets.zero,
         trailing: trailing,
         title: Text(
-          '$ticketName - For $ticketCategory',
+          ticketCategory?.isEmpty ?? true
+              ? ticketName
+              : '$ticketName - For $ticketCategory',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: titleFontSize ?? 18,

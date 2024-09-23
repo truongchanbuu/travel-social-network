@@ -107,21 +107,20 @@ List<TourEntity> generateSampleTours() {
   ]);
 
   return List.generate(50, (index) {
-    final startDate = DateTime.now().add(Duration(days: random.nextInt(365)));
+    final startDate =
+        List.generate(3, (i) => DateTime.now().add(Duration(days: i)));
     final duration = random.nextInt(10) + 1;
-    final endDate = startDate.add(Duration(days: duration));
 
     return TourEntity(
-      tourId: 'TOUR-1',
+      tourId: 'TOUR-$index',
       tourName: '${locations[random.nextInt(locations.length)]} $duration ngày',
       tourDescription: description,
       createdBy: ['BT', 'TCB', 'ABC'][Random().nextInt(3)],
       departure: locations[random.nextInt(locations.length)],
       destination: locations[random.nextInt(locations.length)],
       duration: duration,
-      tickets: sampleTickets,
-      startedDate: startDate,
-      endDate: endDate,
+      tickets: tour1Tickets,
+      startDates: startDate,
       rating: (random.nextInt(50) + 1) / 10, // 0.1 to 5.0
       imageUrls: const [
         'https://th.bing.com/th/id/OIP.wdbT6M2mBkQTu3dH7psDjgHaDs?rs=1&pid=ImgDetMain',

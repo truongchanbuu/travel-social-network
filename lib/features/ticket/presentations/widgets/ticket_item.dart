@@ -1,29 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/tickets.dart';
 
 import '../../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/currency_util.dart';
 import '../../domain/entities/ticket_type.dart';
+import '../pages/add_number_visitor_page.dart';
 import '../pages/ticket_detail_page.dart';
 import 'ticket_brief_info.dart';
 
-class TicketItem extends StatefulWidget {
-  final String ticketId;
-  const TicketItem({super.key, required this.ticketId});
+class TicketItem extends StatelessWidget {
+  final TicketTypeEntity ticket;
+  final DateTime? selectedDate;
 
-  @override
-  State<TicketItem> createState() => _TicketItemState();
-}
-
-class _TicketItemState extends State<TicketItem> {
-  late final TicketTypeEntity ticket;
-
-  @override
-  void initState() {
-    super.initState();
-    ticket = sampleTickets
-        .where((ticket) => ticket.ticketTypeId == widget.ticketId)
-        .first;
-  }
+  const TicketItem({
+    super.key,
+    required this.ticket,
+    this.selectedDate,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +24,8 @@ class _TicketItemState extends State<TicketItem> {
     return GestureDetector(
       onTap: () => _showDetailTicketPage(context),
       child: Container(
-        key: ValueKey('TICKET-${ticket.tourId}-${ticket.ticketTypeId}'),
+        key: ValueKey(
+            'TICKET-${ticket.tourId}-${ticket.ticketTypeId}-${ticket.date}'),
         width: ticketItemWidth,
         margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
         decoration: BoxDecoration(
@@ -48,6 +41,7 @@ class _TicketItemState extends State<TicketItem> {
               ticketName: ticket.ticketTypeName,
               ticketCategory: ticket.category.name.toUpperCase(),
               ticketDescription: ticket.ticketDescription,
+              isPaddingTitle: false,
             ),
             const SizedBox(height: 5),
             const Text(
@@ -67,20 +61,20 @@ class _TicketItemState extends State<TicketItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'VND ${ticket.ticketPrice}',
+                    CurrencyUtils.formatCurrency(ticket.ticketPrice),
                     style: const TextStyle(
                       color: currencyTextColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
                   ),
-                  if (!isOverflowed) _buildSelectButton(),
+                  if (!isOverflowed) _buildSelectButton(context),
                 ],
               ),
             ),
             if (isOverflowed) ...[
               const SizedBox(height: 10),
-              _buildSelectButton(),
+              _buildSelectButton(context),
             ]
           ],
         ),
@@ -88,9 +82,9 @@ class _TicketItemState extends State<TicketItem> {
     );
   }
 
-  Widget _buildSelectButton() {
+  Widget _buildSelectButton(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () => _navigateToAddTicketPage(context),
       style: TextButton.styleFrom(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(3)),
@@ -118,8 +112,21 @@ class _TicketItemState extends State<TicketItem> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TicketDetailPage(ticketId: widget.ticketId),
+        builder: (context) => TicketDetailPage(
+          ticketId: ticket.ticketTypeId,
+          selectedDate: selectedDate,
+        ),
       ),
     );
   }
+
+  void _navigateToAddTicketPage(BuildContext context) => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddNumberVisitorPage(
+            ticketId: ticket.ticketTypeId,
+            selectedDate: selectedDate,
+          ),
+        ),
+      );
 }

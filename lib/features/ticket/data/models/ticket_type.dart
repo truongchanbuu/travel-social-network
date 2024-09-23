@@ -22,7 +22,7 @@ class TicketType extends TicketTypeEntity {
     required super.redemptionMethodDesc,
     required super.createdAt,
     super.updatedAt,
-    required super.expiredAt,
+    required super.date,
   });
 
   TicketType copyWith({
@@ -39,7 +39,7 @@ class TicketType extends TicketTypeEntity {
     String? redemptionMethodDesc,
     DateTime? createdAt,
     DateTime? updatedAt,
-    DateTime? expiredAt,
+    DateTime? date,
   }) {
     return TicketType(
       ticketTypeId: ticketTypeId ?? this.ticketTypeId,
@@ -55,7 +55,7 @@ class TicketType extends TicketTypeEntity {
       redemptionMethodDesc: redemptionMethodDesc ?? this.redemptionMethodDesc,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      expiredAt: expiredAt ?? this.expiredAt,
+      date: date ?? this.date,
     );
   }
 
@@ -74,7 +74,7 @@ class TicketType extends TicketTypeEntity {
       redemptionMethodDesc: redemptionMethodDesc,
       createdAt: createdAt,
       updatedAt: updatedAt,
-      expiredAt: expiredAt,
+      date: date,
     );
   }
 
@@ -93,7 +93,7 @@ class TicketType extends TicketTypeEntity {
       redemptionMethodDesc: entity.redemptionMethodDesc,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
-      expiredAt: entity.expiredAt,
+      date: entity.date,
     );
   }
 
@@ -112,7 +112,7 @@ class TicketType extends TicketTypeEntity {
       "redemptionMethodDesc": redemptionMethodDesc,
       "createdAt": createdAt,
       "updatedAt": updatedAt,
-      "expiredAt": expiredAt,
+      "date": date,
     };
   }
 
@@ -131,7 +131,7 @@ class TicketType extends TicketTypeEntity {
       redemptionMethodDesc: map["redemptionMethodDesc"],
       createdAt: DateTime.tryParse(map['createdAt']) ?? DateTime.now(),
       updatedAt: DateTime.tryParse(map['updatedAt']),
-      expiredAt: DateTime.parse(map['expiredAt']),
+      date: DateTime.parse(map['date']),
     );
   }
 

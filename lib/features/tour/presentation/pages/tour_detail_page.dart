@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/tickets.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
@@ -13,6 +12,7 @@ import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../../ticket/presentations/widgets/available_date_list.dart';
 import '../../../ticket/presentations/widgets/ticket_bottom_sheet.dart';
 import '../../../ticket/presentations/widgets/ticket_grid_view.dart';
+import '../../../ticket/presentations/widgets/ticket_item.dart';
 import '../../domain/entities/tour.dart';
 import '../../domain/entities/tour_schedule.dart';
 import '../widgets/info_section.dart';
@@ -50,7 +50,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
         .where((tour) => tour.tourId == widget.tourId)
         .first;
     tickets = tour.tickets;
-    availableDates = tickets.map((ticket) => ticket.createdAt).toList();
+    availableDates = tour.tickets.map((t) => t.date).toList();
   }
 
   @override
@@ -148,7 +148,11 @@ class _TourDetailPageState extends State<TourDetailPage> {
         isPadding: false,
         child: Column(
           children: [
-            TicketGridView(tickets: tickets),
+            TicketGridView(
+              tickets: tickets,
+              itemBuilder: (BuildContext context, int index) => TicketItem(
+                  ticket: tickets[index], selectedDate: selectedDate),
+            ),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -278,7 +282,14 @@ class _TourDetailPageState extends State<TourDetailPage> {
       } else {
         selectedDate = date;
       }
+
+      tickets = _getTicketsByDate();
     });
+  }
+
+  List<TicketTypeEntity> _getTicketsByDate() {
+    if (selectedDate == null) return tour.tickets;
+    return tour.tickets.where((t) => t.date == selectedDate).toList();
   }
 
   void _showReviewDetailPage() {

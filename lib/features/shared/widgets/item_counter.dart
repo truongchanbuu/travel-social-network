@@ -6,9 +6,11 @@ class ItemCounter extends StatefulWidget {
   final int initialValue;
   final int minValue;
   final int maxValue;
+  final void Function(int value) onChange;
 
   const ItemCounter({
     super.key,
+    required this.onChange,
     this.initialValue = 0,
     this.minValue = 0,
     this.maxValue = 10,
@@ -30,12 +32,14 @@ class _ItemCounterState extends State<ItemCounter> {
   void _decrease() {
     if (_currentValue > widget.minValue) {
       setState(() => _currentValue--);
+      widget.onChange(_currentValue);
     }
   }
 
   void _increase() {
     if (_currentValue < widget.maxValue) {
       setState(() => _currentValue++);
+      widget.onChange(_currentValue);
     }
   }
 

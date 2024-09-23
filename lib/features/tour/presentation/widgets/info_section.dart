@@ -22,19 +22,19 @@ class InfoSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 5.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Text(
-                'Underwater World Pattaya',
-                style: TextStyle(
+                tour.tourName,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
                 overflow: defaultTextOverflow,
-                semanticsLabel: 'Underwater World Pattaya',
+                semanticsLabel: tour.tourName,
                 textDirection: defaultTextDirection,
                 maxLines: 1,
               ),
@@ -115,33 +115,23 @@ class InfoSection extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
           titleAlignment: ListTileTitleAlignment.center,
           title: RichText(
-            text: const TextSpan(
+            text: TextSpan(
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'Duration',
                   style: TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextSpan(text: ' | '),
-                TextSpan(text: '5 days')
+                const TextSpan(text: ' | '),
+                TextSpan(text: '${tour.duration} day(s)')
               ],
             ),
           ),
         ),
         ListTile(
-          onTap: () {
-            showModalBottomSheet(
-              useSafeArea: true,
-              isScrollControlled: true,
-              context: context,
-              builder: (context) => const Padding(
-                padding: EdgeInsets.all(defaultPadding),
-                child: TourDetailLocation(),
-              ),
-            );
-          },
+          onTap: () => _showTourDetailLocation(context),
           leading: const Icon(
             Icons.location_on,
             color: primaryColor,
@@ -149,12 +139,7 @@ class InfoSection extends StatelessWidget {
           trailing: trailing,
           contentPadding: EdgeInsets.zero,
           titleAlignment: ListTileTitleAlignment.center,
-          title: const Text(
-            'Hoa Vang, Da Nang, Viet Nam',
-            style: TextStyle(
-              fontSize: 14,
-            ),
-          ),
+          title: Text(tour.destination, style: const TextStyle(fontSize: 14)),
         ),
       ],
     );
@@ -167,4 +152,14 @@ class InfoSection extends StatelessWidget {
           builder: (context) => ReviewDetailPage(tourId: tour.tourId),
         ));
   }
+
+  void _showTourDetailLocation(BuildContext context) => showModalBottomSheet(
+        useSafeArea: true,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => Padding(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: TourDetailLocation(location: tour.destination),
+        ),
+      );
 }

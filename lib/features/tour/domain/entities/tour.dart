@@ -11,8 +11,7 @@ class TourEntity extends Equatable {
   final String departure;
   final String destination;
   final int duration;
-  final DateTime startedDate;
-  final DateTime endDate;
+  final List<DateTime> startDates;
   final double rating;
 
   const TourEntity({
@@ -25,8 +24,7 @@ class TourEntity extends Equatable {
     required this.departure,
     required this.destination,
     required this.duration,
-    required this.startedDate,
-    required this.endDate,
+    required this.startDates,
     required this.rating,
   });
 
@@ -42,8 +40,7 @@ class TourEntity extends Equatable {
       departure,
       destination,
       duration,
-      startedDate,
-      endDate,
+      startDates,
       rating,
     ];
   }

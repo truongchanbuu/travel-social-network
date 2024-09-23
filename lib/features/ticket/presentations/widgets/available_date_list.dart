@@ -54,7 +54,6 @@ class _AvailableDateListState extends State<AvailableDateList> {
     if (itemIndex == -1) return;
 
     double position = itemIndex * _itemWidth;
-    print(position);
 
     _scrollController.animateTo(
       position,

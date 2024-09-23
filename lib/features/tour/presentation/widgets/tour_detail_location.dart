@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../cores/constants/constants.dart';
 
 class TourDetailLocation extends StatelessWidget {
-  const TourDetailLocation({super.key});
+  final String location;
+  const TourDetailLocation({super.key, required this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +45,9 @@ class TourDetailLocation extends StatelessWidget {
               height: 200,
             ),
             const SizedBox(height: 5),
-            const Text(
-              'Bangkok, ThaiLand',
-              style: TextStyle(
+            Text(
+              location,
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
               ),

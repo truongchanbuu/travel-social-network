@@ -19,8 +19,7 @@ Tour _$TourFromJson(Map<String, dynamic> json) => Tour(
       departure: json['departure'] as String,
       destination: json['destination'] as String,
       duration: (json['duration'] as num).toInt(),
-      startedDate: DateTime.parse(json['startedDate'] as String),
-      endDate: DateTime.parse(json['endDate'] as String),
+      startDates: json['startDates'],
       rating: (json['rating'] as num).toDouble(),
     );
 
@@ -34,7 +33,6 @@ Map<String, dynamic> _$TourToJson(Tour instance) => <String, dynamic>{
       'departure': instance.departure,
       'destination': instance.destination,
       'duration': instance.duration,
-      'startedDate': instance.startedDate.toIso8601String(),
-      'endDate': instance.endDate.toIso8601String(),
+      'startDates': instance.startDates,
       'rating': instance.rating,
     };

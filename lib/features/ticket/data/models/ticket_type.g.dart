@@ -22,7 +22,7 @@ TicketType _$TicketTypeFromJson(Map<String, dynamic> json) => TicketType(
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      expiredAt: DateTime.parse(json['expiredAt'] as String),
+      date: DateTime.parse(json['date'] as String),
     );
 
 Map<String, dynamic> _$TicketTypeToJson(TicketType instance) =>
@@ -32,7 +32,7 @@ Map<String, dynamic> _$TicketTypeToJson(TicketType instance) =>
       'tourId': instance.tourId,
       'ticketPrice': instance.ticketPrice,
       'ticketDescription': instance.ticketDescription,
-      'expiredAt': instance.expiredAt.toIso8601String(),
+      'date': instance.date.toIso8601String(),
       'category': _$TicketCategoryEnumMap[instance.category]!,
       'quantity': instance.quantity,
       'ticketInfo': instance.ticketInfo,

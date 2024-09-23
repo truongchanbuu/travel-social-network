@@ -18,7 +18,7 @@ class TicketPageAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      iconTheme: const IconThemeData(color: Colors.black),
+      iconTheme: IconThemeData(color: !isVisible ? Colors.white : Colors.black),
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
       expandedHeight: expandedHeight,

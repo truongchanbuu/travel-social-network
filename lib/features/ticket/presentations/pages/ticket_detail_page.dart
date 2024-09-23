@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 import 'package:travel_social_network/cores/constants/policies.dart';
 import 'package:travel_social_network/cores/constants/tickets.dart';
+import 'package:travel_social_network/features/ticket/presentations/pages/add_number_visitor_page.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/currency_util.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../shared/widgets/detail_section_container.dart';
@@ -16,9 +18,14 @@ import '../widgets/ticket_page_app_bar.dart';
 class TicketDetailPage extends StatefulWidget {
   final String ticketId;
   final DateTime? selectedDate;
+  final bool isButtonShowed;
 
-  const TicketDetailPage(
-      {super.key, required this.ticketId, this.selectedDate});
+  const TicketDetailPage({
+    super.key,
+    required this.ticketId,
+    this.selectedDate,
+    this.isButtonShowed = true,
+  });
 
   @override
   State<TicketDetailPage> createState() => _TicketDetailPageState();
@@ -39,7 +46,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController()..addListener(_onScroll);
-    ticket = sampleTickets
+    ticket = tour1Tickets
         .where((ticket) => ticket.ticketTypeId == widget.ticketId)
         .first;
 
@@ -94,14 +101,18 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
           _buildDetailSections()
         ],
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: widget.isButtonShowed ? _buildBuyButton() : null,
+    );
+  }
+
+  Widget _buildBuyButton() => Container(
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(width: 0.5, color: Colors.grey)),
         ),
         padding: const EdgeInsets.all(defaultPadding),
         child: ElevatedButton(
           // TODO: pop -> push
-          onPressed: () {},
+          onPressed: () => _navigateToAddVisitorPage(context),
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
             padding: const EdgeInsets.all(20),
@@ -118,9 +129,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 
   Widget _buildBriefInfo() => DetailSectionContainer(
         isPadding: false,
@@ -152,11 +161,11 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
           decoration: const BoxDecoration(
             border: DashedBorder.symmetric(
               horizontal: BorderSide(width: 1, color: Colors.grey),
-              dashLength: 10,
+              dashLength: dashLength,
             ),
           ),
           child: Text(
-            'VND ${ticket.ticketPrice}',
+            CurrencyUtils.formatCurrency(ticket.ticketPrice),
             style: const TextStyle(
               color: Colors.deepOrange,
               fontWeight: FontWeight.bold,
@@ -266,12 +275,12 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
           _buildPolicyText(
             canRescheduled ? 'Can be Rescheduled' : 'Cannot be Rescheduled',
             rescheduleDescription,
-            canRescheduled ? Icons.event_available : Icons.event_busy,
+            canRescheduled ? rescheduledIcon : noRescheduledIcon,
           ),
           _buildPolicyText(
             canRefund ? 'Can be Refunded' : 'Cannot be Refunded',
             refundDescription,
-            canRefund ? Icons.money : Icons.money_off,
+            canRefund ? refundableIcon : nonrefundableIcon,
           ),
         ],
       ),
@@ -308,4 +317,37 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             break;
         }
       });
+
+  void _navigateToAddVisitorPage(BuildContext context) async {
+    var navigator = Navigator.of(context);
+
+    navigator.pop();
+
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    navigator.push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            AddNumberVisitorPage(
+          ticketId: ticket.ticketTypeId,
+          selectedDate: selectedDate,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+    );
+  }
 }
