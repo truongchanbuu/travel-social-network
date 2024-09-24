@@ -2,8 +2,8 @@ import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import 'search_item.dart';
 import 'expanded_button.dart';
+import 'search_item.dart';
 
 class SearchRecommendations extends StatefulWidget {
   const SearchRecommendations({super.key});

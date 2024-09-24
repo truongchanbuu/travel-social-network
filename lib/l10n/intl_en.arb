@@ -3,6 +3,9 @@
   "ofWord": "of",
   "and": "and",
   "next": "Next",
+  "clear": "Clear",
+  "search": "Search",
+  "searching": "Searching...",
 
   "greetingAppMember": "Hi {appName} member",
   "@greetingAppMember": {
@@ -12,6 +15,19 @@
       }
     }
   },
+  "helloUser": "Hello {name},",
+  "@helloUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "morningText": "Good morning! Ready for today's adventures?",
+  "afternoonText": "Let discover top spots and activities!!!",
+  "eveningText": "It's time for special dishes on elegant restaurants near you!",
+  "nightText": "Have a nice sleep! Dreams are beginning but tomorrow journey will come true",
+  "defaultText": "Hope you doing well on your own journey",
 
   "home": "Home",
   "social": "Social",
@@ -47,7 +63,6 @@
   "units": "Units",
   "unitsChoice": "Meter Metric",
   "temperatureScale": "Temperature Scale",
-  "C": "Celsius",
   "classificationOutstanding": "Outstanding",
   "classificationWonderful": "Wonderful",
   "classificationGood": "Good",
@@ -69,6 +84,7 @@
   "backToPreviousPage": "Back to previous page",
 
   "createTour": "Create your own tour",
+  "createTourPageTitle": "Create New Tour",
 
   "allImagesAndVideos": "All Images and Videos",
   "image": "image",
@@ -124,8 +140,7 @@
     }
   },
 
-
-
+  "reviewTitle": "Reviews & Rating",
   "reviews": "Review(s)",
   "reviewed": "Reviewed",
   "viewAll": "View All",
@@ -221,5 +236,11 @@
   "phoneSearchHintText": "Enter your country name or code to search",
   "semanticPhoneNumberCounterText": "Maximum length of phone number",
   "enterPhoneNumberRequirement": "Please enter your phone number",
-  "invalidPhoneNumber": "Invalid phone number"
+  "invalidPhoneNumber": "Invalid phone number",
+
+  "recentSearch": "Recent Search",
+  "recommendation": "Recommendations",
+
+  "tourNameLabel": "Tour Name",
+  "tourDescLabel": "Tour Desc"
 }

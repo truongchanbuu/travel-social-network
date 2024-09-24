@@ -60,6 +60,7 @@ dependencies:
   get_time_ago: ^2.0.0
   url_launcher: ^6.3.0
   collection: ^1.18.0
+  share_plus: ^10.0.2
   flutter_localizations:
     sdk: flutter
 
@@ -75,6 +76,7 @@ dependencies:
   photo_view: ^0.15.0
   calendar_date_picker2: ^1.1.7
   mobkit_dashed_border: ^0.0.6
+  animated_hint_textfield: ^1.0.3
 
 
 dev_dependencies:

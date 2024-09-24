@@ -30,6 +30,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.7.0"
+  animated_hint_textfield:
+    dependency: "direct main"
+    description:
+      name: animated_hint_textfield
+      sha256: dc36119644112d8f629a2d43b34af3aa1f6aec51036b4138d5851a106b9b9c4e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
+  animated_text_kit:
+    dependency: transitive
+    description:
+      name: animated_text_kit
+      sha256: "37392a5376c9a1a503b02463c38bc0342ef814ddbb8f9977bc90f2a84b22fa92"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.2"
   args:
     dependency: transitive
     description:
@@ -238,6 +254,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      sha256: "7caf6a750a0c04effbb52a676dce9a4a592e10ad35c34d6d2d0e4811160d5670"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.4+2"
   crypto:
     dependency: transitive
     description:
@@ -1042,6 +1066,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
+  share_plus:
+    dependency: "direct main"
+    description:
+      name: share_plus
+      sha256: "468c43f285207c84bcabf5737f33b914ceb8eb38398b91e5e3ad1698d1b72a52"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.0.2"
+  share_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: share_plus_platform_interface
+      sha256: "6ababf341050edff57da8b6990f11f4e99eaba837865e2e6defe16d039619db5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
   shelf:
     dependency: transitive
     description:

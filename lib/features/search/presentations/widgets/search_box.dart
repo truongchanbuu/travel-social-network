@@ -1,3 +1,4 @@
+import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
@@ -7,11 +8,12 @@ class SearchBox extends StatelessWidget {
   final double radius;
   final Color? fillColor;
   final bool enabled;
-  final String? hintText;
+  final List<String> hintTexts;
   final bool searchIcon;
   final bool autofocus;
   final TextEditingController? controller;
   final VoidCallback? onTap;
+  final Animationtype animationType;
 
   const SearchBox({
     super.key,
@@ -19,10 +21,11 @@ class SearchBox extends StatelessWidget {
     this.radius = 999,
     this.fillColor,
     this.enabled = false,
-    this.hintText,
+    this.hintTexts = const [],
     this.searchIcon = true,
     this.controller,
     this.autofocus = false,
+    this.animationType = Animationtype.slide,
     this.onTap,
   });
 
@@ -37,13 +40,19 @@ class SearchBox extends StatelessWidget {
         onTap: onTap,
         borderRadius: borderRadius,
         splashColor: Colors.grey,
-        child: TextField(
+        child: AnimatedTextField(
+          animationType: animationType,
           autofocus: autofocus,
           controller: controller,
           enabled: enabled,
           cursorColor: primaryColor,
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
+          hintTexts: hintTexts,
+          hintTextStyle: const TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+          ),
           decoration: InputDecoration(
             fillColor: fillColor,
             filled: fillColor != null,
@@ -59,11 +68,6 @@ class SearchBox extends StatelessWidget {
                       color: Colors.grey,
                     )
                   : BorderSide.none,
-            ),
-            hintText: hintText,
-            hintStyle: const TextStyle(
-              color: Colors.grey,
-              fontSize: 13,
             ),
             contentPadding: const EdgeInsets.all(18),
             suffixIcon: searchIcon

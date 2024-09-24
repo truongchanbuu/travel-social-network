@@ -1,6 +1,7 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
 import './phone_code_bottom_sheet.dart';
 
 class PhoneCodeDropdown extends StatefulWidget {
@@ -53,6 +54,7 @@ class _PhoneCodeDropdownState extends State<PhoneCodeDropdown> {
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
+      shape: bottomSheetShape,
       builder: (context) => const PhoneCodeBottomSheet(),
     );
   }

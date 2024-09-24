@@ -1,0 +1,7 @@
+{
+  "vi": [
+    "aboutUs",
+    "reviewTitle",
+    "tickets"
+  ]
+}

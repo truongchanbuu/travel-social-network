@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../generated/l10n.dart';
 import '../badge_notification.dart';
 
 class HomePageHeader extends StatelessWidget {
@@ -21,7 +22,7 @@ class HomePageHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hello $username,',
+                S.current.helloUser(username),
                 style: const TextStyle(
                   fontSize: 10,
                   color: Colors.white,
@@ -52,15 +53,15 @@ class HomePageHeader extends StatelessWidget {
 
     switch (periodOfDay.toLowerCase()) {
       case 'morning':
-        return 'Good morning! Ready for today\'s adventures?';
+        return S.current.morningText;
       case 'afternoon':
-        return 'Good afternoon! Discover top spots and activities.';
+        return S.current.afternoonText;
       case 'evening':
-        return 'Good evening! Check out evening activities and dining.';
+        return S.current.eveningText;
       case 'night':
-        return 'Good night! Rest up for tomorrow\'s adventures.';
+        return S.current.nightText;
       default:
-        return 'Hello! Hope you\'re doing well.';
+        return S.current.defaultText;
     }
   }
 }

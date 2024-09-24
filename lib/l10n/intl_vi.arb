@@ -3,6 +3,9 @@
   "ofWord": "của",
   "and": "và",
   "next": "Kế tiếp",
+  "clear": "Xóa",
+  "search": "Tìm kiếm",
+  "searching": "Tìm kiếm...",
 
   "greetingAppMember": "Xin chào các thành viên của {appName}",
   "@greetingAppMember": {
@@ -12,6 +15,20 @@
       }
     }
   },
+  "helloUser": "Xin chào {name},",
+  "@helloUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "morningText": "Buổi sáng tốt lành, đã sẵn sàng cho chuyến hành trình hôm nay chưa?",
+  "afternoonText": "Hãy cùng nhau khám phá những địa điểm và những hoạt động hấp dẫn nào!",
+  "eveningText": "Chiều đến rồi! Cùng nhau thưởng thức những món ngon mới lạ cho tại một nhà hàng sang trọng nào!",
+  "nightText": "Ngủ ngon nhé! Nghỉ ngơi cho một ngày mai không ngừng khám phá!",
+  "defaultText": "Hy vọng bạn vẫn đang vui vẻ trên chuyến hành trình của mình",
+
   "home": "Trang chủ",
   "social": "Cộng đồng",
   "account": "Tài khoản",
@@ -45,7 +62,6 @@
   "units": "Đơn vị",
   "unitsChoice": "Mét theo hệ mét",
   "temperatureScale": "Thang đo nhiệt độ",
-  "C": "Celsius",
   "classificationOutstanding": "Xuất sắc",
   "classificationWonderful": "Tuyệt vời",
   "classificationGood": "Tốt",
@@ -68,6 +84,7 @@
   "backToPreviousPage": "Trở về trang trước",
 
   "createTour": "Tạo một tour du lịch cho riêng mình",
+  "createTourPageTitle": "Tạo chuyến đi mới",
 
   "allImagesAndVideos": "Tất cả hình ảnh và video",
   "image": "hình ảnh",
@@ -121,7 +138,8 @@
     }
   },
 
-  "reviews": "Đánh giá",
+  "reviewTile": "Đánh giá",
+  "reviews": "đánh giá",
   "reviewed": "Đã đánh giá",
   "viewAll": "Xem tất cả",
   "ticket": "Vé",
@@ -216,5 +234,11 @@
   "phoneSearchHintText": "Nhập tên hoặc mã quốc gia để tìm kiếm quốc gia của bạn",
   "semanticPhoneNumberCounterText": "Số chữ số tối đa",
   "enterPhoneNumberRequirement": "Vui lòng nhập số điện thoại của bạn",
-  "invalidPhoneNumber": "Số điện thoại không hợp lệ"
+  "invalidPhoneNumber": "Số điện thoại không hợp lệ",
+
+  "recentSearch": "Tìm kiếm gần đây",
+  "recommendation": "Gợi ý",
+
+  "tourNameLabel": "Tên chuyến đi",
+  "tourDescLabel": "Mô tả chuyến đi"
 }

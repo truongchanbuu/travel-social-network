@@ -28,21 +28,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(appName) => "Hi ${appName} member";
 
-  static String m4(index) => "Image at ${index}";
+  static String m4(name) => "Hello ${name},";
 
-  static String m5(nameOfCollection) => "Illustrators${nameOfCollection}";
+  static String m5(index) => "Image at ${index}";
 
-  static String m6(index) => "Loading image at index ${index}";
+  static String m6(nameOfCollection) => "Illustrators${nameOfCollection}";
 
-  static String m7(value) => "Day ${value}";
+  static String m7(index) => "Loading image at index ${index}";
 
-  static String m8(name) => "Thumb for ${name}";
+  static String m8(value) => "Day ${value}";
 
-  static String m9(value) => "${value}";
+  static String m9(name) => "Thumb for ${name}";
+
+  static String m10(value) => "${value}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "C": MessageLookupByLibrary.simpleMessage("Celsius"),
         "aboutThisTicket":
             MessageLookupByLibrary.simpleMessage("About this ticket"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
@@ -51,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Visitor Number"),
         "additionalInformation":
             MessageLookupByLibrary.simpleMessage("Additional Information"),
+        "afternoonText": MessageLookupByLibrary.simpleMessage(
+            "Let discover top spots and activities!!!"),
         "agreementText": MessageLookupByLibrary.simpleMessage(
             "By continuing, you agree to our "),
         "allImagesAndVideos":
@@ -83,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terrible"),
         "classificationWonderful":
             MessageLookupByLibrary.simpleMessage("Wonderful"),
+        "clear": MessageLookupByLibrary.simpleMessage("Clear"),
         "contactServiceProvider":
             MessageLookupByLibrary.simpleMessage("Contact service provider"),
         "continueWith": MessageLookupByLibrary.simpleMessage("Continue with"),
@@ -91,10 +95,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "countryRegion": MessageLookupByLibrary.simpleMessage("Country/Region"),
         "createTour":
             MessageLookupByLibrary.simpleMessage("Create your own tour"),
+        "createTourPageTitle":
+            MessageLookupByLibrary.simpleMessage("Create New Tour"),
         "currency": MessageLookupByLibrary.simpleMessage("Currency"),
         "currencyChoice": MessageLookupByLibrary.simpleMessage("Pound"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Dark Theme"),
         "days": MessageLookupByLibrary.simpleMessage("day(s)"),
+        "defaultText": MessageLookupByLibrary.simpleMessage(
+            "Hope you doing well on your own journey"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
@@ -106,6 +114,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter your phone number"),
         "errorImage":
             MessageLookupByLibrary.simpleMessage("Failed to load image"),
+        "eveningText": MessageLookupByLibrary.simpleMessage(
+            "It\'s time for special dishes on elegant restaurants near you!"),
         "exclusiveOffers": MessageLookupByLibrary.simpleMessage(
             "Exclusive Offers for you - with only one simple step!"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
@@ -116,11 +126,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "greetingAppMember": m3,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Guide to location"),
+        "helloUser": m4,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("How to redeem"),
         "image": MessageLookupByLibrary.simpleMessage("image"),
-        "imageAtIndex": m4,
-        "imageCollectionText": m5,
+        "imageAtIndex": m5,
+        "imageCollectionText": m6,
         "importantThingsYouShouldKnow": MessageLookupByLibrary.simpleMessage(
             "Important things you should know"),
         "invalidPhoneNumber":
@@ -129,7 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
-        "loadingImageText": m6,
+        "loadingImageText": m7,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Location Information"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
@@ -137,7 +148,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "manageYourAccount":
             MessageLookupByLibrary.simpleMessage("Manage your account"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("More Information"),
+        "morningText": MessageLookupByLibrary.simpleMessage(
+            "Good morning! Ready for today\'s adventures?"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "nightText": MessageLookupByLibrary.simpleMessage(
+            "Have a nice sleep! Dreams are beginning but tomorrow journey will come true"),
         "nonRefundable":
             MessageLookupByLibrary.simpleMessage("Cannot be refund"),
         "ofWord": MessageLookupByLibrary.simpleMessage("of"),
@@ -159,18 +174,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "promotionText": MessageLookupByLibrary.simpleMessage(
             "Enjoy the privilege of membership"),
         "rateForUs": MessageLookupByLibrary.simpleMessage("Rate for us"),
+        "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "recommendTours":
             MessageLookupByLibrary.simpleMessage("Recommend Tours"),
+        "recommendation":
+            MessageLookupByLibrary.simpleMessage("Recommendations"),
         "redemptionMethod":
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "refundAndReschedule":
             MessageLookupByLibrary.simpleMessage("Refund & Reschedule"),
         "refundable": MessageLookupByLibrary.simpleMessage("Can be refund"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
         "reviews": MessageLookupByLibrary.simpleMessage("Review(s)"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
-        "scheduleDay": m7,
+        "scheduleDay": m8,
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "searching": MessageLookupByLibrary.simpleMessage("Searching..."),
         "securityAccount":
             MessageLookupByLibrary.simpleMessage("Security Account"),
         "see": MessageLookupByLibrary.simpleMessage("See"),
@@ -191,14 +212,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m8,
+        "thumbDesc": m9,
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m9,
+        "totalReviews": m10,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),
+        "tourDescLabel": MessageLookupByLibrary.simpleMessage("Tour Desc"),
         "tourItinerary": MessageLookupByLibrary.simpleMessage("Tour Itinerary"),
+        "tourNameLabel": MessageLookupByLibrary.simpleMessage("Tour Name"),
         "tourSchedule": MessageLookupByLibrary.simpleMessage("Tour Schedule"),
         "transportation":
             MessageLookupByLibrary.simpleMessage("Transportation"),

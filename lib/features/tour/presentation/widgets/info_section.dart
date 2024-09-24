@@ -159,6 +159,7 @@ class InfoSection extends StatelessWidget {
         useSafeArea: true,
         isScrollControlled: true,
         context: context,
+        shape: bottomSheetShape,
         builder: (context) => Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: TourDetailLocation(location: tour.destination),

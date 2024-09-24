@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../domain/entities/tour.dart';
@@ -91,7 +92,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
             const SizedBox(width: 6),
             GestureDetector(
               // TODO: SHARE FEATURE
-              onTap: () => debugPrint('Share'),
+              onTap: _onShared,
               child: Container(
                 decoration:
                     widget.titleColor == Colors.white ? buttonOverlay : null,
@@ -112,5 +113,9 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
         ),
       ),
     );
+  }
+
+  void _onShared() async {
+    Share.share('TEST SHARE');
   }
 }

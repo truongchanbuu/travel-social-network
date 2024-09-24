@@ -154,7 +154,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
     showModalBottomSheet(
       useSafeArea: true,
       isScrollControlled: true,
-      shape: const LinearBorder(),
+      shape: bottomSheetShape,
       context: context,
       builder: (context) => TotalPriceWidget(
         totalPrice: widget.totalPrice,

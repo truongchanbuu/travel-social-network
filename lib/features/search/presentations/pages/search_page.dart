@@ -1,10 +1,12 @@
+import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../widgets/search/recent_search.dart';
-import '../../widgets/search/search_box.dart';
-import '../../widgets/search/search_recommendation.dart';
-import '../../widgets/search/search_title.dart';
+import '../../../../generated/l10n.dart';
+import '../widgets/recent_search.dart';
+import '../widgets/search_box.dart';
+import '../widgets/search_recommendation.dart';
+import '../widgets/search_title.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -41,21 +43,20 @@ class _SearchPageState extends State<SearchPage> {
       toolbarHeight: kToolbarHeight + 20,
       centerTitle: true,
       titleSpacing: 0,
-      title: const SearchBox(
+      title: SearchBox(
         autofocus: true,
         enabled: true,
         radius: 5,
         fillColor: Colors.white,
         searchIcon: false,
-        hintText: 'Searching...',
+        animationType: Animationtype.typer,
+        hintTexts: [S.current.searching],
       ),
       leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () => Navigator.pop(context),
         icon: const Icon(Icons.close),
         color: primaryColor,
-        tooltip: 'Close',
+        tooltip: S.current.backToPreviousPage,
       ),
       automaticallyImplyLeading: true,
       actions: [
@@ -67,9 +68,9 @@ class _SearchPageState extends State<SearchPage> {
             ),
             padding: const EdgeInsets.all(15),
           ),
-          child: const Text(
-            'Search',
-            style: TextStyle(
+          child: Text(
+            S.current.search,
+            style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -89,12 +90,12 @@ class _SearchPageState extends State<SearchPage> {
         children: [
           if (recentSearches.isNotEmpty) ...[
             SearchTitle(
-              title: 'Recent Search',
+              title: S.current.recentSearch,
               suffix: GestureDetector(
                 onTap: () {},
-                child: const Text(
-                  'Clear',
-                  style: TextStyle(color: primaryColor),
+                child: Text(
+                  S.current.clear,
+                  style: const TextStyle(color: primaryColor),
                 ),
               ),
             ),
@@ -105,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             spacing,
           ],
-          const SearchTitle(title: 'Recommendations'),
+          SearchTitle(title: S.current.recommendation),
           spacing,
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding),

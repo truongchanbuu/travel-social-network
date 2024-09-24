@@ -80,6 +80,36 @@ class S {
     );
   }
 
+  /// `Clear`
+  String get clear {
+    return Intl.message(
+      'Clear',
+      name: 'clear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Searching...`
+  String get searching {
+    return Intl.message(
+      'Searching...',
+      name: 'searching',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hi {appName} member`
   String greetingAppMember(String appName) {
     return Intl.message(
@@ -87,6 +117,66 @@ class S {
       name: 'greetingAppMember',
       desc: '',
       args: [appName],
+    );
+  }
+
+  /// `Hello {name},`
+  String helloUser(String name) {
+    return Intl.message(
+      'Hello $name,',
+      name: 'helloUser',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Good morning! Ready for today's adventures?`
+  String get morningText {
+    return Intl.message(
+      'Good morning! Ready for today\'s adventures?',
+      name: 'morningText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let discover top spots and activities!!!`
+  String get afternoonText {
+    return Intl.message(
+      'Let discover top spots and activities!!!',
+      name: 'afternoonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It's time for special dishes on elegant restaurants near you!`
+  String get eveningText {
+    return Intl.message(
+      'It\'s time for special dishes on elegant restaurants near you!',
+      name: 'eveningText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Have a nice sleep! Dreams are beginning but tomorrow journey will come true`
+  String get nightText {
+    return Intl.message(
+      'Have a nice sleep! Dreams are beginning but tomorrow journey will come true',
+      name: 'nightText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hope you doing well on your own journey`
+  String get defaultText {
+    return Intl.message(
+      'Hope you doing well on your own journey',
+      name: 'defaultText',
+      desc: '',
+      args: [],
     );
   }
 
@@ -410,16 +500,6 @@ class S {
     );
   }
 
-  /// `Celsius`
-  String get C {
-    return Intl.message(
-      'Celsius',
-      name: 'C',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Outstanding`
   String get classificationOutstanding {
     return Intl.message(
@@ -550,6 +630,16 @@ class S {
     );
   }
 
+  /// `Create New Tour`
+  String get createTourPageTitle {
+    return Intl.message(
+      'Create New Tour',
+      name: 'createTourPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `All Images and Videos`
   String get allImagesAndVideos {
     return Intl.message(
@@ -638,6 +728,16 @@ class S {
       name: 'cacheKeyWithoutId',
       desc: '',
       args: [imgUrl, index],
+    );
+  }
+
+  /// `Reviews & Rating`
+  String get reviewTitle {
+    return Intl.message(
+      'Reviews & Rating',
+      name: 'reviewTitle',
+      desc: '',
+      args: [],
     );
   }
 
@@ -1241,6 +1341,46 @@ class S {
     return Intl.message(
       'Invalid phone number',
       name: 'invalidPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recent Search`
+  String get recentSearch {
+    return Intl.message(
+      'Recent Search',
+      name: 'recentSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommendations`
+  String get recommendation {
+    return Intl.message(
+      'Recommendations',
+      name: 'recommendation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tour Name`
+  String get tourNameLabel {
+    return Intl.message(
+      'Tour Name',
+      name: 'tourNameLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tour Desc`
+  String get tourDescLabel {
+    return Intl.message(
+      'Tour Desc',
+      name: 'tourDescLabel',
       desc: '',
       args: [],
     );

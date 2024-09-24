@@ -122,7 +122,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
           children: [
             DetailHeadingText(
               onTap: _showReviewDetailPage,
-              title: S.current.reviews,
+              title: S.current.reviewTitle,
               trailing: Text(
                 S.current.viewAll,
                 style: const TextStyle(
@@ -229,6 +229,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
             TextButton(
               onPressed: () {
                 showModalBottomSheet(
+                  shape: bottomSheetShape,
                   useSafeArea: true,
                   isScrollControlled: true,
                   context: context,
@@ -298,6 +299,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
   }
 
   void _showReviewDetailPage() {
+    print(tour.tourId);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -311,6 +313,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
       useSafeArea: true,
       isScrollControlled: true,
       context: context,
+      shape: bottomSheetShape,
       builder: (context) => TicketBottomSheet(
         availableDates: availableDates,
         tickets: tickets,

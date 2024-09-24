@@ -56,7 +56,7 @@ class SettingsPage extends StatelessWidget {
           ),
           MultipleChoiceSettingItem(
             title: S.current.temperatureScale,
-            choice: S.current.C,
+            choice: 'Celsius',
           ),
         ],
       ),

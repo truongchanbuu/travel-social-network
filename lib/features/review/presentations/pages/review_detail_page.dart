@@ -39,6 +39,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
     }
 
     totalReviews = reviews.length;
+    print(tour);
   }
 
   @override

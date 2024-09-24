@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/constants/popular_destination.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../pages/search/search_page.dart';
-import '../search/search_box.dart';
+import '../../../search/presentations/pages/search_page.dart';
+import '../../../search/presentations/widgets/search_box.dart';
 import 'home_page_header.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -38,7 +39,8 @@ class HomeAppBar extends StatelessWidget {
       child: SearchBox(
         onTap: () => _navigateToSearchPage(context),
         elevation: 5,
-        hintText: 'Search your wonderful trips!',
+        hintTexts:
+            popularDestinations.map((dest) => dest['name'] as String).toList(),
       ),
     );
   }
