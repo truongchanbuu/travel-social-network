@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:travel_social_network/cores/constants/reviews.dart';
+import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/classification_utils.dart';
+import '../../../../generated/l10n.dart';
+import '../../../tour/domain/entities/tour.dart';
 import '../../domain/entities/review.dart';
 import '../widgets/review_item.dart';
 
@@ -15,29 +19,24 @@ class ReviewDetailPage extends StatefulWidget {
 }
 
 class _ReviewDetailPageState extends State<ReviewDetailPage> {
+  late final TourEntity tour;
+
   List<ReviewEntity> reviews = List.empty(growable: true);
   int totalReviews = 0;
-
-  double tourRating = 0;
-  String tourName = 'Tour Da Lat';
 
   @override
   void initState() {
     super.initState();
 
+    tour = generateSampleTours().where((t) => t.tourId == widget.tourId).first;
     reviews = sampleReviews
         .where((review) => review.tourId == widget.tourId)
         .toList();
-
     if (widget.reviewId != null) {
       reviews = reviews
           .where((review) => review.reviewId == widget.reviewId)
           .toList();
     }
-
-    // Get tour info later
-    tourRating = 4.3;
-    tourName = 'Dalat';
 
     totalReviews = reviews.length;
   }
@@ -77,7 +76,8 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
           text: TextSpan(
             children: [
               TextSpan(
-                text: '$tourRating ${classification(tourRating)}',
+                text:
+                    '${tour.rating} ${ClassificationUtils.classificationRating(tour.rating)}',
                 style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.bold,
@@ -85,8 +85,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
               ),
               const WidgetSpan(child: SizedBox(width: 5)),
               TextSpan(
-                text:
-                    '($totalReviews ${totalReviews > 1 ? 'reviews' : 'review'})',
+                text: '$totalReviews ${S.current.reviews}',
                 style: const TextStyle(
                   color: Colors.black54,
                   fontSize: 13,
@@ -118,7 +117,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              tourName,
+              tour.tourName,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -127,9 +126,9 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
               overflow: defaultTextOverflow,
               textDirection: defaultTextDirection,
             ),
-            const Text(
-              'Reviews & Rating',
-              style: TextStyle(
+            Text(
+              S.current.reviews,
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -140,15 +139,4 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
           ],
         ),
       );
-
-  String classification(double rating) => switch (rating) {
-        >= 4.9 => 'Outstanding',
-        >= 4.5 && < 4.9 => 'Wonderful',
-        >= 4.0 && < 4.5 => 'Good',
-        >= 3.0 && < 4.0 => 'Pleasant',
-        >= 2.0 && < 3.0 => 'No Very Good',
-        >= 1.0 && < 2.0 => 'Disappointing',
-        < 1.0 => 'Terrible',
-        _ => throw Exception('Not available rating'),
-      };
 }

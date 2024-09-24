@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/tour_schedule.dart';
 import 'tour_activity.dart';
+
 part 'tour_schedule.g.dart';
 
 @JsonSerializable()
@@ -36,7 +37,7 @@ class TourSchedule extends TourScheduleEntity {
 
   TourSchedule copyWith({
     String? tourId,
-    String? day,
+    int? day,
     DateTime? date,
     String? briefDesc,
     List<TourActivity>? activities,
@@ -78,21 +79,4 @@ class TourSchedule extends TourScheduleEntity {
 
   factory TourSchedule.fromJson(Map<String, dynamic> json) =>
       _$TourScheduleFromJson(json);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is TourSchedule &&
-        other.tourId == tourId &&
-        other.day == day &&
-        other.date == date &&
-        other.activities == activities &&
-        other.briefDesc == briefDesc;
-  }
-
-  @override
-  int get hashCode {
-    return tourId.hashCode ^ day.hashCode ^ date.hashCode ^ briefDesc.hashCode;
-  }
 }

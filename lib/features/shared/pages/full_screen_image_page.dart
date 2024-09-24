@@ -3,6 +3,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 import '../../../cores/constants/constants.dart';
+import '../../../generated/l10n.dart';
 import '../widgets/app_cached_image.dart';
 
 class FullScreenImagePage extends StatefulWidget {
@@ -82,8 +83,8 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
             child: AppCachedImage(
               imageUrl: widget.imageUrls[index],
               cacheKey: '${widget.imageUrls[index]}-$index',
-              errorSemanticLabel: 'Image at index $index',
-              loadingSemanticLabel: 'Loading image at index',
+              errorSemanticLabel: S.current.image,
+              loadingSemanticLabel: S.current.loadingImageText(index),
             ),
           ),
         ),
@@ -99,8 +100,8 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
           child: AppCachedImage(
             imageUrl: widget.imageUrls[index],
             cacheKey: '${widget.imageUrls[index]}-$index',
-            errorSemanticLabel: 'Image at index $index',
-            loadingSemanticLabel: 'Loading image at index $index',
+            errorSemanticLabel: S.current.imageAtIndex(index),
+            loadingSemanticLabel: S.current.loadingImageText(index),
           ),
           heroAttributes:
               PhotoViewHeroAttributes(tag: '${widget.imageUrls[index]}-$index'),

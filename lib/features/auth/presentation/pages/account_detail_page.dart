@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
+import '../../../setting/presentation/widgets/user_avatar.dart';
 import '../widgets/account_detail_section.dart';
 import '../widgets/account_section_item.dart';
-import '../widgets/user_avatar.dart';
 
 class AccountDetailPage extends StatelessWidget {
   const AccountDetailPage({super.key});
@@ -10,12 +11,6 @@ class AccountDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: ListView(
-      //   children: [
-      //     _buildAvatarSection(),
-      //     _buildSecuritySection(),
-      //   ],
-      // ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -25,7 +20,7 @@ class AccountDetailPage extends StatelessWidget {
               background: Container(
                 color: Colors.white,
               ),
-              title: const Text('User Profile'),
+              title: Text(S.current.userProfile),
               centerTitle: true,
               collapseMode: CollapseMode.pin,
               titlePadding:
@@ -77,31 +72,31 @@ class AccountDetailPage extends StatelessWidget {
       color: Colors.grey,
     );
 
-    return const Padding(
-      padding: EdgeInsets.all(20.0),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
       child: AccountDetailSection(
-        title: 'Account Security',
+        title: S.current.securityAccount,
         items: [
           AccountSectionItem(
-            leading: Icon(Icons.email),
-            title: 'Link Email',
-            value: Text(
+            leading: const Icon(Icons.email),
+            title: S.current.linkEmail,
+            value: const Text(
               'a***le.com',
               style: valueTextStyle,
             ),
           ),
           AccountSectionItem(
-            leading: Icon(Icons.phone),
-            title: 'Phone number',
-            value: Text(
+            leading: const Icon(Icons.phone),
+            title: S.current.phoneNumber,
+            value: const Text(
               '09***699',
               style: valueTextStyle,
             ),
           ),
           AccountSectionItem(
-            leading: Icon(Icons.password),
-            title: 'Reset Password',
-            value: Text(
+            leading: const Icon(Icons.password),
+            title: S.current.resetPassword,
+            value: const Text(
               '***',
               style: valueTextStyle,
             ),

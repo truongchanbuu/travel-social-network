@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/auth_app_bar.dart';
 import '../widgets/continue_button.dart';
 import '../widgets/password_input_field.dart';
@@ -50,11 +51,11 @@ class ContinueWithPhonePage extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {},
-        child: const Padding(
-          padding: EdgeInsets.all(10.0),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
           child: Text(
-            'Forgot Password?',
-            style: TextStyle(
+            S.current.forgotPassword,
+            style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,
             ),

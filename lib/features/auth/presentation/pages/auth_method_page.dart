@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_social_network/features/shared/widgets/app_name_logo.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/hero_image.dart';
 import '../widgets/social_button.dart';
 import '../widgets/social_icon.dart';
@@ -19,12 +20,12 @@ class AuthMethodPage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 200) {
-            return const Center(
+            return Center(
               child: Text(
-                'No support for this viewport',
+                S.current.unsupportedText,
                 textAlign: TextAlign.center,
                 overflow: defaultTextOverflow,
-                semanticsLabel: 'No support for this viewport',
+                semanticsLabel: S.current.unsupportedText,
               ),
             );
           }
@@ -38,28 +39,28 @@ class AuthMethodPage extends StatelessWidget {
                     child: const HeroImage(),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'Sign in/Sign up',
-                    semanticsLabel: 'Sign in / Sign up',
+                  Text(
+                    '${S.current.signIn} / ${S.current.signUp}',
+                    semanticsLabel: '${S.current.signIn} / ${S.current.signUp}',
                     overflow: defaultTextOverflow,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 5),
-                  const Wrap(
+                  Wrap(
                     alignment: WrapAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.discount_outlined,
                         color: descColor,
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       Text(
-                        'Enjoy the privilege of membership',
+                        S.current.promotionText,
                         overflow: defaultTextOverflow,
-                        style: TextStyle(color: descColor),
+                        style: const TextStyle(color: descColor),
                       ),
                     ],
                   ),
@@ -84,7 +85,7 @@ class AuthMethodPage extends StatelessWidget {
       leading: IconButton(
         onPressed: () {},
         icon: const Icon(Icons.chevron_left),
-        tooltip: 'Back to previous page',
+        tooltip: S.current.backToPreviousPage,
       ),
     );
   }
@@ -92,14 +93,14 @@ class AuthMethodPage extends StatelessWidget {
   Widget _buildSocialList() {
     const spacing = SizedBox(height: 10);
 
-    return const Column(
+    return Column(
       children: [
         // Facebook
         SocialButton(
-          title: 'Continue with Facebook',
+          title: '${S.current.continueWith} Facebook',
           buttonColor: Colors.blue,
           leading: SocialIcon(
-            label: 'Continue with Facebook',
+            label: '${S.current.continueWith} Facebook',
             imageUrl: 'assets/auth/icons/facebook_icon.svg',
             size: 20,
             iconColor: Colors.white,
@@ -109,10 +110,10 @@ class AuthMethodPage extends StatelessWidget {
         spacing,
         // Google
         SocialButton(
-          title: 'Continue with Google',
+          title: '${S.current.continueWith} Google',
           textColor: Colors.black,
           leading: SocialIcon(
-            label: 'Continue with Google',
+            label: '${S.current.continueWith} Google',
             imageUrl: 'assets/auth/icons/google_icon.svg',
             size: 20,
             iconColor: Colors.white,
@@ -121,10 +122,10 @@ class AuthMethodPage extends StatelessWidget {
         spacing,
         // Email
         SocialButton(
-          title: 'Continue with Email',
+          title: '${S.current.continueWith} Email',
           buttonColor: Colors.black,
           leading: SocialIcon(
-            label: 'Continue with Email',
+            label: '${S.current.continueWith} Email',
             imageUrl: 'assets/auth/icons/email_icon.svg',
             size: 20,
             iconColor: Colors.white,
@@ -134,10 +135,10 @@ class AuthMethodPage extends StatelessWidget {
         spacing,
         // Phone
         SocialButton(
-          title: 'Continue with Phone',
-          buttonColor: Color.fromRGBO(5, 164, 5, 1),
+          title: '${S.current.continueWith} Phone',
+          buttonColor: const Color.fromRGBO(5, 164, 5, 1),
           leading: SocialIcon(
-            label: 'Continue with Phone',
+            label: '${S.current.continueWith} Phone',
             imageUrl: 'assets/auth/icons/phone_icon.svg',
             size: 20,
             iconColor: Colors.white,
@@ -159,23 +160,23 @@ class AuthMethodPage extends StatelessWidget {
       maxLines: 3,
       textAlign: TextAlign.center,
       text: TextSpan(children: <TextSpan>[
-        const TextSpan(
-          text: 'By continuing, you agree to our ',
-          semanticsLabel: 'By continuing, you agree to our ',
+        TextSpan(
+          text: S.current.agreementText,
+          semanticsLabel: S.current.agreementText,
         ),
         TextSpan(
-          text: 'Terms of Service',
+          text: S.current.termsOfService,
           style: emphasizedText,
-          semanticsLabel: 'Terms of Service',
+          semanticsLabel: S.current.termsOfService,
           recognizer: TapGestureRecognizer()
             ..onTap =
                 () => debugPrint('Ready to navigate to Term of Service page'),
         ),
-        const TextSpan(text: ' and ', semanticsLabel: 'and'),
+        TextSpan(text: ' ${S.current.and} ', semanticsLabel: S.current.and),
         TextSpan(
-          text: 'Privacy Policy',
+          text: S.current.privacyPolicy,
           style: emphasizedText,
-          semanticsLabel: 'Privacy Policy',
+          semanticsLabel: S.current.privacyPolicy,
           recognizer: TapGestureRecognizer()
             ..onTap =
                 () => debugPrint('Ready to navigate to Privacy Policy page'),

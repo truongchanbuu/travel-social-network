@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../cores/constants/constants.dart';
+import '../../../generated/l10n.dart';
 
 class CategoryTabBar extends StatefulWidget {
   const CategoryTabBar({super.key});
@@ -18,7 +19,7 @@ class _CategoryTabBarState extends State<CategoryTabBar>
   @override
   void initState() {
     super.initState();
-    tabBarItems = ['Popular Destinations', 'Recommended Tours'];
+    tabBarItems = [S.current.popularDest, S.current.recommendTours];
     _tabController = TabController(length: tabBarItems.length, vsync: this);
   }
 

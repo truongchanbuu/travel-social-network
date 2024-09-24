@@ -1,19 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
-
-import 'package:travel_social_network/cores/constants/tickets.dart';
 import 'package:travel_social_network/cores/constants/policies.dart';
+import 'package:travel_social_network/cores/constants/tickets.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/currency_util.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/app_cached_image.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../tour/domain/entities/tour.dart';
-import '../../domain/entities/ticket_type.dart';
 import '../../domain/entities/policy.dart';
+import '../../domain/entities/ticket_type.dart';
 import '../widgets/add_ticket_type_item.dart';
 import '../widgets/available_date_list.dart';
 import '../widgets/ticket_brief_info.dart';
@@ -104,7 +103,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const DetailHeadingText(title: 'Important things you should know'),
+          DetailHeadingText(title: S.current.importantThingsYouShouldKnow),
           Padding(
             padding: const EdgeInsets.only(
               left: 5,
@@ -144,14 +143,14 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
               textDirection: defaultTextDirection,
               overflow: defaultTextOverflow,
               text: TextSpan(children: [
-                const TextSpan(
-                  text: 'For more details about ticket ',
-                  style: TextStyle(
+                TextSpan(
+                  text: '${S.current.forMoreInfoAboutTicket} ',
+                  style: const TextStyle(
                     fontSize: 14,
                   ),
                 ),
                 TextSpan(
-                  text: 'see here',
+                  text: S.current.seeHere,
                   style: const TextStyle(
                     color: primaryColor,
                     fontSize: 14,
@@ -233,10 +232,10 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
               height: 50,
               cacheKey: '${ticket.tourId}-img-0',
               imageUrl: tour.imageUrls.first,
-              errorSemanticLabel:
-                  'Thumb for ${ticket.ticketTypeName} of ${tour.tourName}',
+              errorSemanticLabel: S.current.thumbDesc(
+                  '${ticket.ticketTypeName} ${S.current.ofWord} ${tour.tourName}'),
               loadingSemanticLabel:
-                  'Loading thumb for ${ticket.ticketTypeName} of ${tour.tourName}',
+                  '${S.current.loading} ${S.current.ofWord} ${S.current.image}',
             ),
           ),
         ),
@@ -262,7 +261,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
                 selectedDate: selectedDate,
               ),
             ),
-            const Text('Voucher can be used on'),
+            Text(S.current.voucherCanBeUsedOn),
             Text(
               DateTimeUtils.formatFullDate(selectedDate ?? availableDates[0]),
               style: const TextStyle(
@@ -275,9 +274,9 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
 
   AppBar _buildAppBar() => AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text(
-          'Add Visitor Number',
-          style: TextStyle(
+        title: Text(
+          S.current.addVisitorNumber,
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 18,

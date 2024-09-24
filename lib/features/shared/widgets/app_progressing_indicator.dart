@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../cores/constants/constants.dart';
+import '../../../generated/l10n.dart';
 
 class AppProgressingIndicator extends StatelessWidget {
   final double size;
@@ -22,7 +23,7 @@ class AppProgressingIndicator extends StatelessWidget {
             value: value,
             semanticsValue: '${value ?? 0 * 100}%',
             backgroundColor: primaryColor,
-            semanticsLabel: semanticLabel ?? 'Loading',
+            semanticsLabel: semanticLabel ?? S.current.loading,
           ),
         ),
       );

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import 'additional_tour_info_bottom_sheet.dart';
 
 class TourMoreInfo extends StatelessWidget {
@@ -74,7 +74,7 @@ class TourMoreInfo extends StatelessWidget {
         ListTile(
           onTap: () => _callToServiceProvider(context, "0123456789"),
           leading: const Icon(Icons.phone),
-          title: const Text('Contact service provider'),
+          title: Text(S.current.contactServiceProvider),
           trailing: const Icon(
             Icons.chevron_right,
             color: primaryColor,
@@ -83,13 +83,14 @@ class TourMoreInfo extends StatelessWidget {
         ListTile(
           onTap: () => showModalBottomSheet(
             context: context,
+            shape: bottomSheetShape,
             useSafeArea: true,
             isScrollControlled: true,
             builder: (context) =>
                 AdditionalTourInfoBottomSheet(additionalInfo: jsonEncode(data)),
           ),
           leading: const Icon(Icons.info),
-          title: const Text('Additional Information'),
+          title: Text(S.current.additionalInformation),
           trailing: const Icon(
             Icons.chevron_right,
             color: primaryColor,
@@ -109,7 +110,7 @@ class TourMoreInfo extends StatelessWidget {
 
     try {
       if (!await canLaunchUrl(phoneUri)) {
-        _showSnackBar(scaffoldMessengerState, 'Could not make the phone call');
+        _showSnackBar(scaffoldMessengerState, S.current.makeCallFailure);
         return;
       }
 
@@ -119,14 +120,9 @@ class TourMoreInfo extends StatelessWidget {
             ? LaunchMode.externalApplication
             : LaunchMode.platformDefault,
       );
-    } on PlatformException catch (e) {
-      _showSnackBar(scaffoldMessengerState, 'Platform error: ${e.message}');
-    } on FormatException catch (e) {
-      _showSnackBar(
-          scaffoldMessengerState, 'Invalid phone number: ${e.message}');
     } catch (e) {
-      _showSnackBar(scaffoldMessengerState,
-          'Error launching phone call: ${e.toString()}');
+      debugPrint(e.toString());
+      _showSnackBar(scaffoldMessengerState, S.current.makeCallFailure);
     }
   }
 

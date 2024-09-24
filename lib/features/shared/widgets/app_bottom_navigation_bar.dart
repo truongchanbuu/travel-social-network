@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../cores/constants/constants.dart';
+import '../../../generated/l10n.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
   const AppBottomNavigationBar({super.key});
@@ -17,11 +18,18 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   void initState() {
     super.initState();
     icons = [
-      const BottomNavigationBarItem(
-          icon: Icon(Icons.home_filled), label: 'Home'),
-      const BottomNavigationBarItem(
-          icon: Icon(Icons.travel_explore), label: 'Social'),
-      const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.home_filled),
+        label: S.current.home,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.travel_explore),
+        label: S.current.social,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.person),
+        label: S.current.account,
+      ),
     ];
   }
 

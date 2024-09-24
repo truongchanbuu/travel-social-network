@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
+import '../../../setting/presentation/widgets/setting_icon.dart';
 import '../widgets/about_section.dart';
 import '../widgets/hero_image.dart';
-import '../widgets/setting_icon.dart';
 
 class HeroAuthPage extends StatefulWidget {
   const HeroAuthPage({super.key});
@@ -60,15 +61,15 @@ class _HeroAuthPageState extends State<HeroAuthPage> {
   }
 
   Text _buildPromotionText() {
-    return const Text(
-      'Exclusive Offers for you - with only one simple step!',
-      style: TextStyle(
+    return Text(
+      S.current.exclusiveOffers,
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
       maxLines: 3,
       overflow: defaultTextOverflow,
-      semanticsLabel: 'Exclusive Offers for you - with only simple step!',
+      semanticsLabel: S.current.exclusiveOffers,
       textAlign: TextAlign.center,
       textDirection: defaultTextDirection,
     );
@@ -87,9 +88,9 @@ class _HeroAuthPageState extends State<HeroAuthPage> {
             borderRadius: BorderRadius.circular(3),
           ),
         ),
-        child: const Text(
-          'Sign in/Sign up',
-          style: TextStyle(
+        child: Text(
+          '${S.current.signIn} / ${S.current.signUp}',
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 16,

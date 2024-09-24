@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
+
 class HeroImage extends StatelessWidget {
   final double? height;
   const HeroImage({super.key, this.height = 200});
@@ -11,12 +13,12 @@ class HeroImage extends StatelessWidget {
       fit: BoxFit.cover,
       alignment: Alignment.center,
       height: height,
-      semanticLabel: 'Hero Illustrator',
-      errorBuilder: (context, error, stackTrace) => const Center(
+      semanticLabel: S.current.image,
+      errorBuilder: (context, error, stackTrace) => Center(
         child: Icon(
           Icons.error,
           size: 100,
-          semanticLabel: 'Unavailable Hero Illustrator',
+          semanticLabel: S.current.errorImage,
         ),
       ),
     );

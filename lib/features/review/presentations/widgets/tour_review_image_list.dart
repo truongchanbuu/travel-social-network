@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../shared/pages/full_screen_image_page.dart';
 import '../../../shared/widgets/app_cached_image.dart';
 
@@ -48,8 +49,8 @@ class TourReviewImageList extends StatelessWidget {
                   imageUrl: imageUrls[index],
                   cacheKey: '$reviewId-img-$index',
                   errorImageSize: 20,
-                  errorSemanticLabel: 'Image at index $index',
-                  loadingSemanticLabel: 'Loading image at index $index',
+                  errorSemanticLabel: S.current.imageAtIndex(index),
+                  loadingSemanticLabel: S.current.loadingImageText(index),
                 ),
               ),
               if (isOverflowed(index, itemQuantity))

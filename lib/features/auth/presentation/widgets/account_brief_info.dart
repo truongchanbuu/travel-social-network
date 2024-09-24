@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../widgets/setting_icon.dart';
+import '../../../../generated/l10n.dart';
+import '../../../setting/presentation/widgets/setting_icon.dart';
 
 class AccountBriefInfo extends StatelessWidget {
   const AccountBriefInfo({super.key});
@@ -37,12 +38,12 @@ class AccountBriefInfo extends StatelessWidget {
   }
 
   Widget _buildInfoText() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Hi $appName member',
-          style: TextStyle(
+          S.current.greetingAppMember(appName),
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -51,13 +52,13 @@ class AccountBriefInfo extends StatelessWidget {
         Row(
           children: [
             Text(
-              'Manage your account',
-              style: TextStyle(
+              S.current.manageYourAccount,
+              style: const TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w100,
               ),
             ),
-            Icon(Icons.chevron_right)
+            const Icon(Icons.chevron_right)
           ],
         )
       ],

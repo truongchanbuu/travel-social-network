@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 
 class TourDetailLocation extends StatelessWidget {
   final String location;
@@ -24,10 +25,10 @@ class TourDetailLocation extends StatelessWidget {
                   ),
                 ),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  'Location Information',
-                  style: TextStyle(
+                  S.current.locationInfo,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -54,6 +55,7 @@ class TourDetailLocation extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             GestureDetector(
+              // TODO: LOCATION FEATURE
               onTap: () => debugPrint('Use this location'),
               child: Container(
                 decoration: BoxDecoration(
@@ -69,17 +71,17 @@ class TourDetailLocation extends StatelessWidget {
                   bottom: 10,
                   right: 15,
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.near_me,
                       color: primaryColor,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
-                      'Guide to this location',
-                      style: TextStyle(
+                      S.current.guideToLocation,
+                      style: const TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.bold,
                       ),

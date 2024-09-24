@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 
 class PhoneInputField extends StatefulWidget {
   const PhoneInputField({super.key});
@@ -38,14 +39,14 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                 showFlag: isFlagShown,
                 showDropDownButton: isDropDownButtonShown,
                 alignLeft: true,
-                searchDecoration: const InputDecoration(
-                  border: OutlineInputBorder(
+                searchDecoration: InputDecoration(
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  hintText: 'Search your country by code or name',
+                  hintText: S.current.phoneSearchHintText,
                 ),
               ),
             ),
@@ -53,16 +54,16 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
             Expanded(
               flex: 3,
               child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Phone number',
-                  semanticCounterText: 'Maximum length of phone number',
-                  border: OutlineInputBorder(
+                decoration: InputDecoration(
+                  labelText: S.current.phoneNumber,
+                  semanticCounterText: S.current.semanticPhoneNumberCounterText,
+                  border: const OutlineInputBorder(
                     borderRadius: inputFieldBorderRadius,
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  floatingLabelStyle: TextStyle(color: primaryColor),
+                  floatingLabelStyle: const TextStyle(color: primaryColor),
                   counterText: '',
                 ),
                 maxLength: 15,
@@ -83,12 +84,12 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
 
   String? _validatePhoneNumber(String? phoneNumber) {
     if (phoneNumber?.isEmpty ?? true) {
-      return 'Please enter your phone number';
+      return S.current.enterPhoneNumberRequirement;
     }
 
     final RegExp phoneNumberRegExp = RegExp(r'^(1)\d{10}$');
     if (!phoneNumberRegExp.hasMatch(phoneNumber!)) {
-      return 'Invalid phone number';
+      return S.current.invalidPhoneNumber;
     }
 
     return null;

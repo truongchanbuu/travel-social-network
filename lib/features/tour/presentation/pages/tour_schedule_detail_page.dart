@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_social_network/cores/utils/enum_utils.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../domain/entities/tour_activity.dart';
 import '../../domain/entities/tour_schedule.dart';
 
@@ -39,7 +40,7 @@ class _TourScheduleDetailPageState extends State<TourScheduleDetailPage> {
       leading: Icon(getActivityIcon(activity.activityType)),
       title: Text('${activity.time} --- ${activity.location}'),
       subtitle: Text(
-          '${activity.description} --- Transportation: ${activity.transportation}'),
+          '${activity.description} --- ${S.current.transportation}: ${activity.transportation}'),
       titleAlignment: ListTileTitleAlignment.center,
     );
   }

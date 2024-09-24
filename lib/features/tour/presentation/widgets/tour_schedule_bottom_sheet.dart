@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../domain/entities/tour_schedule.dart';
-import 'tour_schedule_list.dart';
 import 'tour_bottom_sheet_template.dart';
+import 'tour_schedule_list.dart';
 
 class TourScheduleBottomSheet extends StatefulWidget {
   final List<TourScheduleEntity> schedules;
@@ -17,7 +18,7 @@ class _TourScheduleBottomSheetState extends State<TourScheduleBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return TourBottomSheetTemplate(
-      title: 'Tour Itinerary',
+      title: S.current.tourItinerary,
       children: [
         Expanded(
           child: Padding(

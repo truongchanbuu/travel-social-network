@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/shared/widgets/quill_content.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
+import '../../../shared/widgets/quill_content.dart';
 
 class TourDescModal extends StatelessWidget {
   final String content;
@@ -20,10 +21,10 @@ class TourDescModal extends StatelessWidget {
                   Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
             ),
             padding: const EdgeInsets.all(10.0),
-            child: const Center(
+            child: Center(
               child: Text(
-                'Tour Description Detail',
-                style: TextStyle(
+                S.current.tourDescDetail,
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,

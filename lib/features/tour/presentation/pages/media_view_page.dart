@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../shared/pages/full_screen_image_page.dart';
 import '../../../shared/widgets/app_cached_image.dart';
 
@@ -54,9 +55,9 @@ class _MediaViewPageState extends State<MediaViewPage> {
       ],
       backgroundColor: Colors.transparent,
       centerTitle: true,
-      title: const Text(
-        'All Images and Videos',
-        style: TextStyle(
+      title: Text(
+        S.current.allImagesAndVideos,
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 18,
@@ -87,9 +88,11 @@ class _MediaViewPageState extends State<MediaViewPage> {
           child: AppCachedImage(
             imageUrl: widget.imageUrls[index],
             cacheKey: '${widget.prefixValueKey}-img-$index',
-            errorSemanticLabel:
-                'Image Collection${(widget.nameOfCollection?.isEmpty ?? true) ? '' : ' of ${widget.nameOfCollection}'}',
-            loadingSemanticLabel: 'Loading the image at index of $index',
+            errorSemanticLabel: S.current.imageCollectionText(
+                widget.nameOfCollection?.isNotEmpty == true
+                    ? ' of ${widget.nameOfCollection}'
+                    : ''),
+            loadingSemanticLabel: S.current.loadingImageText(index),
           ),
         ),
       );

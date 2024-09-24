@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // App
 const String appName = 'Traveround';
+const String currentVersion = '1.0.0+1';
 
 // Color
 const Color primaryColor = Colors.blueAccent;
@@ -76,5 +77,11 @@ const int maxItemCount = 4;
 const int maxReviewItem = 7;
 const int minimumImageShowed = 5;
 
+// Shape
+const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.all(Radius.circular(5)),
+);
+
 // API
 const String baseUrl = 'http://localhost:3000/api';
+

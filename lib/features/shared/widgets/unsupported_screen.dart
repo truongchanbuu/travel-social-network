@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
+
 class UnsupportedScreen extends StatelessWidget {
   const UnsupportedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Text(
-          'Sorry! This screen size is not supported',
-          style: TextStyle(
+          S.current.unsupportedText,
+          style: const TextStyle(
             color: Colors.grey,
             fontWeight: FontWeight.bold,
             fontSize: 30,

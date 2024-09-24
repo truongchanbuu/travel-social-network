@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../widgets/unsupported_screen.dart';
+import '../../../../generated/l10n.dart';
 import '../../widgets/home/destination_list.dart';
 import '../../widgets/home/home_app_bar.dart';
 import '../../widgets/home/homepage_fab.dart';
 import '../../widgets/home/homepage_section_heading.dart';
 import '../../widgets/home/tours_grid_view.dart';
+import '../../widgets/unsupported_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,14 +27,14 @@ class _HomePageState extends State<HomePage> {
             return const UnsupportedScreen();
           }
 
-          return const CustomScrollView(
+          return CustomScrollView(
             slivers: [
-              HomeAppBar(),
+              const HomeAppBar(),
               HomepageSectionHeading(
-                title: 'Popular Destinations',
+                title: S.current.popularDest,
                 padding: defaultPadding,
               ),
-              SliverPadding(
+              const SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: defaultPadding),
                 sliver: SliverToBoxAdapter(
                   child: SizedBox(
@@ -43,12 +44,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(child: SizedBox(height: 20)),
+              const SliverToBoxAdapter(child: SizedBox(height: 20)),
               HomepageSectionHeading(
-                title: 'Recommended Tours',
+                title: S.current.recommendTours,
                 padding: defaultPadding,
               ),
-              SliverPadding(
+              const SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: defaultPadding),
                 sliver: ToursGridView(),
               ),

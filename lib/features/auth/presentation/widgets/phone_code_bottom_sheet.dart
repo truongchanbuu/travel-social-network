@@ -1,9 +1,10 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/constants.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../../../cores/constants/country_codes.dart';
 import '../../../../cores/constants/types.dart';
+import '../../../../generated/l10n.dart';
 
 class PhoneCodeBottomSheet extends StatelessWidget {
   final List<CountryCode> codes;
@@ -27,7 +28,7 @@ class PhoneCodeBottomSheet extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(999),
                 ),
-                hintText: 'Search for your country',
+                hintText: S.current.phoneSearchHintText,
                 prefixIcon: const Icon(Icons.search),
               ),
               textAlign: TextAlign.start,

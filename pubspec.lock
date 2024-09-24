@@ -266,10 +266,10 @@ packages:
     dependency: transitive
     description:
       name: dart_quill_delta
-      sha256: e452a1473a16c2cbe4444b3433a8aeafb4a303907be8a5233b8d014411637296
+      sha256: "051853d86d9e40b878d1eaddefa538c69e9177592b2a47bcf32e34165b2ee166"
       url: "https://pub.dev"
     source: hosted
-    version: "10.6.5"
+    version: "10.7.5"
   dart_style:
     dependency: transitive
     description:
@@ -484,7 +484,7 @@ packages:
     source: hosted
     version: "3.0.2"
   flutter_localizations:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -492,10 +492,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "29dd68cd0b373188a7e48b1230ec877ea66d4c3a1257c82293c13a1a291a5099"
+      sha256: "90da4f3866ea4ca1b0d4055f0d3a514c7e45276b82b71a62d97389e742fe9b54"
       url: "https://pub.dev"
     source: hosted
-    version: "10.6.5"
+    version: "10.7.5"
   flutter_quill_delta_from_html:
     dependency: transitive
     description:
@@ -818,6 +818,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  package_info_plus:
+    dependency: "direct main"
+    description:
+      name: package_info_plus
+      sha256: a75164ade98cb7d24cfd0a13c6408927c6b217fa60dee5a7ff5c116a58f28918
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.0.2"
+  package_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: package_info_plus_platform_interface
+      sha256: ac1f4a4847f1ade8e6a87d1f39f5d7c67490738642e2542f559ec38c37489a66
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   path:
     dependency: transitive
     description:
@@ -966,10 +982,34 @@ packages:
     dependency: transitive
     description:
       name: quill_native_bridge
-      sha256: dae8892f4aa80c38daf66b8dbbad039795517632246cd495d28f957bcbd9f501
+      sha256: ba19b639c0fa5d4cadb58465cfdba439d8bffb5b2ccbbc76ff15af8124dcdd7e
       url: "https://pub.dev"
     source: hosted
-    version: "10.6.5"
+    version: "10.7.6"
+  quill_native_bridge_platform_interface:
+    dependency: transitive
+    description:
+      name: quill_native_bridge_platform_interface
+      sha256: f2219420890d51a260f6e71ef098428a07b4edc50148f66a0b137767a5b6fb7d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-dev.0"
+  quill_native_bridge_web:
+    dependency: transitive
+    description:
+      name: quill_native_bridge_web
+      sha256: "2524e9f74a6ebb386776aa55d4d49a917610f6883a487fb433583d899699dfd4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-dev.1"
+  quill_native_bridge_windows:
+    dependency: transitive
+    description:
+      name: quill_native_bridge_windows
+      sha256: "997daa116473b0f153ebb4e64478658f5020b80c2a4860ddf11c0117712155cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1-dev.0"
   quiver:
     dependency: transitive
     description:
@@ -1295,6 +1335,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  win32:
+    dependency: transitive
+    description:
+      name: win32
+      sha256: "68d1e89a91ed61ad9c370f9f8b6effed9ae5e0ede22a270bdfa6daf79fc2290a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.5.4"
   xdg_directories:
     dependency: transitive
     description:
@@ -1320,5 +1368,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.5.1 <4.0.0"
+  dart: ">=3.5.0 <4.0.0"
   flutter: ">=3.24.0"

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import '../../../tour/presentation/pages/create_tour_page.dart';
 
 class HomePageFloatingActionButton extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomePageFloatingActionButtonState
       onPressed: _navigateToCreateTourPage,
       backgroundColor: primaryColor,
       shape: const CircleBorder(),
-      tooltip: 'Create tour',
+      tooltip: S.current.createTour,
       child: const Icon(
         Icons.add,
         color: Colors.white,

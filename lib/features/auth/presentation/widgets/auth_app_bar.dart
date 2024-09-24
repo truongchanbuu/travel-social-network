@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
+
 class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AuthAppBar({super.key});
 
@@ -8,7 +10,7 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.chevron_left),
-        tooltip: 'Back',
+        tooltip: S.current.backToPreviousPage,
         color: Colors.black,
         onPressed: () {},
       ),

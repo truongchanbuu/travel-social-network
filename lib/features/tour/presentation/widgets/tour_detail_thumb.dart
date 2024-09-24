@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/app_cached_image.dart';
 import '../../domain/entities/tour.dart';
 import '../pages/media_view_page.dart';
@@ -71,7 +72,7 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'All Photos',
+                    S.current.allPhotos,
                     style: TextStyle(
                       color: textColor,
                     ),
@@ -128,11 +129,9 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
   Widget _buildImageItem(BuildContext context, int index, int pageViewIndex) =>
       AppCachedImage(
         imageUrl: tour.imageUrls[index],
-        cacheKey: '${tour.tourId}_img_$index',
-        errorSemanticLabel:
-            'Loading the image at $index index for tour with name ${tour.tourName}',
-        loadingSemanticLabel:
-            'Loading the image at $index index for tour with name ${tour.tourName}',
+        cacheKey: '${tour.tourId}-img-$index',
+        errorSemanticLabel: S.current.imageCollectionText(tour.tourName),
+        loadingSemanticLabel: S.current.loadingImageText(index),
       );
 
   void _showImages(BuildContext context) => Navigator.push(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../tour/presentation/widgets/tour_bottom_sheet_template.dart';
 import '../../domain/entities/ticket_type.dart';
 import 'available_date_list.dart';
@@ -40,7 +41,7 @@ class _TicketBottomSheetState extends State<TicketBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return TourBottomSheetTemplate(
-      title: 'Ticket Booking',
+      title: S.current.buyTicket,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

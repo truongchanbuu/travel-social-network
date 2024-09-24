@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../generated/l10n.dart';
 import '../../domain/entities/review.dart';
 import '../pages/review_detail_page.dart';
 import 'tour_rating_widget.dart';
@@ -106,7 +107,7 @@ class ReviewItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Reviewed ${_getFormattedDateTime(review.updatedAt ?? review.createdAt)}',
+                  '${S.current.reviewed} ${_getFormattedDateTime(review.updatedAt ?? review.createdAt)}',
                   style: const TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,

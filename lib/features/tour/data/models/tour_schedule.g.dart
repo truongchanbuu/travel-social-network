@@ -8,7 +8,7 @@ part of 'tour_schedule.dart';
 
 TourSchedule _$TourScheduleFromJson(Map<String, dynamic> json) => TourSchedule(
       tourId: json['tourId'] as String,
-      day: json['day'] as String,
+      day: int.parse(json['day']),
       date: DateTime.parse(json['date'] as String),
       briefDesc: json['briefDesc'] as String,
       activities: (json['activities'] as List<dynamic>)

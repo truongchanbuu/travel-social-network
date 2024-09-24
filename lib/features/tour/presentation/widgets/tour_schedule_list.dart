@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:travel_social_network/cores/constants/tour_schedules.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import '../../data/models/tour_schedule.dart';
 import '../../domain/entities/tour_schedule.dart';
-
 import '../pages/tour_schedule_detail_page.dart';
 import 'tour_schedule_icon_text.dart';
 
@@ -62,7 +62,7 @@ class _TourScheduleListState extends State<TourScheduleList> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TourScheduleIconText(
-              title: 'Day ${schedule.day}',
+              title: S.current.scheduleDay(schedule.day),
               iconData: Icons.calendar_month,
               iconColor: Colors.black,
             ),

@@ -1,0 +1,196 @@
+{
+  "@@locale": "vi",
+  "ofWord": "của",
+  "and": "và",
+  "next": "Kế tiếp",
+
+  "greetingAppMember": "Xin chào các thành viên của {appName}",
+  "@greetingAppMember": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
+  "home": "Trang chủ",
+  "social": "Cộng đồng",
+  "account": "Tài khoản",
+  "settings": "Cài đặt",
+  "darkTheme": "Nền tối",
+  "brightTheme": "Nền sáng",
+  "aboutAppName": "Về chúng tôi",
+  "rateForUs": "Đánh giá về chúng tôi",
+  "manageYourAccount": "Quản lý tài khoản của bạn",
+
+  "termAndCondition": "Chính sách và Điều khoản",
+  "privacyStatement": "Chính sách quyền riêng tư",
+  "termsOfService": "Điều khoản dịch vụ",
+  "privacyPolicy": "Chính sách bảo mật",
+  "agreementText": "Bằng cách tiếp tục, bạn đồng ý với ",
+
+  "securityAccount": "Bảo mật tài khoản",
+  "linkEmail": "Liên kết email",
+  "phoneNumber": "Số điện thoại",
+  "resetPassword": "Đặt lại mật khẩu",
+  "userProfile": "Hồ sơ người dùng",
+  "promotionText": "Tận hưởng những đặc quyền của thành viên",
+  "exclusiveOffers": "Ưu đãi đặc biệt dành cho bạn - chỉ với một bước đơn giản!",
+  "version": "Phiên bản",
+  "language": "Ngôn ngữ",
+  "englishLangChoice": "Tiếng Anh",
+  "countryRegion": "Quốc gia/Khu vực",
+  "countryEnglandRegionChoice": "Anh",
+  "currency": "Tiền tệ",
+  "currencyChoice": "Bảng Anh",
+  "units": "Đơn vị",
+  "unitsChoice": "Mét theo hệ mét",
+  "temperatureScale": "Thang đo nhiệt độ",
+  "C": "Celsius",
+  "classificationOutstanding": "Xuất sắc",
+  "classificationWonderful": "Tuyệt vời",
+  "classificationGood": "Tốt",
+  "classificationPleasant": "Dễ chịu",
+  "classificationNotVeryGood": "Không tốt lắm",
+  "classificationDisappointing": "Thất vọng",
+  "classificationTerrible": "Kinh khủng",
+  "classificationError": "Không có đánh giá",
+  "unsupportedText": "Màn hình hiện tại không được hỗ trợ",
+  "popularDest": "Những địa danh nổi tiếng",
+  "@popularDest": {
+    "description": "Đầu mục cho phần những địa danh nổi tiếng trong trang chủ"
+  },
+  "recommendTours": "Những tour có thể bạn sẽ thích",
+  "@recommendTours": {
+    "description": "Đầu mục cho phần những tour có thể bạn sẽ thích"
+  },
+
+  "continueWith": "Tiếp tục với",
+  "backToPreviousPage": "Trở về trang trước",
+
+  "createTour": "Tạo một tour du lịch cho riêng mình",
+  "image": "hình ảnh",
+  "errorImage": "Failed to load image",
+  "imageAtIndex": "Hỉnh ảnh tại vị trí {index}",
+  "@imageAtIndex": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "imageCollectionText": "Tất cả các ảnh{nameOfCollection}",
+  "@imageCollectionText": {
+    "description": "Miêu tả của tất cả các ảnh, có thể của một tập ảnh nào đó",
+    "placeholders": {
+      "type": "String",
+      "example": " của tour Vịnh Hạ Long"
+    }
+  },
+  "loadingImageText": "Đang tải ảnh tại vị trí thứ {index}",
+  "@loadingImageText": {
+    "description": "Đoạn chữ miêu tả hành động tải của ảnh tại vị trí nào đó",
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "loading": "Đang tải",
+  "allImagesAndVideos": "Tất cả hình ảnh và video",
+  "reviews": "Đánh giá",
+  "reviewed": "Đã đánh giá",
+  "viewAll": "Xem tất cả",
+  "ticket": "Vé",
+  "see": "Xem",
+  "detail": "chi tiết",
+  "tour": "Chuyến đi",
+  "itinerary": "lịch trình",
+  "schedule": "Lịch trình",
+  "tourSchedule": "Lịch trình chuyến đi",
+  "tourItinerary": "Lịch trình chuyến đi",
+  "showMore": "Xem thêm",
+  "services": "Các dịch vụ",
+  "moreInfo": "Thêm thông tin",
+  "outStandingFeatures": "Những tính năng nổi bật",
+  "transportation": "Phương tiện di chuyển",
+  "@transportation": {
+    "description": "Dạng số ít"
+  },
+  "additionalInformation": "Thông tin thêm",
+  "totalReviews": "{value}",
+  "@totalReviews": {
+    "placeholders": {
+      "value": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "duration": "Thời gian đi",
+  "days": "ngày",
+  "scheduleDay": "Ngày thứ {value}",
+  "@scheduleDay": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "tourDescDetail": "Chi tiết chuyến đi",
+  "locationInfo": "Thông tin địa danh",
+  "guideToLocation": "Xem hướng dẫn đường đi",
+  "allPhotos": "Tất cả các hình ảnh",
+  "makeCallFailure": "Không thể thực hiện cuộc gọi",
+  "contactServiceProvider": "Liên hệ nhà cung cấp dịch vụ",
+  "forMoreInfoAboutTicket": "Để biết thông tin chi tiết về vé này",
+  "seeHere": "Xem tại đây",
+  "thumbDesc": "Ảnh bìa của {name}",
+  "@thumbDesc": {
+    "description": "Ảnh bìa",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voucherCanBeUsedOn": "Vé có hiệu lực vào",
+  "addVisitorNumber": "Thêm số lượng người",
+  "importantThingsYouShouldKnow": "Một số điều cần lưu ý",
+  "buyTicket": "Đặt vé",
+  "aboutThisTicket": "Về vé này",
+  "voucherExp": "Thời hạn vé",
+  "selectedDate": "ngày đã chọn",
+  "redemptionMethod": "Phương thức nhận vé",
+  "howToRedeem": "Cách nhận",
+  "canBeRescheduled": "Có thể đổi lịch",
+  "cannotBeRescheduled": "Không thể đổi lịch",
+  "refundable": "Có thể hoàn tiền",
+  "nonRefundable": "Không thể hoàn tiền",
+  "refundAndReschedule": "Hoàn tiền và Đổi lịch",
+  "forType": "Dành cho {ticketType}",
+  "@forType": {
+    "placeholders": {
+      "ticketType": {
+        "type": "String",
+        "example": "Người lớn"
+      }
+    }
+  },
+  "select": "Chọn",
+  "totalPrice": "Tổng tiền",
+  "paymentInfo": "Đã bao gồm các phí và thuế",
+
+  "bookingNow": "Đặt ngay",
+  "signIn": "Đăng nhập",
+  "signUp": "Đăng ký",
+  "emailAnnouncement": "Chúng tôi sẽ sử dụng tài khoản email của bạn để đăng nhập. Nếu chưa có tài khoản thì chúng tôi sẽ tạo mới dựa trên email đang được sử dụng",
+  "forgotPassword": "Quên mật khảu",
+  "password": "Mật khẩu",
+  "enterPasswordRequirement": "Vui lòng nhập mật khẩu của bạn",
+  "passwordRequirement": "Mật khẩu phải có ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt",
+
+  "phoneSearchHintText": "Nhập tên hoặc mã quốc gia để tìm kiếm quốc gia của bạn",
+  "semanticPhoneNumberCounterText": "Số chữ số tối đa",
+  "enterPhoneNumberRequirement": "Vui lòng nhập số điện thoại của bạn",
+  "invalidPhoneNumber": "Số điện thoại không hợp lệ"
+}

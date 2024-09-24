@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 
 class TicketBriefInfo extends StatelessWidget {
   final String ticketName;
@@ -32,7 +33,7 @@ class TicketBriefInfo extends StatelessWidget {
         title: Text(
           ticketCategory?.isEmpty ?? true
               ? ticketName
-              : '$ticketName - For $ticketCategory',
+              : '$ticketName - ${S.current.forType(ticketCategory ?? '')}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: titleFontSize ?? 18,

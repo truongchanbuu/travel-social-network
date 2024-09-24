@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/auth_app_bar.dart';
 import '../widgets/continue_button.dart';
 import '../widgets/password_input_field.dart';
@@ -25,9 +26,9 @@ class ContinueWithEmailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'We are going to sign in with your email or create a new account if you don\'t have one',
-                    style: TextStyle(
+                  Text(
+                    S.current.emailAnnouncement,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       overflow: defaultTextOverflow,

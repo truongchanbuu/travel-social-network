@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/currency_util.dart';
+import '../../../../cores/utils/currency_utils.dart';
+import '../../../../generated/l10n.dart';
 
 class TotalPriceWidget extends StatefulWidget {
   final num totalPrice;
@@ -56,17 +57,17 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
   Widget _buildTotalPrice() => ListTile(
         onTap: widget.canTap ? () => _showTotalPriceBottomSheet(context) : null,
         titleAlignment: ListTileTitleAlignment.center,
-        title: const Text(
-          'Total Price',
-          style: TextStyle(
+        title: Text(
+          S.current.totalPrice,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),
         ),
-        subtitle: const Text(
-          'Inclusive of taxes and fees',
-          style: TextStyle(
+        subtitle: Text(
+          S.current.paymentInfo,
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 13,
           ),
@@ -138,9 +139,9 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
           ),
-          child: const Text(
-            'Booking Now',
-            style: TextStyle(
+          child: Text(
+            S.current.bookingNow,
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -155,8 +156,10 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
       isScrollControlled: true,
       shape: const LinearBorder(),
       context: context,
-      builder: (context) =>
-          TotalPriceWidget(totalPrice: widget.totalPrice, canTap: false),
+      builder: (context) => TotalPriceWidget(
+        totalPrice: widget.totalPrice,
+        canTap: false,
+      ),
     );
   }
 }

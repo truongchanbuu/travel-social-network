@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 
 class PasswordInputField extends StatefulWidget {
   const PasswordInputField({super.key});
@@ -36,8 +37,8 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             color: focusNode.hasFocus ? primaryColor : null,
           ),
         ),
-        labelText: 'Password',
-        semanticCounterText: 'Password should be at least 8 characters',
+        labelText: S.current.password,
+        semanticCounterText: S.current.passwordRequirement,
         border: const OutlineInputBorder(
           borderRadius: inputFieldBorderRadius,
         ),
@@ -59,14 +60,14 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
 
   String? _validatePassword(String? password) {
     if (password?.isEmpty ?? true) {
-      return 'Please enter your password';
+      return S.current.enterPasswordRequirement;
     }
 
     RegExp passwordRegExp =
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 
     if (!passwordRegExp.hasMatch(password!)) {
-      return 'Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character';
+      return S.current.passwordRequirement;
     }
 
     return null;

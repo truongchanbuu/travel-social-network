@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 
 class ContinueButton extends StatelessWidget {
   const ContinueButton({super.key});
@@ -15,19 +16,19 @@ class ContinueButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Continue',
-            style: TextStyle(
+            S.current.next,
+            style: const TextStyle(
               color: textButtonColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
-          SizedBox(width: 10),
-          Icon(
+          const SizedBox(width: 10),
+          const Icon(
             Icons.chevron_right,
             color: Colors.white,
           ),

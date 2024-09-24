@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/switch_setting_item.dart';
+import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/multiple_choice_setting_item.dart';
+import '../widgets/switch_setting_item.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -11,7 +13,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text('Settings'),
+        title: Text(S.current.settings),
         shape: const Border(
           bottom: BorderSide(
             width: 0.5,
@@ -34,23 +36,37 @@ class SettingsPage extends StatelessWidget {
   Widget _buildMultipleChoiceSection() {
     return Container(
       margin: const EdgeInsets.only(top: 10),
-      child: const Column(
+      child: Column(
         children: [
-          MultipleChoiceSettingItem(title: 'Language', choice: 'English'),
-          MultipleChoiceSettingItem(title: 'Country/Region', choice: 'England'),
-          MultipleChoiceSettingItem(title: 'Currency', choice: 'Pound'),
-          MultipleChoiceSettingItem(title: 'Units', choice: 'Meter Metric'),
           MultipleChoiceSettingItem(
-              title: 'Temperature Scale', choice: 'Celsius'),
+            title: S.current.language,
+            choice: S.current.englishLangChoice,
+          ),
+          MultipleChoiceSettingItem(
+            title: S.current.countryRegion,
+            choice: S.current.countryEnglandRegionChoice,
+          ),
+          MultipleChoiceSettingItem(
+            title: S.current.currency,
+            choice: S.current.currencyChoice,
+          ),
+          MultipleChoiceSettingItem(
+            title: S.current.units,
+            choice: S.current.unitsChoice,
+          ),
+          MultipleChoiceSettingItem(
+            title: S.current.temperatureScale,
+            choice: S.current.C,
+          ),
         ],
       ),
     );
   }
 
   Widget _buildSwitchSelection() {
-    return const Column(
+    return Column(
       children: [
-        SwitchSettingItem(title: 'Dark Theme'),
+        SwitchSettingItem(title: S.current.darkTheme),
       ],
     );
   }
@@ -60,13 +76,16 @@ class SettingsPage extends StatelessWidget {
       children: [
         ListTile(
           onTap: () {},
-          title: const Text('Terms & Condition'),
+          title: Text(S.current.termAndCondition),
         ),
         ListTile(
           onTap: () {},
-          title: const Text('Privacy Statement'),
+          title: Text(S.current.privacyStatement),
         ),
-        const MultipleChoiceSettingItem(title: 'Version', choice: '0.0.1'),
+        MultipleChoiceSettingItem(
+          title: S.current.version,
+          choice: currentVersion,
+        ),
       ],
     );
   }

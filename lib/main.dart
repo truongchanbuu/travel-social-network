@@ -1,11 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/tickets.dart';
-import 'package:travel_social_network/cores/constants/tours.dart';
-import 'package:travel_social_network/features/ticket/presentations/pages/add_number_visitor_page.dart';
-import 'package:travel_social_network/features/ticket/presentations/pages/ticket_detail_page.dart';
-import 'package:travel_social_network/features/ticket/presentations/widgets/add_ticket_type_item.dart';
-import 'package:travel_social_network/features/tour/presentation/pages/tour_detail_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
@@ -13,7 +8,7 @@ import './firebase_options.dart';
 import './injection_container.dart';
 import 'features/shared/pages/home/home_page.dart';
 import 'features/shared/widgets/app_bottom_navigation_bar.dart';
-import 'features/shared/widgets/item_counter.dart';
+import 'generated/l10n.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -24,6 +19,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: themes(),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       home: SafeArea(
         child: Scaffold(
           bottomNavigationBar: AppBottomNavigationBar(),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../domain/entities/tour.dart';
+import '../../../../generated/l10n.dart';
 import '../../../review/presentations/pages/review_detail_page.dart';
+import '../../domain/entities/tour.dart';
 import 'tour_detail_location.dart';
 
 class InfoSection extends StatelessWidget {
@@ -47,10 +48,10 @@ class InfoSection extends StatelessWidget {
     );
   }
 
-  Widget _buildReviewAndRating(context) {
-    const double ratingBorderRadius = 20;
-    const Color reviewNumberTextColor = Colors.grey;
+  static const double ratingBorderRadius = 20;
+  static const Color reviewNumberTextColor = Colors.grey;
 
+  Widget _buildReviewAndRating(context) {
     return GestureDetector(
       onTap: () => _showReviewDetailPage(context),
       child: Container(
@@ -71,10 +72,10 @@ class InfoSection extends StatelessWidget {
                 ),
                 color: primaryColor,
               ),
-              padding: const EdgeInsetsDirectional.all(5),
-              child: const Text(
-                '4.9/5.0',
-                style: TextStyle(
+              padding: const EdgeInsetsDirectional.all(6),
+              child: Text(
+                '${tour.rating.toStringAsFixed(1)} / 5.0',
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
@@ -82,9 +83,10 @@ class InfoSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            const Text(
-              '2.1k reviews',
-              style: TextStyle(
+            Text(
+              // TODO: Change the total review later
+              '${S.current.totalReviews(21243)} ${S.current.reviews}',
+              style: const TextStyle(
                 color: reviewNumberTextColor,
                 fontSize: 12,
               ),
@@ -117,15 +119,15 @@ class InfoSection extends StatelessWidget {
           title: RichText(
             text: TextSpan(
               children: [
-                const TextSpan(
-                  text: 'Duration',
-                  style: TextStyle(
+                TextSpan(
+                  text: S.current.duration,
+                  style: const TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const TextSpan(text: ' | '),
-                TextSpan(text: '${tour.duration} day(s)')
+                TextSpan(text: '${tour.duration} ${S.current.days}')
               ],
             ),
           ),

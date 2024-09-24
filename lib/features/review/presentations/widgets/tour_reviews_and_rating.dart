@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/constants/reviews.dart';
+import '../../../../cores/utils/classification_utils.dart';
+import '../../../../generated/l10n.dart';
 import '../../domain/entities/review.dart';
 import 'review_item.dart';
 
 class TourReviewsAndRating extends StatefulWidget {
+  final double rating;
   final List<ReviewEntity> reviews;
-  const TourReviewsAndRating({super.key, required this.reviews});
+  const TourReviewsAndRating({
+    super.key,
+    required this.reviews,
+    required this.rating,
+  });
 
   @override
   State<TourReviewsAndRating> createState() => _TourReviewsAndRatingState();
@@ -35,9 +42,9 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
                 color: primaryColor,
               ),
               padding: const EdgeInsets.all(8),
-              child: const Text(
-                '4.9',
-                style: TextStyle(
+              child: Text(
+                widget.rating.toStringAsFixed(1),
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -45,20 +52,20 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
               ),
             ),
             const SizedBox(width: 10),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Excellent',
-                  style: TextStyle(
+                  ClassificationUtils.classificationRating(widget.rating),
+                  style: const TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
                 Text(
-                  '2.1k Reviews',
-                  style: TextStyle(
+                  S.current.totalReviews(reviews.length),
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
                     fontSize: 13,

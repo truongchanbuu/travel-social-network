@@ -5,8 +5,9 @@ import 'package:travel_social_network/cores/constants/tickets.dart';
 import 'package:travel_social_network/features/ticket/presentations/pages/add_number_visitor_page.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/currency_util.dart';
+import '../../../../cores/utils/currency_utils.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../shared/widgets/detail_section_container.dart';
 import '../../../shared/widgets/quill_content.dart';
@@ -111,7 +112,6 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         ),
         padding: const EdgeInsets.all(defaultPadding),
         child: ElevatedButton(
-          // TODO: pop -> push
           onPressed: () => _navigateToAddVisitorPage(context),
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
@@ -120,9 +120,9 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
               borderRadius: BorderRadius.all(Radius.circular(3)),
             ),
           ),
-          child: const Text(
-            'Buy Ticket',
-            style: TextStyle(
+          child: Text(
+            S.current.buyTicket,
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -179,7 +179,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         backgroundColor: backGroundExpansionItemColor,
         canTapOnHeader: true,
         headerBuilder: (context, isExpanded) =>
-            const DetailHeadingText(title: 'About this ticket'),
+            DetailHeadingText(title: S.current.aboutThisTicket),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: defaultPadding),
           child: QuillContent(content: ticket.ticketInfo, isVisible: true),
@@ -192,7 +192,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
     return ExpansionPanel(
       backgroundColor: backGroundExpansionItemColor,
       headerBuilder: (context, isExpanded) =>
-          const DetailHeadingText(title: 'Voucher Expiration'),
+          DetailHeadingText(title: S.current.voucherExp),
       canTapOnHeader: true,
       body: ListTile(
         leading: const Icon(
@@ -203,16 +203,16 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
           overflow: defaultTextOverflow,
           textDirection: defaultTextDirection,
           text: TextSpan(children: [
-            const TextSpan(
-              text: 'Available to use on ',
-              style: TextStyle(
+            TextSpan(
+              text: '${S.current.voucherCanBeUsedOn} ',
+              style: const TextStyle(
                 color: subtitleTicketDetailColor,
                 fontSize: fontSize,
               ),
             ),
             TextSpan(
               text: selectedDate == null
-                  ? 'visit date'
+                  ? S.current.selectedDate
                   : DateTimeUtils.formatFullDate(selectedDate!),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
@@ -232,16 +232,18 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         canTapOnHeader: true,
         isExpanded: sectionExpandedMap['redemption'] ?? true,
         headerBuilder: (context, isExpanded) =>
-            const DetailHeadingText(title: 'Redemption Method'),
+            DetailHeadingText(title: S.current.redemptionMethod),
         body: Padding(
           padding: const EdgeInsets.only(
-              left: defaultPadding, bottom: defaultPadding),
+            left: defaultPadding,
+            bottom: defaultPadding,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'How to redeem:',
-                style: TextStyle(
+              Text(
+                S.current.howToRedeem,
+                style: const TextStyle(
                   color: subtitleTicketDetailColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
@@ -251,7 +253,9 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
               ),
               const SizedBox(height: 5),
               QuillContent(
-                  content: ticket.redemptionMethodDesc, isVisible: true),
+                content: ticket.redemptionMethodDesc,
+                isVisible: true,
+              ),
             ],
           ),
         ),
@@ -268,17 +272,19 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       backgroundColor: backGroundExpansionItemColor,
       canTapOnHeader: true,
       headerBuilder: (context, isExpanded) =>
-          const DetailHeadingText(title: 'Refund & Reschedule'),
+          DetailHeadingText(title: S.current.refundAndReschedule),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildPolicyText(
-            canRescheduled ? 'Can be Rescheduled' : 'Cannot be Rescheduled',
+            canRescheduled
+                ? S.current.canBeRescheduled
+                : S.current.cannotBeRescheduled,
             rescheduleDescription,
             canRescheduled ? rescheduledIcon : noRescheduledIcon,
           ),
           _buildPolicyText(
-            canRefund ? 'Can be Refunded' : 'Cannot be Refunded',
+            canRefund ? S.current.refundable : S.current.nonRefundable,
             refundDescription,
             canRefund ? refundableIcon : nonrefundableIcon,
           ),

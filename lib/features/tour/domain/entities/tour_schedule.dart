@@ -4,7 +4,7 @@ import 'tour_activity.dart';
 
 class TourScheduleEntity extends Equatable {
   final String tourId;
-  final String day;
+  final int day;
   final DateTime date;
   final String briefDesc;
   final List<TourActivityEntity> activities;

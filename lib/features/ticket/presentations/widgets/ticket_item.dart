@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/currency_util.dart';
+import '../../../../cores/utils/currency_utils.dart';
+import '../../../../generated/l10n.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../pages/add_number_visitor_page.dart';
 import '../pages/ticket_detail_page.dart';
@@ -46,9 +47,9 @@ class TicketItem extends StatelessWidget {
               isPaddingTitle: false,
             ),
             const SizedBox(height: 5),
-            const Text(
-              'See detail',
-              style: TextStyle(
+            Text(
+              '${S.current.see} ${S.current.detail}',
+              style: const TextStyle(
                 color: primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
@@ -56,23 +57,20 @@ class TicketItem extends StatelessWidget {
             ),
             const Divider(color: Colors.grey, thickness: 0.5),
             const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () => debugPrint('PRICE DETAIL'),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    CurrencyUtils.formatCurrency(ticket.ticketPrice),
-                    style: const TextStyle(
-                      color: currencyTextColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  CurrencyUtils.formatCurrency(ticket.ticketPrice),
+                  style: const TextStyle(
+                    color: currencyTextColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
-                  if (!isOverflowed) _buildSelectButton(context),
-                ],
-              ),
+                ),
+                if (!isOverflowed) _buildSelectButton(context),
+              ],
             ),
             if (isOverflowed) ...[
               const SizedBox(height: 10),
@@ -98,10 +96,10 @@ class TicketItem extends StatelessWidget {
           horizontal: 30,
         ),
       ),
-      child: const Text(
-        'Select',
+      child: Text(
+        S.current.select,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 14,

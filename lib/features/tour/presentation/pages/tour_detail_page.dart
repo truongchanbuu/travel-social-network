@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/constants/reviews.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
+import '../../../review/domain/entities/review.dart';
 import '../../../review/presentations/pages/review_detail_page.dart';
 import '../../../review/presentations/widgets/tour_reviews_and_rating.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
@@ -37,6 +40,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
   List<TourScheduleEntity> schedules = List.empty(growable: true);
   List<TicketTypeEntity> tickets = List.empty(growable: true);
   List<DateTime> availableDates = List.empty(growable: true);
+  List<ReviewEntity> reviews = List.empty(growable: true);
 
   Color titleColor = Colors.white;
   DateTime? selectedDate;
@@ -51,6 +55,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
         .first;
     tickets = tour.tickets;
     availableDates = tour.tickets.map((t) => t.date).toList();
+    reviews = sampleReviews.where((r) => r.tourId == widget.tourId).toList();
   }
 
   @override
@@ -117,29 +122,32 @@ class _TourDetailPageState extends State<TourDetailPage> {
           children: [
             DetailHeadingText(
               onTap: _showReviewDetailPage,
-              title: 'Reviews & Rating',
-              trailing: const Text(
-                'View all',
-                style: TextStyle(
+              title: S.current.reviews,
+              trailing: Text(
+                S.current.viewAll,
+                style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: TourReviewsAndRating(reviews: []),
+            Padding(
+              padding: const EdgeInsets.only(left: defaultPadding),
+              child: TourReviewsAndRating(
+                reviews: reviews,
+                rating: tour.rating,
+              ),
             ),
           ],
         ),
       );
 
-  Widget _buildMoreInfoSection() => const DetailSectionContainer(
+  Widget _buildMoreInfoSection() => DetailSectionContainer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DetailHeadingText(title: 'More Info'),
-            TourMoreInfo(),
+            DetailHeadingText(title: S.current.moreInfo),
+            const TourMoreInfo(),
           ],
         ),
       );
@@ -167,9 +175,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
                   ),
                   minimumSize: const Size.fromHeight(50),
                 ),
-                child: const Text(
-                  'See All Tickets',
-                  style: TextStyle(
+                child: Text(
+                  '${S.current.viewAll} ${S.current.tickets}',
+                  style: const TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
@@ -185,24 +193,18 @@ class _TourDetailPageState extends State<TourDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DetailHeadingText(title: 'Tour Schedule'),
+            DetailHeadingText(title: S.current.tourSchedule),
             Expanded(child: TourScheduleList(tourSchedule: schedules)),
             GestureDetector(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                useSafeArea: true,
-                isScrollControlled: true,
-                builder: (context) =>
-                    TourScheduleBottomSheet(schedules: schedules),
-              ),
+              onTap: () => _showTourScheduleBottomSheet(context),
               child: Container(
                 color: Colors.transparent,
                 width: double.infinity,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10.0),
-                child: const Text(
-                  'See Detail Tour Itinerary',
-                  style: TextStyle(
+                child: Text(
+                  '${S.current.see} ${S.current.detail} ${S.current.tourItinerary}',
+                  style: const TextStyle(
                     color: primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -219,9 +221,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0),
-              child: DetailHeadingText(title: 'Outstanding Features'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              child: DetailHeadingText(title: S.current.outStandingFeatures),
             ),
             Expanded(child: QuillContent(content: tour.tourDescription)),
             TextButton(
@@ -241,17 +243,18 @@ class _TourDetailPageState extends State<TourDetailPage> {
                 ),
                 backgroundColor: primaryColor,
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Show more',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                    S.current.showMore,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.keyboard_double_arrow_down,
                     color: Colors.white,
                     size: 16,
@@ -267,7 +270,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DetailHeadingText(title: 'Services'),
+            DetailHeadingText(title: S.current.services),
             AvailableDateList(
               availableDates: availableDates,
               onSelectDate: _selectTravelDate,
@@ -316,4 +319,13 @@ class _TourDetailPageState extends State<TourDetailPage> {
       ),
     );
   }
+
+  void _showTourScheduleBottomSheet(BuildContext context) =>
+      showModalBottomSheet(
+        context: context,
+        shape: bottomSheetShape,
+        useSafeArea: true,
+        isScrollControlled: true,
+        builder: (context) => TourScheduleBottomSheet(schedules: schedules),
+      );
 }
