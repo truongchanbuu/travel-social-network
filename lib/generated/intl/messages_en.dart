@@ -20,21 +20,25 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(ticketType) => "For ${ticketType}";
+  static String m0(prefix, index) => "${prefix}-img-${index}";
 
-  static String m1(appName) => "Hi ${appName} member";
+  static String m1(imgUrl, index) => "${imgUrl}-${index}";
 
-  static String m2(index) => "Image at ${index}";
+  static String m2(ticketType) => "For ${ticketType}";
 
-  static String m3(nameOfCollection) => "Illustrators${nameOfCollection}";
+  static String m3(appName) => "Hi ${appName} member";
 
-  static String m4(index) => "Loading image at index ${index}";
+  static String m4(index) => "Image at ${index}";
 
-  static String m5(value) => "Day ${value}";
+  static String m5(nameOfCollection) => "Illustrators${nameOfCollection}";
 
-  static String m6(name) => "Thumb for ${name}";
+  static String m6(index) => "Loading image at index ${index}";
 
-  static String m7(value) => "${value}";
+  static String m7(value) => "Day ${value}";
+
+  static String m8(name) => "Thumb for ${name}";
+
+  static String m9(value) => "${value}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -58,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bookingNow": MessageLookupByLibrary.simpleMessage("Booking Now"),
         "brightTheme": MessageLookupByLibrary.simpleMessage("Bright Theme"),
         "buyTicket": MessageLookupByLibrary.simpleMessage("Buy Ticket"),
+        "cacheKeyWithId": m0,
+        "cacheKeyWithoutId": m1,
         "canBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Can be Rescheduled"),
         "cannotBeRescheduled":
@@ -104,17 +110,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Exclusive Offers for you - with only one simple step!"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
             "For more details about this ticket"),
-        "forType": m0,
+        "forType": m2,
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
-        "greetingAppMember": m1,
+        "greetingAppMember": m3,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Guide to location"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("How to redeem"),
         "image": MessageLookupByLibrary.simpleMessage("image"),
-        "imageAtIndex": m2,
-        "imageCollectionText": m3,
+        "imageAtIndex": m4,
+        "imageCollectionText": m5,
         "importantThingsYouShouldKnow": MessageLookupByLibrary.simpleMessage(
             "Important things you should know"),
         "invalidPhoneNumber":
@@ -123,7 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
-        "loadingImageText": m4,
+        "loadingImageText": m6,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Location Information"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
@@ -164,7 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
         "reviews": MessageLookupByLibrary.simpleMessage("Review(s)"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
-        "scheduleDay": m5,
+        "scheduleDay": m7,
         "securityAccount":
             MessageLookupByLibrary.simpleMessage("Security Account"),
         "see": MessageLookupByLibrary.simpleMessage("See"),
@@ -185,10 +191,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m6,
+        "thumbDesc": m8,
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m7,
+        "totalReviews": m9,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),

@@ -230,7 +230,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
             child: AppCachedImage(
               width: 50,
               height: 50,
-              cacheKey: '${ticket.tourId}-img-0',
+              cacheKey: S.current.cacheKeyWithId(ticket.tourId, 0),
               imageUrl: tour.imageUrls.first,
               errorSemanticLabel: S.current.thumbDesc(
                   '${ticket.ticketTypeName} ${S.current.ofWord} ${tour.tourName}'),

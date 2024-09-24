@@ -68,6 +68,8 @@
   "backToPreviousPage": "Trở về trang trước",
 
   "createTour": "Tạo một tour du lịch cho riêng mình",
+
+  "allImagesAndVideos": "Tất cả hình ảnh và video",
   "image": "hình ảnh",
   "errorImage": "Failed to load image",
   "imageAtIndex": "Hỉnh ảnh tại vị trí {index}",
@@ -96,7 +98,29 @@
     }
   },
   "loading": "Đang tải",
-  "allImagesAndVideos": "Tất cả hình ảnh và video",
+  "cacheKeyWithId": "{prefix}-img-{index}",
+  "@cacheKeyWithId": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "cacheKeyWithoutId": "{imgUrl}-{index}",
+  "@cacheKeyWithoutId": {
+    "placeholders": {
+      "imgUrl": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+
   "reviews": "Đánh giá",
   "reviewed": "Đã đánh giá",
   "viewAll": "Xem tất cả",

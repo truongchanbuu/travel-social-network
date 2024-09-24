@@ -20,21 +20,25 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
-  static String m0(ticketType) => "Dành cho ${ticketType}";
+  static String m0(prefix, index) => "${prefix}-img-${index}";
 
-  static String m1(appName) => "Xin chào các thành viên của ${appName}";
+  static String m1(imgUrl, index) => "${imgUrl}-${index}";
 
-  static String m2(index) => "Hỉnh ảnh tại vị trí ${index}";
+  static String m2(ticketType) => "Dành cho ${ticketType}";
 
-  static String m3(nameOfCollection) => "Tất cả các ảnh${nameOfCollection}";
+  static String m3(appName) => "Xin chào các thành viên của ${appName}";
 
-  static String m4(index) => "Đang tải ảnh tại vị trí thứ ${index}";
+  static String m4(index) => "Hỉnh ảnh tại vị trí ${index}";
 
-  static String m5(value) => "Ngày thứ ${value}";
+  static String m5(nameOfCollection) => "Tất cả các ảnh${nameOfCollection}";
 
-  static String m6(name) => "Ảnh bìa của ${name}";
+  static String m6(index) => "Đang tải ảnh tại vị trí thứ ${index}";
 
-  static String m7(value) => "${value}";
+  static String m7(value) => "Ngày thứ ${value}";
+
+  static String m8(name) => "Ảnh bìa của ${name}";
+
+  static String m9(value) => "${value}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -57,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bookingNow": MessageLookupByLibrary.simpleMessage("Đặt ngay"),
         "brightTheme": MessageLookupByLibrary.simpleMessage("Nền sáng"),
         "buyTicket": MessageLookupByLibrary.simpleMessage("Đặt vé"),
+        "cacheKeyWithId": m0,
+        "cacheKeyWithoutId": m1,
         "canBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Có thể đổi lịch"),
         "cannotBeRescheduled":
@@ -104,16 +110,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ưu đãi đặc biệt dành cho bạn - chỉ với một bước đơn giản!"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
             "Để biết thông tin chi tiết về vé này"),
-        "forType": m0,
+        "forType": m2,
         "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khảu"),
-        "greetingAppMember": m1,
+        "greetingAppMember": m3,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Xem hướng dẫn đường đi"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("Cách nhận"),
         "image": MessageLookupByLibrary.simpleMessage("hình ảnh"),
-        "imageAtIndex": m2,
-        "imageCollectionText": m3,
+        "imageAtIndex": m4,
+        "imageCollectionText": m5,
         "importantThingsYouShouldKnow":
             MessageLookupByLibrary.simpleMessage("Một số điều cần lưu ý"),
         "invalidPhoneNumber":
@@ -122,7 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Liên kết email"),
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
-        "loadingImageText": m4,
+        "loadingImageText": m6,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Thông tin địa danh"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
@@ -166,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reviewed": MessageLookupByLibrary.simpleMessage("Đã đánh giá"),
         "reviews": MessageLookupByLibrary.simpleMessage("Đánh giá"),
         "schedule": MessageLookupByLibrary.simpleMessage("Lịch trình"),
-        "scheduleDay": m5,
+        "scheduleDay": m7,
         "securityAccount":
             MessageLookupByLibrary.simpleMessage("Bảo mật tài khoản"),
         "see": MessageLookupByLibrary.simpleMessage("Xem"),
@@ -187,9 +193,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chính sách và Điều khoản"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ"),
-        "thumbDesc": m6,
+        "thumbDesc": m8,
         "totalPrice": MessageLookupByLibrary.simpleMessage("Tổng tiền"),
-        "totalReviews": m7,
+        "totalReviews": m9,
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Chi tiết chuyến đi"),

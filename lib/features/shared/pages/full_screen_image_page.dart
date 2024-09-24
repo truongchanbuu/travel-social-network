@@ -82,7 +82,8 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
             ),
             child: AppCachedImage(
               imageUrl: widget.imageUrls[index],
-              cacheKey: '${widget.imageUrls[index]}-$index',
+              cacheKey:
+                  S.current.cacheKeyWithoutId(widget.imageUrls[index], index),
               errorSemanticLabel: S.current.image,
               loadingSemanticLabel: S.current.loadingImageText(index),
             ),
@@ -99,7 +100,8 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
         builder: (context, index) => PhotoViewGalleryPageOptions.customChild(
           child: AppCachedImage(
             imageUrl: widget.imageUrls[index],
-            cacheKey: '${widget.imageUrls[index]}-$index',
+            cacheKey:
+                S.current.cacheKeyWithoutId(widget.imageUrls[index], index),
             errorSemanticLabel: S.current.imageAtIndex(index),
             loadingSemanticLabel: S.current.loadingImageText(index),
           ),

@@ -550,6 +550,16 @@ class S {
     );
   }
 
+  /// `All Images and Videos`
+  String get allImagesAndVideos {
+    return Intl.message(
+      'All Images and Videos',
+      name: 'allImagesAndVideos',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `image`
   String get image {
     return Intl.message(
@@ -611,13 +621,23 @@ class S {
     );
   }
 
-  /// `All Images and Videos`
-  String get allImagesAndVideos {
+  /// `{prefix}-img-{index}`
+  String cacheKeyWithId(String prefix, int index) {
     return Intl.message(
-      'All Images and Videos',
-      name: 'allImagesAndVideos',
+      '$prefix-img-$index',
+      name: 'cacheKeyWithId',
       desc: '',
-      args: [],
+      args: [prefix, index],
+    );
+  }
+
+  /// `{imgUrl}-{index}`
+  String cacheKeyWithoutId(String imgUrl, int index) {
+    return Intl.message(
+      '$imgUrl-$index',
+      name: 'cacheKeyWithoutId',
+      desc: '',
+      args: [imgUrl, index],
     );
   }
 

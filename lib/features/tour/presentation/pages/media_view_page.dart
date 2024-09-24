@@ -87,7 +87,7 @@ class _MediaViewPageState extends State<MediaViewPage> {
           onTap: () => _showFullScreenImage(context, index),
           child: AppCachedImage(
             imageUrl: widget.imageUrls[index],
-            cacheKey: '${widget.prefixValueKey}-img-$index',
+            cacheKey: S.current.cacheKeyWithId(widget.prefixValueKey, index),
             errorSemanticLabel: S.current.imageCollectionText(
                 widget.nameOfCollection?.isNotEmpty == true
                     ? ' of ${widget.nameOfCollection}'

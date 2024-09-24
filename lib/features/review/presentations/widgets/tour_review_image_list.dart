@@ -47,7 +47,7 @@ class TourReviewImageList extends StatelessWidget {
                 height: size,
                 child: AppCachedImage(
                   imageUrl: imageUrls[index],
-                  cacheKey: '$reviewId-img-$index',
+                  cacheKey: S.current.cacheKeyWithId(reviewId, index),
                   errorImageSize: 20,
                   errorSemanticLabel: S.current.imageAtIndex(index),
                   loadingSemanticLabel: S.current.loadingImageText(index),

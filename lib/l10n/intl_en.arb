@@ -70,6 +70,7 @@
 
   "createTour": "Create your own tour",
 
+  "allImagesAndVideos": "All Images and Videos",
   "image": "image",
   "errorImage": "Failed to load image",
   "imageAtIndex": "Image at {index}",
@@ -100,8 +101,31 @@
     }
   },
   "loading": "Loading",
+  "cacheKeyWithId": "{prefix}-img-{index}",
+  "@cacheKeyWithId": {
+    "placeholders": {
+      "prefix": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "cacheKeyWithoutId": "{imgUrl}-{index}",
+  "@cacheKeyWithoutId": {
+    "placeholders": {
+      "imgUrl": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      }
+    }
+  },
 
-  "allImagesAndVideos": "All Images and Videos",
+
+
   "reviews": "Review(s)",
   "reviewed": "Reviewed",
   "viewAll": "View All",

@@ -129,7 +129,7 @@ class _TourDetailThumbState extends State<TourDetailThumb> {
   Widget _buildImageItem(BuildContext context, int index, int pageViewIndex) =>
       AppCachedImage(
         imageUrl: tour.imageUrls[index],
-        cacheKey: '${tour.tourId}-img-$index',
+        cacheKey: S.current.cacheKeyWithId(tour.tourId, index),
         errorSemanticLabel: S.current.imageCollectionText(tour.tourName),
         loadingSemanticLabel: S.current.loadingImageText(index),
       );
