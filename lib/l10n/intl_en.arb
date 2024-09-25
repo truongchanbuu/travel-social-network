@@ -1,246 +1,243 @@
 {
-  "@@locale": "en",
-  "ofWord": "of",
-  "and": "and",
-  "next": "Next",
-  "clear": "Clear",
-  "search": "Search",
-  "searching": "Searching...",
+    "@@locale": "en",
+    "ofWord": "of",
+    "and": "and",
+    "next": "Next",
+    "clear": "Clear",
+    "search": "Search",
+    "cancel": "Cancel",
+    "stay": "Stay",
+    "leave": "Leave",
+    "save": "Save",
+    "searching": "Searching...",
 
-  "greetingAppMember": "Hi {appName} member",
-  "@greetingAppMember": {
-    "placeholders": {
-      "appName": {
-        "type": "String"
-      }
-    }
-  },
-  "helloUser": "Hello {name},",
-  "@helloUser": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "morningText": "Good morning! Ready for today's adventures?",
-  "afternoonText": "Let discover top spots and activities!!!",
-  "eveningText": "It's time for special dishes on elegant restaurants near you!",
-  "nightText": "Have a nice sleep! Dreams are beginning but tomorrow journey will come true",
-  "defaultText": "Hope you doing well on your own journey",
-
-  "home": "Home",
-  "social": "Social",
-  "account": "Account",
-  "settings": "Settings",
-  "darkTheme": "Dark Theme",
-  "brightTheme": "Bright Theme",
-  "aboutUs": "About us",
-  "rateForUs": "Rate for us",
-  "manageYourAccount": "Manage your account",
-
-  "termAndCondition": "Terms and Conditions",
-  "privacyStatement": "Privacy Statement",
-  "termsOfService": "Terms of Service",
-  "privacyPolicy": "Privacy Policy",
-  "agreementText": "By continuing, you agree to our ",
-
-  "securityAccount": "Security Account",
-  "linkEmail": "Link Email",
-  "phoneNumber": "Phone Number",
-  "resetPassword": "Reset Password",
-  "userProfile": "User Profile",
-  "promotionText": "Enjoy the privilege of membership",
-  "exclusiveOffers": "Exclusive Offers for you - with only one simple step!",
-  "unsupportedText": "Sorry! This device is not supported",
-  "version": "Version",
-  "language": "Language",
-  "englishLangChoice": "English",
-  "countryRegion": "Country/Region",
-  "countryEnglandRegionChoice": "England",
-  "currency": "Currency",
-  "currencyChoice": "Pound",
-  "units": "Units",
-  "unitsChoice": "Meter Metric",
-  "temperatureScale": "Temperature Scale",
-  "classificationOutstanding": "Outstanding",
-  "classificationWonderful": "Wonderful",
-  "classificationGood": "Good",
-  "classificationPleasant": "Pleasant",
-  "classificationNotVeryGood": "Not Very Good",
-  "classificationDisappointing": "Disappointing",
-  "classificationTerrible": "Terrible",
-  "classificationError": "Not available rating",
-  "popularDest": "Popular Destinations",
-  "@popularDest": {
-    "description": "HomePage title for Popular Destination Section"
-  },
-  "recommendTours": "Recommend Tours",
-  "@recommendTours": {
-    "description": "HomePage title for Recommend Tours Section"
-  },
-
-  "continueWith": "Continue with",
-  "backToPreviousPage": "Back to previous page",
-
-  "createTour": "Create your own tour",
-  "createTourPageTitle": "Create New Tour",
-
-  "allImagesAndVideos": "All Images and Videos",
-  "image": "image",
-  "errorImage": "Failed to load image",
-  "imageAtIndex": "Image at {index}",
-  "@imageAtIndex": {
-    "placeholders": {
-      "index": {
-        "type": "int"
-      }
-    }
-  },
-  "imageCollectionText": "Illustrators{nameOfCollection}",
-  "@imageCollectionText": {
-    "description": "Text for illustrators, optionally includes the name of illustrators",
-    "placeholders": {
-      "nameOfCollection": {
-        "type": "String",
-        "example": " of Vinh Ha Long Tour"
-      }
-    }
-  },
-  "loadingImageText": "Loading image at index {index}",
-  "@loadingImageText": {
-    "description": "Loading text for image at a specific position",
-    "placeholders": {
-      "index": {
-        "type": "int"
-      }
-    }
-  },
-  "loading": "Loading",
-  "cacheKeyWithId": "{prefix}-img-{index}",
-  "@cacheKeyWithId": {
-    "placeholders": {
-      "prefix": {
-        "type": "String"
-      },
-      "index": {
-        "type": "int"
-      }
-    }
-  },
-  "cacheKeyWithoutId": "{imgUrl}-{index}",
-  "@cacheKeyWithoutId": {
-    "placeholders": {
-      "imgUrl": {
-        "type": "String"
-      },
-      "index": {
-        "type": "int"
-      }
-    }
-  },
-
-  "reviewTitle": "Reviews & Rating",
-  "reviews": "Review(s)",
-  "reviewed": "Reviewed",
-  "viewAll": "View All",
-  "tickets": "Ticket(s)",
-  "see": "See",
-  "detail": "Detail",
-  "tour": "Tour",
-  "itinerary": "Itinerary",
-  "tourSchedule": "Tour Schedule",
-  "tourItinerary": "Tour Itinerary",
-  "schedule": "Schedule",
-  "showMore": "Show More",
-  "services": "Services",
-  "moreInfo": "More Information",
-  "outStandingFeatures": "Outstanding Features",
-  "transportation": "Transportation",
-  "@transportation": {
-    "description": "Singular form of a transportation"
-  },
-  "additionalInformation": "Additional Information",
-  "totalReviews": "{value}",
-  "@totalReviews": {
-    "placeholders": {
-      "value": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "duration": "Duration",
-  "days": "day(s)",
-  "scheduleDay": "Day {value}",
-  "@scheduleDay": {
-    "placeholders": {
-      "value": {
-        "type": "int"
-      }
-    }
-  },
-  "tourDescDetail": "Tour Description Detail",
-  "locationInfo": "Location Information",
-  "guideToLocation": "Guide to location",
-  "allPhotos": "All Photos",
-  "makeCallFailure": "Could not make the phone call",
-  "contactServiceProvider": "Contact service provider",
-  "forMoreInfoAboutTicket": "For more details about this ticket",
-  "seeHere": "see here",
-  "thumbDesc": "Thumb for {name}",
-  "@thumbDesc": {
-    "description": "Thumbnail for an image",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "voucherCanBeUsedOn": "Voucher can be used on",
-  "addVisitorNumber": "Add Visitor Number",
-  "importantThingsYouShouldKnow": "Important things you should know",
-  "buyTicket": "Buy Ticket",
-  "aboutThisTicket": "About this ticket",
-  "voucherExp": "Voucher Expiration",
-  "selectedDate": "selected date",
-  "redemptionMethod": "Redemption Method",
-  "howToRedeem": "How to redeem",
-  "canBeRescheduled": "Can be Rescheduled",
-  "cannotBeRescheduled": "Cannot be Rescheduled",
-  "refundable": "Can be refund",
-  "nonRefundable": "Cannot be refund",
-  "refundAndReschedule": "Refund & Reschedule",
-  "forType": "For {ticketType}",
-  "@forType": {
-    "placeholders": {
-      "ticketType": {
-        "type": "String",
-        "example": "Adult"
-      }
-    }
-  },
-  "select": "Select",
-  "totalPrice": "Total Price",
-  "paymentInfo": "Inclusive of taxes and fees",
-
-  "bookingNow": "Booking Now",
-  "signIn": "Sign in",
-  "signUp": "Sign up",
-  "emailAnnouncement": "We are going to sign in with your email or create a new account if you don't have one",
-  "forgotPassword": "Forgot Password",
-  "password": "Password",
-  "enterPasswordRequirement": "Please enter your password",
-  "passwordRequirement": "Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
-
-  "phoneSearchHintText": "Enter your country name or code to search",
-  "semanticPhoneNumberCounterText": "Maximum length of phone number",
-  "enterPhoneNumberRequirement": "Please enter your phone number",
-  "invalidPhoneNumber": "Invalid phone number",
-
-  "recentSearch": "Recent Search",
-  "recommendation": "Recommendations",
-
-  "tourNameLabel": "Tour Name",
-  "tourDescLabel": "Tour Desc"
+    "greetingAppMember": "Hi {appName} member",
+    "@greetingAppMember": {
+        "placeholders": {
+            "appName": {
+                "type": "String"
+            }
+        }
+    },
+    "helloUser": "Hello {name},",
+    "@helloUser": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "morningText": "Good morning! Ready for today's adventures?",
+    "afternoonText": "Let discover top spots and activities!!!",
+    "eveningText": "It's time for special dishes on elegant restaurants near you!",
+    "nightText": "Have a nice sleep! Dreams are beginning but tomorrow journey will come true",
+    "defaultText": "Hope you doing well on your own journey",
+    "home": "Home",
+    "social": "Social",
+    "account": "Account",
+    "settings": "Settings",
+    "darkTheme": "Dark Theme",
+    "brightTheme": "Bright Theme",
+    "aboutUs": "About us",
+    "rateForUs": "Rate for us",
+    "manageYourAccount": "Manage your account",
+    "termAndCondition": "Terms and Conditions",
+    "privacyStatement": "Privacy Statement",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "agreementText": "By continuing, you agree to our ",
+    "securityAccount": "Security Account",
+    "linkEmail": "Link Email",
+    "phoneNumber": "Phone Number",
+    "resetPassword": "Reset Password",
+    "userProfile": "User Profile",
+    "promotionText": "Enjoy the privilege of membership",
+    "exclusiveOffers": "Exclusive Offers for you - with only one simple step!",
+    "unsupportedText": "Sorry! This device is not supported",
+    "version": "Version",
+    "language": "Language",
+    "englishLangChoice": "English",
+    "countryRegion": "Country/Region",
+    "countryEnglandRegionChoice": "England",
+    "currency": "Currency",
+    "currencyChoice": "Pound",
+    "units": "Units",
+    "unitsChoice": "Meter Metric",
+    "temperatureScale": "Temperature Scale",
+    "classificationOutstanding": "Outstanding",
+    "classificationWonderful": "Wonderful",
+    "classificationGood": "Good",
+    "classificationPleasant": "Pleasant",
+    "classificationNotVeryGood": "Not Very Good",
+    "classificationDisappointing": "Disappointing",
+    "classificationTerrible": "Terrible",
+    "classificationError": "Not available rating",
+    "popularDest": "Popular Destinations",
+    "@popularDest": {
+        "description": "HomePage title for Popular Destination Section"
+    },
+    "recommendTours": "Recommend Tours",
+    "@recommendTours": {
+        "description": "HomePage title for Recommend Tours Section"
+    },
+    "continueWith": "Continue with",
+    "backToPreviousPage": "Back to previous page",
+    "createTour": "Create your own tour",
+    "createTourPageTitle": "Create New Tour",
+    "allImagesAndVideos": "All Images and Videos",
+    "image": "image",
+    "errorImage": "Failed to load image",
+    "imageAtIndex": "Image at {index}",
+    "@imageAtIndex": {
+        "placeholders": {
+            "index": {
+                "type": "int"
+            }
+        }
+    },
+    "imageCollectionText": "Illustrators{nameOfCollection}",
+    "@imageCollectionText": {
+        "description": "Text for illustrators, optionally includes the name of illustrators",
+        "placeholders": {
+            "nameOfCollection": {
+                "type": "String",
+                "example": " of Vinh Ha Long Tour"
+            }
+        }
+    },
+    "loadingImageText": "Loading image at index {index}",
+    "@loadingImageText": {
+        "description": "Loading text for image at a specific position",
+        "placeholders": {
+            "index": {
+                "type": "int"
+            }
+        }
+    },
+    "loading": "Loading",
+    "cacheKeyWithId": "{prefix}-img-{index}",
+    "@cacheKeyWithId": {
+        "placeholders": {
+            "prefix": {
+                "type": "String"
+            },
+            "index": {
+                "type": "int"
+            }
+        }
+    },
+    "cacheKeyWithoutId": "{imgUrl}-{index}",
+    "@cacheKeyWithoutId": {
+        "placeholders": {
+            "imgUrl": {
+                "type": "String"
+            },
+            "index": {
+                "type": "int"
+            }
+        }
+    },
+    "reviewTitle": "Reviews & Rating",
+    "reviews": "Review(s)",
+    "reviewed": "Reviewed",
+    "viewAll": "View All",
+    "tickets": "Ticket(s)",
+    "see": "See",
+    "detail": "Detail",
+    "tour": "Tour",
+    "itinerary": "Itinerary",
+    "tourSchedule": "Tour Schedule",
+    "tourItinerary": "Tour Itinerary",
+    "schedule": "Schedule",
+    "tourDescEditor": "Tour Description Editor",
+    "editingPlaceholderText": "Add your tour description here...",
+    "showMore": "Show More",
+    "services": "Services",
+    "moreInfo": "More Information",
+    "outStandingFeatures": "Outstanding Features",
+    "transportation": "Transportation",
+    "@transportation": {
+        "description": "Singular form of a transportation"
+    },
+    "additionalInformation": "Additional Information",
+    "totalReviews": "{value}",
+    "@totalReviews": {
+        "placeholders": {
+            "value": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "duration": "Duration",
+    "days": "day(s)",
+    "scheduleDay": "Day {value}",
+    "@scheduleDay": {
+        "placeholders": {
+            "value": {
+                "type": "int"
+            }
+        }
+    },
+    "tourDescDetail": "Tour Description Detail",
+    "locationInfo": "Location Information",
+    "guideToLocation": "Guide to location",
+    "allPhotos": "All Photos",
+    "makeCallFailure": "Could not make the phone call",
+    "contactServiceProvider": "Contact service provider",
+    "forMoreInfoAboutTicket": "For more details about this ticket",
+    "seeHere": "see here",
+    "thumbDesc": "Thumb for {name}",
+    "@thumbDesc": {
+        "description": "Thumbnail for an image",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "voucherCanBeUsedOn": "Voucher can be used on",
+    "addVisitorNumber": "Add Visitor Number",
+    "importantThingsYouShouldKnow": "Important things you should know",
+    "buyTicket": "Buy Ticket",
+    "aboutThisTicket": "About this ticket",
+    "voucherExp": "Voucher Expiration",
+    "selectedDate": "selected date",
+    "redemptionMethod": "Redemption Method",
+    "howToRedeem": "How to redeem",
+    "canBeRescheduled": "Can be Rescheduled",
+    "cannotBeRescheduled": "Cannot be Rescheduled",
+    "refundable": "Can be refund",
+    "nonRefundable": "Cannot be refund",
+    "refundAndReschedule": "Refund & Reschedule",
+    "forType": "For {ticketType}",
+    "@forType": {
+        "placeholders": {
+            "ticketType": {
+                "type": "String",
+                "example": "Adult"
+            }
+        }
+    },
+    "select": "Select",
+    "totalPrice": "Total Price",
+    "paymentInfo": "Inclusive of taxes and fees",
+    "bookingNow": "Booking Now",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "emailAnnouncement": "We are going to sign in with your email or create a new account if you don't have one",
+    "forgotPassword": "Forgot Password",
+    "password": "Password",
+    "enterPasswordRequirement": "Please enter your password",
+    "passwordRequirement": "Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
+    "phoneSearchHintText": "Enter your country name or code to search",
+    "semanticPhoneNumberCounterText": "Maximum length of phone number",
+    "enterPhoneNumberRequirement": "Please enter your phone number",
+    "invalidPhoneNumber": "Invalid phone number",
+    "recentSearch": "Recent Search",
+    "recommendation": "Recommendations",
+    "tourNameLabel": "Tour Name",
+    "tourDescLabel": "Tour Description",
+    "discardUnsavedWork": "Discard unsaved work",
+    "discardAlertMessage": "Are you want to leave without saving?"
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/create_tour_field.dart';
+import '../widgets/tour_desc_field.dart';
 
 class CreateTourPage extends StatefulWidget {
   const CreateTourPage({super.key});
@@ -21,11 +22,14 @@ class _CreateTourPageState extends State<CreateTourPage> {
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: defaultPadding,
-        vertical: defaultPadding,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        boxShadow: [detailSectionBoxShadow],
+        color: Colors.white,
       ),
+      margin: const EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,14 +39,11 @@ class _CreateTourPageState extends State<CreateTourPage> {
               'Singapore Tour with Significant Lion State Visit',
               'Culture Heritage Tour at Ha Long Bay',
               'Historical Landmarks Exploration at Ho Chi Minh Museum',
-              'Sunset Beach Tour at Da Nang'
+              'Sunset Beach Tour at Da Nang',
             ],
           ),
-          CreateTourField(
-            label: S.current.tourDescLabel,
-            enable: false,
-            onTap: () {},
-          )
+          const SizedBox(height: 20),
+          const TourDescField(),
         ],
       ),
     );
@@ -50,15 +51,5 @@ class _CreateTourPageState extends State<CreateTourPage> {
 
   AppBar _buildAppBar() => AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          S.current.createTourPageTitle,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 23,
-          ),
-          textDirection: defaultTextDirection,
-          overflow: defaultTextOverflow,
-        ),
       );
 }

@@ -49,5 +49,9 @@
     <array>
       <string>tel</string>
     </array>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <key>NSCameraUsageDescription</key>
+    <key>NSMicrophoneUsageDescription</key>
 </dict>
 </plist>

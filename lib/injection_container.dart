@@ -7,11 +7,7 @@ final getIt = GetIt.I;
 
 Future<void> initializeDependencies() async {
   // Dio
-  getIt.registerLazySingleton<Dio>(
-    () => Dio(
-      BaseOptions(baseUrl: baseUrl),
-    ),
-  );
+  getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(baseUrl: baseUrl)));
 
   // Firebase
   getIt.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);

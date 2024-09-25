@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cacheKeyWithoutId": m1,
         "canBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Có thể đổi lịch"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),
         "cannotBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Không thể đổi lịch"),
         "classificationDisappointing":
@@ -104,7 +105,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultText": MessageLookupByLibrary.simpleMessage(
             "Hy vọng bạn vẫn đang vui vẻ trên chuyến hành trình của mình"),
         "detail": MessageLookupByLibrary.simpleMessage("chi tiết"),
+        "discardAlertMessage": MessageLookupByLibrary.simpleMessage(
+            "Bạn vẫn chưa lưu tiến trình chưa được lưu?"),
+        "discardUnsavedWork":
+            MessageLookupByLibrary.simpleMessage("Đoạn mô tả chưa được lưu"),
         "duration": MessageLookupByLibrary.simpleMessage("Thời gian đi"),
+        "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
+            "Hãy viết mô tả về chuyến đi của bạn ở đây..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
             "Chúng tôi sẽ sử dụng tài khoản email của bạn để đăng nhập. Nếu chưa có tài khoản thì chúng tôi sẽ tạo mới dựa trên email đang được sử dụng"),
         "englishLangChoice": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
@@ -137,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
         "itinerary": MessageLookupByLibrary.simpleMessage("lịch trình"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
+        "leave": MessageLookupByLibrary.simpleMessage("Rời đi"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Liên kết email"),
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
         "loadingImageText": m7,
@@ -189,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Đã đánh giá"),
         "reviews": MessageLookupByLibrary.simpleMessage("đánh giá"),
+        "save": MessageLookupByLibrary.simpleMessage("Lưu"),
         "schedule": MessageLookupByLibrary.simpleMessage("Lịch trình"),
         "scheduleDay": m8,
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
@@ -207,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "signUp": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "social": MessageLookupByLibrary.simpleMessage("Cộng đồng"),
+        "stay": MessageLookupByLibrary.simpleMessage("Ở lại"),
         "temperatureScale":
             MessageLookupByLibrary.simpleMessage("Thang đo nhiệt độ"),
         "termAndCondition":
@@ -219,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Chi tiết chuyến đi"),
+        "tourDescEditor": MessageLookupByLibrary.simpleMessage(
+            "Trình chỉnh sửa mô tả chuyến đi"),
         "tourDescLabel":
             MessageLookupByLibrary.simpleMessage("Mô tả chuyến đi"),
         "tourItinerary":

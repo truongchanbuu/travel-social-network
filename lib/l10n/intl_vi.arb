@@ -5,6 +5,10 @@
   "next": "Kế tiếp",
   "clear": "Xóa",
   "search": "Tìm kiếm",
+  "cancel": "Hủy bỏ",
+  "stay": "Ở lại",
+  "leave": "Rời đi",
+  "save": "Lưu",
   "searching": "Tìm kiếm...",
 
   "greetingAppMember": "Xin chào các thành viên của {appName}",
@@ -148,6 +152,10 @@
   "tour": "Chuyến đi",
   "itinerary": "lịch trình",
   "schedule": "Lịch trình",
+  "tourDescEditor": "Trình chỉnh sửa mô tả chuyến đi",
+  "editingPlaceholderText": "Hãy viết mô tả về chuyến đi của bạn ở đây...",
+
+
   "tourSchedule": "Lịch trình chuyến đi",
   "tourItinerary": "Lịch trình chuyến đi",
   "showMore": "Xem thêm",
@@ -240,5 +248,7 @@
   "recommendation": "Gợi ý",
 
   "tourNameLabel": "Tên chuyến đi",
-  "tourDescLabel": "Mô tả chuyến đi"
+  "tourDescLabel": "Mô tả chuyến đi",
+  "discardUnsavedWork": "Đoạn mô tả chưa được lưu",
+  "discardAlertMessage": "Bạn vẫn chưa lưu tiến trình chưa được lưu?"
 }

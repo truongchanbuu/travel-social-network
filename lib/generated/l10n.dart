@@ -100,6 +100,46 @@ class S {
     );
   }
 
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stay`
+  String get stay {
+    return Intl.message(
+      'Stay',
+      name: 'stay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave`
+  String get leave {
+    return Intl.message(
+      'Leave',
+      name: 'leave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Searching...`
   String get searching {
     return Intl.message(
@@ -851,6 +891,26 @@ class S {
     );
   }
 
+  /// `Tour Description Editor`
+  String get tourDescEditor {
+    return Intl.message(
+      'Tour Description Editor',
+      name: 'tourDescEditor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your tour description here...`
+  String get editingPlaceholderText {
+    return Intl.message(
+      'Add your tour description here...',
+      name: 'editingPlaceholderText',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Show More`
   String get showMore {
     return Intl.message(
@@ -1376,11 +1436,31 @@ class S {
     );
   }
 
-  /// `Tour Desc`
+  /// `Tour Description`
   String get tourDescLabel {
     return Intl.message(
-      'Tour Desc',
+      'Tour Description',
       name: 'tourDescLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discard unsaved work`
+  String get discardUnsavedWork {
+    return Intl.message(
+      'Discard unsaved work',
+      name: 'discardUnsavedWork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you want to leave without saving?`
+  String get discardAlertMessage {
+    return Intl.message(
+      'Are you want to leave without saving?',
+      name: 'discardAlertMessage',
       desc: '',
       args: [],
     );

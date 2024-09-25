@@ -16,6 +16,9 @@ const Color currencyTextColor = Colors.orange;
 // Border Radius
 const BorderRadius inputFieldBorderRadius =
     BorderRadius.all(Radius.circular(5));
+const Color createTourFieldBorder = Colors.black54;
+const BorderRadius defaultFieldBorderRadius =
+    BorderRadius.all(Radius.circular(5));
 
 // Box Shadow
 BoxShadow detailSectionBoxShadow = BoxShadow(
@@ -50,6 +53,7 @@ const double tourDetailPageExpandedAppBarHeight = 250;
 const double ticketDetailPageExpandedAppBarHeight = 250;
 const double imageIndicatorHeight = 80;
 const double dashLength = 10;
+const double createTourFieldHeight = 100;
 
 // Icons
 const IconData refundableIcon = Icons.money;
@@ -84,4 +88,3 @@ const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(
 
 // API
 const String baseUrl = 'http://localhost:3000/api';
-

@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cacheKeyWithoutId": m1,
         "canBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Can be Rescheduled"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cannotBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Cannot be Rescheduled"),
         "classificationDisappointing":
@@ -104,7 +105,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "defaultText": MessageLookupByLibrary.simpleMessage(
             "Hope you doing well on your own journey"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
+        "discardAlertMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you want to leave without saving?"),
+        "discardUnsavedWork":
+            MessageLookupByLibrary.simpleMessage("Discard unsaved work"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
+        "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
+            "Add your tour description here..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
             "We are going to sign in with your email or create a new account if you don\'t have one"),
         "englishLangChoice": MessageLookupByLibrary.simpleMessage("English"),
@@ -138,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "itinerary": MessageLookupByLibrary.simpleMessage("Itinerary"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "leave": MessageLookupByLibrary.simpleMessage("Leave"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "loadingImageText": m7,
@@ -188,6 +196,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
         "reviews": MessageLookupByLibrary.simpleMessage("Review(s)"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
         "scheduleDay": m8,
         "search": MessageLookupByLibrary.simpleMessage("Search"),
@@ -206,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "social": MessageLookupByLibrary.simpleMessage("Social"),
+        "stay": MessageLookupByLibrary.simpleMessage("Stay"),
         "temperatureScale":
             MessageLookupByLibrary.simpleMessage("Temperature Scale"),
         "termAndCondition":
@@ -219,7 +229,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),
-        "tourDescLabel": MessageLookupByLibrary.simpleMessage("Tour Desc"),
+        "tourDescEditor":
+            MessageLookupByLibrary.simpleMessage("Tour Description Editor"),
+        "tourDescLabel":
+            MessageLookupByLibrary.simpleMessage("Tour Description"),
         "tourItinerary": MessageLookupByLibrary.simpleMessage("Tour Itinerary"),
         "tourNameLabel": MessageLookupByLibrary.simpleMessage("Tour Name"),
         "tourSchedule": MessageLookupByLibrary.simpleMessage("Tour Schedule"),
