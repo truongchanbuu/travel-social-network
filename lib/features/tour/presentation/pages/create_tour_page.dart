@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/create_tour_details.dart';
+import 'create_tour_images_page.dart';
 
 class CreateTourPage extends StatefulWidget {
   const CreateTourPage({super.key});
@@ -19,7 +20,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
     super.initState();
     expansionDetails = {
       'detail': true,
-      'image': true,
+      'images': true,
     };
   }
 
@@ -33,45 +34,62 @@ class _CreateTourPageState extends State<CreateTourPage> {
 
   Widget _buildBody() {
     return SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              blurRadius: 5,
-              spreadRadius: 1,
-            )
-          ],
-          color: Colors.white,
-        ),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        margin: const EdgeInsets.all(defaultPadding),
-        child: ExpansionPanelList(
-          expansionCallback: _expansionCallBack,
-          expandedHeaderPadding: const EdgeInsets.symmetric(vertical: 0),
-          children: [
-            _buildTourDetails(),
-            _buildImageSelection(),
-          ],
-        ),
+      child: ExpansionPanelList(
+        expansionCallback: _expansionCallBack,
+        expandedHeaderPadding: const EdgeInsets.symmetric(vertical: 0),
+        children: [
+          _buildTourDetails(),
+          _buildImageSelection(),
+        ],
       ),
     );
   }
 
   ExpansionPanel _buildImageSelection() => _buildTemplateExpansionPanel(
-        expansionKey: 'image',
+        isCustomizable: false,
+        expansionKey: 'images',
         header: _buildHeadingText(
           S.current.addImageLabel,
           leading: const Icon(Icons.image),
         ),
-        body: GridView(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: defaultPadding,
-            mainAxisSpacing: defaultPadding,
+        body: GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CreateTourImagesPage(),
+              )),
+          child: Container(
+            width: double.infinity,
+            height: 100,
+            margin: const EdgeInsets.all(20),
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                spreadRadius: 1,
+                blurRadius: 5,
+                color: Colors.grey.withOpacity(0.5),
+              )
+            ]),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.add,
+                  size: 30,
+                  color: primaryColor,
+                ),
+                Text(
+                  S.current.addImageLabel,
+                  style: const TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
           ),
-          children: [],
         ),
       );
 
@@ -81,7 +99,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
           S.current.tourDetails,
           leading: const Icon(Icons.location_on_outlined),
         ),
-        body: CreateTourDetails(),
+        body: const CreateTourDetails(),
       );
 
   Widget _buildHeadingText(String title, {Widget? leading}) => ListTile(
@@ -103,6 +121,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
     required String expansionKey,
     required Widget header,
     required Widget body,
+    bool isCustomizable = true,
   }) =>
       ExpansionPanel(
         canTapOnHeader: true,
@@ -111,15 +130,31 @@ class _CreateTourPageState extends State<CreateTourPage> {
           padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: header,
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-            left: defaultPadding,
-            right: defaultPadding,
-            top: 10,
-            bottom: 20,
-          ),
-          child: body,
-        ),
+        body: isCustomizable
+            ? Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                    )
+                  ],
+                  color: Colors.white,
+                ),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                margin: const EdgeInsets.symmetric(
+                    vertical: defaultPadding, horizontal: defaultPadding),
+                padding: const EdgeInsets.only(
+                  left: defaultPadding,
+                  right: defaultPadding,
+                  top: 10,
+                  bottom: 20,
+                ),
+                child: body,
+              )
+            : body,
       );
 
   AppBar _buildAppBar() => AppBar(
@@ -132,6 +167,8 @@ class _CreateTourPageState extends State<CreateTourPage> {
       case 0:
         key = 'detail';
         break;
+      case 1:
+        key = 'images';
       default:
         return;
     }

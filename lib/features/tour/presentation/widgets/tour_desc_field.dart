@@ -24,19 +24,21 @@ class _TourDescFieldState extends State<TourDescField> {
   void initState() {
     super.initState();
     _textEditingController = TextEditingController(text: _tourDesc);
-    _focusNode = FocusNode()
-      ..addListener(() {
-        if (_tourDesc?.isNotEmpty ?? false) {
-          _focusNode.unfocus();
-        }
-      });
+    _focusNode = FocusNode()..addListener(_unFocus);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _textEditingController.dispose();
+    _focusNode.removeListener(_unFocus);
     _focusNode.dispose();
+    _textEditingController.dispose();
+  }
+
+  void _unFocus() {
+    if (_tourDesc?.isNotEmpty ?? false) {
+      _focusNode.unfocus();
+    }
   }
 
   @override

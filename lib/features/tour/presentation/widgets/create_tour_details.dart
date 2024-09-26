@@ -113,7 +113,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Flexible(
-                flex: 3,
+                flex: 2,
                 child: CreateTourField(
                   onSaved: _durationOnSaved,
                   validator: _durationValidator,
@@ -132,10 +132,14 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
                 child: DropdownButtonFormField(
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(left: 10),
-                    border: OutlineInputBorder(),
                   ),
+                  icon: const SizedBox.shrink(),
                   value: _currentDropdownTimeUnit,
                   items: _dropDownItems,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.zero,
+                  style: const TextStyle(overflow: defaultTextOverflow),
+                  iconSize: 0,
                   onChanged: (value) => _currentDropdownTimeUnit = value,
                 ),
               )
