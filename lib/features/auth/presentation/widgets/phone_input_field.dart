@@ -89,7 +89,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
 
     final RegExp phoneNumberRegExp = RegExp(r'^(1)\d{10}$');
     if (!phoneNumberRegExp.hasMatch(phoneNumber!)) {
-      return S.current.invalidPhoneNumber;
+      return S.current.invalidPhoneNumberError;
     }
 
     return null;

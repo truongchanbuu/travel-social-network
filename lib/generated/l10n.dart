@@ -140,11 +140,71 @@ class S {
     );
   }
 
+  /// `Not Found`
+  String get notFound {
+    return Intl.message(
+      'Not Found',
+      name: 'notFound',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Searching...`
   String get searching {
     return Intl.message(
       'Searching...',
       name: 'searching',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hour`
+  String get hour {
+    return Intl.message(
+      'hour',
+      name: 'hour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `day`
+  String get day {
+    return Intl.message(
+      'day',
+      name: 'day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `week`
+  String get week {
+    return Intl.message(
+      'week',
+      name: 'week',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `month`
+  String get month {
+    return Intl.message(
+      'month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `year`
+  String get year {
+    return Intl.message(
+      'year',
+      name: 'year',
       desc: '',
       args: [],
     );
@@ -685,6 +745,16 @@ class S {
     return Intl.message(
       'All Images and Videos',
       name: 'allImagesAndVideos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Images`
+  String get addImageLabel {
+    return Intl.message(
+      'Add Images',
+      name: 'addImageLabel',
       desc: '',
       args: [],
     );
@@ -1366,6 +1436,26 @@ class S {
     );
   }
 
+  /// `6 hours, 1 day, 2 weeks, 3 months, ...`
+  String get durationHintText {
+    return Intl.message(
+      '6 hours, 1 day, 2 weeks, 3 months, ...',
+      name: 'durationHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid duration`
+  String get invalidDurationError {
+    return Intl.message(
+      'Invalid duration',
+      name: 'invalidDurationError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter your country name or code to search`
   String get phoneSearchHintText {
     return Intl.message(
@@ -1397,10 +1487,10 @@ class S {
   }
 
   /// `Invalid phone number`
-  String get invalidPhoneNumber {
+  String get invalidPhoneNumberError {
     return Intl.message(
       'Invalid phone number',
-      name: 'invalidPhoneNumber',
+      name: 'invalidPhoneNumberError',
       desc: '',
       args: [],
     );
@@ -1436,11 +1526,81 @@ class S {
     );
   }
 
+  /// `Invalid tour name! It must be at least 10 characters`
+  String get invalidTourNameError {
+    return Intl.message(
+      'Invalid tour name! It must be at least 10 characters',
+      name: 'invalidTourNameError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tour Description`
   String get tourDescLabel {
     return Intl.message(
       'Tour Description',
       name: 'tourDescLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tour Details`
+  String get tourDetails {
+    return Intl.message(
+      'Tour Details',
+      name: 'tourDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid tour description! It must be at least 10 characters`
+  String get invalidTourDescError {
+    return Intl.message(
+      'Invalid tour description! It must be at least 10 characters',
+      name: 'invalidTourDescError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Destination`
+  String get destination {
+    return Intl.message(
+      'Destination',
+      name: 'destination',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid destination! Please choose or insert a valid destination`
+  String get invalidDestinationError {
+    return Intl.message(
+      'Invalid destination! Please choose or insert a valid destination',
+      name: 'invalidDestinationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Departure`
+  String get departure {
+    return Intl.message(
+      'Departure',
+      name: 'departure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid departure location! Please choose or insert a valid location`
+  String get invalidDepartureError {
+    return Intl.message(
+      'Invalid departure location! Please choose or insert a valid location',
+      name: 'invalidDepartureError',
       desc: '',
       args: [],
     );

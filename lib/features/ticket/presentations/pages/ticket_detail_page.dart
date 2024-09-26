@@ -34,7 +34,7 @@ class TicketDetailPage extends StatefulWidget {
 
 class _TicketDetailPageState extends State<TicketDetailPage> {
   late final ScrollController _scrollController;
-  late final Map<String, bool> sectionExpandedMap;
+  Map<String, bool> sectionExpandedMap = {};
 
   late final TicketTypeEntity ticket;
   late final PolicyEntity refundPolicy;
@@ -307,22 +307,29 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
     );
   }
 
-  void _setExpandedState(int index, bool isExpanded) => setState(() {
-        switch (index) {
-          case 0:
-            sectionExpandedMap['about'] = isExpanded;
-            break;
-          case 1:
-            sectionExpandedMap['expiration'] = isExpanded;
-            break;
-          case 2:
-            sectionExpandedMap['redemption'] = isExpanded;
-            break;
-          case 3:
-            sectionExpandedMap['policy'] = isExpanded;
-            break;
-        }
-      });
+  void _setExpandedState(int index, bool isExpanded) {
+    String key;
+    switch (index) {
+      case 0:
+        key = 'about';
+        break;
+      case 1:
+        key = 'expiration';
+        break;
+      case 2:
+        key = 'redemption';
+        break;
+      case 3:
+        key = 'policy';
+        break;
+      default:
+        return;
+    }
+
+    if (sectionExpandedMap[key] != isExpanded) {
+      setState(() => sectionExpandedMap[key] = isExpanded);
+    }
+  }
 
   void _navigateToAddVisitorPage(BuildContext context) async {
     var navigator = Navigator.of(context);

@@ -7,7 +7,8 @@ import '../pages/tour_desc_editor_page.dart';
 import 'create_tour_field.dart';
 
 class TourDescField extends StatefulWidget {
-  const TourDescField({super.key});
+  final void Function(String? value)? onSaved;
+  const TourDescField({super.key, this.onSaved});
 
   @override
   State<TourDescField> createState() => _TourDescFieldState();
@@ -41,11 +42,14 @@ class _TourDescFieldState extends State<TourDescField> {
   @override
   Widget build(BuildContext context) {
     return CreateTourField(
+      validator: _validator,
       label: S.current.tourDescLabel,
       readOnly: true,
       enable: true,
       focusNode: _focusNode,
-      maxLines: 3,
+      textEditingController: _textEditingController,
+      maxLines: 4,
+      singleHintText: S.current.tourDescLabel,
       onTap: _openQuillEditor,
       replaceField: _tourDesc?.isEmpty ?? true
           ? null
@@ -55,7 +59,7 @@ class _TourDescFieldState extends State<TourDescField> {
               readOnly: false,
               isVisible: true,
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
-              border: Border.all(width: 1, color: createTourFieldBorder),
+              border: Border.all(width: 1, color: createTourFieldBorderColor),
             ),
     );
   }
@@ -72,7 +76,16 @@ class _TourDescFieldState extends State<TourDescField> {
       if (data?.isNotEmpty ?? false) {
         _tourDesc = data;
         _textEditingController.text = _tourDesc!;
+        widget.onSaved?.call(_tourDesc);
       }
     });
+  }
+
+  String? _validator(String? value) {
+    if ((value?.isEmpty ?? true) || value!.length < 10) {
+      return S.current.invalidTourDescError;
+    }
+
+    return null;
   }
 }

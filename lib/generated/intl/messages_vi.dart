@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutThisTicket": MessageLookupByLibrary.simpleMessage("Về vé này"),
         "account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
+        "addImageLabel": MessageLookupByLibrary.simpleMessage("Thêm hình ảnh"),
         "addVisitorNumber":
             MessageLookupByLibrary.simpleMessage("Thêm số lượng người"),
         "additionalInformation":
@@ -101,15 +102,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "currency": MessageLookupByLibrary.simpleMessage("Tiền tệ"),
         "currencyChoice": MessageLookupByLibrary.simpleMessage("Bảng Anh"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Nền tối"),
+        "day": MessageLookupByLibrary.simpleMessage("ngày"),
         "days": MessageLookupByLibrary.simpleMessage("ngày"),
         "defaultText": MessageLookupByLibrary.simpleMessage(
             "Hy vọng bạn vẫn đang vui vẻ trên chuyến hành trình của mình"),
+        "departure": MessageLookupByLibrary.simpleMessage("Điểm xuất phát"),
+        "destination": MessageLookupByLibrary.simpleMessage("Điểm đến"),
         "detail": MessageLookupByLibrary.simpleMessage("chi tiết"),
         "discardAlertMessage": MessageLookupByLibrary.simpleMessage(
             "Bạn vẫn chưa lưu tiến trình chưa được lưu?"),
         "discardUnsavedWork":
             MessageLookupByLibrary.simpleMessage("Đoạn mô tả chưa được lưu"),
         "duration": MessageLookupByLibrary.simpleMessage("Thời gian đi"),
+        "durationHintText": MessageLookupByLibrary.simpleMessage(
+            "6 giờ, 2 ngày, 3 tuần, 4 tháng, ..."),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Hãy viết mô tả về chuyến đi của bạn ở đây..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
@@ -134,14 +140,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Xem hướng dẫn đường đi"),
         "helloUser": m4,
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
+        "hour": MessageLookupByLibrary.simpleMessage("giờ"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("Cách nhận"),
         "image": MessageLookupByLibrary.simpleMessage("hình ảnh"),
         "imageAtIndex": m5,
         "imageCollectionText": m6,
         "importantThingsYouShouldKnow":
             MessageLookupByLibrary.simpleMessage("Một số điều cần lưu ý"),
-        "invalidPhoneNumber":
+        "invalidDepartureError": MessageLookupByLibrary.simpleMessage(
+            "Điểm xuất phát không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ"),
+        "invalidDestinationError": MessageLookupByLibrary.simpleMessage(
+            "Điểm đến không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ"),
+        "invalidDurationError": MessageLookupByLibrary.simpleMessage(
+            "Khoảng thời gian không hợp lệ"),
+        "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
+        "invalidTourDescError": MessageLookupByLibrary.simpleMessage(
+            "Mô tả chuyến đi không hợp lệ! Yêu cầu ít nhất 10 ký tự"),
+        "invalidTourNameError": MessageLookupByLibrary.simpleMessage(
+            "Tên chuyến đi không hợp lệ! Yều cầu ít nhất 10 ký tự"),
         "itinerary": MessageLookupByLibrary.simpleMessage("lịch trình"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "leave": MessageLookupByLibrary.simpleMessage("Rời đi"),
@@ -154,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Không thể thực hiện cuộc gọi"),
         "manageYourAccount":
             MessageLookupByLibrary.simpleMessage("Quản lý tài khoản của bạn"),
+        "month": MessageLookupByLibrary.simpleMessage("tháng"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Thêm thông tin"),
         "morningText": MessageLookupByLibrary.simpleMessage(
             "Buổi sáng tốt lành, đã sẵn sàng cho chuyến hành trình hôm nay chưa?"),
@@ -162,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ngủ ngon nhé! Nghỉ ngơi cho một ngày mai không ngừng khám phá!"),
         "nonRefundable":
             MessageLookupByLibrary.simpleMessage("Không thể hoàn tiền"),
+        "notFound": MessageLookupByLibrary.simpleMessage("Không tìm thấy"),
         "ofWord": MessageLookupByLibrary.simpleMessage("của"),
         "outStandingFeatures":
             MessageLookupByLibrary.simpleMessage("Những tính năng nổi bật"),
@@ -233,6 +252,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Trình chỉnh sửa mô tả chuyến đi"),
         "tourDescLabel":
             MessageLookupByLibrary.simpleMessage("Mô tả chuyến đi"),
+        "tourDetails":
+            MessageLookupByLibrary.simpleMessage("Chi tiết chuyến đi"),
         "tourItinerary":
             MessageLookupByLibrary.simpleMessage("Lịch trình chuyến đi"),
         "tourNameLabel": MessageLookupByLibrary.simpleMessage("Tên chuyến đi"),
@@ -249,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "voucherCanBeUsedOn":
             MessageLookupByLibrary.simpleMessage("Vé có hiệu lực vào"),
-        "voucherExp": MessageLookupByLibrary.simpleMessage("Thời hạn vé")
+        "voucherExp": MessageLookupByLibrary.simpleMessage("Thời hạn vé"),
+        "week": MessageLookupByLibrary.simpleMessage("tuần"),
+        "year": MessageLookupByLibrary.simpleMessage("năm")
       };
 }

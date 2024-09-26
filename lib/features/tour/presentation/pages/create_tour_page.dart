@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../widgets/create_tour_field.dart';
-import '../widgets/tour_desc_field.dart';
+import '../widgets/create_tour_details.dart';
 
 class CreateTourPage extends StatefulWidget {
   const CreateTourPage({super.key});
@@ -13,6 +12,17 @@ class CreateTourPage extends StatefulWidget {
 }
 
 class _CreateTourPageState extends State<CreateTourPage> {
+  Map<String, bool> expansionDetails = {};
+
+  @override
+  void initState() {
+    super.initState();
+    expansionDetails = {
+      'detail': true,
+      'image': true,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,34 +32,112 @@ class _CreateTourPageState extends State<CreateTourPage> {
   }
 
   Widget _buildBody() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        boxShadow: [detailSectionBoxShadow],
-        color: Colors.white,
-      ),
-      margin: const EdgeInsets.all(defaultPadding),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CreateTourField(
-            label: S.current.tourNameLabel,
-            hintTexts: const [
-              'Singapore Tour with Significant Lion State Visit',
-              'Culture Heritage Tour at Ha Long Bay',
-              'Historical Landmarks Exploration at Ho Chi Minh Museum',
-              'Sunset Beach Tour at Da Nang',
-            ],
-          ),
-          const SizedBox(height: 20),
-          const TourDescField(),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              blurRadius: 5,
+              spreadRadius: 1,
+            )
+          ],
+          color: Colors.white,
+        ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        margin: const EdgeInsets.all(defaultPadding),
+        child: ExpansionPanelList(
+          expansionCallback: _expansionCallBack,
+          expandedHeaderPadding: const EdgeInsets.symmetric(vertical: 0),
+          children: [
+            _buildTourDetails(),
+            _buildImageSelection(),
+          ],
+        ),
       ),
     );
   }
 
+  ExpansionPanel _buildImageSelection() => _buildTemplateExpansionPanel(
+        expansionKey: 'image',
+        header: _buildHeadingText(
+          S.current.addImageLabel,
+          leading: const Icon(Icons.image),
+        ),
+        body: GridView(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: defaultPadding,
+            mainAxisSpacing: defaultPadding,
+          ),
+          children: [],
+        ),
+      );
+
+  ExpansionPanel _buildTourDetails() => _buildTemplateExpansionPanel(
+        expansionKey: 'detail',
+        header: _buildHeadingText(
+          S.current.tourDetails,
+          leading: const Icon(Icons.location_on_outlined),
+        ),
+        body: CreateTourDetails(),
+      );
+
+  Widget _buildHeadingText(String title, {Widget? leading}) => ListTile(
+        leading: leading,
+        minLeadingWidth: 0,
+        contentPadding: EdgeInsets.zero,
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+          textDirection: defaultTextDirection,
+          overflow: defaultTextOverflow,
+        ),
+      );
+
+  ExpansionPanel _buildTemplateExpansionPanel({
+    required String expansionKey,
+    required Widget header,
+    required Widget body,
+  }) =>
+      ExpansionPanel(
+        canTapOnHeader: true,
+        isExpanded: expansionDetails[expansionKey] ?? true,
+        headerBuilder: (context, isExpanded) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          child: header,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(
+            left: defaultPadding,
+            right: defaultPadding,
+            top: 10,
+            bottom: 20,
+          ),
+          child: body,
+        ),
+      );
+
   AppBar _buildAppBar() => AppBar(
         backgroundColor: Colors.white,
       );
+
+  void _expansionCallBack(int index, bool isExpanded) {
+    String key;
+    switch (index) {
+      case 0:
+        key = 'detail';
+        break;
+      default:
+        return;
+    }
+
+    if (expansionDetails[key] != isExpanded) {
+      setState(() => expansionDetails[key] = isExpanded);
+    }
+  }
 }

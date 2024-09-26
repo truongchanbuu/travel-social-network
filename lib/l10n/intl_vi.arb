@@ -9,8 +9,14 @@
   "stay": "Ở lại",
   "leave": "Rời đi",
   "save": "Lưu",
+  "notFound": "Không tìm thấy",
   "searching": "Tìm kiếm...",
 
+  "hour": "giờ",
+  "day": "ngày",
+  "week": "tuần",
+  "month": "tháng",
+  "year": "năm",
   "greetingAppMember": "Xin chào các thành viên của {appName}",
   "@greetingAppMember": {
     "placeholders": {
@@ -91,6 +97,7 @@
   "createTourPageTitle": "Tạo chuyến đi mới",
 
   "allImagesAndVideos": "Tất cả hình ảnh và video",
+  "addImageLabel": "Thêm hình ảnh",
   "image": "hình ảnh",
   "errorImage": "Failed to load image",
   "imageAtIndex": "Hỉnh ảnh tại vị trí {index}",
@@ -240,15 +247,29 @@
   "passwordRequirement": "Mật khẩu phải có ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt",
 
   "phoneSearchHintText": "Nhập tên hoặc mã quốc gia để tìm kiếm quốc gia của bạn",
+  "invalidDurationError": "Khoảng thời gian không hợp lệ",
+
+  "durationHintText": "6 giờ, 2 ngày, 3 tuần, 4 tháng, ...",
   "semanticPhoneNumberCounterText": "Số chữ số tối đa",
   "enterPhoneNumberRequirement": "Vui lòng nhập số điện thoại của bạn",
-  "invalidPhoneNumber": "Số điện thoại không hợp lệ",
+  "invalidPhoneNumberError": "Số điện thoại không hợp lệ",
 
   "recentSearch": "Tìm kiếm gần đây",
   "recommendation": "Gợi ý",
 
   "tourNameLabel": "Tên chuyến đi",
+  "invalidTourNameError": "Tên chuyến đi không hợp lệ! Yều cầu ít nhất 10 ký tự",
+
   "tourDescLabel": "Mô tả chuyến đi",
+  "tourDetails": "Chi tiết chuyến đi",
+  "invalidTourDescError": "Mô tả chuyến đi không hợp lệ! Yêu cầu ít nhất 10 ký tự",
+
+  "destination": "Điểm đến",
+  "invalidDestinationError": "Điểm đến không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ",
+
+  "departure": "Điểm xuất phát",
+  "invalidDepartureError": "Điểm xuất phát không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ",
+
   "discardUnsavedWork": "Đoạn mô tả chưa được lưu",
   "discardAlertMessage": "Bạn vẫn chưa lưu tiến trình chưa được lưu?"
 }

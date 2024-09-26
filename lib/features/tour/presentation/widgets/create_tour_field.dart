@@ -1,5 +1,6 @@
 import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../cores/constants/constants.dart';
 
@@ -9,10 +10,18 @@ class CreateTourField extends StatefulWidget {
   final bool enable;
   final bool readOnly;
   final List<String> hintTexts;
+  final String? singleHintText;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
-  final void Function()? onTap;
+  final AutovalidateMode autovalidateMode;
   final int? maxLines;
+  final void Function()? onTap;
+  final void Function(String value)? onChanged;
+  final String? Function(String? value)? validator;
+  final void Function(String? value)? onSaved;
+  final void Function(String? value)? onSubmitted;
+  final VoidCallback? onEditingCompleted;
+  final List<TextInputFormatter> inputFormatters;
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
 
@@ -25,10 +34,18 @@ class CreateTourField extends StatefulWidget {
     this.hintTexts = const [],
     this.textInputAction = TextInputAction.next,
     this.keyboardType = TextInputType.text,
+    this.autovalidateMode = AutovalidateMode.onUnfocus,
     this.onTap,
+    this.onChanged,
+    this.validator,
+    this.onSaved,
+    this.onSubmitted,
+    this.onEditingCompleted,
     this.maxLines,
     this.textEditingController,
     this.focusNode,
+    this.singleHintText,
+    this.inputFormatters = const [],
   });
 
   @override
@@ -37,6 +54,8 @@ class CreateTourField extends StatefulWidget {
 
 class _CreateTourFieldState extends State<CreateTourField> {
   late final FocusNode _focusNode;
+
+  String? _errorMessage;
   bool _isFocusing = false;
 
   @override
@@ -53,6 +72,7 @@ class _CreateTourFieldState extends State<CreateTourField> {
   void dispose() {
     _focusNode.removeListener(_changeTheTextColor);
     _focusNode.dispose();
+    widget.textEditingController?.dispose();
     super.dispose();
   }
 
@@ -66,7 +86,11 @@ class _CreateTourFieldState extends State<CreateTourField> {
           child: Text(
             widget.label,
             style: TextStyle(
-              color: _isFocusing ? primaryColor : Colors.black,
+              color: _errorMessage != null
+                  ? Colors.red
+                  : _isFocusing
+                      ? primaryColor
+                      : Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 13,
             ),
@@ -76,30 +100,43 @@ class _CreateTourFieldState extends State<CreateTourField> {
         ),
         widget.replaceField == null
             ? AnimatedTextField(
+                autovalidateMode: widget.autovalidateMode,
                 controller: widget.textEditingController,
-                onTap: widget.onTap,
                 focusNode: _focusNode,
+                onTap: widget.onTap,
+                onChanged: widget.onChanged,
+                onSaved: widget.onSaved,
+                onEditingComplete: widget.onEditingCompleted,
+                onSubmitted: widget.onSubmitted,
+                validator: (value) {
+                  _errorMessage = widget.validator?.call(value);
+                  return _errorMessage;
+                },
                 maxLines: widget.maxLines,
                 cursorColor: primaryColor,
                 animationType: Animationtype.typer,
                 hintTextStyle: const TextStyle(overflow: TextOverflow.ellipsis),
+                inputFormatters: widget.inputFormatters,
                 hintTexts: widget.hintTexts,
                 enabled: widget.enable,
                 readOnly: widget.readOnly,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
+                decoration: InputDecoration(
+                  errorMaxLines: 2,
+                  border: const OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
-                        BorderSide(width: 1, color: createTourFieldBorder),
+                        BorderSide(width: 1, color: createTourFieldBorderColor),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  disabledBorder: OutlineInputBorder(
+                  disabledBorder: const OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
-                        BorderSide(width: 1, color: createTourFieldBorder),
+                        BorderSide(width: 1, color: createTourFieldBorderColor),
                   ),
+                  hintText: widget.singleHintText,
+                  hintMaxLines: 1,
                 ),
                 textInputAction: widget.textInputAction,
                 keyboardType: widget.keyboardType,

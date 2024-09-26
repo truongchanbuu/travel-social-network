@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("About this ticket"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "account": MessageLookupByLibrary.simpleMessage("Account"),
+        "addImageLabel": MessageLookupByLibrary.simpleMessage("Add Images"),
         "addVisitorNumber":
             MessageLookupByLibrary.simpleMessage("Add Visitor Number"),
         "additionalInformation":
@@ -101,15 +102,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "currency": MessageLookupByLibrary.simpleMessage("Currency"),
         "currencyChoice": MessageLookupByLibrary.simpleMessage("Pound"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Dark Theme"),
+        "day": MessageLookupByLibrary.simpleMessage("day"),
         "days": MessageLookupByLibrary.simpleMessage("day(s)"),
         "defaultText": MessageLookupByLibrary.simpleMessage(
             "Hope you doing well on your own journey"),
+        "departure": MessageLookupByLibrary.simpleMessage("Departure"),
+        "destination": MessageLookupByLibrary.simpleMessage("Destination"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "discardAlertMessage": MessageLookupByLibrary.simpleMessage(
             "Are you want to leave without saving?"),
         "discardUnsavedWork":
             MessageLookupByLibrary.simpleMessage("Discard unsaved work"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
+        "durationHintText": MessageLookupByLibrary.simpleMessage(
+            "6 hours, 1 day, 2 weeks, 3 months, ..."),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Add your tour description here..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
@@ -135,14 +141,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Guide to location"),
         "helloUser": m4,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "hour": MessageLookupByLibrary.simpleMessage("hour"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("How to redeem"),
         "image": MessageLookupByLibrary.simpleMessage("image"),
         "imageAtIndex": m5,
         "imageCollectionText": m6,
         "importantThingsYouShouldKnow": MessageLookupByLibrary.simpleMessage(
             "Important things you should know"),
-        "invalidPhoneNumber":
+        "invalidDepartureError": MessageLookupByLibrary.simpleMessage(
+            "Invalid departure location! Please choose or insert a valid location"),
+        "invalidDestinationError": MessageLookupByLibrary.simpleMessage(
+            "Invalid destination! Please choose or insert a valid destination"),
+        "invalidDurationError":
+            MessageLookupByLibrary.simpleMessage("Invalid duration"),
+        "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
+        "invalidTourDescError": MessageLookupByLibrary.simpleMessage(
+            "Invalid tour description! It must be at least 10 characters"),
+        "invalidTourNameError": MessageLookupByLibrary.simpleMessage(
+            "Invalid tour name! It must be at least 10 characters"),
         "itinerary": MessageLookupByLibrary.simpleMessage("Itinerary"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
@@ -155,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Could not make the phone call"),
         "manageYourAccount":
             MessageLookupByLibrary.simpleMessage("Manage your account"),
+        "month": MessageLookupByLibrary.simpleMessage("month"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("More Information"),
         "morningText": MessageLookupByLibrary.simpleMessage(
             "Good morning! Ready for today\'s adventures?"),
@@ -163,6 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Have a nice sleep! Dreams are beginning but tomorrow journey will come true"),
         "nonRefundable":
             MessageLookupByLibrary.simpleMessage("Cannot be refund"),
+        "notFound": MessageLookupByLibrary.simpleMessage("Not Found"),
         "ofWord": MessageLookupByLibrary.simpleMessage("of"),
         "outStandingFeatures":
             MessageLookupByLibrary.simpleMessage("Outstanding Features"),
@@ -233,6 +252,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tour Description Editor"),
         "tourDescLabel":
             MessageLookupByLibrary.simpleMessage("Tour Description"),
+        "tourDetails": MessageLookupByLibrary.simpleMessage("Tour Details"),
         "tourItinerary": MessageLookupByLibrary.simpleMessage("Tour Itinerary"),
         "tourNameLabel": MessageLookupByLibrary.simpleMessage("Tour Name"),
         "tourSchedule": MessageLookupByLibrary.simpleMessage("Tour Schedule"),
@@ -247,6 +267,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
         "voucherCanBeUsedOn":
             MessageLookupByLibrary.simpleMessage("Voucher can be used on"),
-        "voucherExp": MessageLookupByLibrary.simpleMessage("Voucher Expiration")
+        "voucherExp":
+            MessageLookupByLibrary.simpleMessage("Voucher Expiration"),
+        "week": MessageLookupByLibrary.simpleMessage("week"),
+        "year": MessageLookupByLibrary.simpleMessage("year")
       };
 }

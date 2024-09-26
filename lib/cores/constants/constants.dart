@@ -16,7 +16,7 @@ const Color currencyTextColor = Colors.orange;
 // Border Radius
 const BorderRadius inputFieldBorderRadius =
     BorderRadius.all(Radius.circular(5));
-const Color createTourFieldBorder = Colors.black54;
+const Color createTourFieldBorderColor = Colors.black54;
 const BorderRadius defaultFieldBorderRadius =
     BorderRadius.all(Radius.circular(5));
 

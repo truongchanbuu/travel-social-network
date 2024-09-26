@@ -9,8 +9,14 @@
     "stay": "Stay",
     "leave": "Leave",
     "save": "Save",
+    "notFound": "Not Found",
     "searching": "Searching...",
 
+    "hour": "hour",
+    "day": "day",
+    "week": "week",
+    "month": "month",
+    "year": "year",
     "greetingAppMember": "Hi {appName} member",
     "@greetingAppMember": {
         "placeholders": {
@@ -82,9 +88,12 @@
     },
     "continueWith": "Continue with",
     "backToPreviousPage": "Back to previous page",
+
     "createTour": "Create your own tour",
     "createTourPageTitle": "Create New Tour",
+
     "allImagesAndVideos": "All Images and Videos",
+    "addImageLabel": "Add Images",
     "image": "image",
     "errorImage": "Failed to load image",
     "imageAtIndex": "Image at {index}",
@@ -230,14 +239,31 @@
     "password": "Password",
     "enterPasswordRequirement": "Please enter your password",
     "passwordRequirement": "Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
+
+    "durationHintText": "6 hours, 1 day, 2 weeks, 3 months, ...",
+    "invalidDurationError": "Invalid duration",
+
     "phoneSearchHintText": "Enter your country name or code to search",
     "semanticPhoneNumberCounterText": "Maximum length of phone number",
     "enterPhoneNumberRequirement": "Please enter your phone number",
-    "invalidPhoneNumber": "Invalid phone number",
+    "invalidPhoneNumberError": "Invalid phone number",
+
     "recentSearch": "Recent Search",
     "recommendation": "Recommendations",
+
     "tourNameLabel": "Tour Name",
+    "invalidTourNameError": "Invalid tour name! It must be at least 10 characters",
+
     "tourDescLabel": "Tour Description",
+    "tourDetails": "Tour Details",
+    "invalidTourDescError": "Invalid tour description! It must be at least 10 characters",
+
+    "destination": "Destination",
+    "invalidDestinationError": "Invalid destination! Please choose or insert a valid destination",
+
+    "departure": "Departure",
+    "invalidDepartureError": "Invalid departure location! Please choose or insert a valid location",
+
     "discardUnsavedWork": "Discard unsaved work",
     "discardAlertMessage": "Are you want to leave without saving?"
 }

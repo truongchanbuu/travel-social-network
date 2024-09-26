@@ -19,11 +19,7 @@ class _SwitchSettingItemState extends State<SwitchSettingItem> {
       activeColor: primaryColor,
       value: _isDarkMode,
       title: Text(widget.title),
-      onChanged: (value) {
-        setState(() {
-          _isDarkMode = value;
-        });
-      },
+      onChanged: (value) => setState(() => _isDarkMode = value),
     );
   }
 }
