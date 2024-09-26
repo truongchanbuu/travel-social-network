@@ -265,5 +265,8 @@
     "invalidDepartureError": "Invalid departure location! Please choose or insert a valid location",
 
     "discardUnsavedWork": "Discard unsaved work",
-    "discardAlertMessage": "Are you want to leave without saving?"
+    "discardAlertMessage": "Are you want to leave without saving?",
+
+    "tourDatesLabel": "Tour Dates",
+    "addDate": "Add Date"
 }

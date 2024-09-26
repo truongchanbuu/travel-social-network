@@ -271,5 +271,8 @@
   "invalidDepartureError": "Điểm xuất phát không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ",
 
   "discardUnsavedWork": "Đoạn mô tả chưa được lưu",
-  "discardAlertMessage": "Bạn vẫn chưa lưu tiến trình chưa được lưu?"
+  "discardAlertMessage": "Bạn vẫn chưa lưu tiến trình chưa được lưu?",
+
+  "tourDatesLabel": "Thời gian xuất phát",
+  "addDate": "Thêm thời gian"
 }

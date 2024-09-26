@@ -4,6 +4,7 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/create_tour_add_image_section.dart';
+import '../widgets/create_tour_dates_section.dart';
 import '../widgets/create_tour_details.dart';
 
 class CreateTourPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
     expansionDetails = {
       'detail': true,
       'images': true,
+      'dates': true,
     };
   }
 
@@ -42,10 +44,18 @@ class _CreateTourPageState extends State<CreateTourPage> {
         children: [
           _buildTourDetails(),
           _buildImageSelection(),
+          _buildTourDates(),
         ],
       ),
     );
   }
+
+  ExpansionPanel _buildTourDates() => _buildTemplateExpansionPanel(
+        expansionKey: 'dates',
+        header: _buildHeadingText(S.current.tourDatesLabel,
+            leading: const Icon(Icons.calendar_month)),
+        body: const CreateTourDatesSection(),
+      );
 
   ExpansionPanel _buildImageSelection() => _buildTemplateExpansionPanel(
         isCustomizable: false,
@@ -111,12 +121,12 @@ class _CreateTourPageState extends State<CreateTourPage> {
                   color: Colors.white,
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                margin: const EdgeInsets.symmetric(
-                    vertical: defaultPadding, horizontal: defaultPadding),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 padding: const EdgeInsets.only(
-                  left: defaultPadding,
-                  right: defaultPadding,
-                  top: 10,
+                  left: 20,
+                  right: 20,
+                  top: 20,
                   bottom: 20,
                 ),
                 child: body,

@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutThisTicket": MessageLookupByLibrary.simpleMessage("Về vé này"),
         "account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
+        "addDate": MessageLookupByLibrary.simpleMessage("Thêm thời gian"),
         "addImageLabel": MessageLookupByLibrary.simpleMessage("Thêm hình ảnh"),
         "addVisitorNumber":
             MessageLookupByLibrary.simpleMessage("Thêm số lượng người"),
@@ -246,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalPrice": MessageLookupByLibrary.simpleMessage("Tổng tiền"),
         "totalReviews": m10,
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),
+        "tourDatesLabel":
+            MessageLookupByLibrary.simpleMessage("Thời gian xuất phát"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Chi tiết chuyến đi"),
         "tourDescEditor": MessageLookupByLibrary.simpleMessage(

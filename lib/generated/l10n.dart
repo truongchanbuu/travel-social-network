@@ -1625,6 +1625,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Tour Dates`
+  String get tourDatesLabel {
+    return Intl.message(
+      'Tour Dates',
+      name: 'tourDatesLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Date`
+  String get addDate {
+    return Intl.message(
+      'Add Date',
+      name: 'addDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

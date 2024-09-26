@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("About this ticket"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
         "account": MessageLookupByLibrary.simpleMessage("Account"),
+        "addDate": MessageLookupByLibrary.simpleMessage("Add Date"),
         "addImageLabel": MessageLookupByLibrary.simpleMessage("Add Images"),
         "addVisitorNumber":
             MessageLookupByLibrary.simpleMessage("Add Visitor Number"),
@@ -246,6 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
         "totalReviews": m10,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
+        "tourDatesLabel": MessageLookupByLibrary.simpleMessage("Tour Dates"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),
         "tourDescEditor":
