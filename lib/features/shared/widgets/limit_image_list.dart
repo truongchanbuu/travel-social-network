@@ -1,18 +1,18 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-import '../../../../generated/l10n.dart';
-import '../../../shared/pages/full_screen_image_page.dart';
-import '../../../shared/widgets/app_cached_image.dart';
+import '../../../generated/l10n.dart';
+import '../pages/full_screen_image_page.dart';
+import 'app_cached_image.dart';
 
-class TourReviewImageList extends StatelessWidget {
+class LimitImageList extends StatelessWidget {
   final double? imageSize;
-  final String reviewId;
+  final String id;
   final List<String> imageUrls;
-  const TourReviewImageList({
+
+  const LimitImageList({
     super.key,
-    required this.reviewId,
+    required this.id,
     required this.imageUrls,
     this.imageSize,
   });
@@ -47,7 +47,7 @@ class TourReviewImageList extends StatelessWidget {
                 height: size,
                 child: AppCachedImage(
                   imageUrl: imageUrls[index],
-                  cacheKey: S.current.cacheKeyWithId(reviewId, index),
+                  cacheKey: S.current.cacheKeyWithId(id, index),
                   errorImageSize: 20,
                   errorSemanticLabel: S.current.imageAtIndex(index),
                   loadingSemanticLabel: S.current.loadingImageText(index),

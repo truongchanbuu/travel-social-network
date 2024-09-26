@@ -94,7 +94,7 @@ class _TourDescEditorPageState extends State<TourDescEditorPage> {
             child: GestureDetector(
               onTap: _saveDescription,
               child: Text(
-                S.current.save,
+                S.current.save.toUpperCase(),
                 style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.bold,

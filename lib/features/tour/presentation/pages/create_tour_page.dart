@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../widgets/create_tour_add_image_section.dart';
 import '../widgets/create_tour_details.dart';
-import 'create_tour_images_page.dart';
 
 class CreateTourPage extends StatefulWidget {
   const CreateTourPage({super.key});
@@ -13,6 +14,7 @@ class CreateTourPage extends StatefulWidget {
 }
 
 class _CreateTourPageState extends State<CreateTourPage> {
+  List<ImageFile> images = List.empty(growable: true);
   Map<String, bool> expansionDetails = {};
 
   @override
@@ -52,44 +54,9 @@ class _CreateTourPageState extends State<CreateTourPage> {
           S.current.addImageLabel,
           leading: const Icon(Icons.image),
         ),
-        body: GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const CreateTourImagesPage(),
-              )),
-          child: Container(
-            width: double.infinity,
-            height: 100,
-            margin: const EdgeInsets.all(20),
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(
-                spreadRadius: 1,
-                blurRadius: 5,
-                color: Colors.grey.withOpacity(0.5),
-              )
-            ]),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(
-                  Icons.add,
-                  size: 30,
-                  color: primaryColor,
-                ),
-                Text(
-                  S.current.addImageLabel,
-                  style: const TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        body: CreateTourAddImageSection(
+          images: images,
+          onImageSaved: (images) => this.images = images,
         ),
       );
 
@@ -133,7 +100,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
         body: isCustomizable
             ? Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderRadius: inputFieldBorderRadius,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),

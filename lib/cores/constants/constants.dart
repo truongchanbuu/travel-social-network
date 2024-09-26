@@ -54,6 +54,7 @@ const double ticketDetailPageExpandedAppBarHeight = 250;
 const double imageIndicatorHeight = 80;
 const double dashLength = 10;
 const double createTourFieldHeight = 100;
+const double createTourImagesBox = 200;
 
 // Icons
 const IconData refundableIcon = Icons.money;

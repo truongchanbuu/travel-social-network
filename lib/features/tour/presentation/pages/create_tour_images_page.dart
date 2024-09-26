@@ -6,7 +6,8 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
 class CreateTourImagesPage extends StatefulWidget {
-  const CreateTourImagesPage({super.key});
+  final List<ImageFile>? images;
+  const CreateTourImagesPage({super.key, this.images});
 
   @override
   State<CreateTourImagesPage> createState() => _CreateTourImagesPageState();
@@ -18,7 +19,10 @@ class _CreateTourImagesPageState extends State<CreateTourImagesPage> {
   @override
   void initState() {
     super.initState();
-    _controller = MultiImagePickerController(picker: imagePicker);
+    _controller = MultiImagePickerController(
+      picker: imagePicker,
+      images: widget.images,
+    );
   }
 
   Future<List<ImageFile>> imagePicker(bool isAllowed) async {
@@ -31,7 +35,28 @@ class _CreateTourImagesPageState extends State<CreateTourImagesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: _previousPage,
+          icon: const Icon(Icons.arrow_back),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: _saveImages,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                S.current.save.toUpperCase(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(defaultPadding),
         child: MultiImagePickerView(
@@ -67,4 +92,59 @@ class _CreateTourImagesPageState extends State<CreateTourImagesPage> {
       ),
     );
   }
+
+  void _previousPage() {
+    bool isSaved = false;
+    if (_controller.images.isNotEmpty) {
+      isSaved = _controller.images.any((img) {
+        return widget.images != null && widget.images!.contains(img);
+      });
+
+      if (!isSaved) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              S.current.discardUnsavedWork,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            content: Text(S.current.discardAlertMessage),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  S.current.leave,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  S.current.stay,
+                  style: const TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+    }
+
+    Navigator.pop(context);
+  }
+
+  void _saveImages() => Navigator.pop(context, _controller.images.toList());
 }

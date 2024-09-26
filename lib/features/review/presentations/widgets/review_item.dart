@@ -6,7 +6,7 @@ import '../../../../generated/l10n.dart';
 import '../../domain/entities/review.dart';
 import '../pages/review_detail_page.dart';
 import 'tour_rating_widget.dart';
-import 'tour_review_image_list.dart';
+import '../../../shared/widgets/limit_image_list.dart';
 
 class ReviewItem extends StatelessWidget {
   final ReviewEntity review;
@@ -93,8 +93,8 @@ class ReviewItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   if (imageUrls.isNotEmpty) ...[
-                    TourReviewImageList(
-                      reviewId: review.reviewId,
+                    LimitImageList(
+                      id: review.reviewId,
                       imageUrls: imageUrls,
                       imageSize: imageSize,
                     ),
