@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:travel_social_network/features/tour/presentation/widgets/create_tour_field.dart';
 
-import '../../../../generated/l10n.dart';
+import '../../../generated/l10n.dart';
+import 'custom_text_field.dart';
 
-class CreateTourSearchField extends StatefulWidget {
+class SearchField extends StatefulWidget {
   final String title;
   final void Function(String value)? onSelected;
   final String? Function(String? value)? validator;
 
-  const CreateTourSearchField({
+  const SearchField({
     super.key,
     required this.title,
     required this.onSelected,
@@ -19,10 +19,10 @@ class CreateTourSearchField extends StatefulWidget {
   });
 
   @override
-  State<CreateTourSearchField> createState() => _CreateTourSearchFieldState();
+  State<SearchField> createState() => _SearchFieldState();
 }
 
-class _CreateTourSearchFieldState extends State<CreateTourSearchField> {
+class _SearchFieldState extends State<SearchField> {
   late final SuggestionsController<String> _suggestionsController;
   late final TextEditingController _textEditingController;
 
@@ -48,7 +48,7 @@ class _CreateTourSearchFieldState extends State<CreateTourSearchField> {
         leading: const Icon(Icons.location_on),
         title: Text(name),
       ),
-      builder: (context, controller, focusNode) => CreateTourField(
+      builder: (context, controller, focusNode) => CustomTextField(
         validator: widget.validator,
         label: widget.title,
         focusNode: focusNode,

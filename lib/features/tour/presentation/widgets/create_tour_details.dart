@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
-import 'create_tour_field.dart';
-import 'create_tour_search_field.dart';
-import 'long_text_field.dart';
+import '../../../shared/widgets/custom_text_field.dart';
+import '../../../shared/widgets/long_text_field.dart';
+import '../../../shared/widgets/search_field.dart';
 
 class CreateTourDetails extends StatefulWidget {
   const CreateTourDetails({super.key});
@@ -33,7 +33,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CreateTourField(
+          CustomTextField(
             validator: _tourNameValidator,
             onSaved: (value) => _tourName = value,
             label: S.current.tourNameLabel,
@@ -51,13 +51,13 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
             validator: _tourDescValidator,
           ),
           const SizedBox(height: 10),
-          CreateTourSearchField(
+          SearchField(
             validator: _departureValidator,
             title: S.current.departure,
             onSelected: (value) => _departure = value,
           ),
           const SizedBox(height: 10),
-          CreateTourSearchField(
+          SearchField(
             validator: _destValidator,
             title: S.current.destination,
             onSelected: (value) => _destination = value,

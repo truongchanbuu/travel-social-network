@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/expanded_button.dart';
+import '../../../ticket/presentations/pages/create_ticket_page.dart';
 import 'date_section_button.dart';
 
 class CreateTourDatesSection extends StatefulWidget {
@@ -51,7 +52,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
         ),
         const SizedBox(height: 20),
         ElevatedButton(
-            onPressed: () {},
+            onPressed:
+                selectedDates.isNotEmpty ? _navigateToCreateTicketPage : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: primaryColor,
               shape: const RoundedRectangleBorder(
@@ -238,4 +240,13 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       dates.remove(date);
     });
   }
+
+  void _navigateToCreateTicketPage() => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CreateTicketPage(
+            selectedDates: selectedDates,
+          ),
+        ),
+      );
 }

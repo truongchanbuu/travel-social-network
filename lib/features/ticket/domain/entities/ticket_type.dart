@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../cores/enums/ticket_category.dart';
 
@@ -38,6 +39,25 @@ class TicketTypeEntity extends Equatable {
     required this.createdAt,
     this.updatedAt,
   });
+
+  TicketTypeEntity.defaultWithId({
+    this.tourId = '',
+    this.ticketTypeName = '',
+    DateTime? startDate,
+    DateTime? endDate,
+    this.ticketPrice = 0,
+    this.ticketDescription = '',
+    this.quantity = 0,
+    this.refundPolicyId = '',
+    this.redemptionMethodDesc = '',
+    this.reschedulePolicyId = '',
+    this.ticketInfo = '',
+    this.category = TicketCategory.adult,
+    this.updatedAt,
+  })  : ticketTypeId = const Uuid().v4(),
+        startDate = startDate ?? DateTime.now(),
+        endDate = endDate ?? DateTime.now(),
+        createdAt = DateTime.now();
 
   @override
   List<Object> get props {

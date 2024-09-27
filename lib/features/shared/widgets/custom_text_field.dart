@@ -2,9 +2,9 @@ import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../cores/constants/constants.dart';
 
-class CreateTourField extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final Widget? replaceField;
   final String label;
   final bool enable;
@@ -25,7 +25,7 @@ class CreateTourField extends StatefulWidget {
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
 
-  const CreateTourField({
+  const CustomTextField({
     super.key,
     this.replaceField,
     required this.label,
@@ -49,10 +49,10 @@ class CreateTourField extends StatefulWidget {
   });
 
   @override
-  State<CreateTourField> createState() => _CreateTourFieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _CreateTourFieldState extends State<CreateTourField> {
+class _CustomTextFieldState extends State<CustomTextField> {
   late final FocusNode _focusNode;
 
   String? _errorMessage;

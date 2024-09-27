@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
-import '../../../shared/widgets/quill_content.dart';
+import '../../../cores/constants/constants.dart';
 import '../pages/editor_page.dart';
-import 'create_tour_field.dart';
+import 'custom_text_field.dart';
+import 'quill_content.dart';
 
 class LongTextField extends StatefulWidget {
   final String title;
@@ -49,7 +49,7 @@ class _LongTextFieldState extends State<LongTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return CreateTourField(
+    return CustomTextField(
       validator: widget.validator,
       label: widget.title,
       readOnly: true,
