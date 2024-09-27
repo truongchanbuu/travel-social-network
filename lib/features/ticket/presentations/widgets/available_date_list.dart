@@ -1,4 +1,4 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
@@ -183,27 +183,18 @@ class _AvailableDateListState extends State<AvailableDateList> {
         (currentDate, nextDate) =>
             currentDate.isAfter(nextDate) ? currentDate : nextDate);
 
-    var selectedDate = await showCalendarDatePicker2Dialog(
+    var selectedDate = await showBoardDateTimePicker(
       context: context,
-      config: CalendarDatePicker2WithActionButtonsConfig(
-        allowSameValueSelection: false,
-        currentDate: widget.selectedDate,
-        firstDate: nearestDate,
-        lastDate: furthestDate,
-        calendarViewMode: CalendarDatePicker2Mode.day,
-        calendarType: CalendarDatePicker2Type.single,
-        selectedDayHighlightColor: primaryColor,
-        selectableDayPredicate: (day) => !availableDates.contains(day),
-        selectedDayTextStyle:
-            const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-      ),
-      dialogSize: Size(MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.height * 0.5),
+      useSafeArea: true,
+      initialDate: widget.selectedDate,
+      minimumDate: nearestDate,
+      maximumDate: furthestDate,
+      options: const BoardDateTimeOptions(activeColor: primaryColor),
+      pickerType: DateTimePickerType.date,
     );
 
-    if ((selectedDate?.isNotEmpty ?? false) &&
-        widget.selectedDate != selectedDate?.first) {
-      widget.onSelectDate(selectedDate?.first);
+    if ((selectedDate != null) && widget.selectedDate != selectedDate) {
+      widget.onSelectDate(selectedDate);
     }
   }
 }

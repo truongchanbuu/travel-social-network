@@ -59,7 +59,7 @@ class _TicketBottomSheetState extends State<TicketBottomSheet> {
                 ticketsByDate = selectedDate == null
                     ? widget.tickets
                     : widget.tickets
-                        .where((t) => t.date == selectedDate)
+                        .where((t) => t.startDate == selectedDate)
                         .toList();
               });
             },

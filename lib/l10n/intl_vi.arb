@@ -4,6 +4,7 @@
   "and": "và",
   "next": "Kế tiếp",
   "clear": "Xóa",
+  "delete": "Xóa",
   "search": "Tìm kiếm",
   "cancel": "Hủy bỏ",
   "stay": "Ở lại",
@@ -159,7 +160,7 @@
   "tour": "Chuyến đi",
   "itinerary": "lịch trình",
   "schedule": "Lịch trình",
-  "tourDescEditor": "Trình chỉnh sửa mô tả chuyến đi",
+  "editPage": "Trang chỉnh sửa",
   "editingPlaceholderText": "Hãy viết mô tả về chuyến đi của bạn ở đây...",
 
 
@@ -214,6 +215,7 @@
   "addVisitorNumber": "Thêm số lượng người",
   "importantThingsYouShouldKnow": "Một số điều cần lưu ý",
   "buyTicket": "Đặt vé",
+  "createTicket": "Tạo vé",
   "aboutThisTicket": "Về vé này",
   "voucherExp": "Thời hạn vé",
   "selectedDate": "ngày đã chọn",
@@ -272,7 +274,27 @@
 
   "discardUnsavedWork": "Đoạn mô tả chưa được lưu",
   "discardAlertMessage": "Bạn vẫn chưa lưu tiến trình chưa được lưu?",
+  "deleteConfirmTitle": "Bạn có chắc muốn xóa?",
+  "deleteConfirmText": "Hành động xóa không thể khôi phục được",
 
   "tourDatesLabel": "Thời gian xuất phát",
-  "addDate": "Thêm thời gian"
+  "addDate": "Thêm thời gian",
+  "sameDateError": "Ngày khởi hành và ngày kết thúc không thể trùng",
+  "tourDateAnnounce": "Chuyến đi của bạn sẽ khởi hành vào lúc: {start} kết thúc vào: {end}",
+  "@tourDateAnnounce": {
+    "placeholders": {
+      "start": {
+        "type": "DateTime",
+        "format": "Hmm 'ngày' dd 'tháng' MM 'năm' yyyy",
+        "isCustomDateFormat": "true"
+      },
+      "end": {
+        "type": "DateTime",
+        "format": "Hmm 'ngày' dd 'tháng' MM 'năm' yyyy",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
+  "inUseDateError": "Ngày này đã được chọn"
+
 }

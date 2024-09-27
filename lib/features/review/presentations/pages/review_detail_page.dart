@@ -39,7 +39,6 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
     }
 
     totalReviews = reviews.length;
-    print(tour);
   }
 
   @override
@@ -128,7 +127,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
               textDirection: defaultTextDirection,
             ),
             Text(
-              S.current.reviews,
+              S.current.reviews(totalReviews),
               style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,

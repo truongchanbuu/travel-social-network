@@ -22,7 +22,8 @@ class TicketType extends TicketTypeEntity {
     required super.redemptionMethodDesc,
     required super.createdAt,
     super.updatedAt,
-    required super.date,
+    required super.startDate,
+    required super.endDate,
   });
 
   TicketType copyWith({
@@ -39,7 +40,8 @@ class TicketType extends TicketTypeEntity {
     String? redemptionMethodDesc,
     DateTime? createdAt,
     DateTime? updatedAt,
-    DateTime? date,
+    DateTime? startDate,
+    DateTime? endDate,
   }) {
     return TicketType(
       ticketTypeId: ticketTypeId ?? this.ticketTypeId,
@@ -55,27 +57,28 @@ class TicketType extends TicketTypeEntity {
       redemptionMethodDesc: redemptionMethodDesc ?? this.redemptionMethodDesc,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      date: date ?? this.date,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
     );
   }
 
   TicketTypeEntity toEntity() {
     return TicketTypeEntity(
-      ticketTypeId: ticketTypeId,
-      ticketTypeName: ticketTypeName,
-      tourId: tourId,
-      ticketPrice: ticketPrice,
-      ticketDescription: ticketDescription,
-      category: category,
-      quantity: quantity,
-      ticketInfo: ticketInfo,
-      refundPolicyId: refundPolicyId,
-      reschedulePolicyId: reschedulePolicyId,
-      redemptionMethodDesc: redemptionMethodDesc,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-      date: date,
-    );
+        ticketTypeId: ticketTypeId,
+        ticketTypeName: ticketTypeName,
+        tourId: tourId,
+        ticketPrice: ticketPrice,
+        ticketDescription: ticketDescription,
+        category: category,
+        quantity: quantity,
+        ticketInfo: ticketInfo,
+        refundPolicyId: refundPolicyId,
+        reschedulePolicyId: reschedulePolicyId,
+        redemptionMethodDesc: redemptionMethodDesc,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+        startDate: startDate,
+        endDate: endDate);
   }
 
   factory TicketType.fromEntity(TicketTypeEntity entity) {
@@ -93,7 +96,8 @@ class TicketType extends TicketTypeEntity {
       redemptionMethodDesc: entity.redemptionMethodDesc,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
-      date: entity.date,
+      startDate: entity.startDate,
+      endDate: entity.endDate,
     );
   }
 
@@ -112,7 +116,8 @@ class TicketType extends TicketTypeEntity {
       "redemptionMethodDesc": redemptionMethodDesc,
       "createdAt": createdAt,
       "updatedAt": updatedAt,
-      "date": date,
+      "startDate": startDate,
+      "endDate": endDate,
     };
   }
 
@@ -131,7 +136,8 @@ class TicketType extends TicketTypeEntity {
       redemptionMethodDesc: map["redemptionMethodDesc"],
       createdAt: DateTime.tryParse(map['createdAt']) ?? DateTime.now(),
       updatedAt: DateTime.tryParse(map['updatedAt']),
-      date: DateTime.parse(map['date']),
+      startDate: DateTime.parse(map['startDate']),
+      endDate: DateTime.parse(map['endDate']),
     );
   }
 

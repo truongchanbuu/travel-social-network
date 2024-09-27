@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/quill_content.dart';
-import '../pages/tour_desc_editor_page.dart';
+import '../pages/editor_page.dart';
 import 'create_tour_field.dart';
 
-class TourDescField extends StatefulWidget {
+class LongTextField extends StatefulWidget {
+  final String title;
   final void Function(String? value)? onSaved;
-  const TourDescField({super.key, this.onSaved});
+  final String? Function(String? value)? validator;
+  const LongTextField({
+    super.key,
+    required this.title,
+    this.onSaved,
+    this.validator,
+  });
 
   @override
-  State<TourDescField> createState() => _TourDescFieldState();
+  State<LongTextField> createState() => _LongTextFieldState();
 }
 
-class _TourDescFieldState extends State<TourDescField> {
+class _LongTextFieldState extends State<LongTextField> {
   late final TextEditingController _textEditingController;
   late final FocusNode _focusNode;
 
-  String? _tourDesc;
+  String? _content;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController(text: _tourDesc);
+    _textEditingController = TextEditingController(text: _content);
     _focusNode = FocusNode()..addListener(_unFocus);
   }
 
@@ -36,7 +42,7 @@ class _TourDescFieldState extends State<TourDescField> {
   }
 
   void _unFocus() {
-    if (_tourDesc?.isNotEmpty ?? false) {
+    if (_content?.isNotEmpty ?? false) {
       _focusNode.unfocus();
     }
   }
@@ -44,20 +50,20 @@ class _TourDescFieldState extends State<TourDescField> {
   @override
   Widget build(BuildContext context) {
     return CreateTourField(
-      validator: _validator,
-      label: S.current.tourDescLabel,
+      validator: widget.validator,
+      label: widget.title,
       readOnly: true,
       enable: true,
       focusNode: _focusNode,
       textEditingController: _textEditingController,
       maxLines: 4,
-      singleHintText: S.current.tourDescLabel,
+      singleHintText: widget.title,
       onTap: _openQuillEditor,
-      replaceField: _tourDesc?.isEmpty ?? true
+      replaceField: _content?.isEmpty ?? true
           ? null
           : QuillContent(
               height: createTourFieldHeight,
-              content: _tourDesc!,
+              content: _content!,
               readOnly: false,
               isVisible: true,
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
@@ -70,24 +76,16 @@ class _TourDescFieldState extends State<TourDescField> {
     var data = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TourDescEditorPage(initialValue: _tourDesc),
+        builder: (context) => EditorPage(initialValue: _content),
       ),
     );
 
     setState(() {
       if (data?.isNotEmpty ?? false) {
-        _tourDesc = data;
-        _textEditingController.text = _tourDesc!;
-        widget.onSaved?.call(_tourDesc);
+        _content = data;
+        _textEditingController.text = _content!;
+        widget.onSaved?.call(_content);
       }
     });
-  }
-
-  String? _validator(String? value) {
-    if ((value?.isEmpty ?? true) || value!.length < 10) {
-      return S.current.invalidTourDescError;
-    }
-
-    return null;
   }
 }

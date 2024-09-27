@@ -38,23 +38,7 @@ class _CreateTourAddImageSectionState extends State<CreateTourAddImageSection> {
   Widget _buildNoImageUI() {
     return GestureDetector(
       onTap: () => _pickImage(context),
-      child: Container(
-        width: double.infinity,
-        height: createTourImagesBox,
-        margin: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              spreadRadius: 1,
-              blurRadius: 5,
-              color: Colors.grey.withOpacity(0.5),
-            )
-          ],
-          borderRadius: inputFieldBorderRadius,
-        ),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        alignment: Alignment.center,
+      child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

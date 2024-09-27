@@ -36,11 +36,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(index) => "Đang tải ảnh tại vị trí thứ ${index}";
 
-  static String m8(value) => "Ngày thứ ${value}";
+  static String m8(count) => "đánh giá";
 
-  static String m9(name) => "Ảnh bìa của ${name}";
+  static String m9(value) => "Ngày thứ ${value}";
 
-  static String m10(value) => "${value}";
+  static String m10(name) => "Ảnh bìa của ${name}";
+
+  static String m11(value) => "${value}";
+
+  static String m12(start, end) =>
+      "Chuyến đi của bạn sẽ khởi hành vào lúc: ${start} kết thúc vào: ${end}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -96,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anh"),
         "countryRegion":
             MessageLookupByLibrary.simpleMessage("Quốc gia/Khu vực"),
+        "createTicket": MessageLookupByLibrary.simpleMessage("Tạo vé"),
         "createTour": MessageLookupByLibrary.simpleMessage(
             "Tạo một tour du lịch cho riêng mình"),
         "createTourPageTitle":
@@ -107,6 +113,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "days": MessageLookupByLibrary.simpleMessage("ngày"),
         "defaultText": MessageLookupByLibrary.simpleMessage(
             "Hy vọng bạn vẫn đang vui vẻ trên chuyến hành trình của mình"),
+        "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
+        "deleteConfirmText": MessageLookupByLibrary.simpleMessage(
+            "Hành động xóa không thể khôi phục được"),
+        "deleteConfirmTitle":
+            MessageLookupByLibrary.simpleMessage("Bạn có chắc muốn xóa?"),
         "departure": MessageLookupByLibrary.simpleMessage("Điểm xuất phát"),
         "destination": MessageLookupByLibrary.simpleMessage("Điểm đến"),
         "detail": MessageLookupByLibrary.simpleMessage("chi tiết"),
@@ -117,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "duration": MessageLookupByLibrary.simpleMessage("Thời gian đi"),
         "durationHintText": MessageLookupByLibrary.simpleMessage(
             "6 giờ, 2 ngày, 3 tuần, 4 tháng, ..."),
+        "editPage": MessageLookupByLibrary.simpleMessage("Trang chỉnh sửa"),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Hãy viết mô tả về chuyến đi của bạn ở đây..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
@@ -148,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "imageCollectionText": m6,
         "importantThingsYouShouldKnow":
             MessageLookupByLibrary.simpleMessage("Một số điều cần lưu ý"),
+        "inUseDateError":
+            MessageLookupByLibrary.simpleMessage("Ngày này đã được chọn"),
         "invalidDepartureError": MessageLookupByLibrary.simpleMessage(
             "Điểm xuất phát không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ"),
         "invalidDestinationError": MessageLookupByLibrary.simpleMessage(
@@ -216,10 +230,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Đã đánh giá"),
-        "reviews": MessageLookupByLibrary.simpleMessage("đánh giá"),
+        "reviews": m8,
+        "sameDateError": MessageLookupByLibrary.simpleMessage(
+            "Ngày khởi hành và ngày kết thúc không thể trùng"),
         "save": MessageLookupByLibrary.simpleMessage("Lưu"),
         "schedule": MessageLookupByLibrary.simpleMessage("Lịch trình"),
-        "scheduleDay": m8,
+        "scheduleDay": m9,
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "searching": MessageLookupByLibrary.simpleMessage("Tìm kiếm..."),
         "securityAccount":
@@ -243,16 +259,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chính sách và Điều khoản"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ"),
-        "thumbDesc": m9,
+        "thumbDesc": m10,
         "totalPrice": MessageLookupByLibrary.simpleMessage("Tổng tiền"),
-        "totalReviews": m10,
+        "totalReviews": m11,
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),
+        "tourDateAnnounce": m12,
         "tourDatesLabel":
             MessageLookupByLibrary.simpleMessage("Thời gian xuất phát"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Chi tiết chuyến đi"),
-        "tourDescEditor": MessageLookupByLibrary.simpleMessage(
-            "Trình chỉnh sửa mô tả chuyến đi"),
         "tourDescLabel":
             MessageLookupByLibrary.simpleMessage("Mô tả chuyến đi"),
         "tourDetails":

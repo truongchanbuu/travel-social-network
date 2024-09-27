@@ -36,11 +36,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(index) => "Loading image at index ${index}";
 
-  static String m8(value) => "Day ${value}";
+  static String m8(count) =>
+      "${Intl.plural(count, zero: 'Review', one: 'Review', other: 'Reviews')}";
 
-  static String m9(name) => "Thumb for ${name}";
+  static String m9(value) => "Day ${value}";
 
-  static String m10(value) => "${value}";
+  static String m10(name) => "Thumb for ${name}";
+
+  static String m11(value) => "${value}";
+
+  static String m12(start, end) =>
+      "Your trip will start at: ${start} and accomplish at: ${end}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -96,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "countryEnglandRegionChoice":
             MessageLookupByLibrary.simpleMessage("England"),
         "countryRegion": MessageLookupByLibrary.simpleMessage("Country/Region"),
+        "createTicket": MessageLookupByLibrary.simpleMessage("Create Ticket"),
         "createTour":
             MessageLookupByLibrary.simpleMessage("Create your own tour"),
         "createTourPageTitle":
@@ -107,6 +114,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "days": MessageLookupByLibrary.simpleMessage("day(s)"),
         "defaultText": MessageLookupByLibrary.simpleMessage(
             "Hope you doing well on your own journey"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteConfirmText": MessageLookupByLibrary.simpleMessage(
+            "Delete cannot be undone anymore"),
+        "deleteConfirmTitle":
+            MessageLookupByLibrary.simpleMessage("Are you sure to delete?"),
         "departure": MessageLookupByLibrary.simpleMessage("Departure"),
         "destination": MessageLookupByLibrary.simpleMessage("Destination"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
@@ -117,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationHintText": MessageLookupByLibrary.simpleMessage(
             "6 hours, 1 day, 2 weeks, 3 months, ..."),
+        "editPage": MessageLookupByLibrary.simpleMessage("Editor Page"),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Add your tour description here..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
@@ -149,6 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "imageCollectionText": m6,
         "importantThingsYouShouldKnow": MessageLookupByLibrary.simpleMessage(
             "Important things you should know"),
+        "inUseDateError":
+            MessageLookupByLibrary.simpleMessage("Cannot select in use date"),
         "invalidDepartureError": MessageLookupByLibrary.simpleMessage(
             "Invalid departure location! Please choose or insert a valid location"),
         "invalidDestinationError": MessageLookupByLibrary.simpleMessage(
@@ -215,10 +230,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
-        "reviews": MessageLookupByLibrary.simpleMessage("Review(s)"),
+        "reviews": m8,
+        "sameDateError": MessageLookupByLibrary.simpleMessage(
+            "Start date and end date cannot be same"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
-        "scheduleDay": m8,
+        "scheduleDay": m9,
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searching": MessageLookupByLibrary.simpleMessage("Searching..."),
         "securityAccount":
@@ -242,16 +259,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m9,
+        "thumbDesc": m10,
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m10,
+        "totalReviews": m11,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
+        "tourDateAnnounce": m12,
         "tourDatesLabel": MessageLookupByLibrary.simpleMessage("Tour Dates"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),
-        "tourDescEditor":
-            MessageLookupByLibrary.simpleMessage("Tour Description Editor"),
         "tourDescLabel":
             MessageLookupByLibrary.simpleMessage("Tour Description"),
         "tourDetails": MessageLookupByLibrary.simpleMessage("Tour Details"),

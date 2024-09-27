@@ -26,7 +26,7 @@ class TicketItem extends StatelessWidget {
       onTap: () => _showDetailTicketPage(context),
       child: Container(
         key: ValueKey(
-            'TICKET-${ticket.tourId}-${ticket.ticketTypeId}-${ticket.date}'),
+            'TICKET-${ticket.tourId}-${ticket.ticketTypeId}-${ticket.startDate}'),
         width: ticketItemWidth,
         margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
         decoration: BoxDecoration(

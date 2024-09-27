@@ -3,6 +3,7 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/tour.dart';
 import '../widgets/create_tour_add_image_section.dart';
 import '../widgets/create_tour_dates_section.dart';
 import '../widgets/create_tour_details.dart';
@@ -18,9 +19,13 @@ class _CreateTourPageState extends State<CreateTourPage> {
   List<ImageFile> images = List.empty(growable: true);
   Map<String, bool> expansionDetails = {};
 
+  late final TourEntity tour;
+
   @override
   void initState() {
     super.initState();
+    tour = TourEntity.defaultWithId();
+
     expansionDetails = {
       'detail': true,
       'images': true,
@@ -51,6 +56,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
   }
 
   ExpansionPanel _buildTourDates() => _buildTemplateExpansionPanel(
+        width: double.infinity,
         expansionKey: 'dates',
         header: _buildHeadingText(S.current.tourDatesLabel,
             leading: const Icon(Icons.calendar_month)),
@@ -58,7 +64,8 @@ class _CreateTourPageState extends State<CreateTourPage> {
       );
 
   ExpansionPanel _buildImageSelection() => _buildTemplateExpansionPanel(
-        isCustomizable: false,
+        width: double.infinity,
+        height: createTourImagesBox,
         expansionKey: 'images',
         header: _buildHeadingText(
           S.current.addImageLabel,
@@ -99,6 +106,8 @@ class _CreateTourPageState extends State<CreateTourPage> {
     required Widget header,
     required Widget body,
     bool isCustomizable = true,
+    double? width,
+    double? height,
   }) =>
       ExpansionPanel(
         canTapOnHeader: true,
@@ -109,6 +118,8 @@ class _CreateTourPageState extends State<CreateTourPage> {
         ),
         body: isCustomizable
             ? Container(
+                height: height,
+                width: width,
                 decoration: BoxDecoration(
                   borderRadius: inputFieldBorderRadius,
                   boxShadow: [
@@ -146,6 +157,8 @@ class _CreateTourPageState extends State<CreateTourPage> {
         break;
       case 1:
         key = 'images';
+      case 2:
+        key = 'dates';
       default:
         return;
     }

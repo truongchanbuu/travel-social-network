@@ -90,6 +90,16 @@ class S {
     );
   }
 
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Search`
   String get search {
     return Intl.message(
@@ -851,13 +861,16 @@ class S {
     );
   }
 
-  /// `Review(s)`
-  String get reviews {
-    return Intl.message(
-      'Review(s)',
+  /// `{count, plural, zero{Review} one{Review} other {Reviews}}`
+  String reviews(num count) {
+    return Intl.plural(
+      count,
+      zero: 'Review',
+      one: 'Review',
+      other: 'Reviews',
       name: 'reviews',
       desc: '',
-      args: [],
+      args: [count],
     );
   }
 
@@ -961,11 +974,11 @@ class S {
     );
   }
 
-  /// `Tour Description Editor`
-  String get tourDescEditor {
+  /// `Editor Page`
+  String get editPage {
     return Intl.message(
-      'Tour Description Editor',
-      name: 'tourDescEditor',
+      'Editor Page',
+      name: 'editPage',
       desc: '',
       args: [],
     );
@@ -1211,6 +1224,16 @@ class S {
     return Intl.message(
       'Buy Ticket',
       name: 'buyTicket',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Ticket`
+  String get createTicket {
+    return Intl.message(
+      'Create Ticket',
+      name: 'createTicket',
       desc: '',
       args: [],
     );
@@ -1626,6 +1649,26 @@ class S {
     );
   }
 
+  /// `Are you sure to delete?`
+  String get deleteConfirmTitle {
+    return Intl.message(
+      'Are you sure to delete?',
+      name: 'deleteConfirmTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete cannot be undone anymore`
+  String get deleteConfirmText {
+    return Intl.message(
+      'Delete cannot be undone anymore',
+      name: 'deleteConfirmText',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tour Dates`
   String get tourDatesLabel {
     return Intl.message(
@@ -1641,6 +1684,44 @@ class S {
     return Intl.message(
       'Add Date',
       name: 'addDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start date and end date cannot be same`
+  String get sameDateError {
+    return Intl.message(
+      'Start date and end date cannot be same',
+      name: 'sameDateError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your trip will start at: {start} and accomplish at: {end}`
+  String tourDateAnnounce(DateTime start, DateTime end) {
+    final DateFormat startDateFormat =
+        DateFormat('Hmm \'in\' EEE, dd MM yyyy', Intl.getCurrentLocale());
+    final String startString = startDateFormat.format(start);
+
+    final DateFormat endDateFormat =
+        DateFormat('Hmm \'in\' EEE, dd MM yyyy', Intl.getCurrentLocale());
+    final String endString = endDateFormat.format(end);
+
+    return Intl.message(
+      'Your trip will start at: $startString and accomplish at: $endString',
+      name: 'tourDateAnnounce',
+      desc: '',
+      args: [startString, endString],
+    );
+  }
+
+  /// `Cannot select in use date`
+  String get inUseDateError {
+    return Intl.message(
+      'Cannot select in use date',
+      name: 'inUseDateError',
       desc: '',
       args: [],
     );

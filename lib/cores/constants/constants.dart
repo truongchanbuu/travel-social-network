@@ -35,6 +35,7 @@ const double defaultPadding = 10;
 
 // Duration
 const int pageChangeTransitionDuration = 500;
+const int maximumDay = 720;
 
 // TextDirection
 const TextDirection defaultTextDirection = TextDirection.ltr;
@@ -89,3 +90,6 @@ const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(
 
 // API
 const String baseUrl = 'http://localhost:3000/api';
+
+// Format
+const String tourDateFormat = 'H:mm dd/MM/yyyy';

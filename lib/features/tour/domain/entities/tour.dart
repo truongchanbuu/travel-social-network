@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:travel_social_network/features/ticket/domain/entities/ticket_type.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../ticket/domain/entities/ticket_type.dart';
+import 'tour_schedule.dart';
 
 class TourEntity extends Equatable {
   final String tourId;
@@ -11,8 +14,8 @@ class TourEntity extends Equatable {
   final String departure;
   final String destination;
   final int duration;
-  final List<DateTime> startDates;
   final double rating;
+  final TourScheduleEntity? tourSchedule;
 
   const TourEntity({
     required this.tourId,
@@ -24,12 +27,25 @@ class TourEntity extends Equatable {
     required this.departure,
     required this.destination,
     required this.duration,
-    required this.startDates,
     required this.rating,
+    this.tourSchedule,
   });
 
+  TourEntity.defaultWithId({
+    this.tourName = '',
+    this.tourDescription = '',
+    this.createdBy = '',
+    this.tickets = const <TicketTypeEntity>[],
+    this.imageUrls = const <String>[],
+    this.departure = '',
+    this.destination = '',
+    this.duration = 0,
+    this.rating = 0.0,
+    this.tourSchedule,
+  }) : tourId = 'TOUR-${const Uuid().v4()}';
+
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       tourId,
       tourName,
@@ -40,8 +56,8 @@ class TourEntity extends Equatable {
       departure,
       destination,
       duration,
-      startDates,
       rating,
+      tourSchedule,
     ];
   }
 }

@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../../ticket/data/models/ticket_type.dart';
 import '../../domain/entities/tour.dart';
+import 'tour_schedule.dart';
 
 part 'tour.g.dart';
 
@@ -17,9 +18,12 @@ class Tour extends TourEntity {
     required super.departure,
     required super.destination,
     required super.duration,
-    required super.startDates,
     required super.rating,
-  }) : super(tickets: tickets.map((ticket) => ticket.toEntity()).toList());
+    TourSchedule? tourSchedule,
+  }) : super(
+          tickets: tickets.map((ticket) => ticket.toEntity()).toList(),
+          tourSchedule: tourSchedule?.toEntity(),
+        );
 
   Tour copyWith({
     String? tourId,
@@ -31,8 +35,8 @@ class Tour extends TourEntity {
     String? departure,
     String? destination,
     int? duration,
-    List<DateTime>? startDates,
     double? rating,
+    TourSchedule? tourSchedule,
   }) {
     return Tour(
       tourId: tourId ?? this.tourId,
@@ -44,8 +48,8 @@ class Tour extends TourEntity {
       departure: departure ?? this.departure,
       destination: destination ?? this.destination,
       duration: duration ?? this.duration,
-      startDates: startDates ?? this.startDates,
       rating: rating ?? this.rating,
+      tourSchedule: tourSchedule,
     );
   }
 
@@ -60,8 +64,8 @@ class Tour extends TourEntity {
       departure: departure,
       destination: destination,
       duration: duration,
-      startDates: startDates,
       rating: rating,
+      tourSchedule: tourSchedule,
     );
   }
 
@@ -76,8 +80,10 @@ class Tour extends TourEntity {
       departure: entity.departure,
       destination: entity.destination,
       duration: entity.duration,
-      startDates: entity.startDates,
       rating: entity.rating,
+      tourSchedule: entity.tourSchedule != null
+          ? TourSchedule.fromEntity(entity.tourSchedule!)
+          : null,
     );
   }
 
@@ -92,8 +98,10 @@ class Tour extends TourEntity {
       "departure": departure,
       "destination": destination,
       "duration": duration,
-      "startDates": startDates,
       "rating": rating,
+      "tourSchedule": tourSchedule != null
+          ? TourSchedule.fromEntity(tourSchedule!).toMap()
+          : null,
     };
   }
 
@@ -108,8 +116,8 @@ class Tour extends TourEntity {
       departure: map["departure"],
       destination: map["destination"],
       duration: map["duration"]?.toInt(),
-      startDates: map["startDates"],
       rating: map["rating"]?.toDouble(),
+      tourSchedule: TourSchedule.fromMap(map['tourSchedule']),
     );
   }
 

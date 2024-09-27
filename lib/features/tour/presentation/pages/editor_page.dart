@@ -9,15 +9,15 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
-class TourDescEditorPage extends StatefulWidget {
+class EditorPage extends StatefulWidget {
   final String? initialValue;
-  const TourDescEditorPage({super.key, this.initialValue});
+  const EditorPage({super.key, this.initialValue});
 
   @override
-  State<TourDescEditorPage> createState() => _TourDescEditorPageState();
+  State<EditorPage> createState() => _EditorPageState();
 }
 
-class _TourDescEditorPageState extends State<TourDescEditorPage> {
+class _EditorPageState extends State<EditorPage> {
   late final QuillController quillController;
 
   @override
@@ -109,7 +109,7 @@ class _TourDescEditorPageState extends State<TourDescEditorPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         title: Text(
-          S.current.tourDescDetail,
+          S.current.editPage,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           textDirection: defaultTextDirection,
           overflow: defaultTextOverflow,

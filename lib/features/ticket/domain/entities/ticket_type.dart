@@ -10,7 +10,8 @@ class TicketTypeEntity extends Equatable {
   final String tourId;
   final num ticketPrice;
   final String ticketDescription;
-  final DateTime date;
+  final DateTime startDate;
+  final DateTime endDate;
   final TicketCategory category;
   final int quantity;
   final String ticketInfo;
@@ -26,7 +27,8 @@ class TicketTypeEntity extends Equatable {
     required this.tourId,
     required this.ticketPrice,
     required this.ticketDescription,
-    required this.date,
+    required this.startDate,
+    required this.endDate,
     required this.category,
     required this.quantity,
     required this.ticketInfo,
@@ -52,7 +54,8 @@ class TicketTypeEntity extends Equatable {
       refundPolicyId,
       reschedulePolicyId,
       createdAt,
-      date,
+      startDate,
+      endDate
     ];
   }
 }

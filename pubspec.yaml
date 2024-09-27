@@ -52,6 +52,8 @@ dependencies:
 
   # Image
   flutter_svg_provider: ^1.0.7
+  image_picker: ^1.1.2
+  multi_image_picker_view: ^1.1.0
 
   # Utils
   package_info_plus: ^8.0.2
@@ -61,7 +63,7 @@ dependencies:
   url_launcher: ^6.3.0
   collection: ^1.18.0
   share_plus: ^10.0.2
-  image_picker: ^1.1.2
+  uuid: ^4.5.1
   flutter_localizations:
     sdk: flutter
 
@@ -75,12 +77,12 @@ dependencies:
   carousel_slider: ^5.0.0
   flutter_quill: ^10.5.19
   photo_view: ^0.15.0
-  calendar_date_picker2: ^1.1.7
   mobkit_dashed_border: ^0.0.6
   animated_hint_textfield: ^1.0.3
   flutter_quill_extensions: ^10.7.5
   flutter_typeahead: ^5.2.0
-  multi_image_picker_view: ^1.1.0
+  board_datetime_picker: ^2.1.4
+  flutter_styled_toast: ^2.2.1
 
 
 dev_dependencies:

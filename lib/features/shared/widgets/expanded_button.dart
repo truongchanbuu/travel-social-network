@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../cores/constants/constants.dart';
 
 class ExpandedButton extends StatelessWidget {
   final bool isExpanded;
