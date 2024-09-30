@@ -206,12 +206,18 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     }
   }
 
-  void _navigateToCreateTicketPage() => Navigator.push(
-        context,
-        MaterialPageRoute(
+  void _navigateToCreateTicketPage() async {
+    var data = await Navigator.push(
+      context,
+      MaterialPageRoute(
           builder: (context) => CreateTicketPage(
-            selectedDates: selectedDates,
-          ),
-        ),
-      );
+                dates: dates,
+                selectedDates: selectedDates,
+              )),
+    );
+
+    if (data is List<String>) {
+      setState(() => selectedDates = data);
+    }
+  }
 }

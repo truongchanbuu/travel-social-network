@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../generated/l10n.dart';
-import '../../../shared/pages/full_screen_image_page.dart';
-import '../../../shared/widgets/app_cached_image.dart';
+import '../../../generated/l10n.dart';
+import 'full_screen_image_page.dart';
+import '../widgets/app_cached_image.dart';
 
 class MediaViewPage extends StatefulWidget {
   final String prefixValueKey;

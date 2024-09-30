@@ -216,11 +216,15 @@
     "selectedDate": "selected date",
     "redemptionMethod": "Redemption Method",
     "howToRedeem": "How to redeem",
+
     "canBeRescheduled": "Can be Rescheduled",
     "cannotBeRescheduled": "Cannot be Rescheduled",
     "refundable": "Can be refund",
     "nonRefundable": "Cannot be refund",
     "refundAndReschedule": "Refund & Reschedule",
+    "refundPolicy": "Refund Policy",
+    "reschedulePolicy": "Reschedule Policy",
+
     "forType": "For {ticketType}",
     "@forType": {
         "placeholders": {
@@ -289,5 +293,13 @@
             }
         }
     },
-    "inUseDateError": "Cannot select in use date"
+    "inUseDateError": "Cannot select in use date",
+
+    "ticketName": "Ticket Name",
+    "price": "Price",
+    "ticketCategory": "Ticket Category",
+    "quantity": "Quantity",
+    "ticketDesc": "Ticket Description",
+    "ticketInfo": "Ticket Info",
+    "ticketRedemption": "Redemption Method"
 }

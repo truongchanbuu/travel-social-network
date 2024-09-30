@@ -58,7 +58,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                   labelText: S.current.phoneNumber,
                   semanticCounterText: S.current.semanticPhoneNumberCounterText,
                   border: const OutlineInputBorder(
-                    borderRadius: inputFieldBorderRadius,
+                    borderRadius: defaultFieldBorderRadius,
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),

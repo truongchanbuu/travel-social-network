@@ -30,6 +30,7 @@ class _DateTimeItemState extends State<DateTimeItem> {
   Widget build(BuildContext context) {
     bool isSelected = widget.isSelected;
     return InkWell(
+      borderRadius: const BorderRadius.all(Radius.circular(999)),
       onHover: (value) => setState(() => _isHover = value),
       onTap: widget.onTap,
       child: Container(

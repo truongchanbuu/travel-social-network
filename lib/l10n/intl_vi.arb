@@ -221,11 +221,15 @@
   "selectedDate": "ngày đã chọn",
   "redemptionMethod": "Phương thức nhận vé",
   "howToRedeem": "Cách nhận",
+
   "canBeRescheduled": "Có thể đổi lịch",
   "cannotBeRescheduled": "Không thể đổi lịch",
   "refundable": "Có thể hoàn tiền",
   "nonRefundable": "Không thể hoàn tiền",
   "refundAndReschedule": "Hoàn tiền và Đổi lịch",
+  "refundPolicy": "Chính sách hoàn tiền",
+  "reschedulePolicy": "Chính sách dời vé",
+
   "forType": "Dành cho {ticketType}",
   "@forType": {
     "placeholders": {
@@ -295,6 +299,13 @@
       }
     }
   },
-  "inUseDateError": "Ngày này đã được chọn"
+  "inUseDateError": "Ngày này đã được chọn",
 
+  "ticketName": "Tên vé",
+  "price": "Giá vé",
+  "ticketCategory": "Loại vé",
+  "quantity": "Số lượng",
+  "ticketDesc": "Mô tả vé",
+  "ticketInfo": "Thông tin thêm về vé",
+  "ticketRedemption": "Phương thức quy đổi"
 }

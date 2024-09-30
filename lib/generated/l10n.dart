@@ -1339,6 +1339,26 @@ class S {
     );
   }
 
+  /// `Refund Policy`
+  String get refundPolicy {
+    return Intl.message(
+      'Refund Policy',
+      name: 'refundPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reschedule Policy`
+  String get reschedulePolicy {
+    return Intl.message(
+      'Reschedule Policy',
+      name: 'reschedulePolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `For {ticketType}`
   String forType(String ticketType) {
     return Intl.message(
@@ -1722,6 +1742,76 @@ class S {
     return Intl.message(
       'Cannot select in use date',
       name: 'inUseDateError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket Name`
+  String get ticketName {
+    return Intl.message(
+      'Ticket Name',
+      name: 'ticketName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get price {
+    return Intl.message(
+      'Price',
+      name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket Category`
+  String get ticketCategory {
+    return Intl.message(
+      'Ticket Category',
+      name: 'ticketCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quantity`
+  String get quantity {
+    return Intl.message(
+      'Quantity',
+      name: 'quantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket Description`
+  String get ticketDesc {
+    return Intl.message(
+      'Ticket Description',
+      name: 'ticketDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket Info`
+  String get ticketInfo {
+    return Intl.message(
+      'Ticket Info',
+      name: 'ticketInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Redemption Method`
+  String get ticketRedemption {
+    return Intl.message(
+      'Redemption Method',
+      name: 'ticketRedemption',
       desc: '',
       args: [],
     );

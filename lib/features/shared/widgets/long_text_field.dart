@@ -9,6 +9,7 @@ class LongTextField extends StatefulWidget {
   final String title;
   final void Function(String? value)? onSaved;
   final String? Function(String? value)? validator;
+
   const LongTextField({
     super.key,
     required this.title,
@@ -47,6 +48,7 @@ class _LongTextFieldState extends State<LongTextField> {
     }
   }
 
+  // TODO: Add image feature
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
@@ -67,7 +69,7 @@ class _LongTextFieldState extends State<LongTextField> {
               readOnly: false,
               isVisible: true,
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
-              border: Border.all(width: 1, color: createTourFieldBorderColor),
+              border: Border.all(width: 1, color: defaultFieldBorderColor),
             ),
     );
   }

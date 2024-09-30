@@ -121,7 +121,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
                 height: height,
                 width: width,
                 decoration: BoxDecoration(
-                  borderRadius: inputFieldBorderRadius,
+                  borderRadius: defaultFieldBorderRadius,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),

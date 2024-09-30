@@ -211,11 +211,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Enter your country name or code to search"),
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Popular Destinations"),
+        "price": MessageLookupByLibrary.simpleMessage("Price"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privacyStatement":
             MessageLookupByLibrary.simpleMessage("Privacy Statement"),
         "promotionText": MessageLookupByLibrary.simpleMessage(
             "Enjoy the privilege of membership"),
+        "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "rateForUs": MessageLookupByLibrary.simpleMessage("Rate for us"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "recommendTours":
@@ -226,7 +228,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "refundAndReschedule":
             MessageLookupByLibrary.simpleMessage("Refund & Reschedule"),
+        "refundPolicy": MessageLookupByLibrary.simpleMessage("Refund Policy"),
         "refundable": MessageLookupByLibrary.simpleMessage("Can be refund"),
+        "reschedulePolicy":
+            MessageLookupByLibrary.simpleMessage("Reschedule Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
@@ -260,6 +265,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "thumbDesc": m10,
+        "ticketCategory":
+            MessageLookupByLibrary.simpleMessage("Ticket Category"),
+        "ticketDesc":
+            MessageLookupByLibrary.simpleMessage("Ticket Description"),
+        "ticketInfo": MessageLookupByLibrary.simpleMessage("Ticket Info"),
+        "ticketName": MessageLookupByLibrary.simpleMessage("Ticket Name"),
+        "ticketRedemption":
+            MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
         "totalReviews": m11,

@@ -209,12 +209,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nhập tên hoặc mã quốc gia để tìm kiếm quốc gia của bạn"),
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Những địa danh nổi tiếng"),
+        "price": MessageLookupByLibrary.simpleMessage("Giá vé"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Chính sách bảo mật"),
         "privacyStatement":
             MessageLookupByLibrary.simpleMessage("Chính sách quyền riêng tư"),
         "promotionText": MessageLookupByLibrary.simpleMessage(
             "Tận hưởng những đặc quyền của thành viên"),
+        "quantity": MessageLookupByLibrary.simpleMessage("Số lượng"),
         "rateForUs":
             MessageLookupByLibrary.simpleMessage("Đánh giá về chúng tôi"),
         "recentSearch":
@@ -226,7 +228,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Phương thức nhận vé"),
         "refundAndReschedule":
             MessageLookupByLibrary.simpleMessage("Hoàn tiền và Đổi lịch"),
+        "refundPolicy":
+            MessageLookupByLibrary.simpleMessage("Chính sách hoàn tiền"),
         "refundable": MessageLookupByLibrary.simpleMessage("Có thể hoàn tiền"),
+        "reschedulePolicy":
+            MessageLookupByLibrary.simpleMessage("Chính sách dời vé"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Đã đánh giá"),
@@ -260,6 +266,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ"),
         "thumbDesc": m10,
+        "ticketCategory": MessageLookupByLibrary.simpleMessage("Loại vé"),
+        "ticketDesc": MessageLookupByLibrary.simpleMessage("Mô tả vé"),
+        "ticketInfo":
+            MessageLookupByLibrary.simpleMessage("Thông tin thêm về vé"),
+        "ticketName": MessageLookupByLibrary.simpleMessage("Tên vé"),
+        "ticketRedemption":
+            MessageLookupByLibrary.simpleMessage("Phương thức quy đổi"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Tổng tiền"),
         "totalReviews": m11,
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),

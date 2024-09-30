@@ -40,7 +40,7 @@ class ContinueWithEmailPage extends StatelessWidget {
                   TextFormField(
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: inputFieldBorderRadius,
+                        borderRadius: defaultFieldBorderRadius,
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: primaryColor),

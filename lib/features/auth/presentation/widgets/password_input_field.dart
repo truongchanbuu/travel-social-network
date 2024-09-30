@@ -40,7 +40,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         labelText: S.current.password,
         semanticCounterText: S.current.passwordRequirement,
         border: const OutlineInputBorder(
-          borderRadius: inputFieldBorderRadius,
+          borderRadius: defaultFieldBorderRadius,
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: primaryColor),

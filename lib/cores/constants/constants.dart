@@ -14,9 +14,7 @@ const Color subtitleTicketDetailColor = Colors.amber;
 const Color currencyTextColor = Colors.orange;
 
 // Border Radius
-const BorderRadius inputFieldBorderRadius =
-    BorderRadius.all(Radius.circular(5));
-const Color createTourFieldBorderColor = Colors.black54;
+const Color defaultFieldBorderColor = Colors.black54;
 const BorderRadius defaultFieldBorderRadius =
     BorderRadius.all(Radius.circular(5));
 
@@ -92,4 +90,4 @@ const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(
 const String baseUrl = 'http://localhost:3000/api';
 
 // Format
-const String tourDateFormat = 'H:mm dd/MM/yyyy';
+const String tourDateFormat = 'HH:mm dd/MM/yyyy';

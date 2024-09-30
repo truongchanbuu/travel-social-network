@@ -14,6 +14,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
   final AutovalidateMode autovalidateMode;
+  final Animationtype animationtype;
   final int? maxLines;
   final void Function()? onTap;
   final void Function(String value)? onChanged;
@@ -35,6 +36,7 @@ class CustomTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.next,
     this.keyboardType = TextInputType.text,
     this.autovalidateMode = AutovalidateMode.onUnfocus,
+    this.animationtype = Animationtype.typer,
     this.onTap,
     this.onChanged,
     this.validator,
@@ -114,7 +116,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 },
                 maxLines: widget.maxLines,
                 cursorColor: primaryColor,
-                animationType: Animationtype.typer,
+                animationType: widget.animationtype,
                 hintTextStyle: const TextStyle(overflow: TextOverflow.ellipsis),
                 inputFormatters: widget.inputFormatters,
                 hintTexts: widget.hintTexts,
@@ -125,7 +127,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   border: const OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
-                        BorderSide(width: 1, color: createTourFieldBorderColor),
+                        BorderSide(width: 1, color: defaultFieldBorderColor),
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
@@ -133,7 +135,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   disabledBorder: const OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
-                        BorderSide(width: 1, color: createTourFieldBorderColor),
+                        BorderSide(width: 1, color: defaultFieldBorderColor),
                   ),
                   hintText: widget.singleHintText,
                   hintMaxLines: 1,
