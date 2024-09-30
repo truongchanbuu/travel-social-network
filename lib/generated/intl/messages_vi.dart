@@ -207,6 +207,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Số điện thoại"),
         "phoneSearchHintText": MessageLookupByLibrary.simpleMessage(
             "Nhập tên hoặc mã quốc gia để tìm kiếm quốc gia của bạn"),
+        "policyDesc": MessageLookupByLibrary.simpleMessage("Mô tả chính sách"),
+        "policyName":
+            MessageLookupByLibrary.simpleMessage("Tên của chính sách"),
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Những địa danh nổi tiếng"),
         "price": MessageLookupByLibrary.simpleMessage("Giá vé"),

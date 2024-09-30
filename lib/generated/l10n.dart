@@ -1816,6 +1816,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Policy Name`
+  String get policyName {
+    return Intl.message(
+      'Policy Name',
+      name: 'policyName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Policy Description`
+  String get policyDesc {
+    return Intl.message(
+      'Policy Description',
+      name: 'policyDesc',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

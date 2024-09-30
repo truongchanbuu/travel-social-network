@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
+import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/custom_text_field.dart';
+import '../../../shared/widgets/long_text_field.dart';
 
 class CreatePolicyBottomSheet extends StatefulWidget {
   final PolicyType policyType;
@@ -27,12 +30,34 @@ class _CreatePolicyBottomSheetState extends State<CreatePolicyBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(''),
-        CustomTextField(label: ''),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(defaultPadding),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+            child: Text(
+              selectedType == PolicyType.refund
+                  ? S.current.refundPolicy
+                  : S.current.reschedulePolicy,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          CustomTextField(
+            label: S.current.policyName,
+            hintTexts: const [
+              'Easy to refund...',
+              'Reschedule anytime...',
+              '...'
+            ],
+          ),
+          const SizedBox(height: 10),
+          LongTextField(title: S.current.policyDesc),
+        ],
+      ),
     );
   }
 }

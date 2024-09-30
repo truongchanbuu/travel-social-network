@@ -307,5 +307,7 @@
   "quantity": "Số lượng",
   "ticketDesc": "Mô tả vé",
   "ticketInfo": "Thông tin thêm về vé",
-  "ticketRedemption": "Phương thức quy đổi"
+  "ticketRedemption": "Phương thức quy đổi",
+  "policyName": "Tên của chính sách",
+  "policyDesc": "Mô tả chính sách"
 }

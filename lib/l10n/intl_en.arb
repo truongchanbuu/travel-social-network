@@ -301,5 +301,7 @@
     "quantity": "Quantity",
     "ticketDesc": "Ticket Description",
     "ticketInfo": "Ticket Info",
-    "ticketRedemption": "Redemption Method"
+    "ticketRedemption": "Redemption Method",
+    "policyName": "Policy Name",
+    "policyDesc": "Policy Description"
 }

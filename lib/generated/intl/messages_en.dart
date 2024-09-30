@@ -209,6 +209,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "phoneSearchHintText": MessageLookupByLibrary.simpleMessage(
             "Enter your country name or code to search"),
+        "policyDesc":
+            MessageLookupByLibrary.simpleMessage("Policy Description"),
+        "policyName": MessageLookupByLibrary.simpleMessage("Policy Name"),
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Popular Destinations"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
