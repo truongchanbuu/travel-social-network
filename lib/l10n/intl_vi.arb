@@ -285,12 +285,12 @@
     "placeholders": {
       "start": {
         "type": "DateTime",
-        "format": "Hmm 'ngày' dd 'tháng' MM 'năm' yyyy",
+        "format": "HH:mm 'ngày' dd 'tháng' MM 'năm' yyyy",
         "isCustomDateFormat": "true"
       },
       "end": {
         "type": "DateTime",
-        "format": "Hmm 'ngày' dd 'tháng' MM 'năm' yyyy",
+        "format": "HH:mm 'ngày' dd 'tháng' MM 'năm' yyyy",
         "isCustomDateFormat": "true"
       }
     }

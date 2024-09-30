@@ -11,10 +11,11 @@ import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/expanded_button.dart';
 import '../../../ticket/presentations/pages/create_ticket_page.dart';
 import 'date_section_button.dart';
+import 'date_time_item.dart';
 
 class CreateTourDatesSection extends StatefulWidget {
-  final void Function(List<String> dates)? onSelectedDate;
-  const CreateTourDatesSection({super.key, this.onSelectedDate});
+  final void Function(List<String> dates)? onSelectedDates;
+  const CreateTourDatesSection({super.key, this.onSelectedDates});
 
   @override
   State<CreateTourDatesSection> createState() => _CreateTourDatesSectionState();
@@ -25,7 +26,6 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   int minLines = 2;
   late int maxLines;
 
-  List<bool> isHoverList = List.empty(growable: true);
   List<String> dates = List.empty(growable: true);
   List<String> selectedDates = List.empty(growable: true);
 
@@ -77,10 +77,10 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   Widget _buildDateTimeItem(String date, int index) {
     bool isSelected = selectedDates.contains(date);
 
-    return InkWell(
-      onHover: (value) => setState(() => isHoverList[index] = value),
+    return DateTimeItem(
+      date: date,
+      isSelected: isSelected,
       onTap: () {
-        widget.onSelectedDate?.call(dates);
         setState(() {
           if (!isSelected) {
             selectedDates.add(date);
@@ -88,37 +88,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
             selectedDates.remove(date);
           }
         });
+        widget.onSelectedDates?.call(dates);
       },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(999)),
-          color: isHoverList[index] || isSelected ? primaryColor : Colors.white,
-          boxShadow: [
-            BoxShadow(
-              spreadRadius: 1,
-              blurRadius: 5,
-              color: Colors.grey.withOpacity(0.5),
-            )
-          ],
-        ),
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              date,
-              style: TextStyle(
-                color: isHoverList[index] || isSelected
-                    ? Colors.white
-                    : primaryColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -182,7 +153,6 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       } else {
         setState(() {
           dates.add(formatted);
-          isHoverList.add(false);
         });
         showToast(
           context: context,
@@ -227,18 +197,13 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     );
 
     if (isConfirmed) {
-      for (var date in selectedDates) {
-        _completelyDelete(date);
-      }
+      setState(() {
+        for (var date in selectedDates) {
+          dates.remove(date);
+        }
+        selectedDates.clear();
+      });
     }
-  }
-
-  void _completelyDelete(String date, {int? index}) {
-    setState(() {
-      selectedDates.remove(date);
-      isHoverList.removeAt(index ?? dates.indexOf(date));
-      dates.remove(date);
-    });
   }
 
   void _navigateToCreateTicketPage() => Navigator.push(

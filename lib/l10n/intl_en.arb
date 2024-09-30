@@ -279,12 +279,12 @@
         "placeholders": {
             "start": {
                 "type": "DateTime",
-                "format": "Hmm 'in' EEE, dd MM yyyy",
+                "format": "HH:mm 'in' EEE, dd MM yyyy",
                 "isCustomDateFormat": "true"
             },
             "end": {
                 "type": "DateTime",
-                "format": "Hmm 'in' EEE, dd MM yyyy",
+                "format": "HH:mm 'in' EEE, dd MM yyyy",
                 "isCustomDateFormat": "true"
             }
         }

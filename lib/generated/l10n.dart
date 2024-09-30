@@ -1702,11 +1702,11 @@ class S {
   /// `Your trip will start at: {start} and accomplish at: {end}`
   String tourDateAnnounce(DateTime start, DateTime end) {
     final DateFormat startDateFormat =
-        DateFormat('Hmm \'in\' EEE, dd MM yyyy', Intl.getCurrentLocale());
+        DateFormat('HH:mm \'in\' EEE, dd MM yyyy', Intl.getCurrentLocale());
     final String startString = startDateFormat.format(start);
 
     final DateFormat endDateFormat =
-        DateFormat('Hmm \'in\' EEE, dd MM yyyy', Intl.getCurrentLocale());
+        DateFormat('HH:mm \'in\' EEE, dd MM yyyy', Intl.getCurrentLocale());
     final String endString = endDateFormat.format(end);
 
     return Intl.message(
