@@ -8,7 +8,6 @@ import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
 import './firebase_options.dart';
 import './injection_container.dart';
-import 'features/tour/presentation/pages/create_tour_page.dart';
 import 'generated/l10n.dart';
 
 class MyApp extends StatelessWidget {
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
       home: SafeArea(
         child: Scaffold(
           bottomNavigationBar: AppBottomNavigationBar(),
-          body: CreateTicketPage(dates: const [
+          body: CreateTicketPage(tourId: '001', dates: const [
             "14:13 30/09/2024 - 14:13 20/09/2026",
             "14:14 30/09/2025 - 14:14 20/09/2026",
             "14:13 30/10/2024 - 14:13 20/09/2026",

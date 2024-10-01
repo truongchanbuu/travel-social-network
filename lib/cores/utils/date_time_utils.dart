@@ -52,4 +52,14 @@ class DateTimeUtils {
     DateFormat formatter = DateFormat(DateFormat.ABBR_WEEKDAY);
     return formatter.format(date);
   }
+
+  static List<DateTime> parseDateTimeRange(String dateTimeRange) {
+    final List<String> parts = dateTimeRange.split(' - ');
+    final DateFormat format = DateFormat('HH:mm dd/MM/yyyy');
+
+    final DateTime startDateTime = format.parse(parts[0]);
+    final DateTime endDateTime = format.parse(parts[1]);
+
+    return [startDateTime, endDateTime];
+  }
 }

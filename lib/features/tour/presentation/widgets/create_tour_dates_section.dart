@@ -14,8 +14,14 @@ import 'date_section_button.dart';
 import 'date_time_item.dart';
 
 class CreateTourDatesSection extends StatefulWidget {
+  final String tourId;
   final void Function(List<String> dates)? onSelectedDates;
-  const CreateTourDatesSection({super.key, this.onSelectedDates});
+
+  const CreateTourDatesSection({
+    super.key,
+    this.onSelectedDates,
+    required this.tourId,
+  });
 
   @override
   State<CreateTourDatesSection> createState() => _CreateTourDatesSectionState();
@@ -211,6 +217,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       context,
       MaterialPageRoute(
           builder: (context) => CreateTicketPage(
+                tourId: '',
                 dates: dates,
                 selectedDates: selectedDates,
               )),

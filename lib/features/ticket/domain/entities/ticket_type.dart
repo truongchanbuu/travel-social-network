@@ -59,6 +59,42 @@ class TicketTypeEntity extends Equatable {
         endDate = endDate ?? DateTime.now(),
         createdAt = DateTime.now();
 
+  TicketTypeEntity copyWith({
+    String? ticketTypeId,
+    String? ticketTypeName,
+    String? tourId,
+    num? ticketPrice,
+    String? ticketDescription,
+    DateTime? startDate,
+    DateTime? endDate,
+    TicketCategory? category,
+    int? quantity,
+    String? ticketInfo,
+    String? redemptionMethodDesc,
+    String? refundPolicyId,
+    String? reschedulePolicyId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return TicketTypeEntity(
+      ticketTypeId: ticketTypeId ?? this.ticketTypeId,
+      ticketTypeName: ticketTypeName ?? this.ticketTypeName,
+      tourId: tourId ?? this.tourId,
+      ticketPrice: ticketPrice ?? this.ticketPrice,
+      ticketDescription: ticketDescription ?? this.ticketDescription,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      category: category ?? this.category,
+      quantity: quantity ?? this.quantity,
+      ticketInfo: ticketInfo ?? this.ticketInfo,
+      redemptionMethodDesc: redemptionMethodDesc ?? this.redemptionMethodDesc,
+      refundPolicyId: refundPolicyId ?? this.refundPolicyId,
+      reschedulePolicyId: reschedulePolicyId ?? this.reschedulePolicyId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
   @override
   List<Object> get props {
     return [

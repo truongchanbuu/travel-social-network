@@ -60,7 +60,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
         expansionKey: 'dates',
         header: _buildHeadingText(S.current.tourDatesLabel,
             leading: const Icon(Icons.calendar_month)),
-        body: const CreateTourDatesSection(),
+        body: CreateTourDatesSection(tourId: tour.tourId),
       );
 
   ExpansionPanel _buildImageSelection() => _buildTemplateExpansionPanel(

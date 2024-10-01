@@ -34,14 +34,6 @@ class _LongTextFieldState extends State<LongTextField> {
     _focusNode = FocusNode()..addListener(_unFocus);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _focusNode.removeListener(_unFocus);
-    _focusNode.dispose();
-    _textEditingController.dispose();
-  }
-
   void _unFocus() {
     if (_content?.isNotEmpty ?? false) {
       _focusNode.unfocus();

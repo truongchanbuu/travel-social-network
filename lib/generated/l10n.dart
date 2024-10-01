@@ -150,6 +150,16 @@ class S {
     );
   }
 
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Not Found`
   String get notFound {
     return Intl.message(
@@ -1569,16 +1579,6 @@ class S {
     );
   }
 
-  /// `Invalid tour name! It must be at least 10 characters`
-  String get invalidTourNameError {
-    return Intl.message(
-      'Invalid tour name! It must be at least 10 characters',
-      name: 'invalidTourNameError',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Tour Description`
   String get tourDescLabel {
     return Intl.message(
@@ -1594,16 +1594,6 @@ class S {
     return Intl.message(
       'Tour Details',
       name: 'tourDetails',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Invalid tour description! It must be at least 10 characters`
-  String get invalidTourDescError {
-    return Intl.message(
-      'Invalid tour description! It must be at least 10 characters',
-      name: 'invalidTourDescError',
       desc: '',
       args: [],
     );
@@ -1832,6 +1822,46 @@ class S {
     return Intl.message(
       'Policy Description',
       name: 'policyDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid {field}! It must be at least 10 characters`
+  String lengthLimitError(String field) {
+    return Intl.message(
+      'Invalid $field! It must be at least 10 characters',
+      name: 'lengthLimitError',
+      desc: '',
+      args: [field],
+    );
+  }
+
+  /// `Not allowed to be empty`
+  String get notAllowedEmpty {
+    return Intl.message(
+      'Not allowed to be empty',
+      name: 'notAllowedEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid Form`
+  String get invalidForm {
+    return Intl.message(
+      'Invalid Form',
+      name: 'invalidForm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get duplicateTicketAlert {
+    return Intl.message(
+      '',
+      name: 'duplicateTicketAlert',
       desc: '',
       args: [],
     );

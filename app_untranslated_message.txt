@@ -2,6 +2,7 @@
   "vi": [
     "aboutUs",
     "reviewTitle",
-    "tickets"
+    "tickets",
+    "notAllowedEmpty"
   ]
 }

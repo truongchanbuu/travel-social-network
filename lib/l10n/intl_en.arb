@@ -10,6 +10,7 @@
     "stay": "Stay",
     "leave": "Leave",
     "save": "Save",
+    "accept": "Accept",
     "notFound": "Not Found",
     "searching": "Searching...",
 
@@ -258,11 +259,9 @@
     "recommendation": "Recommendations",
 
     "tourNameLabel": "Tour Name",
-    "invalidTourNameError": "Invalid tour name! It must be at least 10 characters",
 
     "tourDescLabel": "Tour Description",
     "tourDetails": "Tour Details",
-    "invalidTourDescError": "Invalid tour description! It must be at least 10 characters",
 
     "destination": "Destination",
     "invalidDestinationError": "Invalid destination! Please choose or insert a valid destination",
@@ -303,5 +302,16 @@
     "ticketInfo": "Ticket Info",
     "ticketRedemption": "Redemption Method",
     "policyName": "Policy Name",
-    "policyDesc": "Policy Description"
+    "policyDesc": "Policy Description",
+    "lengthLimitError": "Invalid {field}! It must be at least 10 characters",
+    "@lengthLimitError": {
+        "placeholders": {
+            "field": {
+                "type": "String"
+            }
+        }
+    },
+    "notAllowedEmpty": "Not allowed to be empty",
+    "invalidForm": "Invalid Form",
+    "duplicateTicketAlert": ""
 }

@@ -74,7 +74,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
 
   String? _tourNameValidator(String? value) {
     if ((value?.isEmpty ?? true) || value!.length < 10) {
-      return S.current.invalidTourNameError;
+      return S.current.lengthLimitError(S.current.tourNameLabel);
     }
 
     return null;
@@ -98,7 +98,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
 
   String? _tourDescValidator(String? value) {
     if ((value?.isEmpty ?? true) || value!.length < 10) {
-      return S.current.invalidTourDescError;
+      return S.current.lengthLimitError(S.current.tourDescLabel);
     }
 
     return null;

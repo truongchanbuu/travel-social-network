@@ -8,6 +8,7 @@
   "search": "Tìm kiếm",
   "cancel": "Hủy bỏ",
   "stay": "Ở lại",
+  "accept": "Chấp nhận",
   "leave": "Rời đi",
   "save": "Lưu",
   "notFound": "Không tìm thấy",
@@ -264,11 +265,9 @@
   "recommendation": "Gợi ý",
 
   "tourNameLabel": "Tên chuyến đi",
-  "invalidTourNameError": "Tên chuyến đi không hợp lệ! Yều cầu ít nhất 10 ký tự",
 
   "tourDescLabel": "Mô tả chuyến đi",
   "tourDetails": "Chi tiết chuyến đi",
-  "invalidTourDescError": "Mô tả chuyến đi không hợp lệ! Yêu cầu ít nhất 10 ký tự",
 
   "destination": "Điểm đến",
   "invalidDestinationError": "Điểm đến không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ",
@@ -309,5 +308,16 @@
   "ticketInfo": "Thông tin thêm về vé",
   "ticketRedemption": "Phương thức quy đổi",
   "policyName": "Tên của chính sách",
-  "policyDesc": "Mô tả chính sách"
+  "policyDesc": "Mô tả chính sách",
+  "lengthLimitError": "{field} không hợp lệ! Cần ít nhất 10 ký tự",
+  "@lengthLimitError": {
+    "placeholders": {
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "notAllowedToEmpty": "Không được phép để trống",
+  "invalidForm": "Form chưa hợp lệ",
+  "duplicateTicketAlert": ""
 }

@@ -2,6 +2,8 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:travel_social_network/cores/utils/enum_utils.dart';
+import 'package:travel_social_network/features/ticket/domain/entities/ticket_type.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/ticket_category.dart';
@@ -14,17 +16,26 @@ class CreateTicketSection extends StatefulWidget {
   const CreateTicketSection({super.key});
 
   @override
-  State<CreateTicketSection> createState() => _CreateTicketSectionState();
+  State<CreateTicketSection> createState() => CreateTicketSectionState();
 }
 
-class _CreateTicketSectionState extends State<CreateTicketSection> {
+class CreateTicketSectionState extends State<CreateTicketSection> {
+  late final GlobalKey<FormState> _formKey;
+
   List<DropdownMenuItem> items = List.empty(growable: true);
+
+  String? _ticketName;
+  String? _ticketDesc;
+  String? _ticketInfo;
+  String? _ticketRedemption;
   String? _ticketCategory;
-  String _quantity = '1';
+  int _quantity = 0;
+  num _price = 0;
 
   @override
   void initState() {
     super.initState();
+    _formKey = GlobalKey();
     items = TicketCategory.values
         .map(
           (category) => DropdownMenuItem(
@@ -49,32 +60,46 @@ class _CreateTicketSectionState extends State<CreateTicketSection> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(defaultPadding),
-      child: Column(
-        children: [
-          CustomTextField(label: S.current.ticketName),
-          spacing,
-          _buildInfoGroup(),
-          spacing,
-          CustomTextField(
-            label: S.current.ticketCategory,
-            replaceField: _buildTicketCategory(),
-          ),
-          spacing,
-          LongTextField(
-            title: S.current.ticketDesc,
-            onSaved: (value) {},
-          ),
-          spacing,
-          LongTextField(
-            title: S.current.ticketInfo,
-            onSaved: (value) {},
-          ),
-          spacing,
-          LongTextField(
-            title: S.current.ticketRedemption,
-            onSaved: (value) {},
-          )
-        ],
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            CustomTextField(
+              onSaved: (value) => _ticketName = value,
+              validator: (value) =>
+                  _genericValidator(value, S.current.ticketName),
+              label: S.current.ticketName,
+            ),
+            spacing,
+            _buildInfoGroup(),
+            spacing,
+            CustomTextField(
+              label: S.current.ticketCategory,
+              replaceField: _buildTicketCategory(),
+            ),
+            spacing,
+            LongTextField(
+              validator: (value) =>
+                  _genericValidator(value, S.current.ticketDesc),
+              title: S.current.ticketDesc,
+              onSaved: (value) => _ticketDesc = value,
+            ),
+            spacing,
+            LongTextField(
+              validator: (value) =>
+                  _genericValidator(value, S.current.ticketInfo),
+              title: S.current.ticketInfo,
+              onSaved: (value) => _ticketInfo = value,
+            ),
+            spacing,
+            LongTextField(
+              validator: (value) =>
+                  _genericValidator(value, S.current.ticketRedemption),
+              title: S.current.ticketRedemption,
+              onSaved: (value) => _ticketRedemption = value,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -88,6 +113,8 @@ class _CreateTicketSectionState extends State<CreateTicketSection> {
         Expanded(
           flex: 2,
           child: CustomTextField(
+            validator: _priceValidator,
+            onSaved: (value) => _price = cleanNumberInput(value),
             label: S.current.price,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
@@ -101,6 +128,7 @@ class _CreateTicketSectionState extends State<CreateTicketSection> {
         const SizedBox(width: defaultPadding),
         Expanded(
           child: CustomTextField(
+            validator: _ticketQuantityValidator,
             label: S.current.quantity,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
@@ -108,7 +136,8 @@ class _CreateTicketSectionState extends State<CreateTicketSection> {
               LengthLimitingTextInputFormatter(9),
             ],
             keyboardType: TextInputType.number,
-            singleHintText: _quantity,
+            onSaved: (value) => _quantity = cleanNumberInput(value).toInt(),
+            textEditingController: TextEditingController(text: '$_quantity'),
           ),
         ),
       ],
@@ -126,5 +155,69 @@ class _CreateTicketSectionState extends State<CreateTicketSection> {
       ),
       onChanged: (value) => _ticketCategory = value,
     );
+  }
+
+  String? _genericValidator(String? value, String fieldName) {
+    if ((value?.length ?? 0) < 10) {
+      return S.current.lengthLimitError(fieldName);
+    }
+    return null;
+  }
+
+  String? _ticketQuantityValidator(String? quantity) {
+    if (quantity?.isEmpty ?? true) {
+      return S.current.notAllowedEmpty;
+    }
+
+    int quantityNum = cleanNumberInput(quantity).toInt();
+
+    if (quantityNum == 0) {
+      return S.current.notAllowedEmpty;
+    }
+
+    return null;
+  }
+
+  String? _priceValidator(String? price) {
+    num priceNum = cleanNumberInput(price);
+
+    if (priceNum <= 0) {
+      return S.current.notAllowedEmpty;
+    }
+
+    return null;
+  }
+
+  num cleanNumberInput(String? value) {
+    final cleanedInput = value?.replaceAll(RegExp(r'[^\d.]'), '');
+    return (cleanedInput?.isNotEmpty ?? false) ? num.parse(cleanedInput!) : 0.0;
+  }
+
+  TicketTypeEntity getData() {
+    return TicketTypeEntity(
+      ticketTypeId: '',
+      ticketTypeName: _ticketName!,
+      tourId: '',
+      ticketPrice: _price,
+      ticketDescription: _ticketDesc!,
+      startDate: DateTime.now(),
+      endDate: DateTime.now(),
+      category: stringToEnum(_ticketCategory!, TicketCategory.values),
+      quantity: _quantity,
+      ticketInfo: _ticketInfo!,
+      redemptionMethodDesc: _ticketRedemption!,
+      refundPolicyId: '',
+      reschedulePolicyId: '',
+      createdAt: DateTime.now(),
+    );
+  }
+
+  bool validateForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      return true;
+    }
+
+    return false;
   }
 }

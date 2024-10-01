@@ -34,18 +34,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(nameOfCollection) => "Illustrators${nameOfCollection}";
 
-  static String m7(index) => "Loading image at index ${index}";
+  static String m7(field) =>
+      "Invalid ${field}! It must be at least 10 characters";
 
-  static String m8(count) =>
+  static String m8(index) => "Loading image at index ${index}";
+
+  static String m9(count) =>
       "${Intl.plural(count, zero: 'Review', one: 'Review', other: 'Reviews')}";
 
-  static String m9(value) => "Day ${value}";
+  static String m10(value) => "Day ${value}";
 
-  static String m10(name) => "Thumb for ${name}";
+  static String m11(name) => "Thumb for ${name}";
 
-  static String m11(value) => "${value}";
+  static String m12(value) => "${value}";
 
-  static String m12(start, end) =>
+  static String m13(start, end) =>
       "Your trip will start at: ${start} and accomplish at: ${end}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -53,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutThisTicket":
             MessageLookupByLibrary.simpleMessage("About this ticket"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "account": MessageLookupByLibrary.simpleMessage("Account"),
         "addDate": MessageLookupByLibrary.simpleMessage("Add Date"),
         "addImageLabel": MessageLookupByLibrary.simpleMessage("Add Images"),
@@ -126,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you want to leave without saving?"),
         "discardUnsavedWork":
             MessageLookupByLibrary.simpleMessage("Discard unsaved work"),
+        "duplicateTicketAlert": MessageLookupByLibrary.simpleMessage(""),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationHintText": MessageLookupByLibrary.simpleMessage(
             "6 hours, 1 day, 2 weeks, 3 months, ..."),
@@ -170,18 +175,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Invalid destination! Please choose or insert a valid destination"),
         "invalidDurationError":
             MessageLookupByLibrary.simpleMessage("Invalid duration"),
+        "invalidForm": MessageLookupByLibrary.simpleMessage("Invalid Form"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
-        "invalidTourDescError": MessageLookupByLibrary.simpleMessage(
-            "Invalid tour description! It must be at least 10 characters"),
-        "invalidTourNameError": MessageLookupByLibrary.simpleMessage(
-            "Invalid tour name! It must be at least 10 characters"),
         "itinerary": MessageLookupByLibrary.simpleMessage("Itinerary"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
+        "lengthLimitError": m7,
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
-        "loadingImageText": m7,
+        "loadingImageText": m8,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Location Information"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
@@ -197,6 +200,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Have a nice sleep! Dreams are beginning but tomorrow journey will come true"),
         "nonRefundable":
             MessageLookupByLibrary.simpleMessage("Cannot be refund"),
+        "notAllowedEmpty":
+            MessageLookupByLibrary.simpleMessage("Not allowed to be empty"),
         "notFound": MessageLookupByLibrary.simpleMessage("Not Found"),
         "ofWord": MessageLookupByLibrary.simpleMessage("of"),
         "outStandingFeatures":
@@ -238,12 +243,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
-        "reviews": m8,
+        "reviews": m9,
         "sameDateError": MessageLookupByLibrary.simpleMessage(
             "Start date and end date cannot be same"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
-        "scheduleDay": m9,
+        "scheduleDay": m10,
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searching": MessageLookupByLibrary.simpleMessage("Searching..."),
         "securityAccount":
@@ -267,7 +272,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m10,
+        "thumbDesc": m11,
         "ticketCategory":
             MessageLookupByLibrary.simpleMessage("Ticket Category"),
         "ticketDesc":
@@ -278,9 +283,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m11,
+        "totalReviews": m12,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
-        "tourDateAnnounce": m12,
+        "tourDateAnnounce": m13,
         "tourDatesLabel": MessageLookupByLibrary.simpleMessage("Tour Dates"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),
