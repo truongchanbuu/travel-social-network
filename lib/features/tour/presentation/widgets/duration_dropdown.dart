@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:travel_social_network/features/shared/widgets/custom_text_field.dart';
+
+import '../../../../generated/l10n.dart';
 
 class DurationTextField extends StatefulWidget {
   final void Function(String duration) onDurationChange;
@@ -36,56 +40,59 @@ class _DurationTextFieldState extends State<DurationTextField> {
           children: [
             Expanded(
               flex: 2,
-              child: TextField(
-                controller: _valueController,
+              // child: TextField(
+              //   controller: _valueController,
+              //   keyboardType: TextInputType.number,
+              //   decoration: const InputDecoration(
+              //     labelText: 'Duration',
+              //     border: OutlineInputBorder(),
+              //   ),
+              //   onChanged: (_) => _updateDuration(),
+              // ),
+              child: CustomTextField(
+                label: S.current.duration,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Duration',
-                  border: OutlineInputBorder(),
-                ),
                 onChanged: (_) => _updateDuration(),
               ),
             ),
             const SizedBox(width: 16),
             Expanded(
               flex: 1,
-              child: DropdownButtonFormField<String>(
-                value: _unit,
-                decoration: const InputDecoration(
-                  labelText: 'Unit',
-                  border: OutlineInputBorder(),
+              child: CustomTextField(
+                label: 'Unit',
+                replaceField: DropdownButtonFormField<String>(
+                  value: _unit,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  items: ['minutes', 'hours', 'days', 'weeks', 'months']
+                      .map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _unit = newValue;
+                        _updateDuration();
+                      });
+                    }
+                  },
                 ),
-                items: ['minutes', 'hours', 'days', 'weeks', 'months']
-                    .map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    setState(() {
-                      _unit = newValue;
-                      _updateDuration();
-                    });
-                  }
-                },
               ),
             ),
           ],
         ),
-        const SizedBox(height: 16),
-        const Text('Or enter custom format:'),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _customController,
-          decoration: const InputDecoration(
-            labelText: 'Custom Duration',
-            hintText: 'e.g., 1h30m, 3 days 2h',
-            border: OutlineInputBorder(),
-          ),
-          // onChanged: widget.onDurationChange,
-        ),
+        const SizedBox(height: 10),
+        CustomTextField(
+          label: 'Custom Format',
+          textEditingController: _customController,
+          singleHintText: 'e.g., 1h30m, 3 days 2h',
+          onChanged: widget.onDurationChange,
+        )
       ],
     );
   }
