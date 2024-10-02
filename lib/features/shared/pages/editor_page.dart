@@ -60,7 +60,7 @@ class _EditorPageState extends State<EditorPage> {
                     ? FlutterQuillEmbeds.editorWebBuilders()
                     : FlutterQuillEmbeds.editorBuilders(),
                 padding: const EdgeInsets.all(defaultPadding),
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.newline,
                 placeholder: S.current.editingPlaceholderText,
                 autoFocus: true,
                 scrollable: true,
@@ -93,15 +93,15 @@ class _EditorPageState extends State<EditorPage> {
         ),
         actions: [
           Container(
-            margin: const EdgeInsets.only(right: 15),
+            margin: const EdgeInsets.only(right: 20),
             child: GestureDetector(
               onTap: _saveDescription,
               child: Text(
                 S.current.save.toUpperCase(),
                 style: const TextStyle(
                   color: primaryColor,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
                 ),
                 overflow: defaultTextOverflow,
                 textDirection: defaultTextDirection,

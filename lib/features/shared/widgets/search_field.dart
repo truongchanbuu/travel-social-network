@@ -53,7 +53,7 @@ class _SearchFieldState extends State<SearchField> {
         label: widget.title,
         focusNode: focusNode,
         textEditingController: controller,
-        singleHintText: widget.title,
+        hintTexts: [widget.title],
       ),
       suggestionsController: _suggestionsController,
       onSelected: (value) {

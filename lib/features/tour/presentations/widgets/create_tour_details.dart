@@ -1,3 +1,4 @@
+import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
@@ -21,7 +22,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
   String? _departure;
   String? _destination;
   String? _tourItinerary;
-  Duration? _duration;
+  String? _duration;
 
   @override
   void initState() {
@@ -71,8 +72,6 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
             title: S.current.tourItinerary,
             onSaved: (value) => _tourItinerary = value,
           ),
-          const SizedBox(height: 10),
-          DurationTextField(onDurationChange: (duration) {}),
         ],
       ),
     );
@@ -109,38 +108,6 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
   String? _tourDescValidator(String? value) {
     if ((value?.isEmpty ?? true) || value!.length < 10) {
       return S.current.lengthLimitError(S.current.tourDescLabel);
-    }
-
-    return null;
-  }
-
-  int _getDurationValue(String? value) =>
-      value?.isEmpty ?? true ? -1 : int.parse(value!);
-
-  void _durationOnSaved(value) {
-    int intValue = _getDurationValue(value);
-    switch (_currentDropdownTimeUnit?.toLowerCase()) {
-      case 'day':
-        _duration = Duration(days: intValue);
-        break;
-      case 'hour':
-        _duration = Duration(hours: intValue);
-        break;
-      case 'minute':
-        _duration = Duration(minutes: intValue);
-        break;
-      case 'second':
-        _duration = Duration(seconds: intValue);
-        break;
-      default:
-        throw ArgumentError('Invalid unit: $_currentDropdownTimeUnit');
-    }
-  }
-
-  String? _durationValidator(String? value) {
-    int numVal = _getDurationValue(value);
-    if (numVal <= 0 || numVal > 366) {
-      return S.current.invalidDurationError;
     }
 
     return null;

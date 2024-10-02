@@ -6,7 +6,7 @@ import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../tour/domain/entities/tour.dart';
-import '../../../tour/presentation/pages/tour_detail_page.dart';
+import '../../../tour/presentations/pages/tour_detail_page.dart';
 import '../app_cached_image.dart';
 
 class ToursGridView extends StatefulWidget {

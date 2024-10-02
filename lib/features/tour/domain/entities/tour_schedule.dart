@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'tour_activity.dart';
 
+@JsonSerializable()
 class TourScheduleEntity extends Equatable {
   final String tourId;
   final int day;

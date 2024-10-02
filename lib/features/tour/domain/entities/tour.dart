@@ -13,7 +13,7 @@ class TourEntity extends Equatable {
   final List<String> imageUrls;
   final String departure;
   final String destination;
-  final int duration;
+  final String duration;
   final double rating;
   final TourScheduleEntity? tourSchedule;
 
@@ -39,7 +39,7 @@ class TourEntity extends Equatable {
     this.imageUrls = const <String>[],
     this.departure = '',
     this.destination = '',
-    this.duration = 0,
+    this.duration = '',
     this.rating = 0.0,
     this.tourSchedule,
   }) : tourId = 'TOUR-${const Uuid().v4()}';

@@ -10,7 +10,6 @@ class CustomTextField extends StatefulWidget {
   final bool enable;
   final bool readOnly;
   final List<String> hintTexts;
-  final String? singleHintText;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
   final AutovalidateMode autovalidateMode;
@@ -46,7 +45,6 @@ class CustomTextField extends StatefulWidget {
     this.maxLines,
     this.textEditingController,
     this.focusNode,
-    this.singleHintText,
     this.inputFormatters = const [],
   });
 
@@ -122,22 +120,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 hintTexts: widget.hintTexts,
                 enabled: widget.enable,
                 readOnly: widget.readOnly,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   errorMaxLines: 2,
-                  border: const OutlineInputBorder(
+                  border: OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
                         BorderSide(width: 1, color: defaultFieldBorderColor),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  disabledBorder: const OutlineInputBorder(
+                  disabledBorder: OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
                         BorderSide(width: 1, color: defaultFieldBorderColor),
                   ),
-                  hintText: widget.singleHintText,
                   hintMaxLines: 1,
                 ),
                 textInputAction: widget.textInputAction,

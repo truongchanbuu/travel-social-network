@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../tour/presentation/widgets/date_time_item.dart';
+import '../../../tour/presentations/widgets/date_time_item.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../widgets/ticket_brief_info.dart';
 import 'save_ticket_page.dart';
@@ -33,20 +33,22 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: Text(
-          S.current.ticketList,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: Text(
+            S.current.ticketList,
+            style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
         ),
+        body: _buildBody(),
       ),
-      body: _buildBody(),
     );
   }
 

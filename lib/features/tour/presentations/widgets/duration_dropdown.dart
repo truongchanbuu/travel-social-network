@@ -40,15 +40,6 @@ class _DurationTextFieldState extends State<DurationTextField> {
           children: [
             Expanded(
               flex: 2,
-              // child: TextField(
-              //   controller: _valueController,
-              //   keyboardType: TextInputType.number,
-              //   decoration: const InputDecoration(
-              //     labelText: 'Duration',
-              //     border: OutlineInputBorder(),
-              //   ),
-              //   onChanged: (_) => _updateDuration(),
-              // ),
               child: CustomTextField(
                 label: S.current.duration,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -90,7 +81,7 @@ class _DurationTextFieldState extends State<DurationTextField> {
         CustomTextField(
           label: 'Custom Format',
           textEditingController: _customController,
-          singleHintText: 'e.g., 1h30m, 3 days 2h',
+          hintTexts: const ['e.g., 1h30m, 3 days 2h'],
           onChanged: widget.onDurationChange,
         )
       ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../tour/presentation/widgets/tour_bottom_sheet_template.dart';
+import '../../../tour/presentations/widgets/tour_bottom_sheet_template.dart';
 import '../../domain/entities/ticket_type.dart';
 import 'available_date_list.dart';
 import 'ticket_grid_view.dart';

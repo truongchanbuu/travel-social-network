@@ -54,7 +54,7 @@ class _LongTextFieldState extends State<LongTextField> {
       focusNode: _focusNode,
       textEditingController: _textEditingController,
       maxLines: 4,
-      singleHintText: widget.title,
+      hintTexts: [widget.title],
       onTap: _openQuillEditor,
       replaceField: _content?.isEmpty ?? true
           ? null

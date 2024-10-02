@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/ticket/domain/entities/policy.dart';
+import 'package:travel_social_network/features/policy/domain/entities/policy.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';

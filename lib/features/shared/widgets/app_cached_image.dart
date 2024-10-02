@@ -38,11 +38,7 @@ class AppCachedImage extends StatelessWidget {
       errorWidget: (context, error, stackTrace) =>
           ErrorImage(semanticLabel: errorSemanticLabel, size: errorImageSize),
       progressIndicatorBuilder: (context, child, loadingProgress) =>
-          AppProgressingIndicator(
-        size: loadingIndicatorSize,
-        semanticLabel: loadingSemanticLabel,
-        value: loadingProgress.progress,
-      ),
+          AppProgressingIndicator(size: loadingIndicatorSize),
     );
   }
 }

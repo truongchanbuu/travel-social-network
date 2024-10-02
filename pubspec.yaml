@@ -84,6 +84,8 @@ dependencies:
   flutter_typeahead: ^5.2.0
   board_datetime_picker: ^2.1.4
   flutter_styled_toast: ^2.2.1
+  cloud_firestore: ^5.4.3
+  loading_animation_widget: ^1.2.1
 
 
 dev_dependencies:

@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Success`
+  String get success {
+    return Intl.message(
+      'Success',
+      name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Next`
   String get next {
     return Intl.message(
@@ -1894,6 +1904,16 @@ class S {
       name: 'ticketList',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Cannot save the {object}! Please try again later`
+  String saveError(String object) {
+    return Intl.message(
+      'Cannot save the $object! Please try again later',
+      name: 'saveError',
+      desc: '',
+      args: [object],
     );
   }
 }

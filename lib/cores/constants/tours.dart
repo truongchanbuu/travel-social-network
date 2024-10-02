@@ -118,7 +118,7 @@ List<TourEntity> generateSampleTours() {
       createdBy: ['BT', 'TCB', 'ABC'][Random().nextInt(3)],
       departure: locations[random.nextInt(locations.length)],
       destination: locations[random.nextInt(locations.length)],
-      duration: duration,
+      duration: duration.toString(),
       tickets: tour1Tickets,
       rating: (random.nextInt(50) + 1) / 10, // 0.1 to 5.0
       imageUrls: const [

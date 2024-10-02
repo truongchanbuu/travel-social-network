@@ -11,7 +11,7 @@ import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../shared/widgets/detail_section_container.dart';
 import '../../../shared/widgets/quill_content.dart';
-import '../../domain/entities/policy.dart';
+import '../../../policy/domain/entities/policy.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../widgets/ticket_brief_info.dart';
 import '../widgets/ticket_page_app_bar.dart';

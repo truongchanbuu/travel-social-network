@@ -1,7 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:travel_social_network/cores/constants/constants.dart';
+
+import 'cores/constants/constants.dart';
+import 'features/policy/data/repositories/policy_repository_impl.dart';
+import 'features/policy/domain/repositories/policy_repository.dart';
+import 'features/policy/presentations/bloc/policy_bloc.dart';
+import 'features/ticket/data/repositories/ticket_repository_impl.dart';
+import 'features/ticket/domain/repositories/ticket_repository.dart';
+import 'features/ticket/presentations/bloc/ticket_bloc.dart';
 
 final getIt = GetIt.I;
 
@@ -11,4 +19,13 @@ Future<void> initializeDependencies() async {
 
   // Firebase
   getIt.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
+  getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+
+  // Repository
+  getIt.registerSingleton<TicketRepository>(TicketRepositoryImpl());
+  getIt.registerSingleton<PolicyRepository>(PolicyRepositoryImpl());
+
+  // Bloc
+  getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
+  getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));
 }

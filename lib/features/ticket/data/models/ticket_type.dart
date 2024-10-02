@@ -26,6 +26,7 @@ class TicketType extends TicketTypeEntity {
     required super.endDate,
   });
 
+  @override
   TicketType copyWith({
     String? ticketTypeId,
     String? ticketTypeName,

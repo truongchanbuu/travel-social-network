@@ -1,16 +1,23 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:travel_social_network/cores/enums/policy_type.dart';
+import 'package:travel_social_network/features/shared/widgets/app_progressing_indicator.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/ticket_category.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../tour/presentation/widgets/date_time_item.dart';
-import '../../domain/entities/policy.dart';
+import '../../../policy/data/models/policy.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../policy/presentations/widgets/create_policy_section.dart';
+import '../../../tour/presentations/widgets/date_time_item.dart';
+import '../../data/models/ticket_type.dart';
+import '../../../policy/domain/entities/policy.dart';
 import '../../domain/entities/ticket_type.dart';
-import '../widgets/create_policy_section.dart';
+import '../bloc/ticket_bloc.dart';
+
+import '../coordinator/ticket_creation_coordinator.dart';
 import '../widgets/create_ticket_section.dart';
 
 class SaveTicketPage extends StatefulWidget {
@@ -50,32 +57,32 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
           ]
         : widget.selectedDates;
 
-    refundPolicy = widget.ticket != null
-        ? _getPolicyById(widget.ticket!.refundPolicyId)
-        : PolicyEntity.nonRefundable(policyDescription: '');
-    reschedulePolicy = widget.ticket != null
-        ? _getPolicyById(widget.ticket!.reschedulePolicyId)
-        : PolicyEntity.cannotReschedule(policyDescription: '');
+    refundPolicy = PolicyEntity.nonRefundable(policyDescription: '');
+    reschedulePolicy = PolicyEntity.cannotReschedule(policyDescription: '');
 
     ticketFormKey = GlobalKey();
   }
 
-  // TODO: GET REAL POLICY
-  PolicyEntity _getPolicyById(String id) {
-    return PolicyEntity(
-      policyId: id,
-      policyName: "",
-      policyDescription: "",
-      isAllowed: true,
-      policyType: PolicyType.refund,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: BlocConsumer(
+          builder: (context, state) {
+            if (state is TicketSaving || state is PolicyCreating) {
+              return const AppProgressingIndicator();
+            }
+
+            return _buildBody();
+          },
+          listener: (context, state) {
+            if (state is ListOfTicketSaveSuccess) {
+              Navigator.pop(context, state.tickets);
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -169,14 +176,14 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
             onTap: widget.ticket != null
                 ? _saveTicket
                 : () => validateTicketForm(context),
-            child: Padding(
-              padding: const EdgeInsets.all(defaultPadding),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 S.current.save.toUpperCase(),
                 style: const TextStyle(
                   color: primaryColor,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
                 ),
               ),
             ),
@@ -237,8 +244,20 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
       }
     }
 
-    if (context.mounted) {
-      Navigator.pop(context, tickets);
+    if (tickets.isNotEmpty && context.mounted) {
+      final TicketCreationCoordinator ticketCreationCoordinator =
+          TicketCreationCoordinator(
+              policyBloc: context.read<PolicyBloc>(),
+              ticketBloc: context.read<TicketBloc>());
+
+      String message = await ticketCreationCoordinator.createPolicyAndTickets(
+        [refundPolicy, reschedulePolicy].map(Policy.fromEntity).toList(),
+        tickets.map(TicketType.fromEntity).toList(),
+      );
+
+      if (context.mounted) {
+        showToast(message, context: context);
+      }
     }
   }
 

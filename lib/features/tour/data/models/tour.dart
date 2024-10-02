@@ -34,7 +34,7 @@ class Tour extends TourEntity {
     List<String>? imageUrls,
     String? departure,
     String? destination,
-    int? duration,
+    String? duration,
     double? rating,
     TourSchedule? tourSchedule,
   }) {

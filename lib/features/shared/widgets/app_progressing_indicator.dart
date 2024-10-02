@@ -1,30 +1,16 @@
 import 'package:flutter/material.dart';
-
-import '../../../cores/constants/constants.dart';
-import '../../../generated/l10n.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AppProgressingIndicator extends StatelessWidget {
   final double size;
-  final String? semanticLabel;
-  final double? value;
-  const AppProgressingIndicator({
-    super.key,
-    this.size = 50,
-    this.semanticLabel,
-    this.value,
-  });
+
+  const AppProgressingIndicator({super.key, this.size = 50});
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        width: size,
-        height: size,
-        child: Center(
-          child: CircularProgressIndicator(
-            value: value,
-            semanticsValue: '${value ?? 0 * 100}%',
-            backgroundColor: primaryColor,
-            semanticsLabel: semanticLabel ?? S.current.loading,
-          ),
+  Widget build(BuildContext context) => Center(
+        child: LoadingAnimationWidget.waveDots(
+          color: Colors.white,
+          size: size,
         ),
       );
 }

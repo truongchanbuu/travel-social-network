@@ -50,7 +50,7 @@ class _CreateTourImagesPageState extends State<CreateTourImagesPage> {
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 14,
                 ),
               ),
             ),

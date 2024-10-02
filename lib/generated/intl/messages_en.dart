@@ -45,13 +45,16 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m10(count) =>
       "${Intl.plural(count, zero: 'Review', one: 'Review', other: 'Reviews')}";
 
-  static String m11(value) => "Day ${value}";
+  static String m11(object) =>
+      "Cannot save the ${object}! Please try again later";
 
-  static String m12(name) => "Thumb for ${name}";
+  static String m12(value) => "Day ${value}";
 
-  static String m13(value) => "${value}";
+  static String m13(name) => "Thumb for ${name}";
 
-  static String m14(start, end) =>
+  static String m14(value) => "${value}";
+
+  static String m15(start, end) =>
       "Your trip will start at: ${start} and accomplish at: ${end}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -254,8 +257,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sameDateError": MessageLookupByLibrary.simpleMessage(
             "Start date and end date cannot be same"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saveError": m11,
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
-        "scheduleDay": m11,
+        "scheduleDay": m12,
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searching": MessageLookupByLibrary.simpleMessage("Searching..."),
         "securityAccount":
@@ -273,13 +277,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "social": MessageLookupByLibrary.simpleMessage("Social"),
         "stay": MessageLookupByLibrary.simpleMessage("Stay"),
+        "success": MessageLookupByLibrary.simpleMessage("Success"),
         "temperatureScale":
             MessageLookupByLibrary.simpleMessage("Temperature Scale"),
         "termAndCondition":
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m12,
+        "thumbDesc": m13,
         "ticketCategory":
             MessageLookupByLibrary.simpleMessage("Ticket Category"),
         "ticketDesc":
@@ -291,9 +296,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m13,
+        "totalReviews": m14,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
-        "tourDateAnnounce": m14,
+        "tourDateAnnounce": m15,
         "tourDatesLabel": MessageLookupByLibrary.simpleMessage("Tour Dates"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),

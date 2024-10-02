@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../../tour/presentation/pages/create_tour_page.dart';
+import '../../../tour/presentations/pages/create_tour_page.dart';
 
 class HomePageFloatingActionButton extends StatefulWidget {
   const HomePageFloatingActionButton({super.key});
@@ -39,8 +40,8 @@ class _HomePageFloatingActionButtonState
     Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const CreateTourPage(),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+              create: (context) => ticketBloc, child: const CreateTourPage()),
           transitionDuration:
               const Duration(milliseconds: pageChangeTransitionDuration),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {

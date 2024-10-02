@@ -2,6 +2,7 @@
     "@@locale": "en",
     "ofWord": "of",
     "and": "and",
+    "success": "Success",
     "next": "Next",
     "clear": "Clear",
     "delete": "Delete",
@@ -326,5 +327,13 @@
     },
     "duplicateTicketMessage": "Are you want to skip this ticket? You can modify it later",
     "duplicateLocation": "The location cannot be same",
-    "ticketList": "Ticket List"
+    "ticketList": "Ticket List",
+    "saveError": "Cannot save the {object}! Please try again later",
+    "@saveError": {
+        "placeholders": {
+            "object": {
+                "type": "String"
+            }
+        }
+    }
 }

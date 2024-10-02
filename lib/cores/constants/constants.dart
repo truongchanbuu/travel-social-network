@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../../features/policy/presentations/bloc/policy_bloc.dart';
+import '../../features/ticket/presentations/bloc/ticket_bloc.dart';
+import '../../injection_container.dart';
 
 // App
 const String appName = 'Traveround';
@@ -88,6 +93,12 @@ const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(
 
 // API
 const String baseUrl = 'http://localhost:3000/api';
+final db = getIt.get<FirebaseFirestore>();
+final FirebaseFirestore firestore = getIt.get<FirebaseFirestore>();
+
+// Bloc
+final TicketBloc ticketBloc = getIt.get<TicketBloc>();
+final PolicyBloc policyBloc = getIt.get<PolicyBloc>();
 
 // Format
 const String defaultDateFormat = 'HH:mm dd/MM/yyyy';

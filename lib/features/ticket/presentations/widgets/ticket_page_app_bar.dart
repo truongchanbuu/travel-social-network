@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../tour/presentation/widgets/tour_detail_thumb.dart';
+import '../../../tour/presentations/widgets/tour_detail_thumb.dart';
 import '../../domain/entities/ticket_type.dart';
 
 class TicketPageAppBar extends StatelessWidget {

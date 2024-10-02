@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:travel_social_network/features/shared/widgets/app_progressing_indicator.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../domain/entities/tour.dart';
 import '../widgets/create_tour_add_image_section.dart';
 import '../widgets/create_tour_dates_section.dart';
@@ -37,7 +40,16 @@ class _CreateTourPageState extends State<CreateTourPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildBody(),
+      body: BlocConsumer<TicketBloc, TicketState>(
+        builder: (context, state) {
+          if (state is TicketSaving) {
+            return const AppProgressingIndicator();
+          }
+
+          return _buildBody();
+        },
+        listener: (context, state) {},
+      ),
     );
   }
 

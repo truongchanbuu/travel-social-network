@@ -11,7 +11,7 @@ import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/app_cached_image.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../tour/domain/entities/tour.dart';
-import '../../domain/entities/policy.dart';
+import '../../../policy/domain/entities/policy.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../widgets/add_ticket_type_item.dart';
 import '../widgets/available_date_list.dart';

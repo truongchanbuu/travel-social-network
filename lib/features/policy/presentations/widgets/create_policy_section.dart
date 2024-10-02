@@ -4,8 +4,8 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/custom_text_field.dart';
-import '../../domain/entities/policy.dart';
-import 'create_policy_bottom_sheet.dart';
+import '../../../policy/domain/entities/policy.dart';
+import '../../../policy/presentations/widgets/create_policy_bottom_sheet.dart';
 
 class CreatePolicySection extends StatefulWidget {
   final PolicyEntity refundPolicy;
@@ -45,7 +45,7 @@ class _CreatePolicySectionState extends State<CreatePolicySection> {
               child: CustomTextField(
                 onTap: () => _createPolicy(PolicyType.refund),
                 label: S.current.refundPolicy,
-                singleHintText: S.current.refundPolicy,
+                hintTexts: [S.current.refundPolicy],
                 textEditingController:
                     TextEditingController(text: refundPolicy.policyName),
               ),
@@ -55,7 +55,7 @@ class _CreatePolicySectionState extends State<CreatePolicySection> {
               child: CustomTextField(
                 onTap: () => _createPolicy(PolicyType.reschedule),
                 label: S.current.reschedulePolicy,
-                singleHintText: S.current.reschedulePolicy,
+                hintTexts: [S.current.reschedulePolicy],
                 textEditingController:
                     TextEditingController(text: reschedulePolicy.policyName),
               ),
@@ -91,7 +91,6 @@ class _CreatePolicySectionState extends State<CreatePolicySection> {
         );
       }
 
-      setState(() {});
       widget.onSaved(refundPolicy, reschedulePolicy);
     }
   }
