@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:travel_social_network/features/tour/presentation/widgets/duration_dropdown.dart';
 
-import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
 import '../../../shared/widgets/search_field.dart';
+import 'duration_dropdown.dart';
 
 class CreateTourDetails extends StatefulWidget {
   const CreateTourDetails({super.key});
@@ -74,11 +72,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
             onSaved: (value) => _tourItinerary = value,
           ),
           const SizedBox(height: 10),
-          DurationDropdown(
-            timeUnit: S.current.day,
-            onSaved: _durationOnSaved,
-            validator: _durationValidator,
-          ),
+          DurationTextField(onDurationChange: (duration) {}),
         ],
       ),
     );

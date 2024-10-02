@@ -7,6 +7,7 @@ import 'quill_content.dart';
 
 class LongTextField extends StatefulWidget {
   final String title;
+  final String? content;
   final void Function(String? value)? onSaved;
   final String? Function(String? value)? validator;
 
@@ -15,6 +16,7 @@ class LongTextField extends StatefulWidget {
     required this.title,
     this.onSaved,
     this.validator,
+    this.content,
   });
 
   @override
@@ -30,6 +32,7 @@ class _LongTextFieldState extends State<LongTextField> {
   @override
   void initState() {
     super.initState();
+    _content = widget.content;
     _textEditingController = TextEditingController(text: _content);
     _focusNode = FocusNode()..addListener(_unFocus);
   }

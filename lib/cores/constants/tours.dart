@@ -120,7 +120,6 @@ List<TourEntity> generateSampleTours() {
       destination: locations[random.nextInt(locations.length)],
       duration: duration,
       tickets: tour1Tickets,
-      startDates: startDate,
       rating: (random.nextInt(50) + 1) / 10, // 0.1 to 5.0
       imageUrls: const [
         'https://th.bing.com/th/id/OIP.wdbT6M2mBkQTu3dH7psDjgHaDs?rs=1&pid=ImgDetMain',

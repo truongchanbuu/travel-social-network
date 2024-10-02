@@ -90,4 +90,4 @@ const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(
 const String baseUrl = 'http://localhost:3000/api';
 
 // Format
-const String tourDateFormat = 'HH:mm dd/MM/yyyy';
+const String defaultDateFormat = 'HH:mm dd/MM/yyyy';

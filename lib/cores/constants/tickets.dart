@@ -1,11 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:travel_social_network/features/ticket/domain/entities/ticket.dart';
-
-import '../../features/ticket/data/models/ticket_type.dart';
 import '../../features/ticket/domain/entities/ticket_type.dart';
-import '../../features/tour/data/models/tour.dart';
 import '../enums/ticket_category.dart';
 
 final List<String> ticketNames = [
@@ -55,19 +51,19 @@ final now = DateTime.now();
 final List<TicketTypeEntity> tour1Tickets = List.generate(
   ticketNames.length,
   (i) => TicketTypeEntity(
-    ticketTypeId: 'TYPE-${i + 1}',
-    ticketTypeName: ticketNames[i % ticketNames.length],
-    tourId: 'TOUR-1', // Cycle through 10 tours
-    ticketPrice: int.parse((5000000 + Random().nextInt(1000000))
-        .toString()), // Price between 20 and 100
-    ticketDescription: 'Description for ticket type ${i + 1}',
-    category: TicketCategory.values[i % TicketCategory.values.length],
-    quantity: Random().nextInt(20) + 1, // Quantity between 1 and 10
-    ticketInfo: ticketInfo,
-    refundPolicyId: 'RF-1',
-    reschedulePolicyId: 'RS-1',
-    redemptionMethodDesc: redemptionMethodDesc,
-    createdAt: now,
-    date: now.add(Duration(days: i)),
-  ),
+      ticketTypeId: 'TYPE-${i + 1}',
+      ticketTypeName: ticketNames[i % ticketNames.length],
+      tourId: 'TOUR-1', // Cycle through 10 tours
+      ticketPrice: int.parse((5000000 + Random().nextInt(1000000))
+          .toString()), // Price between 20 and 100
+      ticketDescription: 'Description for ticket type ${i + 1}',
+      category: TicketCategory.values[i % TicketCategory.values.length],
+      quantity: Random().nextInt(20) + 1, // Quantity between 1 and 10
+      ticketInfo: ticketInfo,
+      refundPolicyId: 'RF-1',
+      reschedulePolicyId: 'RS-1',
+      redemptionMethodDesc: redemptionMethodDesc,
+      createdAt: now,
+      startDate: DateTime.now().add(Duration(days: Random().nextInt(10) + 1)),
+      endDate: DateTime.now().add(Duration(days: Random().nextInt(20) + 11))),
 );

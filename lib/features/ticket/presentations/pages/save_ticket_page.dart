@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:travel_social_network/cores/enums/policy_type.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/ticket_category.dart';
@@ -12,23 +13,25 @@ import '../../domain/entities/ticket_type.dart';
 import '../widgets/create_policy_section.dart';
 import '../widgets/create_ticket_section.dart';
 
-class CreateTicketPage extends StatefulWidget {
+class SaveTicketPage extends StatefulWidget {
+  final TicketTypeEntity? ticket;
   final String tourId;
   final List<String> dates;
   final List<String> selectedDates;
 
-  const CreateTicketPage({
+  const SaveTicketPage({
     super.key,
     required this.tourId,
     required this.dates,
     required this.selectedDates,
+    this.ticket,
   });
 
   @override
-  State<CreateTicketPage> createState() => _CreateTicketPageState();
+  State<SaveTicketPage> createState() => _SaveTicketPageState();
 }
 
-class _CreateTicketPageState extends State<CreateTicketPage> {
+class _SaveTicketPageState extends State<SaveTicketPage> {
   late final GlobalKey<CreateTicketSectionState> ticketFormKey;
   List<String> dates = List.empty(growable: true);
   List<String> selectedDates = List.empty(growable: true);
@@ -40,12 +43,32 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
   void initState() {
     super.initState();
     dates = widget.dates;
-    selectedDates = widget.selectedDates;
+    selectedDates = widget.ticket != null
+        ? [
+            DateTimeUtils.formatDateRange(
+                widget.ticket!.startDate, widget.ticket!.endDate)
+          ]
+        : widget.selectedDates;
 
-    refundPolicy = PolicyEntity.nonRefundable(policyDescription: '');
-    reschedulePolicy = PolicyEntity.cannotReschedule(policyDescription: '');
+    refundPolicy = widget.ticket != null
+        ? _getPolicyById(widget.ticket!.refundPolicyId)
+        : PolicyEntity.nonRefundable(policyDescription: '');
+    reschedulePolicy = widget.ticket != null
+        ? _getPolicyById(widget.ticket!.reschedulePolicyId)
+        : PolicyEntity.cannotReschedule(policyDescription: '');
 
     ticketFormKey = GlobalKey();
+  }
+
+  // TODO: GET REAL POLICY
+  PolicyEntity _getPolicyById(String id) {
+    return PolicyEntity(
+      policyId: id,
+      policyName: "",
+      policyDescription: "",
+      isAllowed: true,
+      policyType: PolicyType.refund,
+    );
   }
 
   @override
@@ -63,7 +86,7 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
         Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: defaultPadding,
-            vertical: defaultPadding,
+            vertical: 5,
           ),
           child: Text(
             '${S.current.selectedDate}s'.toUpperCase(),
@@ -80,7 +103,10 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                CreateTicketSection(key: ticketFormKey),
+                CreateTicketSection(
+                  key: ticketFormKey,
+                  ticket: widget.ticket,
+                ),
                 CreatePolicySection(
                   refundPolicy: refundPolicy,
                   reschedulePolicy: reschedulePolicy,
@@ -97,30 +123,20 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
     );
   }
 
-  Widget _buildSelectedDateList() {
-    return Container(
-      height: 40,
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: ListView.separated(
+  Widget _buildSelectedDateList() => SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => _buildDateItem(dates[index]),
-        itemCount: dates.length,
-        separatorBuilder: (context, index) => const SizedBox(width: 10),
-      ),
-    );
-  }
+        child: Row(
+            children: (widget.ticket != null ? selectedDates : dates)
+                .map(_buildDateItem)
+                .toList()),
+      );
 
   Widget _buildDateItem(String date) {
-    bool isSelected = selectedDates.contains(date);
+    bool isSelected =
+        widget.ticket != null ? true : selectedDates.contains(date);
 
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 0.5,
-          color: Colors.grey,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(999)),
-      ),
+    return Padding(
+      padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
       child: DateTimeItem(
         date: date,
         isSelected: isSelected,
@@ -129,6 +145,10 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
             if (!isSelected) {
               selectedDates.add(date);
             } else {
+              if (widget.ticket != null) {
+                _deleteTicket(context);
+              }
+
               selectedDates.remove(date);
             }
           });
@@ -146,7 +166,9 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
         ),
         actions: [
           GestureDetector(
-            onTap: () => validateTicketForm(context),
+            onTap: widget.ticket != null
+                ? _saveTicket
+                : () => validateTicketForm(context),
             child: Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: Text(
@@ -270,8 +292,9 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
       TicketTypeEntity ticket, DateTime start, DateTime end) {
     List<TicketTypeEntity> potentialDuplicates =
         fetchDuplicatedTickets(ticket.ticketTypeName, ticket.category);
-    return potentialDuplicates
-        .firstWhereOrNull((t) => t.startDate == start && t.endDate == end);
+    return potentialDuplicates.firstWhereOrNull((t) =>
+        DateTimeUtils.isSameDateTimeWithoutSecond(t.startDate, start) &&
+        DateTimeUtils.isSameDateTimeWithoutSecond(t.endDate, end));
   }
 
   Future<bool> _handleDuplicateTicket(TicketTypeEntity ticket) async {
@@ -313,5 +336,52 @@ class _CreateTicketPageState extends State<CreateTicketPage> {
   List<TicketTypeEntity> fetchDuplicatedTickets(
       String name, TicketCategory category) {
     return [];
+  }
+
+  void _saveTicket() {
+    // TODO: Save ticket in DB and back to previous page
+  }
+
+  Future<void> _deleteTicket(BuildContext context) async {
+    bool confirmed = await _confirmDeletion(context);
+
+    if (confirmed) {
+      // TODO: Confirm => Delete Ticket in DB and back to previous page
+    }
+  }
+
+  Future<bool> _confirmDeletion(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          S.current.deleteConfirmTitle,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        content: Text(S.current.deleteConfirmText),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(
+              S.current.cancel,
+              style: const TextStyle(
+                  color: primaryColor, fontWeight: FontWeight.bold),
+            ),
+          ),
+          TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(
+                S.current.delete,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ))
+        ],
+      ),
+    );
   }
 }

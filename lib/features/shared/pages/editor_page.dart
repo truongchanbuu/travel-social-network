@@ -7,6 +7,7 @@ import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 import '../../../cores/constants/constants.dart';
+import '../../../cores/utils/formatters/quill_content_formatter.dart';
 import '../../../generated/l10n.dart';
 
 class EditorPage extends StatefulWidget {
@@ -26,7 +27,9 @@ class _EditorPageState extends State<EditorPage> {
     quillController = widget.initialValue?.isEmpty ?? true
         ? QuillController.basic()
         : QuillController(
-            document: Document.fromJson(jsonDecode(widget.initialValue!)),
+            document: Document.fromJson(jsonDecode(
+                QuillContentFormatter.checkAndConvertQuillFormat(
+                    widget.initialValue!))),
             selection: const TextSelection.collapsed(offset: 0),
           );
   }

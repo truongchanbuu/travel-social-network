@@ -8,11 +8,13 @@ import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
 
 class CreatePolicyBottomSheet extends StatefulWidget {
+  final PolicyEntity? policy;
   final PolicyType policyType;
 
   const CreatePolicyBottomSheet({
     super.key,
     required this.policyType,
+    this.policy,
   });
 
   @override
@@ -30,8 +32,11 @@ class _CreatePolicyBottomSheetState extends State<CreatePolicyBottomSheet> {
   @override
   void initState() {
     super.initState();
-    selectedType = widget.policyType;
     _formKey = GlobalKey();
+
+    _policyName = widget.policy?.policyName;
+    _policyDesc = widget.policy?.policyDescription;
+    selectedType = widget.policy?.policyType ?? widget.policyType;
   }
 
   @override
@@ -73,6 +78,7 @@ class _CreatePolicyBottomSheetState extends State<CreatePolicyBottomSheet> {
             CustomTextField(
               validator: _policyNameValidator,
               label: S.current.policyName,
+              textEditingController: TextEditingController(text: _policyName),
               onSaved: (value) => _policyName = value,
               hintTexts: const [
                 'Easy to refund...',
@@ -84,6 +90,7 @@ class _CreatePolicyBottomSheetState extends State<CreatePolicyBottomSheet> {
             const SizedBox(height: 10),
             LongTextField(
               title: S.current.policyDesc,
+              content: _policyDesc,
               onSaved: (value) => _policyDesc = value,
               validator: _policyDescValidator,
             ),

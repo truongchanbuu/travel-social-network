@@ -1,6 +1,8 @@
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:intl/intl.dart';
 
+import '../constants/constants.dart';
+
 class DateTimeUtils {
   static DateTime now = DateTime.now();
 
@@ -9,6 +11,9 @@ class DateTimeUtils {
 
   static bool isSameDate(DateTime d1, DateTime d2) =>
       d1.day == d2.day && d1.month == d2.month && d1.year == d2.year;
+
+  static bool isSameDateTimeWithoutSecond(DateTime d1, DateTime d2) =>
+      isSameDate(d1, d2) && d1.hour == d2.hour && d1.minute == d2.minute;
 
   static String getThePeriodOfTheDay() {
     final int hour = now.hour;
@@ -55,11 +60,17 @@ class DateTimeUtils {
 
   static List<DateTime> parseDateTimeRange(String dateTimeRange) {
     final List<String> parts = dateTimeRange.split(' - ');
-    final DateFormat format = DateFormat('HH:mm dd/MM/yyyy');
+    final DateFormat format = DateFormat(defaultDateFormat);
 
     final DateTime startDateTime = format.parse(parts[0]);
     final DateTime endDateTime = format.parse(parts[1]);
 
     return [startDateTime, endDateTime];
+  }
+
+  static String formatDateRange(DateTime start, DateTime end) {
+    DateFormat formatter = DateFormat(defaultDateFormat);
+
+    return '${formatter.format(start)} - ${formatter.format(end)}';
   }
 }

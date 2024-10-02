@@ -4,13 +4,14 @@ import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/expanded_button.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
-import '../../../ticket/presentations/pages/create_ticket_page.dart';
+import '../../../ticket/presentations/pages/created_tickets_page.dart';
+import '../../../ticket/presentations/pages/save_ticket_page.dart';
 import 'date_section_button.dart';
 import 'date_time_item.dart';
 
@@ -60,42 +61,47 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
           }),
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
-            onPressed:
-                selectedDates.isNotEmpty ? _navigateToCreateTicketPage : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: primaryColor,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              minimumSize: const Size.fromHeight(50),
-              padding: const EdgeInsets.all(20),
-            ),
-            child: Text(
-              S.current.createTicket,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            )),
-        if (tickets.isNotEmpty) ...[
-          const SizedBox(height: 20),
-          Text(
-            S.current.ticketList,
-            style: const TextStyle(
-              color: primaryColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          Column(
-            children: tickets.map(_buildTicketPreview).toList(),
-          )
-        ]
+        _buildActionButton(
+          onPressed:
+              selectedDates.isNotEmpty ? _navigateToCreateTicketPage : null,
+          title: S.current.createTicket,
+        ),
+        const SizedBox(height: 20),
+        _buildActionButton(
+          title: '${S.current.viewAll} ${S.current.tickets}',
+          backgroundColor: Colors.white,
+          textColor: primaryColor,
+          onPressed: tickets.isNotEmpty ? _viewAllCreatedTickets : null,
+        ),
       ],
     );
   }
+
+  Widget _buildActionButton({
+    void Function()? onPressed,
+    required String title,
+    Color textColor = Colors.white,
+    Color backgroundColor = primaryColor,
+  }) =>
+      ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+          minimumSize: const Size.fromHeight(50),
+          padding: const EdgeInsets.all(20),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            color: textColor.withOpacity(onPressed == null ? 0.5 : 1),
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+      );
 
   Widget _buildDateTimeItem(String date, int index) {
     bool isSelected = selectedDates.contains(date);
@@ -161,9 +167,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     );
 
     if (data != null && context.mounted) {
-      DateFormat formatter = DateFormat(tourDateFormat);
-      String formatted =
-          '${formatter.format(data.start)} - ${formatter.format(data.end)}';
+      String formatted = DateTimeUtils.formatDateRange(data.start, data.end);
 
       bool isIncluded = dates.any((d) => d == formatted);
 
@@ -233,7 +237,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     var data = await Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => CreateTicketPage(
+          builder: (context) => SaveTicketPage(
                 tourId: widget.tourId,
                 dates: dates,
                 selectedDates: selectedDates,
@@ -245,5 +249,12 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     } else {
       setState(() => tickets = data);
     }
+  }
+
+  void _viewAllCreatedTickets() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CreatedTicketsPage(tickets: tickets)));
   }
 }

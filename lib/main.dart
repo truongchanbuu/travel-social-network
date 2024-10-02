@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:travel_social_network/features/shared/widgets/app_bottom_navigation_bar.dart';
-import 'package:travel_social_network/features/ticket/presentations/pages/create_ticket_page.dart';
 
 import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
@@ -31,7 +30,8 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           bottomNavigationBar: AppBottomNavigationBar(),
           body:
-              // CreateTicketPage(tourId: '001', dates: const [
+              // CreatedTicketsPage(tickets: tour1Tickets),
+              //     SaveTicketPage(tourId: '001', dates: const [
               //   "14:13 30/09/2024 - 14:13 20/09/2026",
               //   "14:14 30/09/2025 - 14:14 20/09/2026",
               //   "14:13 30/10/2024 - 14:13 20/09/2026",

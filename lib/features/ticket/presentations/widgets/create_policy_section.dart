@@ -70,7 +70,10 @@ class _CreatePolicySectionState extends State<CreatePolicySection> {
       isScrollControlled: true,
       useSafeArea: true,
       shape: bottomSheetShape,
-      builder: (context) => CreatePolicyBottomSheet(policyType: type),
+      builder: (context) => CreatePolicyBottomSheet(
+        policyType: type,
+        policy: type == PolicyType.refund ? refundPolicy : reschedulePolicy,
+      ),
     );
 
     if (data is PolicyEntity) {

@@ -1,115 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import '../../../../cores/constants/constants.dart';
-import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/custom_text_field.dart';
+class DurationTextField extends StatefulWidget {
+  final void Function(String duration) onDurationChange;
 
-class DurationDropdown extends StatefulWidget {
-  final void Function(String?) onSaved;
-  final String? Function(String?) validator;
-  final String timeUnit;
-
-  const DurationDropdown({
-    super.key,
-    required this.onSaved,
-    required this.validator,
-    required this.timeUnit,
-  });
+  const DurationTextField({super.key, required this.onDurationChange});
 
   @override
-  State<DurationDropdown> createState() => _DurationDropdownState();
+  State<DurationTextField> createState() => _DurationTextFieldState();
 }
 
-class _DurationDropdownState extends State<DurationDropdown> {
-  List<DropdownMenuItem> _dropDownItems = List.empty(growable: true);
-  String? _currentDropdownTimeUnit;
+class _DurationTextFieldState extends State<DurationTextField> {
+  final TextEditingController _valueController = TextEditingController();
+  final TextEditingController _customController = TextEditingController();
+  String _unit = 'hours';
 
   @override
-  void initState() {
-    super.initState();
-    _dropDownItems = [
-      DropdownMenuItem(
-        value: S.current.hour,
-        child: Text(
-          S.current.hour,
-          overflow: defaultTextOverflow,
-          textDirection: defaultTextDirection,
-        ),
-      ),
-      DropdownMenuItem(
-        value: S.current.day,
-        child: Text(
-          S.current.day,
-          overflow: defaultTextOverflow,
-          textDirection: defaultTextDirection,
-        ),
-      ),
-      DropdownMenuItem(
-        value: S.current.week,
-        child: Text(
-          S.current.week,
-          overflow: defaultTextOverflow,
-          textDirection: defaultTextDirection,
-        ),
-      ),
-      DropdownMenuItem(
-        value: S.current.month,
-        child: Text(
-          S.current.month,
-          overflow: defaultTextOverflow,
-          textDirection: defaultTextDirection,
-        ),
-      ),
-      DropdownMenuItem(
-        value: S.current.year,
-        child: Text(
-          S.current.year,
-          overflow: defaultTextOverflow,
-          textDirection: defaultTextDirection,
-        ),
-      ),
-    ];
-    _currentDropdownTimeUnit = widget.timeUnit;
+  void dispose() {
+    _valueController.dispose();
+    _customController.dispose();
+    super.dispose();
+  }
+
+  void _updateDuration() {
+    if (_valueController.text.isNotEmpty) {
+      widget.onDurationChange('${_valueController.text} $_unit');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Flexible(
-          flex: 2,
-          child: CustomTextField(
-            onSaved: widget.onSaved,
-            validator: widget.validator,
-            textEditingController: TextEditingController(text: '1'),
-            label: S.current.duration,
-            singleHintText: S.current.durationHintText,
-            keyboardType: TextInputType.number,
-            textInputAction: TextInputAction.go,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          ),
-        ),
-        const SizedBox(width: 5),
-        Flexible(
-          flex: 1,
-          child: DropdownButtonFormField(
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.only(left: 10),
-              border: OutlineInputBorder(),
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: TextField(
+                controller: _valueController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Duration',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (_) => _updateDuration(),
+              ),
             ),
-            icon: const SizedBox.shrink(),
-            alignment: Alignment.center,
-            padding: EdgeInsets.zero,
-            style: const TextStyle(overflow: defaultTextOverflow),
-            iconSize: 0,
-            value: _currentDropdownTimeUnit,
-            items: _dropDownItems,
-            onChanged: (value) => _currentDropdownTimeUnit = value,
+            const SizedBox(width: 16),
+            Expanded(
+              flex: 1,
+              child: DropdownButtonFormField<String>(
+                value: _unit,
+                decoration: const InputDecoration(
+                  labelText: 'Unit',
+                  border: OutlineInputBorder(),
+                ),
+                items: ['minutes', 'hours', 'days', 'weeks', 'months']
+                    .map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      _unit = newValue;
+                      _updateDuration();
+                    });
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        const Text('Or enter custom format:'),
+        const SizedBox(height: 8),
+        TextField(
+          controller: _customController,
+          decoration: const InputDecoration(
+            labelText: 'Custom Duration',
+            hintText: 'e.g., 1h30m, 3 days 2h',
+            border: OutlineInputBorder(),
           ),
-        )
+          // onChanged: widget.onDurationChange,
+        ),
       ],
     );
   }

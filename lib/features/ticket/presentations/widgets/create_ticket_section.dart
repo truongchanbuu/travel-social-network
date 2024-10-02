@@ -2,18 +2,19 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:travel_social_network/cores/utils/enum_utils.dart';
-import 'package:travel_social_network/features/ticket/domain/entities/ticket_type.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/ticket_category.dart';
+import '../../../../cores/utils/enum_utils.dart';
 import '../../../../cores/utils/formatters/number_input_formatter.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
+import '../../domain/entities/ticket_type.dart';
 
 class CreateTicketSection extends StatefulWidget {
-  const CreateTicketSection({super.key});
+  final TicketTypeEntity? ticket;
+  const CreateTicketSection({super.key, this.ticket});
 
   @override
   State<CreateTicketSection> createState() => CreateTicketSectionState();
@@ -51,7 +52,14 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
           ),
         )
         .toList();
-    _ticketCategory = TicketCategory.standard.name;
+    _ticketName = widget.ticket?.ticketTypeName;
+    _ticketDesc = widget.ticket?.ticketDescription;
+    _ticketInfo = widget.ticket?.ticketInfo;
+    _ticketRedemption = widget.ticket?.redemptionMethodDesc;
+    _ticketCategory =
+        widget.ticket?.category.name ?? TicketCategory.standard.name;
+    _quantity = widget.ticket?.quantity ?? _quantity;
+    _price = widget.ticket?.ticketPrice ?? _price;
   }
 
   static const SizedBox spacing = SizedBox(height: 10);
@@ -65,10 +73,11 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
         child: Column(
           children: [
             CustomTextField(
+              label: S.current.ticketName,
+              textEditingController: TextEditingController(text: _ticketName),
               onSaved: (value) => _ticketName = value,
               validator: (value) =>
                   _genericValidator(value, S.current.ticketName),
-              label: S.current.ticketName,
             ),
             spacing,
             _buildInfoGroup(),
@@ -82,6 +91,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
               validator: (value) =>
                   _genericValidator(value, S.current.ticketDesc),
               title: S.current.ticketDesc,
+              content: _ticketDesc,
               onSaved: (value) => _ticketDesc = value,
             ),
             spacing,
@@ -89,6 +99,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
               validator: (value) =>
                   _genericValidator(value, S.current.ticketInfo),
               title: S.current.ticketInfo,
+              content: _ticketInfo,
               onSaved: (value) => _ticketInfo = value,
             ),
             spacing,
@@ -96,6 +107,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
               validator: (value) =>
                   _genericValidator(value, S.current.ticketRedemption),
               title: S.current.ticketRedemption,
+              content: _ticketRedemption,
               onSaved: (value) => _ticketRedemption = value,
             )
           ],
@@ -121,8 +133,8 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
               formatter
             ],
             keyboardType: TextInputType.number,
-            textEditingController:
-                TextEditingController(text: formatter.formatString('0')),
+            textEditingController: TextEditingController(
+                text: formatter.formatString(_price.toString())),
           ),
         ),
         const SizedBox(width: defaultPadding),

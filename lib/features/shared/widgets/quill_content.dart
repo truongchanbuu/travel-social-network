@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 import '../../../cores/constants/constants.dart';
+import '../../../cores/utils/formatters/quill_content_formatter.dart';
 
 class QuillContent extends StatelessWidget {
   final bool isScrollable;
@@ -49,7 +50,10 @@ class QuillContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final document = Document.fromJson(jsonDecode(content));
+    String validatedInput =
+        QuillContentFormatter.checkAndConvertQuillFormat(content);
+
+    final document = Document.fromJson(jsonDecode(validatedInput));
 
     return Stack(
       children: [
