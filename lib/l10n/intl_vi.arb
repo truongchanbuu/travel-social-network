@@ -319,5 +319,18 @@
   },
   "notAllowedToEmpty": "Không được phép để trống",
   "invalidForm": "Form chưa hợp lệ",
-  "duplicateTicketAlert": ""
+  "duplicateTicketAlert": "Vé {name} - {category} hiện đã tồn tại",
+  "@duplicateTicketAlert": {
+      "placeholders": {
+          "name": {
+              "type": "String"
+          },
+          "category": {
+              "type": "String"
+          }
+      }
+  },
+  "duplicateTicketMessage": "Bạn có muốn bỏ qua vé này không? Bạn có thể cập nhật nó sau",
+  "duplicateLocation": "Địa điểm đã bị trùng",
+  "ticketList": "Danh sách các vé"
 }

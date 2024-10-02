@@ -24,31 +24,34 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(imgUrl, index) => "${imgUrl}-${index}";
 
-  static String m2(ticketType) => "For ${ticketType}";
+  static String m2(name, category) =>
+      "The ticket ${name} - ${category} is existed already";
 
-  static String m3(appName) => "Hi ${appName} member";
+  static String m3(ticketType) => "For ${ticketType}";
 
-  static String m4(name) => "Hello ${name},";
+  static String m4(appName) => "Hi ${appName} member";
 
-  static String m5(index) => "Image at ${index}";
+  static String m5(name) => "Hello ${name},";
 
-  static String m6(nameOfCollection) => "Illustrators${nameOfCollection}";
+  static String m6(index) => "Image at ${index}";
 
-  static String m7(field) =>
+  static String m7(nameOfCollection) => "Illustrators${nameOfCollection}";
+
+  static String m8(field) =>
       "Invalid ${field}! It must be at least 10 characters";
 
-  static String m8(index) => "Loading image at index ${index}";
+  static String m9(index) => "Loading image at index ${index}";
 
-  static String m9(count) =>
+  static String m10(count) =>
       "${Intl.plural(count, zero: 'Review', one: 'Review', other: 'Reviews')}";
 
-  static String m10(value) => "Day ${value}";
+  static String m11(value) => "Day ${value}";
 
-  static String m11(name) => "Thumb for ${name}";
+  static String m12(name) => "Thumb for ${name}";
 
-  static String m12(value) => "${value}";
+  static String m13(value) => "${value}";
 
-  static String m13(start, end) =>
+  static String m14(start, end) =>
       "Your trip will start at: ${start} and accomplish at: ${end}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -130,7 +133,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you want to leave without saving?"),
         "discardUnsavedWork":
             MessageLookupByLibrary.simpleMessage("Discard unsaved work"),
-        "duplicateTicketAlert": MessageLookupByLibrary.simpleMessage(""),
+        "duplicateLocation":
+            MessageLookupByLibrary.simpleMessage("The location cannot be same"),
+        "duplicateTicketAlert": m2,
+        "duplicateTicketMessage": MessageLookupByLibrary.simpleMessage(
+            "Are you want to skip this ticket? You can modify it later"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationHintText": MessageLookupByLibrary.simpleMessage(
             "6 hours, 1 day, 2 weeks, 3 months, ..."),
@@ -152,19 +159,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Exclusive Offers for you - with only one simple step!"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
             "For more details about this ticket"),
-        "forType": m2,
+        "forType": m3,
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
-        "greetingAppMember": m3,
+        "greetingAppMember": m4,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Guide to location"),
-        "helloUser": m4,
+        "helloUser": m5,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("How to redeem"),
         "image": MessageLookupByLibrary.simpleMessage("image"),
-        "imageAtIndex": m5,
-        "imageCollectionText": m6,
+        "imageAtIndex": m6,
+        "imageCollectionText": m7,
         "importantThingsYouShouldKnow": MessageLookupByLibrary.simpleMessage(
             "Important things you should know"),
         "inUseDateError":
@@ -181,10 +188,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "itinerary": MessageLookupByLibrary.simpleMessage("Itinerary"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
-        "lengthLimitError": m7,
+        "lengthLimitError": m8,
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
-        "loadingImageText": m8,
+        "loadingImageText": m9,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Location Information"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
@@ -243,12 +250,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
-        "reviews": m9,
+        "reviews": m10,
         "sameDateError": MessageLookupByLibrary.simpleMessage(
             "Start date and end date cannot be same"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
-        "scheduleDay": m10,
+        "scheduleDay": m11,
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searching": MessageLookupByLibrary.simpleMessage("Searching..."),
         "securityAccount":
@@ -272,20 +279,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m11,
+        "thumbDesc": m12,
         "ticketCategory":
             MessageLookupByLibrary.simpleMessage("Ticket Category"),
         "ticketDesc":
             MessageLookupByLibrary.simpleMessage("Ticket Description"),
         "ticketInfo": MessageLookupByLibrary.simpleMessage("Ticket Info"),
+        "ticketList": MessageLookupByLibrary.simpleMessage("Ticket List"),
         "ticketName": MessageLookupByLibrary.simpleMessage("Ticket Name"),
         "ticketRedemption":
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m12,
+        "totalReviews": m13,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
-        "tourDateAnnounce": m13,
+        "tourDateAnnounce": m14,
         "tourDatesLabel": MessageLookupByLibrary.simpleMessage("Tour Dates"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),

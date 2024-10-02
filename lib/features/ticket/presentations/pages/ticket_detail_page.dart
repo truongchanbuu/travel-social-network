@@ -302,6 +302,8 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         style: const TextStyle(
           fontWeight: FontWeight.bold,
         ),
+        overflow: defaultTextOverflow,
+        textDirection: defaultTextDirection,
       ),
       subtitle: Text(subtitle),
     );

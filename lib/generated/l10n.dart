@@ -1857,11 +1857,41 @@ class S {
     );
   }
 
-  /// ``
-  String get duplicateTicketAlert {
+  /// `The ticket {name} - {category} is existed already`
+  String duplicateTicketAlert(String name, String category) {
     return Intl.message(
-      '',
+      'The ticket $name - $category is existed already',
       name: 'duplicateTicketAlert',
+      desc: '',
+      args: [name, category],
+    );
+  }
+
+  /// `Are you want to skip this ticket? You can modify it later`
+  String get duplicateTicketMessage {
+    return Intl.message(
+      'Are you want to skip this ticket? You can modify it later',
+      name: 'duplicateTicketMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The location cannot be same`
+  String get duplicateLocation {
+    return Intl.message(
+      'The location cannot be same',
+      name: 'duplicateLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ticket List`
+  String get ticketList {
+    return Intl.message(
+      'Ticket List',
+      name: 'ticketList',
       desc: '',
       args: [],
     );

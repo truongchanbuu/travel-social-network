@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:travel_social_network/features/tour/presentation/widgets/duration_dropdown.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
@@ -14,15 +17,18 @@ class CreateTourDetails extends StatefulWidget {
 
 class _CreateTourDetailsState extends State<CreateTourDetails> {
   late final GlobalKey<FormState> _formKey;
+  String? _currentDropdownTimeUnit;
   String? _tourName;
   String? _tourDesc;
   String? _departure;
   String? _destination;
   String? _tourItinerary;
+  Duration? _duration;
 
   @override
   void initState() {
     super.initState();
+    _currentDropdownTimeUnit = S.current.day;
     _formKey = GlobalKey();
   }
 
@@ -67,6 +73,12 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
             title: S.current.tourItinerary,
             onSaved: (value) => _tourItinerary = value,
           ),
+          const SizedBox(height: 10),
+          DurationDropdown(
+            timeUnit: S.current.day,
+            onSaved: _durationOnSaved,
+            validator: _durationValidator,
+          ),
         ],
       ),
     );
@@ -93,6 +105,10 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
       return S.current.invalidDestinationError;
     }
 
+    if (_departure != null && _departure == _destination) {
+      return S.current.duplicateLocation;
+    }
+
     return null;
   }
 
@@ -104,11 +120,44 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
     return null;
   }
 
+  int _getDurationValue(String? value) =>
+      value?.isEmpty ?? true ? -1 : int.parse(value!);
+
+  void _durationOnSaved(value) {
+    int intValue = _getDurationValue(value);
+    switch (_currentDropdownTimeUnit?.toLowerCase()) {
+      case 'day':
+        _duration = Duration(days: intValue);
+        break;
+      case 'hour':
+        _duration = Duration(hours: intValue);
+        break;
+      case 'minute':
+        _duration = Duration(minutes: intValue);
+        break;
+      case 'second':
+        _duration = Duration(seconds: intValue);
+        break;
+      default:
+        throw ArgumentError('Invalid unit: $_currentDropdownTimeUnit');
+    }
+  }
+
+  String? _durationValidator(String? value) {
+    int numVal = _getDurationValue(value);
+    if (numVal <= 0 || numVal > 366) {
+      return S.current.invalidDurationError;
+    }
+
+    return null;
+  }
+
   void _tourDetailValidator() {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
 
-      print('$_tourName - $_tourDesc -  $_departure - $_destination');
+      print(
+          '$_tourName - $_tourDesc -  $_departure - $_destination - $_duration');
     }
   }
 }

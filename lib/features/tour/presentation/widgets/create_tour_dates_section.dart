@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/expanded_button.dart';
+import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../../ticket/presentations/pages/create_ticket_page.dart';
 import 'date_section_button.dart';
 import 'date_time_item.dart';
@@ -34,6 +35,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
 
   List<String> dates = List.empty(growable: true);
   List<String> selectedDates = List.empty(growable: true);
+  List<TicketTypeEntity> tickets = List.empty(growable: true);
 
   @override
   void initState() {
@@ -44,6 +46,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ExtendedWrap(
           maxLines: maxLines,
@@ -75,7 +78,21 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
-            ))
+            )),
+        if (tickets.isNotEmpty) ...[
+          const SizedBox(height: 20),
+          Text(
+            S.current.ticketList,
+            style: const TextStyle(
+              color: primaryColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          Column(
+            children: tickets.map(_buildTicketPreview).toList(),
+          )
+        ]
       ],
     );
   }
@@ -104,7 +121,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
           DateSectionButton(
             title: S.current.addDate,
             icon: Icons.add,
-            onTap: _addDate,
+            onTap: () => _addDate(context),
           ),
           const SizedBox(width: 5),
           DateSectionButton(
@@ -132,7 +149,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
         ],
       );
 
-  void _addDate() async {
+  void _addDate(BuildContext context) async {
     var data = await showBoardDateTimeMultiPicker(
       context: context,
       pickerType: DateTimePickerType.datetime,
@@ -217,7 +234,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       context,
       MaterialPageRoute(
           builder: (context) => CreateTicketPage(
-                tourId: '',
+                tourId: widget.tourId,
                 dates: dates,
                 selectedDates: selectedDates,
               )),
@@ -225,6 +242,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
 
     if (data is List<String>) {
       setState(() => selectedDates = data);
+    } else {
+      setState(() => tickets = data);
     }
   }
 }
