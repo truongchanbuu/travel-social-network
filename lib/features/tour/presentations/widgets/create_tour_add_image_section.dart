@@ -18,7 +18,7 @@ class CreateTourAddImageSection extends StatefulWidget {
 }
 
 class _CreateTourAddImageSectionState extends State<CreateTourAddImageSection> {
-  List<ImageFile> _images = List.empty(growable: true);
+  List<ImageFile> _images = [];
 
   @override
   void initState() {

@@ -144,6 +144,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "durationHintText": MessageLookupByLibrary.simpleMessage(
             "6 hours, 1 day, 2 weeks, 3 months, ..."),
+        "easyToRefund": MessageLookupByLibrary.simpleMessage("Easy to refund"),
+        "easyToReschedule":
+            MessageLookupByLibrary.simpleMessage("Easy to reschedule"),
         "editPage": MessageLookupByLibrary.simpleMessage("Editor Page"),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Add your tour description here..."),
@@ -245,10 +248,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Recommendations"),
         "redemptionMethod":
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
+        "refund": MessageLookupByLibrary.simpleMessage("refund"),
         "refundAndReschedule":
             MessageLookupByLibrary.simpleMessage("Refund & Reschedule"),
         "refundPolicy": MessageLookupByLibrary.simpleMessage("Refund Policy"),
         "refundable": MessageLookupByLibrary.simpleMessage("Can be refund"),
+        "reschedule": MessageLookupByLibrary.simpleMessage("reschedule"),
         "reschedulePolicy":
             MessageLookupByLibrary.simpleMessage("Reschedule Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),

@@ -219,6 +219,10 @@
     "redemptionMethod": "Redemption Method",
     "howToRedeem": "How to redeem",
 
+    "refund": "refund",
+    "reschedule": "reschedule",
+    "easyToRefund": "Easy to refund",
+    "easyToReschedule": "Easy to reschedule",
     "canBeRescheduled": "Can be Rescheduled",
     "cannotBeRescheduled": "Cannot be Rescheduled",
     "refundable": "Can be refund",

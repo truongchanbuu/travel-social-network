@@ -85,7 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Có thể đổi lịch"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),
         "cannotBeRescheduled":
-            MessageLookupByLibrary.simpleMessage("Không thể đổi lịch"),
+            MessageLookupByLibrary.simpleMessage("Không thể dời lịch"),
         "classificationDisappointing":
             MessageLookupByLibrary.simpleMessage("Thất vọng"),
         "classificationError":
@@ -141,6 +141,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "duration": MessageLookupByLibrary.simpleMessage("Thời gian đi"),
         "durationHintText": MessageLookupByLibrary.simpleMessage(
             "6 giờ, 2 ngày, 3 tuần, 4 tháng, ..."),
+        "easyToRefund":
+            MessageLookupByLibrary.simpleMessage("Dễ dàng hoàn tiền"),
+        "easyToReschedule":
+            MessageLookupByLibrary.simpleMessage("Dễ dàng dời lịch"),
         "editPage": MessageLookupByLibrary.simpleMessage("Trang chỉnh sửa"),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Hãy viết mô tả về chuyến đi của bạn ở đây..."),
@@ -241,11 +245,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "recommendation": MessageLookupByLibrary.simpleMessage("Gợi ý"),
         "redemptionMethod":
             MessageLookupByLibrary.simpleMessage("Phương thức nhận vé"),
+        "refund": MessageLookupByLibrary.simpleMessage("hoàn tiền"),
         "refundAndReschedule":
             MessageLookupByLibrary.simpleMessage("Hoàn tiền và Đổi lịch"),
         "refundPolicy":
             MessageLookupByLibrary.simpleMessage("Chính sách hoàn tiền"),
         "refundable": MessageLookupByLibrary.simpleMessage("Có thể hoàn tiền"),
+        "reschedule": MessageLookupByLibrary.simpleMessage("dời lịch"),
         "reschedulePolicy":
             MessageLookupByLibrary.simpleMessage("Chính sách dời vé"),
         "resetPassword":

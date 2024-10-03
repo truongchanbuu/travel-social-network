@@ -2,18 +2,17 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:travel_social_network/features/shared/widgets/app_progressing_indicator.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/ticket_category.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../shared/widgets/app_progressing_indicator.dart';
+import '../../../shared/widgets/confirm_dialog.dart';
 import '../../../tour/presentations/widgets/date_time_item.dart';
 import '../../data/models/ticket_type.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
-import '../coordinator/ticket_creation_coordinator.dart';
 import '../widgets/create_ticket_section.dart';
 
 class SaveTicketPage extends StatefulWidget {
@@ -36,8 +35,8 @@ class SaveTicketPage extends StatefulWidget {
 
 class _SaveTicketPageState extends State<SaveTicketPage> {
   late final GlobalKey<CreateTicketSectionState> ticketFormKey;
-  List<String> dates = List.empty(growable: true);
-  List<String> selectedDates = List.empty(growable: true);
+  List<String> dates = [];
+  List<String> selectedDates = [];
 
   @override
   void initState() {
@@ -172,38 +171,12 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
   void _backToPrevious() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          S.current.discardUnsavedWork,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        content: Text(S.current.discardAlertMessage),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                S.current.stay,
-                style: const TextStyle(
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              )),
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context, selectedDates);
-              },
-              child: Text(
-                S.current.leave,
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              )),
-        ],
+      builder: (context) => ConfirmDialog(
+        onLeaved: () {
+          _deletePolicy();
+          Navigator.pop(context);
+          Navigator.pop(context, selectedDates);
+        },
       ),
     );
   }
@@ -223,10 +196,10 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
     }
 
     if (tickets.isNotEmpty && context.mounted) {
-      final TicketCreationCoordinator ticketCreationCoordinator =
-          TicketCreationCoordinator(
-              policyBloc: context.read<PolicyBloc>(),
-              ticketBloc: context.read<TicketBloc>());
+      // final TicketCreationCoordinator ticketCreationCoordinator =
+      //     TicketCreationCoordinator(
+      //         policyBloc: context.read<PolicyBloc>(),
+      //         ticketBloc: context.read<TicketBloc>());
 
       // String message = await ticketCreationCoordinator.createPolicyAndTickets(
       //   [refundPolicy!, reschedulePolicy!].map(Policy.fromEntity).toList(),
@@ -338,7 +311,6 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
   void _saveTicket(BuildContext context) {
     final changedTicket = _getFormData();
     if (_isTicketChanged(changedTicket)) {
-      // _updatePolicy();
       context.read<TicketBloc>().add(UpdateTicketEvent(
             id: widget.ticket!.ticketTypeId,
             newTicket: TicketType.fromEntity(widget.ticket!.copyWith(
@@ -429,5 +401,9 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
         ],
       ),
     );
+  }
+
+  void _deletePolicy() {
+    ticketFormKey.currentState?.deletePolicy();
   }
 }

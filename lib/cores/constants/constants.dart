@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/policy/presentations/bloc/policy_bloc.dart';
-import '../../features/ticket/presentations/bloc/ticket_bloc.dart';
 import '../../injection_container.dart';
 
 // App
@@ -17,6 +15,7 @@ Color scaffoldBackgroundColor = Colors.grey.shade200;
 const Color backGroundExpansionItemColor = Colors.white;
 const Color subtitleTicketDetailColor = Colors.amber;
 const Color currencyTextColor = Colors.orange;
+const Color blackTextColor = Colors.black;
 
 // Border Radius
 const Color defaultFieldBorderColor = Colors.black54;
@@ -81,6 +80,7 @@ const List<double> tourItemSizes = [
 ];
 const double recommendedTourItemSize = 250;
 const int maxItemCount = 4;
+const int minLimitLength = 10;
 
 // Item
 const int maxReviewItem = 7;
@@ -95,10 +95,6 @@ const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(
 const String baseUrl = 'http://localhost:3000/api';
 final db = getIt.get<FirebaseFirestore>();
 final FirebaseFirestore firestore = getIt.get<FirebaseFirestore>();
-
-// Bloc
-final TicketBloc ticketBloc = getIt.get<TicketBloc>();
-final PolicyBloc policyBloc = getIt.get<PolicyBloc>();
 
 // Format
 const String defaultDateFormat = 'HH:mm dd/MM/yyyy';

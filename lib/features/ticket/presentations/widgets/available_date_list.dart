@@ -23,7 +23,7 @@ class AvailableDateList extends StatefulWidget {
 class _AvailableDateListState extends State<AvailableDateList> {
   late final ScrollController _scrollController;
 
-  List<DateTime> availableDates = List.empty(growable: true);
+  List<DateTime> availableDates = [];
 
   double _itemWidth = 60;
 

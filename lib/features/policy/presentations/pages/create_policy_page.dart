@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/widgets/confirm_dialog.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
 import '../../data/models/policy.dart';
@@ -28,9 +29,16 @@ class CreatePolicyPage extends StatefulWidget {
 
 class _CreatePolicyPageState extends State<CreatePolicyPage> {
   late final GlobalKey<FormState> _formKey;
-  PolicyEntity? _policy;
+  List<DropdownMenuItem<String>> dropdownItems = [];
+  Map<String, bool> policyLabels = {
+    S.current.easyToRefund: true,
+    S.current.easyToReschedule: true,
+    S.current.cannotBeRescheduled: false,
+    S.current.nonRefundable: false,
+  };
 
-  bool _isAllowed = false;
+  PolicyEntity? _policy;
+  late bool _isAllowed;
   String? _policyName;
   String? _policyDesc;
   late PolicyType selectedType;
@@ -41,8 +49,29 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
     if (widget.policyId != null) {
       context.read<PolicyBloc>().add(GetPolicyById(widget.policyId!));
     }
+
     selectedType = widget.policyType;
+    policyLabels = {
+      for (var entry in policyLabels.entries.where(
+        (entry) => entry.key.contains(
+          selectedType == PolicyType.refund
+              ? S.current.refund
+              : S.current.reschedule,
+        ),
+      ))
+        entry.key: entry.value
+    };
+
+    _policyName = policyLabels.keys.first;
+    _isAllowed = policyLabels[_policyName]!;
+
     _formKey = GlobalKey();
+    dropdownItems = policyLabels.entries
+        .map((data) => DropdownMenuItem(
+              value: data.key,
+              child: Text(data.key),
+            ))
+        .toList();
   }
 
   @override
@@ -60,6 +89,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
+              leading: BackButton(onPressed: _confirmedToLeave),
               backgroundColor: Colors.white,
               iconTheme: const IconThemeData(color: Colors.black),
               title: Text(
@@ -92,33 +122,10 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: CustomTextField(
-                    validator: _policyNameValidator,
-                    label: S.current.policyName,
-                    textEditingController:
-                        TextEditingController(text: _policyName),
-                    onSaved: (value) => _policyName = value,
-                    onChanged: (value) => _policyName = value,
-                    hintTexts: const [
-                      'Easy to refund...',
-                      'Reschedule anytime...',
-                      '50% refund...',
-                      '...'
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: CheckboxListTile(
-                      value: _isAllowed,
-                      title: Text(S.current.isAllow),
-                      onChanged: (value) =>
-                          setState(() => _isAllowed = value ?? _isAllowed)),
-                )
-              ],
+            CustomTextField(
+              validator: _policyNameValidator,
+              label: S.current.policyName,
+              replaceField: _buildDropdownButton(),
             ),
             const SizedBox(height: 10),
             LongTextField(
@@ -133,8 +140,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   shape: const RoundedRectangleBorder(
-                    borderRadius: defaultFieldBorderRadius,
-                  ),
+                      borderRadius: defaultFieldBorderRadius),
                   minimumSize: const Size.fromHeight(55),
                 ),
                 child: Text(
@@ -148,8 +154,20 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
     );
   }
 
+  DropdownButtonFormField _buildDropdownButton() {
+    return DropdownButtonFormField<String>(
+      decoration: const InputDecoration(border: OutlineInputBorder()),
+      items: dropdownItems,
+      value: _policyName,
+      onChanged: (value) {
+        _policyName = value;
+        _isAllowed = policyLabels[_policyName] ?? _isAllowed;
+      },
+    );
+  }
+
   String? _policyNameValidator(String? name) {
-    if ((name?.length ?? 0) < 10) {
+    if ((name?.length ?? 0) < minLimitLength) {
       return S.current.lengthLimitError(S.current.policyName);
     }
 
@@ -157,7 +175,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
   }
 
   String? _policyDescValidator(String? desc) {
-    if ((desc?.length ?? 0) < 10) {
+    if ((desc?.length ?? 0) < minLimitLength) {
       return S.current.lengthLimitError(S.current.policyDesc);
     }
 
@@ -167,17 +185,23 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
   void _acceptPolicy(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
-      context.read<PolicyBloc>().add(CreatePolicyEvent(
-            Policy.fromEntity(
-              PolicyEntity(
-                policyId: 'POLICY-${const Uuid().v4()}',
-                policyName: _policyName!,
-                policyDescription: _policyDesc!,
-                isAllowed: _isAllowed,
-                policyType: widget.policyType,
+      context.read<PolicyBloc>().add(
+            CreatePolicyEvent(
+              Policy.fromEntity(
+                PolicyEntity(
+                  policyId: 'POLICY-${const Uuid().v4()}',
+                  policyName: _policyName!,
+                  policyDescription: _policyDesc!,
+                  isAllowed: _isAllowed,
+                  policyType: widget.policyType,
+                ),
               ),
             ),
-          ));
+          );
     }
+  }
+
+  void _confirmedToLeave() {
+    showDialog(context: context, builder: (context) => const ConfirmDialog());
   }
 }

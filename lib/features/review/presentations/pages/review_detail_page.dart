@@ -21,7 +21,7 @@ class ReviewDetailPage extends StatefulWidget {
 class _ReviewDetailPageState extends State<ReviewDetailPage> {
   late final TourEntity tour;
 
-  List<ReviewEntity> reviews = List.empty(growable: true);
+  List<ReviewEntity> reviews = [];
   int totalReviews = 0;
 
   @override

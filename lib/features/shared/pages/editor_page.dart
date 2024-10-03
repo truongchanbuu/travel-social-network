@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
+import 'package:travel_social_network/features/shared/widgets/confirm_dialog.dart';
 
 import '../../../cores/constants/constants.dart';
 import '../../../cores/utils/formatters/quill_content_formatter.dart';
@@ -145,44 +146,7 @@ class _EditorPageState extends State<EditorPage> {
 
   void _showAlert() => showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text(
-            S.current.discardUnsavedWork,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-            textDirection: defaultTextDirection,
-            overflow: defaultTextOverflow,
-          ),
-          content: Text(
-            S.current.discardAlertMessage,
-            textDirection: defaultTextDirection,
-            overflow: defaultTextOverflow,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                S.current.stay,
-                style: const TextStyle(color: primaryColor),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-              child: Text(
-                S.current.leave,
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
-          ],
-        ),
+        builder: (context) => const ConfirmDialog(),
       );
 
   void _saveDescription() {

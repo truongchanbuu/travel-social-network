@@ -37,10 +37,10 @@ class _TourDetailPageState extends State<TourDetailPage> {
   late final ScrollController _scrollController;
   late final TourEntity tour;
 
-  List<TourScheduleEntity> schedules = List.empty(growable: true);
-  List<TicketTypeEntity> tickets = List.empty(growable: true);
-  List<DateTime> availableDates = List.empty(growable: true);
-  List<ReviewEntity> reviews = List.empty(growable: true);
+  List<TourScheduleEntity> schedules = [];
+  List<TicketTypeEntity> tickets = [];
+  List<DateTime> availableDates = [];
+  List<ReviewEntity> reviews = [];
 
   Color titleColor = Colors.white;
   DateTime? selectedDate;

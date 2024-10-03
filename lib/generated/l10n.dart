@@ -1309,6 +1309,46 @@ class S {
     );
   }
 
+  /// `refund`
+  String get refund {
+    return Intl.message(
+      'refund',
+      name: 'refund',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `reschedule`
+  String get reschedule {
+    return Intl.message(
+      'reschedule',
+      name: 'reschedule',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Easy to refund`
+  String get easyToRefund {
+    return Intl.message(
+      'Easy to refund',
+      name: 'easyToRefund',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Easy to reschedule`
+  String get easyToReschedule {
+    return Intl.message(
+      'Easy to reschedule',
+      name: 'easyToReschedule',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Can be Rescheduled`
   String get canBeRescheduled {
     return Intl.message(

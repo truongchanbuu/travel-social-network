@@ -17,7 +17,7 @@ class _SearchRecommendationsState extends State<SearchRecommendations> {
   int minLines = 2;
   late int maxLines = minLines;
 
-  List<String> recommendations = List.empty(growable: true);
+  List<String> recommendations = [];
 
   @override
   void initState() {

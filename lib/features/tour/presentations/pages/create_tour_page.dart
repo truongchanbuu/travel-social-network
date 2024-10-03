@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
-import 'package:travel_social_network/features/shared/widgets/app_progressing_indicator.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/widgets/app_progressing_indicator.dart';
 import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../domain/entities/tour.dart';
 import '../widgets/create_tour_add_image_section.dart';
@@ -19,10 +19,14 @@ class CreateTourPage extends StatefulWidget {
 }
 
 class _CreateTourPageState extends State<CreateTourPage> {
-  List<ImageFile> images = List.empty(growable: true);
+  List<ImageFile> images = [];
   Map<String, bool> expansionDetails = {};
-
   late final TourEntity tour;
+
+  static const String detailKey = 'detail';
+  static const String imagesKey = 'images';
+  static const String datesKey = 'dates';
+  static const padding20 = EdgeInsets.all(20);
 
   @override
   void initState() {
@@ -30,25 +34,26 @@ class _CreateTourPageState extends State<CreateTourPage> {
     tour = TourEntity.defaultWithId();
 
     expansionDetails = {
-      'detail': true,
-      'images': true,
-      'dates': true,
+      detailKey: true,
+      imagesKey: true,
+      datesKey: true,
     };
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: BlocConsumer<TicketBloc, TicketState>(
-        builder: (context, state) {
-          if (state is TicketCreating) {
-            return const AppProgressingIndicator();
-          }
-
-          return _buildBody();
-        },
-        listener: (context, state) {},
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: BlocConsumer<TicketBloc, TicketState>(
+          builder: (context, state) {
+            if (state is TicketCreating) {
+              return const AppProgressingIndicator();
+            }
+            return _buildBody();
+          },
+          listener: (context, state) {},
+        ),
       ),
     );
   }
@@ -69,7 +74,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
 
   ExpansionPanel _buildTourDates() => _buildTemplateExpansionPanel(
         width: double.infinity,
-        expansionKey: 'dates',
+        expansionKey: datesKey,
         header: _buildHeadingText(S.current.tourDatesLabel,
             leading: const Icon(Icons.calendar_month)),
         body: CreateTourDatesSection(tourId: tour.tourId),
@@ -78,7 +83,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
   ExpansionPanel _buildImageSelection() => _buildTemplateExpansionPanel(
         width: double.infinity,
         height: createTourImagesBox,
-        expansionKey: 'images',
+        expansionKey: imagesKey,
         header: _buildHeadingText(
           S.current.addImageLabel,
           leading: const Icon(Icons.image),
@@ -90,7 +95,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
       );
 
   ExpansionPanel _buildTourDetails() => _buildTemplateExpansionPanel(
-        expansionKey: 'detail',
+        expansionKey: detailKey,
         header: _buildHeadingText(
           S.current.tourDetails,
           leading: const Icon(Icons.location_on_outlined),
@@ -105,7 +110,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
         title: Text(
           title,
           style: const TextStyle(
-            color: Colors.black,
+            color: blackTextColor,
             fontWeight: FontWeight.bold,
           ),
           textDirection: defaultTextDirection,
@@ -117,7 +122,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
     required String expansionKey,
     required Widget header,
     required Widget body,
-    bool isCustomizable = true,
+    bool isCustomized = true,
     double? width,
     double? height,
   }) =>
@@ -128,7 +133,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
           padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: header,
         ),
-        body: isCustomizable
+        body: isCustomized
             ? Container(
                 height: height,
                 width: width,
@@ -144,33 +149,25 @@ class _CreateTourPageState extends State<CreateTourPage> {
                   color: Colors.white,
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 20,
-                  bottom: 20,
-                ),
+                margin: padding20,
+                padding: padding20,
                 child: body,
               )
             : body,
       );
 
-  AppBar _buildAppBar() => AppBar(
-        backgroundColor: Colors.white,
-      );
+  AppBar _buildAppBar() => AppBar(backgroundColor: Colors.white);
 
   void _expansionCallBack(int index, bool isExpanded) {
     String key;
     switch (index) {
       case 0:
-        key = 'detail';
+        key = detailKey;
         break;
       case 1:
-        key = 'images';
+        key = imagesKey;
       case 2:
-        key = 'dates';
+        key = datesKey;
       default:
         return;
     }

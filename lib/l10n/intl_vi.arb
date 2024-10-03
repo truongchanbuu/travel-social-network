@@ -224,8 +224,12 @@
   "redemptionMethod": "Phương thức nhận vé",
   "howToRedeem": "Cách nhận",
 
+  "refund": "hoàn tiền",
+  "reschedule": "dời lịch",
+  "easyToRefund": "Dễ dàng hoàn tiền",
+  "easyToReschedule": "Dễ dàng dời lịch",
   "canBeRescheduled": "Có thể đổi lịch",
-  "cannotBeRescheduled": "Không thể đổi lịch",
+  "cannotBeRescheduled": "Không thể dời lịch",
   "refundable": "Có thể hoàn tiền",
   "nonRefundable": "Không thể hoàn tiền",
   "refundAndReschedule": "Hoàn tiền và Đổi lịch",

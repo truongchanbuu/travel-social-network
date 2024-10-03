@@ -8,10 +8,10 @@ import 'package:travel_social_network/cores/constants/tours.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../policy/domain/entities/policy.dart';
 import '../../../shared/widgets/app_cached_image.dart';
 import '../../../shared/widgets/detail_heading_text.dart';
 import '../../../tour/domain/entities/tour.dart';
-import '../../../policy/domain/entities/policy.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../widgets/add_ticket_type_item.dart';
 import '../widgets/available_date_list.dart';
@@ -39,8 +39,8 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
   late final TourEntity tour;
   DateTime? selectedDate;
 
-  List<DateTime> availableDates = List.empty(growable: true);
-  List<TicketTypeEntity> ticketTypeOnDate = List.empty(growable: true);
+  List<DateTime> availableDates = [];
+  List<TicketTypeEntity> ticketTypeOnDate = [];
 
   num totalPrice = 0;
 

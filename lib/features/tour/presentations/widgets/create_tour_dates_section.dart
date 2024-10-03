@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:travel_social_network/injection_container.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../shared/widgets/expanded_button.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../../ticket/presentations/bloc/ticket_bloc.dart';
@@ -37,9 +39,9 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   int minLines = 2;
   late int maxLines;
 
-  List<String> dates = List.empty(growable: true);
-  List<String> selectedDates = List.empty(growable: true);
-  List<TicketTypeEntity> tickets = List.empty(growable: true);
+  List<String> dates = [];
+  List<String> selectedDates = [];
+  List<TicketTypeEntity> tickets = [];
 
   @override
   void initState() {
@@ -249,10 +251,16 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     var data = await Navigator.push(
       context,
       PageTransition(
-        child: SaveTicketPage(
-          tourId: widget.tourId,
-          dates: dates,
-          selectedDates: selectedDates,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+            BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+          ],
+          child: SaveTicketPage(
+            tourId: widget.tourId,
+            dates: dates,
+            selectedDates: selectedDates,
+          ),
         ),
         type: PageTransitionType.leftToRight,
       ),

@@ -14,7 +14,7 @@ class TourScheduleDetailPage extends StatefulWidget {
 }
 
 class _TourScheduleDetailPageState extends State<TourScheduleDetailPage> {
-  List<TourActivityEntity> activities = List.empty(growable: true);
+  List<TourActivityEntity> activities = [];
 
   @override
   void initState() {

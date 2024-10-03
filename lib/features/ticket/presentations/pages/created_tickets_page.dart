@@ -1,11 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../tour/presentations/widgets/date_time_item.dart';
 import '../../domain/entities/ticket_type.dart';
+import '../bloc/ticket_bloc.dart';
 import '../widgets/ticket_brief_info.dart';
 import 'save_ticket_page.dart';
 
@@ -18,9 +22,9 @@ class CreatedTicketsPage extends StatefulWidget {
 }
 
 class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
-  List<TicketTypeEntity> tickets = List.empty(growable: true);
-  List<String> dateRanges = List.empty(growable: true);
-  List<String> selectedDateRange = List.empty(growable: true);
+  List<TicketTypeEntity> tickets = [];
+  List<String> dateRanges = [];
+  List<String> selectedDateRange = [];
 
   @override
   void initState() {
@@ -107,7 +111,7 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
 
   List<TicketTypeEntity> _getTicketsByDates() {
     if (selectedDateRange.isEmpty) return widget.tickets;
-    List<TicketTypeEntity> ticketsByDates = List.empty(growable: true);
+    List<TicketTypeEntity> ticketsByDates = [];
 
     for (var date in selectedDateRange) {
       var [startDate, endDate] = DateTimeUtils.parseDateTimeRange(date);
@@ -126,12 +130,18 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
   void _updateTicket(TicketTypeEntity ticket) => Navigator.push(
         context,
         PageTransition(
-          child: SaveTicketPage(
-            ticket: ticket,
-            tourId: ticket.tourId,
-            dates: const [],
-            selectedDates: const [],
-          ),
+          child: MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+                BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+              ],
+              child: SaveTicketPage(
+                ticket: ticket,
+                tourId: ticket.tourId,
+                dates: const [],
+                selectedDates: const [],
+              ),
+            ),
           type: PageTransitionType.leftToRight,
         ),
       );

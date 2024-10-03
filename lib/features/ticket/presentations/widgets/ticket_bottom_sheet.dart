@@ -27,8 +27,8 @@ class TicketBottomSheet extends StatefulWidget {
 
 class _TicketBottomSheetState extends State<TicketBottomSheet> {
   DateTime? selectedDate;
-  List<DateTime> availableDates = List.empty(growable: true);
-  List<TicketTypeEntity> ticketsByDate = List.empty(growable: true);
+  List<DateTime> availableDates = [];
+  List<TicketTypeEntity> ticketsByDate = [];
 
   @override
   void initState() {

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../../tour/presentations/pages/create_tour_page.dart';
 
 class HomePageFloatingActionButton extends StatefulWidget {
@@ -41,7 +43,9 @@ class _HomePageFloatingActionButtonState
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
-              create: (context) => ticketBloc, child: const CreateTourPage()),
+            create: (context) => getIt.get<TicketBloc>(),
+            child: const CreateTourPage(),
+          ),
           transitionDuration:
               const Duration(milliseconds: pageChangeTransitionDuration),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {

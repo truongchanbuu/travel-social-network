@@ -1,7 +1,9 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
@@ -9,6 +11,8 @@ import '../../../../cores/enums/ticket_category.dart';
 import '../../../../cores/utils/enum_utils.dart';
 import '../../../../cores/utils/formatters/number_input_formatter.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../policy/presentations/pages/create_policy_page.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
@@ -25,7 +29,7 @@ class CreateTicketSection extends StatefulWidget {
 class CreateTicketSectionState extends State<CreateTicketSection> {
   late final GlobalKey<FormState> _formKey;
 
-  List<DropdownMenuItem> items = List.empty(growable: true);
+  List<DropdownMenuItem> items = [];
 
   String? _ticketName;
   String? _ticketDesc;
@@ -81,14 +85,14 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
           child: Column(
             children: [
               CustomTextField(
-                label: S.current.ticketName,
+                label: S.current._ticketName,
                 textEditingController: TextEditingController(text: _ticketName),
                 isAnimated: false,
-                hintTexts: [S.current.ticketName],
+                hintTexts: [S.current._ticketName],
                 onSaved: (value) => _ticketName = value,
                 onChanged: (value) => _ticketName = value,
                 validator: (value) =>
-                    _genericValidator(value, S.current.ticketName),
+                    _genericValidator(value, S.current._ticketName),
               ),
               spacing,
               _buildInfoGroup(),
@@ -212,20 +216,32 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
 
   void _openPolicyPage(PolicyType type) async {
     var data = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CreatePolicyPage(policyType: type),
-        ));
+      context,
+      PageTransition(
+        child: BlocProvider(
+          create: (context) => getIt.get<PolicyBloc>(),
+          child: CreatePolicyPage(
+            policyType: type,
+            policyId: type == PolicyType.refund
+                ? _refundPolicyId
+                : _reschedulePolicyId,
+          ),
+        ),
+        type: PageTransitionType.rightToLeft,
+      ),
+    );
 
-    if (data is String && type == PolicyType.refund) {
-      _refundPolicyId = data;
-    } else if (data is String && type == PolicyType.reschedule) {
-      _reschedulePolicyId = data;
-    }
+    setState(() {
+      if (data is String && type == PolicyType.refund) {
+        _refundPolicyId = data;
+      } else if (data is String && type == PolicyType.reschedule) {
+        _reschedulePolicyId = data;
+      }
+    });
   }
 
   String? _genericValidator(String? value, String fieldName) {
-    if ((value?.length ?? 0) < 10) {
+    if ((value?.length ?? 0) < minLimitLength) {
       return S.current.lengthLimitError(fieldName);
     }
     return null;
@@ -262,9 +278,9 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
 
   TicketTypeEntity getData() {
     return TicketTypeEntity(
-      ticketTypeId: '',
+      ticketTypeId: widget.ticket?.ticketTypeId ?? '',
       ticketTypeName: _ticketName!,
-      tourId: '',
+      tourId: widget.ticket?.tourId ?? '',
       ticketPrice: _price,
       ticketDescription: _ticketDesc!,
       startDate: DateTime.now(),
@@ -273,8 +289,9 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
       quantity: _quantity,
       ticketInfo: _ticketInfo!,
       redemptionMethodDesc: _ticketRedemption!,
-      refundPolicyId: '',
-      reschedulePolicyId: '',
+      refundPolicyId: widget.ticket?.refundPolicyId ?? _refundPolicyId ?? '',
+      reschedulePolicyId:
+          widget.ticket?.reschedulePolicyId ?? _reschedulePolicyId ?? '',
       createdAt: DateTime.now(),
     );
   }
@@ -287,4 +304,6 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
 
     return false;
   }
+
+  void deletePolicy() {}
 }

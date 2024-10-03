@@ -21,7 +21,7 @@ class TourReviewsAndRating extends StatefulWidget {
 }
 
 class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
-  List<ReviewEntity> reviews = List.empty(growable: true);
+  List<ReviewEntity> reviews = [];
 
   @override
   void initState() {
