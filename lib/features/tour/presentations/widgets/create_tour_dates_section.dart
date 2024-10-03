@@ -5,12 +5,14 @@ import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/expanded_button.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
+import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../../ticket/presentations/pages/created_tickets_page.dart';
 import '../../../ticket/presentations/pages/save_ticket_page.dart';
 import 'date_section_button.dart';
@@ -42,6 +44,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   @override
   void initState() {
     super.initState();
+    context.read<TicketBloc>().add(GetAllTicketsByTourId(widget.tourId));
     maxLines = minLines + 1;
   }
 
@@ -68,11 +71,19 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
           title: S.current.createTicket,
         ),
         const SizedBox(height: 20),
-        _buildActionButton(
-          title: '${S.current.viewAll} ${S.current.tickets}',
-          backgroundColor: Colors.white,
-          textColor: primaryColor,
-          onPressed: tickets.isNotEmpty ? _viewAllCreatedTickets : null,
+        BlocBuilder<TicketBloc, TicketState>(
+          builder: (context, state) {
+            if (state is ListOfTicketGetSuccess) {
+              tickets = state.tickets;
+            }
+
+            return _buildActionButton(
+              title: '${S.current.viewAll} ${S.current.tickets}',
+              backgroundColor: Colors.white,
+              textColor: primaryColor,
+              onPressed: tickets.isNotEmpty ? _viewAllCreatedTickets : null,
+            );
+          },
         ),
       ],
     );
@@ -237,12 +248,14 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   void _navigateToCreateTicketPage() async {
     var data = await Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => SaveTicketPage(
-                tourId: widget.tourId,
-                dates: dates,
-                selectedDates: selectedDates,
-              )),
+      PageTransition(
+        child: SaveTicketPage(
+          tourId: widget.tourId,
+          dates: dates,
+          selectedDates: selectedDates,
+        ),
+        type: PageTransitionType.leftToRight,
+      ),
     );
 
     if (data is List<String>) {

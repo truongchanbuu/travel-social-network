@@ -1,11 +1,9 @@
-import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
 import '../../../shared/widgets/search_field.dart';
-import 'duration_dropdown.dart';
 
 class CreateTourDetails extends StatefulWidget {
   const CreateTourDetails({super.key});

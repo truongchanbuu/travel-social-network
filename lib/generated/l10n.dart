@@ -1916,6 +1916,16 @@ class S {
       args: [object],
     );
   }
+
+  /// `Is Allow`
+  String get isAllow {
+    return Intl.message(
+      'Is Allow',
+      name: 'isAllow',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

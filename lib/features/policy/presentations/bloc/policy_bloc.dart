@@ -17,7 +17,7 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
         final dataState = await _policyRepository.createPolicy(event.policy);
 
         if (dataState is DataFailure) {
-          emit(PolicyCreateFailure(dataState.error?.message ??
+          emit(PolicyFailure(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
         } else if (dataState is DataSuccess) {
           emit(PolicyCreateSuccess(dataState.data!));
@@ -25,17 +25,17 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
           emit(PolicyCreating());
         }
       } catch (e) {
-        emit(PolicyCreateFailure('Error: $e'));
+        emit(PolicyFailure('Error: $e'));
       }
     });
 
-    on<CreateListOfPolicyEvent>((event, emit) async {
+    on<CreateListOfPoliciesEvent>((event, emit) async {
       try {
         final dataState =
             await _policyRepository.createPolicies(event.policies);
 
         if (dataState is DataFailure) {
-          emit(PolicyCreateFailure(dataState.error?.message ??
+          emit(PolicyFailure(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
         } else if (dataState is DataSuccess) {
           emit(ListOfPolicyCreateSuccess(dataState.data!));
@@ -43,7 +43,7 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
           emit(PolicyCreating());
         }
       } catch (e) {
-        emit(PolicyCreateFailure('Error: $e'));
+        emit(PolicyFailure('Error: $e'));
       }
     });
 
@@ -52,7 +52,7 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
         final dataState = await _policyRepository.getPolicyById(event.id);
 
         if (dataState is DataFailure) {
-          emit(PolicyGetFailure(dataState.error?.message ??
+          emit(PolicyFailure(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
         } else if (dataState is DataSuccess) {
           emit(PolicyGetSuccess(dataState.data!));
@@ -60,8 +60,30 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
           emit(PolicyGetting());
         }
       } catch (e) {
-        emit(PolicyGetFailure('Error: $e'));
+        emit(PolicyFailure('Error: $e'));
       }
     });
+
+    on<UpdatePolicyEvent>(
+      (event, emit) async {
+        try {
+          print("UPDATE ${event.id}");
+          final dataState =
+              await _policyRepository.updatePolicyById(event.id, event.policy);
+
+          print(dataState.error);
+          if (dataState is DataFailure) {
+            emit(PolicyFailure(dataState.error?.message ??
+                'ERROR OCCURRED: ${dataState.error}'));
+          } else if (dataState is DataSuccess) {
+            emit(PolicyUpdateSuccess(dataState.data!));
+          } else {
+            emit(PolicyUpdating());
+          }
+        } catch (e) {
+          emit(PolicyFailure('Error: $e'));
+        }
+      },
+    );
   }
 }

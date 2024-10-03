@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
@@ -124,13 +125,14 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
 
   void _updateTicket(TicketTypeEntity ticket) => Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => SaveTicketPage(
+        PageTransition(
+          child: SaveTicketPage(
             ticket: ticket,
             tourId: ticket.tourId,
             dates: const [],
             selectedDates: const [],
           ),
+          type: PageTransitionType.leftToRight,
         ),
       );
 

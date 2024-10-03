@@ -184,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidForm": MessageLookupByLibrary.simpleMessage("Form chưa hợp lệ"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
+        "isAllow": MessageLookupByLibrary.simpleMessage("Cho phép"),
         "itinerary": MessageLookupByLibrary.simpleMessage("lịch trình"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "leave": MessageLookupByLibrary.simpleMessage("Rời đi"),

@@ -3,20 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/custom_text_field.dart';
 import '../../../policy/domain/entities/policy.dart';
-import '../../../policy/presentations/widgets/create_policy_bottom_sheet.dart';
+import '../../../shared/widgets/custom_text_field.dart';
 
 class CreatePolicySection extends StatefulWidget {
-  final PolicyEntity refundPolicy;
-  final PolicyEntity reschedulePolicy;
+  final PolicyEntity? refundPolicy;
+  final PolicyEntity? reschedulePolicy;
   final void Function(PolicyEntity refundPolicy, PolicyEntity reschedulePolicy)
       onSaved;
 
   const CreatePolicySection({
     super.key,
-    required this.refundPolicy,
-    required this.reschedulePolicy,
+    this.refundPolicy,
+    this.reschedulePolicy,
     required this.onSaved,
   });
 
@@ -31,8 +30,10 @@ class _CreatePolicySectionState extends State<CreatePolicySection> {
   @override
   void initState() {
     super.initState();
-    refundPolicy = widget.refundPolicy;
-    reschedulePolicy = widget.reschedulePolicy;
+    refundPolicy = widget.refundPolicy ??
+        PolicyEntity.nonRefundable(policyDescription: '');
+    reschedulePolicy = widget.reschedulePolicy ??
+        PolicyEntity.cannotReschedule(policyDescription: '');
   }
 
   @override
@@ -45,7 +46,7 @@ class _CreatePolicySectionState extends State<CreatePolicySection> {
               child: CustomTextField(
                 onTap: () => _createPolicy(PolicyType.refund),
                 label: S.current.refundPolicy,
-                hintTexts: [S.current.refundPolicy],
+                readOnly: true,
                 textEditingController:
                     TextEditingController(text: refundPolicy.policyName),
               ),
@@ -55,7 +56,7 @@ class _CreatePolicySectionState extends State<CreatePolicySection> {
               child: CustomTextField(
                 onTap: () => _createPolicy(PolicyType.reschedule),
                 label: S.current.reschedulePolicy,
-                hintTexts: [S.current.reschedulePolicy],
+                readOnly: true,
                 textEditingController:
                     TextEditingController(text: reschedulePolicy.policyName),
               ),

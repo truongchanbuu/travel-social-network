@@ -1,5 +1,5 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/resources/data_state.dart';
 import '../../data/models/ticket_type.dart';
@@ -17,33 +17,75 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         final dataState = await _ticketRepository.createTicket(event.ticket);
 
         if (dataState is DataFailure) {
-          emit(TicketSaveFailure(dataState.error?.message ??
+          emit(TicketFailure(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
         } else if (dataState is DataSuccess) {
           emit(TicketSaveSuccess(dataState.data!));
         } else {
-          emit(TicketSaving());
+          emit(TicketCreating());
         }
       } catch (e) {
-        emit(TicketSaveFailure('Error: $e'));
+        emit(TicketFailure('Error: $e'));
       }
     });
 
-    on<CreateListOfTicketEvent>((event, emit) async {
+    on<CreateListOfTicketsEvent>((event, emit) async {
       try {
         final dataState = await _ticketRepository.createTickets(event.tickets);
 
         if (dataState is DataFailure) {
-          emit(TicketSaveFailure(dataState.error?.message ??
+          emit(TicketFailure(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
         } else if (dataState is DataSuccess) {
           emit(ListOfTicketSaveSuccess(dataState.data!));
         } else {
-          emit(TicketSaving());
+          emit(TicketCreating());
         }
       } catch (e) {
-        emit(TicketSaveFailure('Error: $e'));
+        emit(TicketFailure('Error: $e'));
       }
     });
+
+    on<UpdateTicketEvent>(
+      (event, emit) async {
+        try {
+          print('UPDATE TIC');
+          final dataState =
+              await _ticketRepository.updateTicket(event.id, event.newTicket);
+
+          print(dataState);
+          if (dataState is DataFailure) {
+            emit(TicketFailure(dataState.error?.message ??
+                'ERROR OCCURRED: ${dataState.error}'));
+          } else if (dataState is DataSuccess) {
+            emit(TicketUpdateSuccess(dataState.data!));
+          } else {
+            emit(TicketUpdating());
+          }
+        } catch (e) {
+          emit(TicketFailure('Error: $e'));
+        }
+      },
+    );
+
+    on<GetAllTicketsByTourId>(
+      (event, emit) async {
+        try {
+          final dataState =
+              await _ticketRepository.getAllTicketsByTourId(event.tourId);
+
+          if (dataState is DataFailure) {
+            emit(TicketFailure(dataState.error?.message ??
+                'ERROR OCCURRED: ${dataState.error}'));
+          } else if (dataState is DataSuccess) {
+            emit(ListOfTicketGetSuccess(dataState.data!));
+          } else {
+            emit(ListOfTicketsGetting());
+          }
+        } catch (e) {
+          emit(TicketFailure('Error: $e'));
+        }
+      },
+    );
   }
 }

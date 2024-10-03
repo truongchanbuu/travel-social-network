@@ -51,6 +51,7 @@ class _LongTextFieldState extends State<LongTextField> {
       label: widget.title,
       readOnly: true,
       enable: true,
+      isAnimated: false,
       focusNode: _focusNode,
       textEditingController: _textEditingController,
       maxLines: 4,

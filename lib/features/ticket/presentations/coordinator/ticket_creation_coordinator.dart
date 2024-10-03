@@ -15,13 +15,13 @@ class TicketCreationCoordinator {
 
   Future<String> createPolicyAndTickets(
       List<Policy> policies, List<TicketType> tickets) async {
-    policyBloc.add(CreateListOfPolicyEvent(policies));
+    policyBloc.add(CreateListOfPoliciesEvent(policies));
 
     await for (var state in policyBloc.stream) {
-      if (state is PolicyCreateSuccess) {
-        ticketBloc.add(CreateListOfTicketEvent(tickets));
+      if (state is ListOfPolicyCreateSuccess) {
+        ticketBloc.add(CreateListOfTicketsEvent(tickets));
         break;
-      } else if (state is PolicyCreateFailure) {
+      } else if (state is PolicyFailure) {
         return S.current.saveError(
             '${S.current.refundPolicy} / ${S.current.reschedulePolicy}');
       }
@@ -30,7 +30,7 @@ class TicketCreationCoordinator {
     await for (var state in ticketBloc.stream) {
       if (state is ListOfTicketSaveSuccess) {
         return S.current.success;
-      } else if (state is TicketSaveFailure) {
+      } else if (state is TicketFailure) {
         return S.current.saveError(S.current.tickets);
       }
     }

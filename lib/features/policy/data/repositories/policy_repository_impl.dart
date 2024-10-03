@@ -64,4 +64,43 @@ class PolicyRepositoryImpl implements PolicyRepository {
       return defaultDataFailure(e.toString());
     }
   }
+
+  @override
+  Future<DataState<void>> deletePolicyById(String id) async {
+    try {
+      final docRef = policyCollection.doc(id);
+      final docSnap = await docRef.get();
+
+      if (!docSnap.exists) {
+        return defaultDataFailure('Not Found');
+      }
+
+      await docRef.delete();
+      return defaultDataFailure('Document is null');
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<Policy>> updatePolicyById(
+      String id, Policy newPolicy) async {
+    try {
+      final docRef = policyCollection.doc(id);
+      final docSnap = await docRef.get();
+
+      if (!docSnap.exists) {
+        return defaultDataFailure('Not Found');
+      }
+
+      await docRef.update(newPolicy.toJson());
+      return defaultDataFailure('Document is null');
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
 }

@@ -9,6 +9,11 @@ sealed class PolicyState extends Equatable {
 
 final class PolicyInitial extends PolicyState {}
 
+final class PolicyFailure extends PolicyState {
+  final String message;
+  const PolicyFailure(this.message);
+}
+
 final class PolicyCreating extends PolicyState {}
 
 final class PolicyCreateSuccess extends PolicyState {
@@ -21,11 +26,6 @@ final class ListOfPolicyCreateSuccess extends PolicyState {
   const ListOfPolicyCreateSuccess(this.policies);
 }
 
-final class PolicyCreateFailure extends PolicyState {
-  final String message;
-  const PolicyCreateFailure(this.message);
-}
-
 final class PolicyGetting extends PolicyState {}
 
 final class PolicyGetSuccess extends PolicyState {
@@ -33,7 +33,9 @@ final class PolicyGetSuccess extends PolicyState {
   const PolicyGetSuccess(this.policy);
 }
 
-final class PolicyGetFailure extends PolicyState {
-  final String message;
-  const PolicyGetFailure(this.message);
+final class PolicyUpdating extends PolicyState {}
+
+final class PolicyUpdateSuccess extends PolicyState {
+  final Policy policy;
+  const PolicyUpdateSuccess(this.policy);
 }

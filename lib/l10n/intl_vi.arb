@@ -341,5 +341,6 @@
               "type": "String"
           }
       }
-  }
+  },
+  "isAllow": "Cho phép"
 }

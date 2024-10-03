@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
           child: Scaffold(
             bottomNavigationBar: AppBottomNavigationBar(),
             body:
+                // CreatedTicketsPage(
+                //   tickets: [],
+                // )
                 // CreatedTicketsPage(tickets: tour1Tickets),
                 //     SaveTicketPage(tourId: '001', dates: const [
                 //   "14:13 30/09/2024 - 14:13 20/09/2026",

@@ -9,7 +9,12 @@ sealed class TicketState extends Equatable {
 
 final class TicketInitial extends TicketState {}
 
-final class TicketSaving extends TicketState {}
+final class TicketFailure extends TicketState {
+  final String message;
+  const TicketFailure(this.message);
+}
+
+final class TicketCreating extends TicketState {}
 
 final class ListOfTicketSaveSuccess extends TicketState {
   final List<TicketType> tickets;
@@ -21,7 +26,16 @@ final class TicketSaveSuccess extends TicketState {
   const TicketSaveSuccess(this.ticket);
 }
 
-final class TicketSaveFailure extends TicketState {
-  final String message;
-  const TicketSaveFailure(this.message);
+final class TicketUpdating extends TicketState {}
+
+final class TicketUpdateSuccess extends TicketState {
+  final TicketType ticket;
+  const TicketUpdateSuccess(this.ticket);
+}
+
+final class ListOfTicketsGetting extends TicketState {}
+
+final class ListOfTicketGetSuccess extends TicketState {
+  final List<TicketType> tickets;
+  const ListOfTicketGetSuccess(this.tickets);
 }

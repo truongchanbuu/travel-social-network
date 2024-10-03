@@ -14,6 +14,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final AutovalidateMode autovalidateMode;
   final Animationtype animationtype;
+  final bool isAnimated;
   final int? maxLines;
   final void Function()? onTap;
   final void Function(String value)? onChanged;
@@ -31,6 +32,7 @@ class CustomTextField extends StatefulWidget {
     required this.label,
     this.enable = true,
     this.readOnly = false,
+    this.isAnimated = true,
     this.hintTexts = const [],
     this.textInputAction = TextInputAction.next,
     this.keyboardType = TextInputType.text,
@@ -117,25 +119,28 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 animationType: widget.animationtype,
                 hintTextStyle: const TextStyle(overflow: TextOverflow.ellipsis),
                 inputFormatters: widget.inputFormatters,
-                hintTexts: widget.hintTexts,
+                hintTexts: widget.isAnimated ? widget.hintTexts : [],
                 enabled: widget.enable,
                 readOnly: widget.readOnly,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   errorMaxLines: 2,
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
                         BorderSide(width: 1, color: defaultFieldBorderColor),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  disabledBorder: OutlineInputBorder(
+                  disabledBorder: const OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,
                     borderSide:
                         BorderSide(width: 1, color: defaultFieldBorderColor),
                   ),
                   hintMaxLines: 1,
+                  hintText: !widget.isAnimated && widget.hintTexts.isNotEmpty
+                      ? widget.hintTexts[0]
+                      : null,
                 ),
                 textInputAction: widget.textInputAction,
                 keyboardType: widget.keyboardType,

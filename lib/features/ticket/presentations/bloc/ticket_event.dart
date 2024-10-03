@@ -12,7 +12,18 @@ final class CreateTicketEvent extends TicketEvent {
   const CreateTicketEvent(this.ticket);
 }
 
-final class CreateListOfTicketEvent extends TicketEvent {
+final class CreateListOfTicketsEvent extends TicketEvent {
   final List<TicketType> tickets;
-  const CreateListOfTicketEvent(this.tickets);
+  const CreateListOfTicketsEvent(this.tickets);
+}
+
+final class UpdateTicketEvent extends TicketEvent {
+  final String id;
+  final TicketType newTicket;
+  const UpdateTicketEvent({required this.id, required this.newTicket});
+}
+
+final class GetAllTicketsByTourId extends TicketEvent {
+  final String tourId;
+  const GetAllTicketsByTourId(this.tourId);
 }

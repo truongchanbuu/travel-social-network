@@ -12,12 +12,19 @@ final class CreatePolicyEvent extends PolicyEvent {
   const CreatePolicyEvent(this.policy);
 }
 
-final class CreateListOfPolicyEvent extends PolicyEvent {
+final class CreateListOfPoliciesEvent extends PolicyEvent {
   final List<Policy> policies;
-  const CreateListOfPolicyEvent(this.policies);
+  const CreateListOfPoliciesEvent(this.policies);
 }
 
 final class GetPolicyById extends PolicyEvent {
   final String id;
   const GetPolicyById(this.id);
+}
+
+final class UpdatePolicyEvent extends PolicyEvent {
+  final String id;
+  final Policy policy;
+
+  const UpdatePolicyEvent({required this.id, required this.policy});
 }

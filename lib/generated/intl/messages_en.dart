@@ -188,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidForm": MessageLookupByLibrary.simpleMessage("Invalid Form"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
+        "isAllow": MessageLookupByLibrary.simpleMessage("Is Allow"),
         "itinerary": MessageLookupByLibrary.simpleMessage("Itinerary"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
