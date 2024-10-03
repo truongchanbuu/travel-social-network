@@ -85,14 +85,14 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
           child: Column(
             children: [
               CustomTextField(
-                label: S.current._ticketName,
+                label: S.current.ticketName,
                 textEditingController: TextEditingController(text: _ticketName),
                 isAnimated: false,
-                hintTexts: [S.current._ticketName],
+                hintTexts: [S.current.ticketName],
                 onSaved: (value) => _ticketName = value,
                 onChanged: (value) => _ticketName = value,
                 validator: (value) =>
-                    _genericValidator(value, S.current._ticketName),
+                    _genericValidator(value, S.current.ticketName),
               ),
               spacing,
               _buildInfoGroup(),
@@ -305,5 +305,13 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
     return false;
   }
 
-  void deletePolicy() {}
+  void deletePolicy() {
+    if (_refundPolicyId != null) {
+      context.read<PolicyBloc>().add(DeletePolicyEvent(_refundPolicyId!));
+    }
+
+    if (_reschedulePolicyId != null) {
+      context.read<PolicyBloc>().add(DeletePolicyEvent(_reschedulePolicyId!));
+    }
+  }
 }

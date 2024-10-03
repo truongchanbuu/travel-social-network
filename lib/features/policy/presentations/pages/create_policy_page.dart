@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
-import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/confirm_dialog.dart';
-import '../../../shared/widgets/custom_text_field.dart';
-import '../../../shared/widgets/long_text_field.dart';
 import '../../data/models/policy.dart';
 import '../../domain/entities/policy.dart';
 import '../bloc/policy_bloc.dart';
@@ -29,61 +23,50 @@ class CreatePolicyPage extends StatefulWidget {
 
 class _CreatePolicyPageState extends State<CreatePolicyPage> {
   late final GlobalKey<FormState> _formKey;
-  List<DropdownMenuItem<String>> dropdownItems = [];
-  Map<String, bool> policyLabels = {
-    S.current.easyToRefund: true,
-    S.current.easyToReschedule: true,
-    S.current.cannotBeRescheduled: false,
-    S.current.nonRefundable: false,
-  };
-
-  PolicyEntity? _policy;
-  late bool _isAllowed;
-  String? _policyName;
-  String? _policyDesc;
-  late PolicyType selectedType;
+  late Map<String, bool> policyLabels;
 
   @override
   void initState() {
     super.initState();
+    _formKey = GlobalKey();
     if (widget.policyId != null) {
       context.read<PolicyBloc>().add(GetPolicyById(widget.policyId!));
+    } else {
+      context.read<PolicyBloc>().add(InitializeNewPolicy(widget.policyType));
     }
 
-    selectedType = widget.policyType;
+    policyLabels = {
+      S.current.easyToRefund: true,
+      S.current.easyToReschedule: true,
+      S.current.cannotBeRescheduled: false,
+      S.current.nonRefundable: false,
+    };
     policyLabels = {
       for (var entry in policyLabels.entries.where(
-        (entry) => entry.key.contains(
-          selectedType == PolicyType.refund
-              ? S.current.refund
-              : S.current.reschedule,
+            (entry) => entry.key.toLowerCase().contains(
+          widget.policyType == PolicyType.refund
+              ? S.current.refund.toLowerCase()
+              : S.current.reschedule.toLowerCase(),
         ),
       ))
         entry.key: entry.value
     };
-
-    _policyName = policyLabels.keys.first;
-    _isAllowed = policyLabels[_policyName]!;
-
-    _formKey = GlobalKey();
-    dropdownItems = policyLabels.entries
-        .map((data) => DropdownMenuItem(
-              value: data.key,
-              child: Text(data.key),
-            ))
-        .toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PolicyBloc, PolicyState>(
+      listener: (context, state) {
+        if (state is PolicyCreateSuccess) {
+          showToast(S.current.success, context: context);
+          Navigator.pop(context, state.policy.policyId);
+        } else if (state is PolicyFailure) {
+          showToast(state.message, context: context);
+        }
+      },
       builder: (context, state) {
-        if (state is PolicyGetSuccess) {
-          _policy = state.policy.toEntity();
-          selectedType = _policy!.policyType;
-          _policyName = _policy!.policyName;
-          _policyDesc = _policy!.policyDescription;
-          _isAllowed = _policy!.isAllowed;
+        if (state is PolicyLoading) {
+          return const AppProgressingIndicator();
         }
 
         return SafeArea(
@@ -93,30 +76,28 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
               backgroundColor: Colors.white,
               iconTheme: const IconThemeData(color: Colors.black),
               title: Text(
-                selectedType == PolicyType.refund
+                widget.policyType == PolicyType.refund
                     ? S.current.refundPolicy
                     : S.current.reschedulePolicy,
               ),
             ),
-            body: _buildBody(),
+            body: _buildBody(state),
           ),
         );
-      },
-      listener: (context, state) {
-        if (state is PolicyCreateSuccess) {
-          showToast(S.current.success, context: context);
-          Navigator.pop(context, state.policy.policyId);
-        } else if (state is PolicyFailure) {
-          showToast(state.message, context: context);
-        }
       },
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(PolicyState state) {
+    if (state is! PolicyLoaded) {
+      return const SizedBox.shrink(); // or some placeholder widget
+    }
+
+    final policy = state.policy;
+
     return Padding(
       padding:
-          const EdgeInsets.symmetric(vertical: defaultPadding, horizontal: 20),
+      const EdgeInsets.symmetric(vertical: defaultPadding, horizontal: 20),
       child: Form(
         key: _formKey,
         child: Column(
@@ -125,43 +106,55 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
             CustomTextField(
               validator: _policyNameValidator,
               label: S.current.policyName,
-              replaceField: _buildDropdownButton(),
+              replaceField: _buildDropdownButton(policy),
             ),
             const SizedBox(height: 10),
             LongTextField(
               title: S.current.policyDesc,
-              content: _policyDesc,
-              onSaved: (value) => _policyDesc = value,
+              content: policy.policyDescription,
+              onSaved: (value) => context
+                  .read<PolicyBloc>()
+                  .add(UpdatePolicyDescription(value)),
               validator: _policyDescValidator,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-                onPressed: () => _acceptPolicy(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: defaultFieldBorderRadius),
-                  minimumSize: const Size.fromHeight(55),
-                ),
-                child: Text(
-                  S.current.accept,
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ))
+              onPressed: () => _acceptPolicy(context, policy),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: defaultFieldBorderRadius),
+                minimumSize: const Size.fromHeight(55),
+              ),
+              child: Text(
+                S.current.accept,
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            )
           ],
         ),
       ),
     );
   }
 
-  DropdownButtonFormField _buildDropdownButton() {
+  DropdownButtonFormField _buildDropdownButton(PolicyEntity policy) {
     return DropdownButtonFormField<String>(
       decoration: const InputDecoration(border: OutlineInputBorder()),
-      items: dropdownItems,
-      value: _policyName,
+      items: policyLabels.entries
+          .map((data) => DropdownMenuItem(
+        value: data.key,
+        child: Text(data.key),
+      ))
+          .toList(),
+      value: policy.policyName,
       onChanged: (value) {
-        _policyName = value;
-        _isAllowed = policyLabels[_policyName] ?? _isAllowed;
+        if (value != null) {
+          context.read<PolicyBloc>().add(UpdatePolicyName(value));
+          context
+              .read<PolicyBloc>()
+              .add(UpdatePolicyAllowed(policyLabels[value] ?? false));
+        }
       },
     );
   }
@@ -170,7 +163,6 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
     if ((name?.length ?? 0) < minLimitLength) {
       return S.current.lengthLimitError(S.current.policyName);
     }
-
     return null;
   }
 
@@ -178,26 +170,15 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
     if ((desc?.length ?? 0) < minLimitLength) {
       return S.current.lengthLimitError(S.current.policyDesc);
     }
-
     return null;
   }
 
-  void _acceptPolicy(BuildContext context) {
+  void _acceptPolicy(BuildContext context, PolicyEntity policy) {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
-      context.read<PolicyBloc>().add(
-            CreatePolicyEvent(
-              Policy.fromEntity(
-                PolicyEntity(
-                  policyId: 'POLICY-${const Uuid().v4()}',
-                  policyName: _policyName!,
-                  policyDescription: _policyDesc!,
-                  isAllowed: _isAllowed,
-                  policyType: widget.policyType,
-                ),
-              ),
-            ),
-          );
+      context
+          .read<PolicyBloc>()
+          .add(CreatePolicyEvent(Policy.fromEntity(policy)));
     }
   }
 
