@@ -131,17 +131,17 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
         context,
         PageTransition(
           child: MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (context) => getIt.get<TicketBloc>()),
-                BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
-              ],
-              child: SaveTicketPage(
-                ticket: ticket,
-                tourId: ticket.tourId,
-                dates: const [],
-                selectedDates: const [],
-              ),
+            providers: [
+              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+              BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+            ],
+            child: SaveTicketPage(
+              ticket: ticket,
+              tourId: ticket.tourId,
+              dates: const [],
+              selectedDates: const [],
             ),
+          ),
           type: PageTransitionType.leftToRight,
         ),
       );

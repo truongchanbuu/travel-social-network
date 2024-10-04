@@ -7,4 +7,9 @@ abstract class TicketRepository {
   Future<DataState<TicketType>> updateTicket(String id, TicketType newTicket);
   Future<DataState<void>> deleteTicketById(String id);
   Future<DataState<List<TicketType>>> getAllTicketsByTourId(String tourId);
+  Future<DataState<TicketType>> getTourTicketWithNameAndCategory({
+    required String tourId,
+    required String name,
+    required String category,
+  });
 }

@@ -46,7 +46,7 @@ class PolicyRepositoryImpl implements PolicyRepository {
       final docSnap = await docRef.get();
 
       if (!docSnap.exists) {
-        return defaultDataFailure('Not Found');
+        return defaultDataFailure('Not found');
       }
 
       Map<String, dynamic>? policyData =
@@ -72,7 +72,7 @@ class PolicyRepositoryImpl implements PolicyRepository {
       final docSnap = await docRef.get();
 
       if (!docSnap.exists) {
-        return defaultDataFailure('Not Found');
+        return defaultDataFailure('Not found');
       }
 
       await docRef.delete();
@@ -92,7 +92,7 @@ class PolicyRepositoryImpl implements PolicyRepository {
       final docSnap = await docRef.get();
 
       if (!docSnap.exists) {
-        return defaultDataFailure('Not Found');
+        return defaultDataFailure('Not found');
       }
 
       await docRef.update(newPolicy.toJson());

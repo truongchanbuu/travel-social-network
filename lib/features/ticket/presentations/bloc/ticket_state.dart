@@ -9,6 +9,8 @@ sealed class TicketState extends Equatable {
 
 final class TicketInitial extends TicketState {}
 
+final class TicketActionLoading extends TicketState {}
+
 final class TicketFailure extends TicketState {
   final String message;
   const TicketFailure(this.message);
@@ -17,40 +19,44 @@ final class TicketFailure extends TicketState {
   List<Object> get props => [message];
 }
 
-final class TicketCreating extends TicketState {}
-
-final class ListOfTicketSaveSuccess extends TicketState {
-  final List<TicketType> tickets;
-  const ListOfTicketSaveSuccess(this.tickets);
-
-  @override
-  List<Object> get props => [tickets];
-}
-
-final class TicketSaveSuccess extends TicketState {
+final class TicketLoaded extends TicketState {
   final TicketType ticket;
-  const TicketSaveSuccess(this.ticket);
+  const TicketLoaded(this.ticket);
 
   @override
   List<Object> get props => [ticket];
 }
 
-final class TicketUpdating extends TicketState {}
+final class ListOfTicketsLoaded extends TicketState {
+  final List<TicketType> tickets;
+  const ListOfTicketsLoaded(this.tickets);
 
-final class TicketUpdateSuccess extends TicketState {
-  final TicketType ticket;
-  const TicketUpdateSuccess(this.ticket);
+  @override
+  List<Object> get props => [tickets];
+}
+
+final class TicketActionSuccess extends TicketState {
+  final TicketTypeEntity ticket;
+  const TicketActionSuccess(this.ticket);
 
   @override
   List<Object> get props => [ticket];
 }
 
-final class ListOfTicketsGetting extends TicketState {}
-
-final class ListOfTicketGetSuccess extends TicketState {
+final class ListOfTicketsSuccess extends TicketState {
   final List<TicketType> tickets;
-  const ListOfTicketGetSuccess(this.tickets);
+  const ListOfTicketsSuccess(this.tickets);
 
   @override
   List<Object> get props => [tickets];
 }
+
+final class TicketDuplicated extends TicketState {
+  final TicketTypeEntity ticket;
+  const TicketDuplicated(this.ticket);
+
+  @override
+  List<Object> get props => [ticket];
+}
+
+final class TicketUnDuplicated extends TicketState {}

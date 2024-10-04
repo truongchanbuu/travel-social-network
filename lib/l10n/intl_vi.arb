@@ -324,18 +324,8 @@
   },
   "notAllowedToEmpty": "Không được phép để trống",
   "invalidForm": "Form chưa hợp lệ",
-  "duplicateTicketAlert": "Vé {name} - {category} hiện đã tồn tại",
-  "@duplicateTicketAlert": {
-      "placeholders": {
-          "name": {
-              "type": "String"
-          },
-          "category": {
-              "type": "String"
-          }
-      }
-  },
-  "duplicateTicketMessage": "Bạn có muốn bỏ qua vé này không? Bạn có thể cập nhật nó sau",
+  "duplicateTicketAlert": "Trùng lặp vé",
+  "duplicateTicketMessage": "Đã có vé trùng lặp trong dữ liệu của bạn",
   "duplicateLocation": "Địa điểm đã bị trùng",
   "ticketList": "Danh sách các vé",
   "saveError": "Không thể lưu {object}! Hãy thử lại sau",

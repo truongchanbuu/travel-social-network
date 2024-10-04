@@ -75,7 +75,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
         const SizedBox(height: 20),
         BlocBuilder<TicketBloc, TicketState>(
           builder: (context, state) {
-            if (state is ListOfTicketGetSuccess) {
+            if (state is ListOfTicketsLoaded) {
               tickets = state.tickets;
             }
 

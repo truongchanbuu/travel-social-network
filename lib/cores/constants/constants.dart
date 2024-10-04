@@ -98,3 +98,5 @@ final FirebaseFirestore firestore = getIt.get<FirebaseFirestore>();
 
 // Format
 const String defaultDateFormat = 'HH:mm dd/MM/yyyy';
+const num $1BMaxCurrency = 1000000000;
+const num $0Currency = 0;

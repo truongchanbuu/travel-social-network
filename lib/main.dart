@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       home: SafeArea(
         child: Scaffold(
-          bottomNavigationBar: AppBottomNavigationBar(),
+          bottomNavigationBar: const AppBottomNavigationBar(),
           body:
               // CreatedTicketsPage(
               //   tickets: [],

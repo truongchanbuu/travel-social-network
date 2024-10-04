@@ -2,25 +2,33 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/enums/ticket_category.dart';
-import '../../../../cores/utils/enum_utils.dart';
 import '../../../../cores/utils/formatters/number_input_formatter.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../policy/presentations/pages/create_policy_page.dart';
+import '../../../shared/widgets/app_progressing_indicator.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/long_text_field.dart';
 import '../../domain/entities/ticket_type.dart';
+import '../bloc/ticket_bloc.dart';
 
 class CreateTicketSection extends StatefulWidget {
+  final String tourId;
   final TicketTypeEntity? ticket;
-  const CreateTicketSection({super.key, this.ticket});
+
+  const CreateTicketSection({
+    super.key,
+    required this.tourId,
+    this.ticket,
+  });
 
   @override
   State<CreateTicketSection> createState() => CreateTicketSectionState();
@@ -28,27 +36,26 @@ class CreateTicketSection extends StatefulWidget {
 
 class CreateTicketSectionState extends State<CreateTicketSection> {
   late final GlobalKey<FormState> _formKey;
-
-  List<DropdownMenuItem> items = [];
-
-  String? _ticketName;
-  String? _ticketDesc;
-  String? _ticketInfo;
-  String? _ticketRedemption;
-  String? _ticketCategory;
-  String? _refundPolicyId;
-  String? _reschedulePolicyId;
-  int _quantity = 0;
-  num _price = 0;
+  late final TextEditingController _nameController;
+  late final TextEditingController _priceController;
+  late final TextEditingController _quantityController;
+  final CurrencyTextInputFormatter currencyFormatter =
+      CurrencyTextInputFormatter.currency(
+          maxValue: $1BMaxCurrency, minValue: $0Currency);
+  List<DropdownMenuItem<TicketCategory>> items = [];
+  late TicketTypeEntity ticket;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey();
+    _nameController = TextEditingController();
+    _priceController = TextEditingController();
+    _quantityController = TextEditingController();
     items = TicketCategory.values
         .map(
           (category) => DropdownMenuItem(
-            value: category.name,
+            value: category,
             child: Text(
               category.name.replaceAll('_', ' ').toUpperCase(),
               style: const TextStyle(
@@ -61,22 +68,56 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
         )
         .toList();
 
-    _ticketName = widget.ticket?.ticketTypeName;
-    _ticketDesc = widget.ticket?.ticketDescription;
-    _ticketInfo = widget.ticket?.ticketInfo;
-    _ticketRedemption = widget.ticket?.redemptionMethodDesc;
-    _ticketCategory =
-        widget.ticket?.category.name ?? TicketCategory.standard.name;
-    _quantity = widget.ticket?.quantity ?? _quantity;
-    _price = widget.ticket?.ticketPrice ?? _price;
-    _refundPolicyId = widget.ticket?.refundPolicyId;
-    _reschedulePolicyId = widget.ticket?.reschedulePolicyId;
+    if (widget.ticket != null) {
+      ticket = widget.ticket!;
+      _initializeControllers();
+    } else {
+      context.read<TicketBloc>().add(InitialNewTicketEvent(widget.tourId));
+    }
+  }
+
+  void _initializeControllers() {
+    _nameController.text = ticket.ticketTypeName;
+    _priceController.text =
+        currencyFormatter.formatString(ticket.ticketPrice.toString());
+    _quantityController.text = ticket.quantity.toString();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+    _priceController.dispose();
+    _quantityController.dispose();
   }
 
   static const SizedBox spacing = SizedBox(height: 10);
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<TicketBloc, TicketState>(
+      listener: (context, state) {
+        if (state is TicketFailure) {
+          showToast(state.message, context: context);
+        }
+      },
+      builder: (context, state) {
+        if (state is TicketActionLoading) {
+          return const AppProgressingIndicator();
+        }
+
+        return _buildBody(state);
+      },
+    );
+  }
+
+  Widget _buildBody(TicketState state) {
+    if (widget.ticket == null && state is! TicketLoaded) {
+      return AppProgressingIndicator(text: S.current.loading);
+    } else if (state is TicketLoaded) {
+      ticket = state.ticket.toEntity();
+    }
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(defaultPadding),
@@ -86,45 +127,52 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
             children: [
               CustomTextField(
                 label: S.current.ticketName,
-                textEditingController: TextEditingController(text: _ticketName),
+                textEditingController: _nameController,
                 isAnimated: false,
                 hintTexts: [S.current.ticketName],
-                onSaved: (value) => _ticketName = value,
-                onChanged: (value) => _ticketName = value,
+                onSaved: (value) => context
+                    .read<TicketBloc>()
+                    .add(UpdateTicketFieldEvent('ticketTypeName', value)),
                 validator: (value) =>
                     _genericValidator(value, S.current.ticketName),
               ),
               spacing,
-              _buildInfoGroup(),
+              _buildInfoGroup(ticket),
               spacing,
               CustomTextField(
                 label: S.current.ticketCategory,
                 isAnimated: false,
-                replaceField: _buildTicketCategory(),
+                replaceField: _buildTicketCategory(ticket),
               ),
               spacing,
               LongTextField(
                 validator: (value) =>
                     _genericValidator(value, S.current.ticketDesc),
                 title: S.current.ticketDesc,
-                content: _ticketDesc,
-                onSaved: (value) => _ticketDesc = value,
+                content: ticket.ticketDescription,
+                onSaved: (value) => context
+                    .read<TicketBloc>()
+                    .add(UpdateTicketFieldEvent('ticketDescription', value)),
               ),
               spacing,
               LongTextField(
                 validator: (value) =>
                     _genericValidator(value, S.current.ticketInfo),
                 title: S.current.ticketInfo,
-                content: _ticketInfo,
-                onSaved: (value) => _ticketInfo = value,
+                content: ticket.ticketInfo,
+                onSaved: (value) => context
+                    .read<TicketBloc>()
+                    .add(UpdateTicketFieldEvent('ticketInfo', value)),
               ),
               spacing,
               LongTextField(
                 validator: (value) =>
                     _genericValidator(value, S.current.ticketRedemption),
                 title: S.current.ticketRedemption,
-                content: _ticketRedemption,
-                onSaved: (value) => _ticketRedemption = value,
+                content: ticket.redemptionMethodDesc,
+                onSaved: (value) => context
+                    .read<TicketBloc>()
+                    .add(UpdateTicketFieldEvent('redemptionMethodDesc', value)),
               ),
               spacing,
               Row(
@@ -133,9 +181,14 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                     child: CustomTextField(
                       label: S.current.refundPolicy,
                       readOnly: true,
-                      hintTexts: [_refundPolicyId ?? S.current.refundPolicy],
+                      hintTexts: [
+                        ticket.refundPolicyId.isEmpty
+                            ? S.current.refundPolicy
+                            : ticket.refundPolicyId
+                      ],
                       isAnimated: false,
-                      onTap: () => _openPolicyPage(PolicyType.refund),
+                      onTap: () => _openPolicyPage(
+                          PolicyType.refund, ticket.refundPolicyId),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -144,10 +197,13 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                       label: S.current.reschedulePolicy,
                       readOnly: true,
                       hintTexts: [
-                        _reschedulePolicyId ?? S.current.reschedulePolicy
+                        ticket.reschedulePolicyId.isEmpty
+                            ? S.current.reschedule
+                            : ticket.reschedulePolicyId
                       ],
                       isAnimated: false,
-                      onTap: () => _openPolicyPage(PolicyType.reschedule),
+                      onTap: () => _openPolicyPage(
+                          PolicyType.reschedule, ticket.reschedulePolicyId),
                     ),
                   ),
                 ],
@@ -159,9 +215,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
     );
   }
 
-  Widget _buildInfoGroup() {
-    final CurrencyTextInputFormatter formatter =
-        CurrencyTextInputFormatter.currency(maxValue: 1000000000, minValue: 0);
+  Widget _buildInfoGroup(TicketTypeEntity ticket) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -169,16 +223,19 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
           flex: 2,
           child: CustomTextField(
             validator: _priceValidator,
-            onSaved: (value) => _price = cleanNumberInput(value),
-            onChanged: (value) => _price = cleanNumberInput(value),
+            onSaved: (value) => context.read<TicketBloc>().add(
+                UpdateTicketFieldEvent('ticketPrice', cleanNumberInput(value))),
             label: S.current.price,
+            isAnimated: false,
+            hintTexts: [
+              currencyFormatter.formatString(ticket.ticketPrice.toString())
+            ],
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
-              formatter
+              currencyFormatter
             ],
             keyboardType: TextInputType.number,
-            textEditingController: TextEditingController(
-                text: formatter.formatString(_price.toString())),
+            textEditingController: _priceController,
           ),
         ),
         const SizedBox(width: defaultPadding),
@@ -186,58 +243,59 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
           child: CustomTextField(
             validator: _ticketQuantityValidator,
             label: S.current.quantity,
+            isAnimated: false,
+            hintTexts: [ticket.quantity.toString()],
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               NumberInputFormatter(numberFormat: NumberFormat.decimalPattern()),
               LengthLimitingTextInputFormatter(9),
             ],
             keyboardType: TextInputType.number,
-            onSaved: (value) => _quantity = cleanNumberInput(value).toInt(),
-            onChanged: (value) => _quantity = cleanNumberInput(value).toInt(),
-            textEditingController: TextEditingController(text: '$_quantity'),
+            onSaved: (value) => context.read<TicketBloc>().add(
+                UpdateTicketFieldEvent(
+                    'quantity', cleanNumberInput(value).toInt())),
+            textEditingController: _quantityController,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildTicketCategory() {
-    return DropdownButtonFormField(
+  Widget _buildTicketCategory(TicketTypeEntity ticket) {
+    return DropdownButtonFormField<TicketCategory>(
       items: items,
-      value: _ticketCategory,
+      value: ticket.category,
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderRadius: defaultFieldBorderRadius,
             borderSide: BorderSide(color: defaultFieldBorderColor, width: 1)),
       ),
-      onChanged: (value) => _ticketCategory = value,
+      onChanged: (value) => context
+          .read<TicketBloc>()
+          .add(UpdateTicketFieldEvent('category', value ?? ticket.category)),
     );
   }
 
-  void _openPolicyPage(PolicyType type) async {
+  void _openPolicyPage(PolicyType type, String policyId) async {
+    final TicketBloc ticketBloc = context.read<TicketBloc>();
+
     var data = await Navigator.push(
       context,
       PageTransition(
         child: BlocProvider(
           create: (context) => getIt.get<PolicyBloc>(),
-          child: CreatePolicyPage(
-            policyType: type,
-            policyId: type == PolicyType.refund
-                ? _refundPolicyId
-                : _reschedulePolicyId,
-          ),
+          child: CreatePolicyPage(policyType: type, policyId: policyId),
         ),
+        duration: const Duration(milliseconds: 500),
         type: PageTransitionType.rightToLeft,
       ),
     );
 
-    setState(() {
-      if (data is String && type == PolicyType.refund) {
-        _refundPolicyId = data;
-      } else if (data is String && type == PolicyType.reschedule) {
-        _reschedulePolicyId = data;
-      }
-    });
+    if (data is String && type == PolicyType.refund) {
+      ticketBloc.add(UpdateTicketFieldEvent('refundPolicyId', data));
+    } else if (data is String && type == PolicyType.reschedule) {
+      ticketBloc.add(UpdateTicketFieldEvent('reschedulePolicyId', data));
+    }
   }
 
   String? _genericValidator(String? value, String fieldName) {
@@ -253,7 +311,6 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
     }
 
     int quantityNum = cleanNumberInput(quantity).toInt();
-
     if (quantityNum == 0) {
       return S.current.notAllowedEmpty;
     }
@@ -278,20 +335,19 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
 
   TicketTypeEntity getData() {
     return TicketTypeEntity(
-      ticketTypeId: widget.ticket?.ticketTypeId ?? '',
-      ticketTypeName: _ticketName!,
-      tourId: widget.ticket?.tourId ?? '',
-      ticketPrice: _price,
-      ticketDescription: _ticketDesc!,
+      ticketTypeId: ticket.ticketTypeId,
+      ticketTypeName: _nameController.text,
+      tourId: ticket.tourId,
+      ticketPrice: cleanNumberInput(_priceController.text),
+      ticketDescription: ticket.ticketDescription,
       startDate: DateTime.now(),
       endDate: DateTime.now(),
-      category: stringToEnum(_ticketCategory!, TicketCategory.values),
-      quantity: _quantity,
-      ticketInfo: _ticketInfo!,
-      redemptionMethodDesc: _ticketRedemption!,
-      refundPolicyId: widget.ticket?.refundPolicyId ?? _refundPolicyId ?? '',
-      reschedulePolicyId:
-          widget.ticket?.reschedulePolicyId ?? _reschedulePolicyId ?? '',
+      category: ticket.category,
+      quantity: cleanNumberInput(_quantityController.text).toInt(),
+      ticketInfo: ticket.ticketInfo,
+      redemptionMethodDesc: ticket.redemptionMethodDesc,
+      refundPolicyId: ticket.refundPolicyId,
+      reschedulePolicyId: ticket.reschedulePolicyId,
       createdAt: DateTime.now(),
     );
   }
@@ -306,12 +362,14 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
   }
 
   void deletePolicy() {
-    if (_refundPolicyId != null) {
-      context.read<PolicyBloc>().add(DeletePolicyEvent(_refundPolicyId!));
+    if (ticket.refundPolicyId.isNotEmpty) {
+      context.read<PolicyBloc>().add(DeletePolicyEvent(ticket.refundPolicyId));
     }
 
-    if (_reschedulePolicyId != null) {
-      context.read<PolicyBloc>().add(DeletePolicyEvent(_reschedulePolicyId!));
+    if (ticket.reschedulePolicyId.isNotEmpty) {
+      context
+          .read<PolicyBloc>()
+          .add(DeletePolicyEvent(ticket.reschedulePolicyId));
     }
   }
 }

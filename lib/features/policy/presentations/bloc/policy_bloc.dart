@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../cores/enums/policy_type.dart';
+import '../../../../cores/resources/data_state.dart';
 import '../../data/models/policy.dart';
 import '../../domain/repositories/policy_repository.dart';
 part 'policy_event.dart';
@@ -10,13 +12,14 @@ part 'policy_state.dart';
 class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
   final PolicyRepository policyRepository;
 
-  PolicyBloc({required this.policyRepository}) : super(PolicyInitial()) {
+  PolicyBloc(this.policyRepository) : super(PolicyInitial()) {
     on<InitializeNewPolicy>(_onInitializeNewPolicy);
     on<GetPolicyById>(_onGetPolicyById);
     on<UpdatePolicyName>(_onUpdatePolicyName);
     on<UpdatePolicyDescription>(_onUpdatePolicyDescription);
     on<UpdatePolicyAllowed>(_onUpdatePolicyAllowed);
     on<CreatePolicyEvent>(_onCreatePolicy);
+    on<DeletePolicyEvent>(_onDeletePolicy);
   }
 
   void _onInitializeNewPolicy(
@@ -25,7 +28,7 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
       policyId: 'POLICY-${const Uuid().v4()}',
       policyName: '',
       policyDescription: '',
-      isAllowed: true,
+      isAllowed: false,
       policyType: event.policyType,
     );
     emit(PolicyLoaded(newPolicy));
@@ -33,10 +36,18 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
 
   Future<void> _onGetPolicyById(
       GetPolicyById event, Emitter<PolicyState> emit) async {
-    emit(PolicyLoading());
+    emit(PolicyActionLoading());
     try {
-      final policy = await policyRepository.getPolicyById(event.policyId);
-      emit(PolicyLoaded(policy));
+      final dataState = await policyRepository.getPolicyById(event.policyId);
+
+      if (dataState is DataFailure) {
+        emit(PolicyFailure(
+            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+      } else if (dataState is DataSuccess) {
+        emit(PolicyLoaded(dataState.data!));
+      } else {
+        emit(PolicyActionLoading());
+      }
     } catch (e) {
       emit(PolicyFailure(e.toString()));
     }
@@ -71,10 +82,37 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
 
   Future<void> _onCreatePolicy(
       CreatePolicyEvent event, Emitter<PolicyState> emit) async {
-    emit(PolicyLoading());
+    emit(PolicyActionLoading());
     try {
-      final createdPolicy = await policyRepository.createPolicy(event.policy);
-      emit(PolicyCreateSuccess(createdPolicy));
+      final dataState = await policyRepository.createPolicy(event.policy);
+
+      if (dataState is DataFailure) {
+        emit(PolicyFailure(
+            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+      } else if (dataState is DataSuccess) {
+        emit(PolicyActionSuccess(dataState.data!));
+      } else {
+        emit(PolicyActionLoading());
+      }
+    } catch (e) {
+      emit(PolicyFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onDeletePolicy(
+      DeletePolicyEvent event, Emitter<PolicyState> emit) async {
+    emit(PolicyActionLoading());
+    try {
+      final dataState = await policyRepository.deletePolicyById(event.policyId);
+
+      if (dataState is DataFailure) {
+        emit(PolicyFailure(
+            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+      } else if (dataState is DataSuccess) {
+        emit(PolicyDeleted());
+      } else {
+        emit(PolicyActionLoading());
+      }
     } catch (e) {
       emit(PolicyFailure(e.toString()));
     }

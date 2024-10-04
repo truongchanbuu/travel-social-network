@@ -318,18 +318,8 @@
     },
     "notAllowedEmpty": "Not allowed to be empty",
     "invalidForm": "Invalid Form",
-    "duplicateTicketAlert": "The ticket {name} - {category} is existed already",
-    "@duplicateTicketAlert": {
-        "placeholders": {
-            "name": {
-                "type": "String"
-            },
-            "category": {
-                "type": "String"
-            }
-        }
-    },
-    "duplicateTicketMessage": "Are you want to skip this ticket? You can modify it later",
+    "duplicateTicketAlert": "Duplicate Ticket",
+    "duplicateTicketMessage": "There are duplicated ticket(s)",
     "duplicateLocation": "The location cannot be same",
     "ticketList": "Ticket List",
     "saveError": "Cannot save the {object}! Please try again later",

@@ -10,7 +10,7 @@ List<ReviewEntity> sampleReviews = [
     rating: 5.0,
     createdAt: DateTime.now().subtract(const Duration(seconds: 3)),
     updatedAt: null,
-    images: [
+    images: const [
       "https://th.bing.com/th/id/R.dd21d63169902d40baec0b8766fe0b48?rik=FtLIp5D3lCmg3Q&pid=ImgRaw&r=0",
       "image2.jpg",
       "image3.jpg"

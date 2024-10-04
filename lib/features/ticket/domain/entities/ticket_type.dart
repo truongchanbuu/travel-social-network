@@ -41,7 +41,7 @@ class TicketTypeEntity extends Equatable {
   });
 
   TicketTypeEntity.defaultWithId({
-    this.tourId = '',
+    required this.tourId,
     this.ticketTypeName = '',
     DateTime? startDate,
     DateTime? endDate,

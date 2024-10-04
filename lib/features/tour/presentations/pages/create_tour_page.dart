@@ -47,7 +47,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
         appBar: _buildAppBar(),
         body: BlocConsumer<TicketBloc, TicketState>(
           builder: (context, state) {
-            if (state is TicketCreating) {
+            if (state is TicketActionLoading) {
               return const AppProgressingIndicator();
             }
             return _buildBody();

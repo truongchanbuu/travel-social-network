@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
+import '../../../../generated/l10n.dart';
+import '../../../shared/widgets/app_progressing_indicator.dart';
 import '../../../shared/widgets/confirm_dialog.dart';
+import '../../../shared/widgets/custom_text_field.dart';
+import '../../../shared/widgets/long_text_field.dart';
 import '../../data/models/policy.dart';
 import '../../domain/entities/policy.dart';
 import '../bloc/policy_bloc.dart';
@@ -29,7 +35,8 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
   void initState() {
     super.initState();
     _formKey = GlobalKey();
-    if (widget.policyId != null) {
+
+    if (widget.policyId?.isNotEmpty ?? false) {
       context.read<PolicyBloc>().add(GetPolicyById(widget.policyId!));
     } else {
       context.read<PolicyBloc>().add(InitializeNewPolicy(widget.policyType));
@@ -43,11 +50,11 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
     };
     policyLabels = {
       for (var entry in policyLabels.entries.where(
-            (entry) => entry.key.toLowerCase().contains(
-          widget.policyType == PolicyType.refund
-              ? S.current.refund.toLowerCase()
-              : S.current.reschedule.toLowerCase(),
-        ),
+        (entry) => entry.key.toLowerCase().contains(
+              widget.policyType == PolicyType.refund
+                  ? S.current.refund.toLowerCase()
+                  : S.current.reschedule.toLowerCase(),
+            ),
       ))
         entry.key: entry.value
     };
@@ -57,7 +64,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<PolicyBloc, PolicyState>(
       listener: (context, state) {
-        if (state is PolicyCreateSuccess) {
+        if (state is PolicyActionSuccess) {
           showToast(S.current.success, context: context);
           Navigator.pop(context, state.policy.policyId);
         } else if (state is PolicyFailure) {
@@ -65,7 +72,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
         }
       },
       builder: (context, state) {
-        if (state is PolicyLoading) {
+        if (state is PolicyActionLoading) {
           return const AppProgressingIndicator();
         }
 
@@ -90,14 +97,14 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
 
   Widget _buildBody(PolicyState state) {
     if (state is! PolicyLoaded) {
-      return const SizedBox.shrink(); // or some placeholder widget
+      return const AppProgressingIndicator();
     }
 
-    final policy = state.policy;
+    final PolicyEntity policy = state.policy.toEntity();
 
     return Padding(
       padding:
-      const EdgeInsets.symmetric(vertical: defaultPadding, horizontal: 20),
+          const EdgeInsets.symmetric(vertical: defaultPadding, horizontal: 20),
       child: Form(
         key: _formKey,
         child: Column(
@@ -114,7 +121,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
               content: policy.policyDescription,
               onSaved: (value) => context
                   .read<PolicyBloc>()
-                  .add(UpdatePolicyDescription(value)),
+                  .add(UpdatePolicyDescription(value ?? '')),
               validator: _policyDescValidator,
             ),
             const SizedBox(height: 20),
@@ -143,11 +150,14 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
       decoration: const InputDecoration(border: OutlineInputBorder()),
       items: policyLabels.entries
           .map((data) => DropdownMenuItem(
-        value: data.key,
-        child: Text(data.key),
-      ))
+                value: data.key,
+                child: Text(data.key),
+              ))
           .toList(),
-      value: policy.policyName,
+      value: policy.policyName.isEmpty
+          ? policyLabels.keys.first
+          : policy.policyName,
+      validator: _policyNameValidator,
       onChanged: (value) {
         if (value != null) {
           context.read<PolicyBloc>().add(UpdatePolicyName(value));
@@ -160,9 +170,10 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
   }
 
   String? _policyNameValidator(String? name) {
-    if ((name?.length ?? 0) < minLimitLength) {
-      return S.current.lengthLimitError(S.current.policyName);
+    if (name?.isEmpty ?? true) {
+      return S.current.notAllowedEmpty;
     }
+
     return null;
   }
 
@@ -176,6 +187,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
   void _acceptPolicy(BuildContext context, PolicyEntity policy) {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
+
       context
           .read<PolicyBloc>()
           .add(CreatePolicyEvent(Policy.fromEntity(policy)));

@@ -7,11 +7,11 @@ abstract class PolicyState extends Equatable {
   List<Object?> get props => [];
 }
 
-class PolicyInitial extends PolicyState {}
+final class PolicyInitial extends PolicyState {}
 
-class PolicyLoading extends PolicyState {}
+final class PolicyActionLoading extends PolicyState {}
 
-class PolicyLoaded extends PolicyState {
+final class PolicyLoaded extends PolicyState {
   final Policy policy;
   const PolicyLoaded(this.policy);
 
@@ -19,18 +19,20 @@ class PolicyLoaded extends PolicyState {
   List<Object?> get props => [policy];
 }
 
-class PolicyCreateSuccess extends PolicyState {
+final class PolicyActionSuccess extends PolicyState {
   final Policy policy;
-  const PolicyCreateSuccess(this.policy);
+  const PolicyActionSuccess(this.policy);
 
   @override
   List<Object?> get props => [policy];
 }
 
-class PolicyFailure extends PolicyState {
+final class PolicyFailure extends PolicyState {
   final String message;
   const PolicyFailure(this.message);
 
   @override
   List<Object?> get props => [message];
 }
+
+final class PolicyDeleted extends PolicyState {}

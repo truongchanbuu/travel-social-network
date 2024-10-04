@@ -10,7 +10,6 @@ import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/app_progressing_indicator.dart';
 import '../../../shared/widgets/confirm_dialog.dart';
 import '../../../tour/presentations/widgets/date_time_item.dart';
-import '../../data/models/ticket_type.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
 import '../widgets/create_ticket_section.dart';
@@ -37,6 +36,7 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
   late final GlobalKey<CreateTicketSectionState> ticketFormKey;
   List<String> dates = [];
   List<String> selectedDates = [];
+  List<TicketTypeEntity> duplicatedTickets = [];
 
   @override
   void initState() {
@@ -48,7 +48,6 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
                 widget.ticket!.startDate, widget.ticket!.endDate)
           ]
         : widget.selectedDates;
-
     ticketFormKey = GlobalKey();
   }
 
@@ -59,17 +58,24 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
         appBar: _buildAppBar(),
         body: BlocConsumer<TicketBloc, TicketState>(
           builder: (context, state) {
-            if (state is TicketCreating || state is TicketUpdating) {
+            if (state is TicketActionLoading) {
               return const AppProgressingIndicator();
             }
 
             return _buildBody();
           },
           listener: (context, state) {
-            if (state is ListOfTicketSaveSuccess) {
-              Navigator.pop(context, state.tickets);
+            if (state is ListOfTicketsSuccess) {
+              if (duplicatedTickets.isEmpty) {
+                showToast(S.current.success, context: context);
+                Navigator.pop(context, state.tickets);
+              } else {
+                _handleDuplicateTicket();
+              }
             } else if (state is TicketFailure) {
               showToast(state.message, context: context);
+            } else if (state is TicketDuplicated) {
+              duplicatedTickets.add(state.ticket);
             }
           },
         ),
@@ -100,6 +106,7 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
         Expanded(
           child: CreateTicketSection(
             key: ticketFormKey,
+            tourId: widget.tourId,
             ticket: widget.ticket,
           ),
         )
@@ -150,9 +157,7 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
         ),
         actions: [
           GestureDetector(
-            onTap: widget.ticket != null
-                ? () => _saveTicket(context)
-                : () => validateTicketForm(context),
+            onTap: null,
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
@@ -174,42 +179,25 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
       builder: (context) => ConfirmDialog(
         onLeaved: () {
           _deletePolicy();
-          Navigator.pop(context);
-          Navigator.pop(context, selectedDates);
+          Navigator.of(context)
+            ..pop()
+            ..pop(selectedDates);
         },
       ),
     );
   }
 
-  Future<void> validateTicketForm(BuildContext context) async {
+  void validateTicketForm(BuildContext context) async {
     if (!_isFormValid()) return;
 
-    TicketTypeEntity generalTicket = _getFormData();
-    List<TicketTypeEntity> tickets = [];
+    final TicketTypeEntity generalTicket = _getFormData();
 
-    for (var date in selectedDates) {
-      var ticket = await _createTicketForDate(generalTicket, date);
-
-      if (ticket != null) {
-        tickets.add(ticket);
-      }
-    }
-
-    if (tickets.isNotEmpty && context.mounted) {
-      // final TicketCreationCoordinator ticketCreationCoordinator =
-      //     TicketCreationCoordinator(
-      //         policyBloc: context.read<PolicyBloc>(),
-      //         ticketBloc: context.read<TicketBloc>());
-
-      // String message = await ticketCreationCoordinator.createPolicyAndTickets(
-      //   [refundPolicy!, reschedulePolicy!].map(Policy.fromEntity).toList(),
-      //   tickets.map(TicketType.fromEntity).toList(),
-      // );
-
-      // if (context.mounted) {
-      //   showToast(message, context: context);
-      // }
-    }
+    context
+        .read<TicketBloc>()
+        .add(GenerateListOfTicketsEvent(generalTicket, selectedDates));
+    // for (var date in selectedDates) {
+    //   var ticket = await _createTicketForDate(generalTicket, date);
+    // }
   }
 
   bool _isFormValid() {
@@ -229,59 +217,29 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
     return ticketFormKey.currentState!.getData();
   }
 
-  Future<TicketTypeEntity?> _createTicketForDate(
-      TicketTypeEntity generalTicket, String date) async {
-    var [startDateTime, endDateTime] = DateTimeUtils.parseDateTimeRange(date);
+  // TicketTypeEntity? _findDuplicateTicket(
+  //     TicketTypeEntity ticket, DateTime start, DateTime end) {
+  //   List<TicketTypeEntity> potentialDuplicates =
+  //       fetchDuplicatedTickets(ticket.ticketTypeName, ticket.category);
+  //   return potentialDuplicates.firstWhereOrNull((t) =>
+  //       DateTimeUtils.isSameDateTimeWithoutSecond(t.startDate, start) &&
+  //       DateTimeUtils.isSameDateTimeWithoutSecond(t.endDate, end));
+  // }
 
-    var existingTicket =
-        _findDuplicateTicket(generalTicket, startDateTime, endDateTime);
-
-    if (existingTicket != null) {
-      bool shouldContinue = await _handleDuplicateTicket(generalTicket);
-      if (!shouldContinue) return null;
-    }
-
-    return TicketTypeEntity.defaultWithId().copyWith(
-      ticketTypeName: generalTicket.ticketTypeName,
-      ticketDescription: generalTicket.ticketDescription,
-      quantity: generalTicket.quantity,
-      redemptionMethodDesc: generalTicket.redemptionMethodDesc,
-      ticketInfo: generalTicket.ticketInfo,
-      ticketPrice: generalTicket.ticketPrice,
-      category: generalTicket.category,
-      tourId: widget.tourId,
-      startDate: startDateTime,
-      endDate: endDateTime,
-      createdAt: DateTime.now(),
-      refundPolicyId: generalTicket.refundPolicyId,
-      reschedulePolicyId: generalTicket.reschedulePolicyId,
-    );
-  }
-
-  TicketTypeEntity? _findDuplicateTicket(
-      TicketTypeEntity ticket, DateTime start, DateTime end) {
-    List<TicketTypeEntity> potentialDuplicates =
-        fetchDuplicatedTickets(ticket.ticketTypeName, ticket.category);
-    return potentialDuplicates.firstWhereOrNull((t) =>
-        DateTimeUtils.isSameDateTimeWithoutSecond(t.startDate, start) &&
-        DateTimeUtils.isSameDateTimeWithoutSecond(t.endDate, end));
-  }
-
-  Future<bool> _handleDuplicateTicket(TicketTypeEntity ticket) async {
-    return await showDialog(
+  Future<void> _handleDuplicateTicket() async {
+    showDialog(
       context: context,
       useSafeArea: true,
       builder: (context) => AlertDialog(
         title: Text(
-          S.current.duplicateTicketAlert(
-            ticket.ticketTypeName,
-            ticket.category.name.toUpperCase(),
-          ),
+          S.current.duplicateTicketAlert,
         ),
         content: Text(S.current.duplicateTicketMessage),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context, false),
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: Text(
                 S.current.cancel,
                 style: const TextStyle(
@@ -303,31 +261,26 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
     );
   }
 
-  List<TicketTypeEntity> fetchDuplicatedTickets(
-      String name, TicketCategory category) {
-    return [];
-  }
-
-  void _saveTicket(BuildContext context) {
-    final changedTicket = _getFormData();
-    if (_isTicketChanged(changedTicket)) {
-      context.read<TicketBloc>().add(UpdateTicketEvent(
-            id: widget.ticket!.ticketTypeId,
-            newTicket: TicketType.fromEntity(widget.ticket!.copyWith(
-              ticketTypeName: changedTicket.ticketTypeId,
-              ticketPrice: changedTicket.ticketPrice,
-              refundPolicyId: changedTicket.refundPolicyId,
-              reschedulePolicyId: changedTicket.reschedulePolicyId,
-              redemptionMethodDesc: changedTicket.redemptionMethodDesc,
-              ticketDescription: changedTicket.ticketDescription,
-              quantity: changedTicket.quantity,
-              category: changedTicket.category,
-              updatedAt: DateTime.now(),
-              ticketInfo: changedTicket.ticketInfo,
-            )),
-          ));
-    }
-  }
+  // void _saveTicket(BuildContext context) {
+  //   final changedTicket = _getFormData();
+  //   if (_isTicketChanged(changedTicket)) {
+  //     context.read<TicketBloc>().add(UpdateTicketEvent(
+  //           id: widget.ticket!.ticketTypeId,
+  //           newTicket: TicketType.fromEntity(widget.ticket!.copyWith(
+  //             ticketTypeName: changedTicket.ticketTypeId,
+  //             ticketPrice: changedTicket.ticketPrice,
+  //             refundPolicyId: changedTicket.refundPolicyId,
+  //             reschedulePolicyId: changedTicket.reschedulePolicyId,
+  //             redemptionMethodDesc: changedTicket.redemptionMethodDesc,
+  //             ticketDescription: changedTicket.ticketDescription,
+  //             quantity: changedTicket.quantity,
+  //             category: changedTicket.category,
+  //             updatedAt: DateTime.now(),
+  //             ticketInfo: changedTicket.ticketInfo,
+  //           )),
+  //         ));
+  //   }
+  // }
 
   bool _isTicketChanged(TicketTypeEntity changedTicket) {
     return changedTicket.ticketTypeName != widget.ticket!.ticketTypeName ||

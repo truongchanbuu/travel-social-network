@@ -27,7 +27,6 @@ class GetPolicyById extends PolicyEvent {
 
 class UpdatePolicyName extends PolicyEvent {
   final String name;
-
   const UpdatePolicyName(this.name);
 
   @override
@@ -59,4 +58,12 @@ class CreatePolicyEvent extends PolicyEvent {
 
   @override
   List<Object?> get props => [policy];
+}
+
+class DeletePolicyEvent extends PolicyEvent {
+  final String policyId;
+  const DeletePolicyEvent(this.policyId);
+
+  @override
+  List<Object?> get props => [policyId];
 }
