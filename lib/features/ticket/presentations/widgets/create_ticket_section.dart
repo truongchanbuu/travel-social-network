@@ -39,10 +39,13 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
   late final TextEditingController _nameController;
   late final TextEditingController _priceController;
   late final TextEditingController _quantityController;
+  late final TextEditingController _refundController;
+  late final TextEditingController _rescheduleController;
   final CurrencyTextInputFormatter currencyFormatter =
       CurrencyTextInputFormatter.currency(
           maxValue: $1BMaxCurrency, minValue: $0Currency);
-  List<DropdownMenuItem<TicketCategory>> items = [];
+
+  List<DropdownMenuItem<String>> items = [];
   late TicketTypeEntity ticket;
 
   @override
@@ -52,21 +55,10 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
     _nameController = TextEditingController();
     _priceController = TextEditingController();
     _quantityController = TextEditingController();
-    items = TicketCategory.values
-        .map(
-          (category) => DropdownMenuItem(
-            value: category,
-            child: Text(
-              category.name.replaceAll('_', ' ').toUpperCase(),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        )
-        .toList();
+    _refundController = TextEditingController();
+    _rescheduleController = TextEditingController();
+
+    items = _generateDropdownItem();
 
     if (widget.ticket != null) {
       ticket = widget.ticket!;
@@ -80,15 +72,28 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
     _nameController.text = ticket.ticketTypeName;
     _priceController.text =
         currencyFormatter.formatString(ticket.ticketPrice.toString());
-    _quantityController.text = ticket.quantity.toString();
+    _quantityController.text =
+        NumberFormat.decimalPattern().format(ticket.quantity);
+    _refundController.text = ticket.refundPolicyId;
+    _rescheduleController.text = ticket.reschedulePolicyId;
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _nameController.dispose();
-    _priceController.dispose();
-    _quantityController.dispose();
+  List<DropdownMenuItem<String>> _generateDropdownItem() {
+    return TicketCategory.values
+        .map(
+          (category) => DropdownMenuItem<String>(
+            value: category.name,
+            child: Text(
+              category.name.replaceAll('_', ' ').toUpperCase(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        )
+        .toList();
   }
 
   static const SizedBox spacing = SizedBox(height: 10);
@@ -116,6 +121,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
       return AppProgressingIndicator(text: S.current.loading);
     } else if (state is TicketLoaded) {
       ticket = state.ticket.toEntity();
+      _initializeControllers();
     }
 
     return SingleChildScrollView(
@@ -130,9 +136,10 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                 textEditingController: _nameController,
                 isAnimated: false,
                 hintTexts: [S.current.ticketName],
-                onSaved: (value) => context
-                    .read<TicketBloc>()
-                    .add(UpdateTicketFieldEvent('ticketTypeName', value)),
+                onSaved: (value) => _genericOnSaved(
+                    TicketTypeEntity.ticketInfoFieldName, value),
+                onChanged: (value) => _genericOnSaved(
+                    TicketTypeEntity.ticketTypeNameFieldName, value),
                 validator: (value) =>
                     _genericValidator(value, S.current.ticketName),
               ),
@@ -150,9 +157,8 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                     _genericValidator(value, S.current.ticketDesc),
                 title: S.current.ticketDesc,
                 content: ticket.ticketDescription,
-                onSaved: (value) => context
-                    .read<TicketBloc>()
-                    .add(UpdateTicketFieldEvent('ticketDescription', value)),
+                onSaved: (value) => _genericOnSaved(
+                    TicketTypeEntity.ticketDescriptionFieldName, value),
               ),
               spacing,
               LongTextField(
@@ -160,9 +166,8 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                     _genericValidator(value, S.current.ticketInfo),
                 title: S.current.ticketInfo,
                 content: ticket.ticketInfo,
-                onSaved: (value) => context
-                    .read<TicketBloc>()
-                    .add(UpdateTicketFieldEvent('ticketInfo', value)),
+                onSaved: (value) => _genericOnSaved(
+                    TicketTypeEntity.ticketInfoFieldName, value),
               ),
               spacing,
               LongTextField(
@@ -170,15 +175,17 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                     _genericValidator(value, S.current.ticketRedemption),
                 title: S.current.ticketRedemption,
                 content: ticket.redemptionMethodDesc,
-                onSaved: (value) => context
-                    .read<TicketBloc>()
-                    .add(UpdateTicketFieldEvent('redemptionMethodDesc', value)),
+                onSaved: (value) => _genericOnSaved(
+                    TicketTypeEntity.redemptionMethodDescFieldName, value),
               ),
               spacing,
               Row(
                 children: [
                   Expanded(
                     child: CustomTextField(
+                      textEditingController: _refundController,
+                      validator: (value) =>
+                          _genericValidator(value, S.current.refundPolicy),
                       label: S.current.refundPolicy,
                       readOnly: true,
                       hintTexts: [
@@ -187,6 +194,8 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                             : ticket.refundPolicyId
                       ],
                       isAnimated: false,
+                      onSaved: (value) => _genericOnSaved(
+                          TicketTypeEntity.refundPolicyIdFieldName, value),
                       onTap: () => _openPolicyPage(
                           PolicyType.refund, ticket.refundPolicyId),
                     ),
@@ -194,14 +203,19 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: CustomTextField(
+                      textEditingController: _rescheduleController,
+                      validator: (value) =>
+                          _genericValidator(value, S.current.reschedulePolicy),
                       label: S.current.reschedulePolicy,
                       readOnly: true,
                       hintTexts: [
                         ticket.reschedulePolicyId.isEmpty
-                            ? S.current.reschedule
+                            ? S.current.reschedulePolicy
                             : ticket.reschedulePolicyId
                       ],
                       isAnimated: false,
+                      onSaved: (value) => _genericOnSaved(
+                          TicketTypeEntity.reschedulePolicyIdFieldName, value),
                       onTap: () => _openPolicyPage(
                           PolicyType.reschedule, ticket.reschedulePolicyId),
                     ),
@@ -223,8 +237,12 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
           flex: 2,
           child: CustomTextField(
             validator: _priceValidator,
-            onSaved: (value) => context.read<TicketBloc>().add(
-                UpdateTicketFieldEvent('ticketPrice', cleanNumberInput(value))),
+            onSaved: (value) => _genericOnSaved(
+                TicketTypeEntity.ticketPriceFieldName,
+                currencyFormatter.getDouble().toString()),
+            onChanged: (value) => _genericOnSaved(
+                TicketTypeEntity.ticketPriceFieldName,
+                currencyFormatter.getDouble().toString()),
             label: S.current.price,
             isAnimated: false,
             hintTexts: [
@@ -251,9 +269,13 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
               LengthLimitingTextInputFormatter(9),
             ],
             keyboardType: TextInputType.number,
-            onSaved: (value) => context.read<TicketBloc>().add(
-                UpdateTicketFieldEvent(
-                    'quantity', cleanNumberInput(value).toInt())),
+            onSaved: (value) => _genericOnSaved(
+                TicketTypeEntity.quantityFieldName,
+                NumberFormat.decimalPattern().parse(value!).toString()),
+            onChanged: (value) {
+              _genericOnSaved(TicketTypeEntity.quantityFieldName,
+                  NumberFormat.decimalPattern().parse(value).toString());
+            },
             textEditingController: _quantityController,
           ),
         ),
@@ -262,23 +284,65 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
   }
 
   Widget _buildTicketCategory(TicketTypeEntity ticket) {
-    return DropdownButtonFormField<TicketCategory>(
+    return DropdownButtonFormField<String>(
       items: items,
-      value: ticket.category,
+      value: ticket.category.name,
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderRadius: defaultFieldBorderRadius,
             borderSide: BorderSide(color: defaultFieldBorderColor, width: 1)),
       ),
-      onChanged: (value) => context
-          .read<TicketBloc>()
-          .add(UpdateTicketFieldEvent('category', value ?? ticket.category)),
+      onChanged: (value) =>
+          _genericOnSaved(TicketTypeEntity.categoryFieldName, value),
     );
   }
 
-  void _openPolicyPage(PolicyType type, String policyId) async {
+  String? _genericValidator(String? value, String fieldName) {
+    if ((value?.length ?? 0) < minLimitLength) {
+      return S.current.lengthLimitError(fieldName);
+    }
+
+    return null;
+  }
+
+  void _genericOnSaved(String fieldName, String? value) {
     final TicketBloc ticketBloc = context.read<TicketBloc>();
 
+    if (value?.isNotEmpty ?? false) {
+      num? number = num.tryParse(value!);
+
+      if (number != null && number != 0) {
+        ticketBloc.add(UpdateTicketFieldEvent(fieldName, number));
+      } else if (number == null) {
+        ticketBloc.add(UpdateTicketFieldEvent(fieldName, value));
+      }
+    }
+  }
+
+  String? _ticketQuantityValidator(String? quantity) {
+    if (quantity?.isEmpty ?? true) {
+      return S.current.notAllowedEmpty;
+    }
+
+    int quantityNum = NumberFormat.decimalPattern().parse(quantity!).toInt();
+    if (quantityNum == 0) {
+      return S.current.notAllowedEmpty;
+    }
+
+    return null;
+  }
+
+  String? _priceValidator(String? price) {
+    num priceNum = currencyFormatter.getDouble();
+
+    if (priceNum <= 0) {
+      return S.current.notAllowedEmpty;
+    }
+
+    return null;
+  }
+
+  void _openPolicyPage(PolicyType type, String policyId) async {
     var data = await Navigator.push(
       context,
       PageTransition(
@@ -292,45 +356,10 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
     );
 
     if (data is String && type == PolicyType.refund) {
-      ticketBloc.add(UpdateTicketFieldEvent('refundPolicyId', data));
+      _genericOnSaved(TicketTypeEntity.refundPolicyIdFieldName, data);
     } else if (data is String && type == PolicyType.reschedule) {
-      ticketBloc.add(UpdateTicketFieldEvent('reschedulePolicyId', data));
+      _genericOnSaved(TicketTypeEntity.reschedulePolicyIdFieldName, data);
     }
-  }
-
-  String? _genericValidator(String? value, String fieldName) {
-    if ((value?.length ?? 0) < minLimitLength) {
-      return S.current.lengthLimitError(fieldName);
-    }
-    return null;
-  }
-
-  String? _ticketQuantityValidator(String? quantity) {
-    if (quantity?.isEmpty ?? true) {
-      return S.current.notAllowedEmpty;
-    }
-
-    int quantityNum = cleanNumberInput(quantity).toInt();
-    if (quantityNum == 0) {
-      return S.current.notAllowedEmpty;
-    }
-
-    return null;
-  }
-
-  String? _priceValidator(String? price) {
-    num priceNum = cleanNumberInput(price);
-
-    if (priceNum <= 0) {
-      return S.current.notAllowedEmpty;
-    }
-
-    return null;
-  }
-
-  num cleanNumberInput(String? value) {
-    final cleanedInput = value?.replaceAll(RegExp(r'[^\d.]'), '');
-    return (cleanedInput?.isNotEmpty ?? false) ? num.parse(cleanedInput!) : 0.0;
   }
 
   TicketTypeEntity getData() {
@@ -338,12 +367,13 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
       ticketTypeId: ticket.ticketTypeId,
       ticketTypeName: _nameController.text,
       tourId: ticket.tourId,
-      ticketPrice: cleanNumberInput(_priceController.text),
+      ticketPrice: currencyFormatter.getUnformattedValue(),
       ticketDescription: ticket.ticketDescription,
       startDate: DateTime.now(),
       endDate: DateTime.now(),
       category: ticket.category,
-      quantity: cleanNumberInput(_quantityController.text).toInt(),
+      quantity:
+          NumberFormat.decimalPattern().parse(_quantityController.text).toInt(),
       ticketInfo: ticket.ticketInfo,
       redemptionMethodDesc: ticket.redemptionMethodDesc,
       refundPolicyId: ticket.refundPolicyId,

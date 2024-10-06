@@ -1,26 +1,28 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 
 class QuillContentFormatter {
   static String checkAndConvertQuillFormat(String input) {
     try {
-      final decoded = jsonDecode(input);
-
-      if (decoded is List) {
-        if (decoded
-            .every((block) => block is Map && block.containsKey('insert'))) {
-          return input;
-        }
+      final decoded = json.decode(input);
+      if (decoded is List &&
+          decoded.isNotEmpty &&
+          decoded.every(_isValidQuillBlock)) {
+        return input;
       }
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint(
+          'Quill Content Error: $e - This error is only for announcement');
     }
 
-    final convertedContent = [
+    return json.encode([
       {"insert": '$input\n'}
-    ];
+    ]);
+  }
 
-    return json.encode(convertedContent);
+  static bool _isValidQuillBlock(dynamic block) {
+    return block is Map<String, dynamic> &&
+        block.containsKey('insert') &&
+        block['insert'] is String;
   }
 }

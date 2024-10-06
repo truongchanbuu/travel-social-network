@@ -5,8 +5,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../../injection_container.dart';
-import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../shared/widgets/confirm_deletion_dialog.dart';
 import '../../../tour/presentations/widgets/date_time_item.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
@@ -52,7 +51,15 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
             ),
           ),
         ),
-        body: _buildBody(),
+        body: BlocBuilder<TicketBloc, TicketState>(
+          builder: (context, state) {
+            if (state is TicketDeleted) {
+              tickets.remove(state.ticket);
+            }
+
+            return _buildBody();
+          },
+        ),
       ),
     );
   }
@@ -102,10 +109,10 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
         child: TicketBriefInfo(
           ticketName: tickets[index].ticketTypeName,
           ticketDescription: '',
-          ticketCategory:
-              tickets[index].category.name.replaceAll('_', ' ').toUpperCase(),
+          ticketCategory: cleanTicketTypeEnum(tickets[index].category.name),
           trailing: GestureDetector(
-              onTap: () => _deleteTicket, child: const Icon(Icons.delete)),
+              onTap: () => _deleteTicket(tickets[index]),
+              child: const Icon(Icons.delete)),
         ),
       );
 
@@ -130,23 +137,25 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
   void _updateTicket(TicketTypeEntity ticket) => Navigator.push(
         context,
         PageTransition(
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
-              BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
-            ],
-            child: SaveTicketPage(
-              ticket: ticket,
-              tourId: ticket.tourId,
-              dates: const [],
-              selectedDates: const [],
-            ),
+          child: SaveTicketPage(
+            ticket: ticket,
+            tourId: ticket.tourId,
+            dates: const [],
+            selectedDates: const [],
           ),
           type: PageTransitionType.leftToRight,
         ),
       );
 
-  void _deleteTicket() {
-    // TODO: DELETE TICKET
+  void _deleteTicket(TicketTypeEntity ticket) async {
+    final TicketBloc ticketBloc = context.read<TicketBloc>();
+    bool confirmed = await confirmDeletion(context);
+    if (confirmed) {
+      ticketBloc.add(DeleteTicketEvent(ticket.ticketTypeId));
+    }
+  }
+
+  String cleanTicketTypeEnum(String name) {
+    return name.replaceAll('_', ' ').toUpperCase();
   }
 }

@@ -28,7 +28,7 @@ final class TicketLoaded extends TicketState {
 }
 
 final class ListOfTicketsLoaded extends TicketState {
-  final List<TicketType> tickets;
+  final List<TicketTypeEntity> tickets;
   const ListOfTicketsLoaded(this.tickets);
 
   @override
@@ -44,19 +44,30 @@ final class TicketActionSuccess extends TicketState {
 }
 
 final class ListOfTicketsSuccess extends TicketState {
-  final List<TicketType> tickets;
+  final List<TicketTypeEntity> tickets;
   const ListOfTicketsSuccess(this.tickets);
 
   @override
   List<Object> get props => [tickets];
 }
 
-final class TicketDuplicated extends TicketState {
+final class TicketsGenerated extends TicketState {
+  final List<TicketTypeEntity> validTickets;
+  final List<TicketTypeEntity> invalidTickets;
+
+  const TicketsGenerated({
+    required this.validTickets,
+    required this.invalidTickets,
+  });
+
+  @override
+  List<Object> get props => [validTickets, invalidTickets];
+}
+
+final class TicketDeleted extends TicketState {
   final TicketTypeEntity ticket;
-  const TicketDuplicated(this.ticket);
+  const TicketDeleted(this.ticket);
 
   @override
   List<Object> get props => [ticket];
 }
-
-final class TicketUnDuplicated extends TicketState {}

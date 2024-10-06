@@ -16,6 +16,7 @@ class Policy extends PolicyEntity {
     required super.policyType,
   });
 
+  @override
   Policy copyWith({
     String? policyId,
     String? policyName,

@@ -4,6 +4,8 @@
     "and": "and",
     "success": "Success",
     "next": "Next",
+    "continueLabel": "Continue",
+    "stop": "Stop",
     "clear": "Clear",
     "delete": "Delete",
     "search": "Search",
@@ -14,7 +16,6 @@
     "accept": "Accept",
     "notFound": "Not Found",
     "searching": "Searching...",
-
     "hour": "hour",
     "day": "day",
     "week": "week",
@@ -91,10 +92,8 @@
     },
     "continueWith": "Continue with",
     "backToPreviousPage": "Back to previous page",
-
     "createTour": "Create your own tour",
     "createTourPageTitle": "Create New Tour",
-
     "allImagesAndVideos": "All Images and Videos",
     "addImageLabel": "Add Images",
     "image": "image",
@@ -213,12 +212,12 @@
     "importantThingsYouShouldKnow": "Important things you should know",
     "buyTicket": "Buy Ticket",
     "createTicket": "Create Ticket",
+    "createTicketError": "Failed to create ticket(s)",
     "aboutThisTicket": "About this ticket",
     "voucherExp": "Voucher Expiration",
     "selectedDate": "selected date",
     "redemptionMethod": "Redemption Method",
     "howToRedeem": "How to redeem",
-
     "refund": "refund",
     "reschedule": "reschedule",
     "easyToRefund": "Easy to refund",
@@ -230,7 +229,6 @@
     "refundAndReschedule": "Refund & Reschedule",
     "refundPolicy": "Refund Policy",
     "reschedulePolicy": "Reschedule Policy",
-
     "forType": "For {ticketType}",
     "@forType": {
         "placeholders": {
@@ -251,34 +249,25 @@
     "password": "Password",
     "enterPasswordRequirement": "Please enter your password",
     "passwordRequirement": "Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
-
     "durationHintText": "6 hours, 1 day, 2 weeks, 3 months, ...",
     "invalidDurationError": "Invalid duration",
-
     "phoneSearchHintText": "Enter your country name or code to search",
     "semanticPhoneNumberCounterText": "Maximum length of phone number",
     "enterPhoneNumberRequirement": "Please enter your phone number",
     "invalidPhoneNumberError": "Invalid phone number",
-
     "recentSearch": "Recent Search",
     "recommendation": "Recommendations",
-
     "tourNameLabel": "Tour Name",
-
     "tourDescLabel": "Tour Description",
     "tourDetails": "Tour Details",
-
     "destination": "Destination",
     "invalidDestinationError": "Invalid destination! Please choose or insert a valid destination",
-
     "departure": "Departure",
     "invalidDepartureError": "Invalid departure location! Please choose or insert a valid location",
-
     "discardUnsavedWork": "Discard unsaved work",
     "discardAlertMessage": "Are you want to leave without saving?",
     "deleteConfirmTitle": "Are you sure to delete?",
     "deleteConfirmText": "Delete cannot be undone anymore",
-
     "tourDatesLabel": "Tour Dates",
     "addDate": "Add Date",
     "sameDateError": "Start date and end date cannot be same",
@@ -298,7 +287,6 @@
         }
     },
     "inUseDateError": "Cannot select in use date",
-
     "ticketName": "Ticket Name",
     "price": "Price",
     "ticketCategory": "Ticket Category",
@@ -319,7 +307,7 @@
     "notAllowedEmpty": "Not allowed to be empty",
     "invalidForm": "Invalid Form",
     "duplicateTicketAlert": "Duplicate Ticket",
-    "duplicateTicketMessage": "There are duplicated ticket(s)",
+    "duplicateTicketMessage": "There are duplicated ticket(s)! Are you want to continue creating without duplicated ticket(s)? You can modify the duplicated ticket(s) later in section My Tour",
     "duplicateLocation": "The location cannot be same",
     "ticketList": "Ticket List",
     "saveError": "Cannot save the {object}! Please try again later",

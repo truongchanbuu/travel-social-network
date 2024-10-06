@@ -14,7 +14,6 @@ class CreateTourDetails extends StatefulWidget {
 
 class _CreateTourDetailsState extends State<CreateTourDetails> {
   late final GlobalKey<FormState> _formKey;
-  String? _currentDropdownTimeUnit;
   String? _tourName;
   String? _tourDesc;
   String? _departure;
@@ -25,7 +24,6 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
   @override
   void initState() {
     super.initState();
-    _currentDropdownTimeUnit = S.current.day;
     _formKey = GlobalKey();
   }
 

@@ -36,7 +36,7 @@ class CustomTextField extends StatefulWidget {
     this.hintTexts = const [],
     this.textInputAction = TextInputAction.next,
     this.keyboardType = TextInputType.text,
-    this.autovalidateMode = AutovalidateMode.onUnfocus,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.animationtype = Animationtype.typer,
     this.onTap,
     this.onChanged,

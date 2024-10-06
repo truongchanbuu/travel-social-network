@@ -25,14 +25,30 @@ class _EditorPageState extends State<EditorPage> {
   @override
   void initState() {
     super.initState();
-    quillController = widget.initialValue?.isEmpty ?? true
-        ? QuillController.basic()
-        : QuillController(
-            document: Document.fromJson(jsonDecode(
-                QuillContentFormatter.checkAndConvertQuillFormat(
-                    widget.initialValue!))),
-            selection: const TextSelection.collapsed(offset: 0),
+    initController();
+  }
+
+  void initController() {
+    if (widget.initialValue?.isEmpty ?? true) {
+      quillController = QuillController.basic();
+    } else {
+      final doc = Document.fromJson(jsonDecode(
+          QuillContentFormatter.checkAndConvertQuillFormat(
+              widget.initialValue!)));
+
+      quillController = QuillController(
+          document: doc,
+          selection: TextSelection.collapsed(offset: doc.length));
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (quillController.document.length > 0) {
+          quillController.updateSelection(
+            TextSelection.collapsed(offset: quillController.document.length),
+            ChangeSource.local,
           );
+        }
+      });
+    }
   }
 
   @override

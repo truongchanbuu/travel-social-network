@@ -41,7 +41,7 @@ class TicketRepositoryImpl implements TicketRepository {
   }
 
   @override
-  Future<DataState<void>> deleteTicketById(String id) async {
+  Future<DataState<TicketType>> deleteTicketById(String id) async {
     try {
       final docRef = ticketCollection.doc(id);
       final docSnap = await docRef.get();
@@ -51,7 +51,9 @@ class TicketRepositoryImpl implements TicketRepository {
       }
 
       await docRef.delete();
-      return const DataSuccess();
+      return DataSuccess(
+        data: TicketType.fromJson(docSnap.data()! as Map<String, dynamic>),
+      );
     } on FirebaseException catch (e) {
       return handleFirebaseException(e);
     } catch (e) {
@@ -70,6 +72,7 @@ class TicketRepositoryImpl implements TicketRepository {
         return defaultDataFailure('Not found');
       }
 
+      newTicket.copyWith(updatedAt: DateTime.now());
       await docRef.update(newTicket.toJson());
 
       return DataSuccess(data: newTicket);
@@ -103,16 +106,20 @@ class TicketRepositoryImpl implements TicketRepository {
   }
 
   @override
-  Future<DataState<TicketType>> getTourTicketWithNameAndCategory({
+  Future<DataState<TicketType>> getTourTicketWithNameAndCategoryInDate({
     required String tourId,
     required String name,
     required String category,
+    required DateTime startDate,
+    required DateTime endDate,
   }) async {
     try {
       final docQuery = ticketCollection
           .where('tourId', isEqualTo: tourId)
           .where('ticketTypeName', isEqualTo: name)
           .where('category', isEqualTo: category)
+          .where('startDate', isEqualTo: startDate.toIso8601String())
+          .where('endDate', isEqualTo: endDate.toIso8601String())
           .limit(1);
 
       final docSnaps = await docQuery.get();

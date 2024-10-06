@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../data/models/policy.dart';
+import '../../domain/entities/policy.dart';
 import '../../domain/repositories/policy_repository.dart';
 part 'policy_event.dart';
 part 'policy_state.dart';
@@ -26,9 +27,9 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
       InitializeNewPolicy event, Emitter<PolicyState> emit) {
     final newPolicy = Policy(
       policyId: 'POLICY-${const Uuid().v4()}',
-      policyName: '',
-      policyDescription: '',
-      isAllowed: false,
+      policyName: event.policyName,
+      policyDescription: event.policyName,
+      isAllowed: event.isAllow,
       policyType: event.policyType,
     );
     emit(PolicyLoaded(newPolicy));

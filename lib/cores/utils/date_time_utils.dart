@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:intl/intl.dart';
 
@@ -72,5 +73,21 @@ class DateTimeUtils {
     DateFormat formatter = DateFormat(defaultDateFormat);
 
     return '${formatter.format(start)} - ${formatter.format(end)}';
+  }
+
+  static Timestamp dateTimeToFirestore(DateTime dateTime) {
+    return Timestamp.fromDate(dateTime.toUtc());
+  }
+
+  static DateTime firestoreToDateTime(Timestamp timestamp) {
+    return timestamp.toDate().toLocal();
+  }
+
+  static DateTime? stringToDateTime(String dateTimeString) {
+    return DateTime.tryParse(dateTimeString)?.toLocal();
+  }
+
+  static String dateTimeToString(DateTime dateTime) {
+    return dateTime.toIso8601String();
   }
 }

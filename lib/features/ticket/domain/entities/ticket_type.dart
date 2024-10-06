@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../../cores/enums/ticket_category.dart';
 
@@ -52,9 +51,9 @@ class TicketTypeEntity extends Equatable {
     this.redemptionMethodDesc = '',
     this.reschedulePolicyId = '',
     this.ticketInfo = '',
-    this.category = TicketCategory.adult,
+    this.category = TicketCategory.standard,
     this.updatedAt,
-  })  : ticketTypeId = const Uuid().v4(),
+  })  : ticketTypeId = '',
         startDate = startDate ?? DateTime.now(),
         endDate = endDate ?? DateTime.now(),
         createdAt = DateTime.now();
@@ -114,4 +113,18 @@ class TicketTypeEntity extends Equatable {
       endDate
     ];
   }
+
+  static const String ticketTypeIdFieldName = "ticketTypeId";
+  static const String ticketTypeNameFieldName = "ticketTypeName";
+  static const String tourIdFieldName = "tourId";
+  static const String ticketPriceFieldName = "ticketPrice";
+  static const String ticketDescriptionFieldName = "ticketDescription";
+  static const String startDateFieldName = "startDate";
+  static const String endDateFieldName = "endDate";
+  static const String categoryFieldName = "category";
+  static const String quantityFieldName = "quantity";
+  static const String ticketInfoFieldName = "ticketInfo";
+  static const String redemptionMethodDescFieldName = "redemptionMethodDesc";
+  static const String refundPolicyIdFieldName = "refundPolicyId";
+  static const String reschedulePolicyIdFieldName = "reschedulePolicyId";
 }

@@ -4,31 +4,43 @@ import '../../../cores/constants/constants.dart';
 import '../../../generated/l10n.dart';
 
 class ConfirmDialog extends StatelessWidget {
-  final void Function()? onLeaved;
-  final void Function()? onStay;
-  const ConfirmDialog({super.key, this.onLeaved, this.onStay});
+  final String? title;
+  final String? content;
+  final String? strongActionText;
+  final String? softActionText;
+  final void Function()? onCancel;
+  final void Function()? onOk;
+  const ConfirmDialog({
+    super.key,
+    this.title,
+    this.content,
+    this.strongActionText,
+    this.softActionText,
+    this.onCancel,
+    this.onOk,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        S.current.discardUnsavedWork,
+        title ?? S.current.discardUnsavedWork,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 18,
         ),
       ),
-      content: Text(S.current.discardAlertMessage),
+      content: Text(content ?? S.current.discardAlertMessage),
       actions: [
         TextButton(
-          onPressed: onLeaved ??
+          onPressed: onCancel ??
               () {
                 Navigator.of(context)
                   ..pop()
                   ..pop();
               },
           child: Text(
-            S.current.leave,
+            strongActionText ?? S.current.leave,
             style: const TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.bold,
@@ -36,9 +48,9 @@ class ConfirmDialog extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: onStay ?? () => Navigator.pop(context),
+          onPressed: onOk ?? () => Navigator.pop(context),
           child: Text(
-            S.current.stay,
+            softActionText ?? S.current.stay,
             style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,

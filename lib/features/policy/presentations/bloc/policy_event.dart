@@ -8,12 +8,18 @@ abstract class PolicyEvent extends Equatable {
 }
 
 class InitializeNewPolicy extends PolicyEvent {
+  final String policyName;
   final PolicyType policyType;
+  final bool isAllow;
 
-  const InitializeNewPolicy(this.policyType);
+  const InitializeNewPolicy({
+    required this.policyName,
+    required this.policyType,
+    required this.isAllow,
+  });
 
   @override
-  List<Object?> get props => [policyType];
+  List<Object?> get props => [policyName, policyType, isAllow];
 }
 
 class GetPolicyById extends PolicyEvent {

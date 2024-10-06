@@ -34,7 +34,7 @@ final class UpdateTicketFieldEvent extends TicketEvent {
 }
 
 final class CreateListOfTicketsEvent extends TicketEvent {
-  final List<TicketType> tickets;
+  final List<TicketTypeEntity> tickets;
   const CreateListOfTicketsEvent(this.tickets);
 
   @override
@@ -42,12 +42,12 @@ final class CreateListOfTicketsEvent extends TicketEvent {
 }
 
 final class UpdateTicketEvent extends TicketEvent {
-  final String id;
-  final TicketType newTicket;
-  const UpdateTicketEvent({required this.id, required this.newTicket});
+  final TicketTypeEntity oldTicket;
+  final TicketTypeEntity newTicket;
+  const UpdateTicketEvent({required this.oldTicket, required this.newTicket});
 
   @override
-  List<Object> get props => [id, newTicket];
+  List<Object> get props => [oldTicket, newTicket];
 }
 
 final class GetAllTicketsByTourId extends TicketEvent {
@@ -68,25 +68,10 @@ final class GenerateListOfTicketsEvent extends TicketEvent {
   List<Object> get props => [ticket, selectedRangeDates];
 }
 
-final class GetTicketByNameAndCategoryEvent extends TicketEvent {
-  final String tourId;
-  final String name;
-  final String category;
-
-  const GetTicketByNameAndCategoryEvent({
-    required this.tourId,
-    required this.name,
-    required this.category,
-  });
+final class DeleteTicketEvent extends TicketEvent {
+  final String ticketId;
+  const DeleteTicketEvent(this.ticketId);
 
   @override
-  List<Object> get props => [tourId, name, category];
-}
-
-final class CheckDuplicateTicket extends TicketEvent {
-  final TicketType ticket;
-  const CheckDuplicateTicket(this.ticket);
-
-  @override
-  List<Object> get props => [ticket];
+  List<Object> get props => [ticketId];
 }

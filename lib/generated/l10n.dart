@@ -90,6 +90,26 @@ class S {
     );
   }
 
+  /// `Continue`
+  String get continueLabel {
+    return Intl.message(
+      'Continue',
+      name: 'continueLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stop`
+  String get stop {
+    return Intl.message(
+      'Stop',
+      name: 'stop',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Clear`
   String get clear {
     return Intl.message(
@@ -1259,6 +1279,16 @@ class S {
     );
   }
 
+  /// `Failed to create ticket(s)`
+  String get createTicketError {
+    return Intl.message(
+      'Failed to create ticket(s)',
+      name: 'createTicketError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About this ticket`
   String get aboutThisTicket {
     return Intl.message(
@@ -1907,20 +1937,20 @@ class S {
     );
   }
 
-  /// `The ticket {name} - {category} is existed already`
-  String duplicateTicketAlert(String name, String category) {
+  /// `Duplicate Ticket`
+  String get duplicateTicketAlert {
     return Intl.message(
-      'The ticket $name - $category is existed already',
+      'Duplicate Ticket',
       name: 'duplicateTicketAlert',
       desc: '',
-      args: [name, category],
+      args: [],
     );
   }
 
-  /// `Are you want to skip this ticket? You can modify it later`
+  /// `There are duplicated ticket(s)! Are you want to continue creating without duplicated ticket(s)? You can modify the duplicated ticket(s) later in section My Tour`
   String get duplicateTicketMessage {
     return Intl.message(
-      'Are you want to skip this ticket? You can modify it later',
+      'There are duplicated ticket(s)! Are you want to continue creating without duplicated ticket(s)? You can modify the duplicated ticket(s) later in section My Tour',
       name: 'duplicateTicketMessage',
       desc: '',
       args: [],

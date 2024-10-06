@@ -36,12 +36,6 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
     super.initState();
     _formKey = GlobalKey();
 
-    if (widget.policyId?.isNotEmpty ?? false) {
-      context.read<PolicyBloc>().add(GetPolicyById(widget.policyId!));
-    } else {
-      context.read<PolicyBloc>().add(InitializeNewPolicy(widget.policyType));
-    }
-
     policyLabels = {
       S.current.easyToRefund: true,
       S.current.easyToReschedule: true,
@@ -58,6 +52,16 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
       ))
         entry.key: entry.value
     };
+
+    if (widget.policyId?.isNotEmpty ?? false) {
+      context.read<PolicyBloc>().add(GetPolicyById(widget.policyId!));
+    } else {
+      context.read<PolicyBloc>().add(InitializeNewPolicy(
+            policyName: policyLabels.keys.first,
+            isAllow: policyLabels.values.first,
+            policyType: widget.policyType,
+          ));
+    }
   }
 
   @override
@@ -163,7 +167,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
           context.read<PolicyBloc>().add(UpdatePolicyName(value));
           context
               .read<PolicyBloc>()
-              .add(UpdatePolicyAllowed(policyLabels[value] ?? false));
+              .add(UpdatePolicyAllowed(policyLabels[value]!));
         }
       },
     );

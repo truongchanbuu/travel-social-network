@@ -70,7 +70,8 @@ class QuillContent extends StatelessWidget {
             scrollController: ScrollController(),
             controller: QuillController(
               document: document,
-              selection: const TextSelection.collapsed(offset: 0),
+              selection:
+                  TextSelection.collapsed(offset: document.toDelta().length),
               readOnly: readOnly,
             ),
             configurations: QuillEditorConfigurations(

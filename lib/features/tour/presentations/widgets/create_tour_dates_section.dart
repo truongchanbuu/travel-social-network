@@ -266,6 +266,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       ),
     );
 
+    print(data);
     if (data is List<String>) {
       setState(() => selectedDates = data);
     } else {
@@ -277,6 +278,13 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => CreatedTicketsPage(tickets: tickets)));
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+              BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+            ],
+            child: CreatedTicketsPage(tickets: tickets),
+          ),
+        ));
   }
 }
