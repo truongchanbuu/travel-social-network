@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:travel_social_network/features/shared/widgets/confirm_deletion_dialog.dart';
 
-import '../../../../cores/constants/constants.dart';
-import '../../../../generated/l10n.dart';
+import '../../../cores/constants/constants.dart';
+import '../../../generated/l10n.dart';
 
 class CreateTourImagesPage extends StatefulWidget {
   final List<ImageFile>? images;
@@ -101,10 +102,7 @@ class _CreateTourImagesPageState extends State<CreateTourImagesPage> {
       });
 
       if (!isSaved) {
-        // showDialog(
-        //   context: context,
-        //   builder: (context) =>
-        // );
+        confirmDeletion(context);
         return;
       }
     }

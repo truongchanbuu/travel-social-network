@@ -9,6 +9,7 @@ import './cores/constants/constants.dart';
 import './firebase_options.dart';
 import './injection_container.dart';
 import 'features/ticket/presentations/bloc/ticket_bloc.dart';
+import 'features/tour/presentations/bloc/tour_bloc.dart';
 import 'features/tour/presentations/pages/create_tour_page.dart';
 import 'generated/l10n.dart';
 
@@ -30,33 +31,35 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       home: SafeArea(
         child: Scaffold(
-          bottomNavigationBar: const AppBottomNavigationBar(),
-          body:
-              // CreatedTicketsPage(
-              //   tickets: [],
-              // )
-              // CreatedTicketsPage(tickets: tour1Tickets),
-              //     SaveTicketPage(tourId: '001', dates: const [
-              //   "14:13 30/09/2024 - 14:13 20/09/2026",
-              //   "14:14 30/09/2025 - 14:14 20/09/2026",
-              //   "14:13 30/10/2024 - 14:13 20/09/2026",
-              //   "14:14 30/11/2024 - 14:14 20/09/2026",
-              //   "14:14 30/12/2024 - 14:14 20/09/2026",
-              //   "14:14 30/01/2025 - 14:14 20/09/2026"
-              // ], selectedDates: [
-              //   "14:13 30/09/2024 - 14:13 20/09/2026",
-              //   "14:14 30/09/2025 - 14:14 20/09/2026",
-              //   "14:13 30/10/2024 - 14:13 20/09/2026",
-              // ]),
-              BlocProvider(
-                  create: (context) => getIt.get<TicketBloc>(),
-                  child: CreateTourPage()),
-          // HomePage(),
-          // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
-          // TourDetailPage(tourId: generateSampleTours()[0].tourId),
-          // TicketDetailPage(ticketId: tour1Tickets[0].ticketTypeId),
-          // AddTicketTypeItem(ticket: tour1Tickets.first),
-        ),
+            bottomNavigationBar: const AppBottomNavigationBar(),
+            body:
+                // CreatedTicketsPage(
+                //   tickets: [],
+                // )
+                // CreatedTicketsPage(tickets: tour1Tickets),
+                //     SaveTicketPage(tourId: '001', dates: const [
+                //   "14:13 30/09/2024 - 14:13 20/09/2026",
+                //   "14:14 30/09/2025 - 14:14 20/09/2026",
+                //   "14:13 30/10/2024 - 14:13 20/09/2026",
+                //   "14:14 30/11/2024 - 14:14 20/09/2026",
+                //   "14:14 30/12/2024 - 14:14 20/09/2026",
+                //   "14:14 30/01/2025 - 14:14 20/09/2026"
+                // ], selectedDates: [
+                //   "14:13 30/09/2024 - 14:13 20/09/2026",
+                //   "14:14 30/09/2025 - 14:14 20/09/2026",
+                //   "14:13 30/10/2024 - 14:13 20/09/2026",
+                // ]),
+
+                MultiBlocProvider(providers: [
+              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+              BlocProvider(create: (context) => getIt.get<TourBloc>())
+            ], child: CreateTourPage())
+            // HomePage(),
+            // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
+            // TourDetailPage(tourId: generateSampleTours()[0].tourId),
+            // TicketDetailPage(ticketId: tour1Tickets[0].ticketTypeId),
+            // AddTicketTypeItem(ticket: tour1Tickets.first),
+            ),
       ),
     );
   }

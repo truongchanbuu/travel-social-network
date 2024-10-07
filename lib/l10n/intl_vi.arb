@@ -21,6 +21,8 @@
     "week": "tuần",
     "month": "tháng",
     "year": "năm",
+    "minute": "phút",
+
     "greetingAppMember": "Xin chào các thành viên của {appName}",
     "@greetingAppMember": {
         "placeholders": {
@@ -294,12 +296,15 @@
     "ticketRedemption": "Phương thức quy đổi",
     "policyName": "Tên của chính sách",
     "policyDesc": "Mô tả chính sách",
-    "lengthLimitError": "{field} không hợp lệ! Cần ít nhất 10 ký tự",
+    "lengthLimitError": "{field} không hợp lệ! Cần ít nhất {minLength} ký tự",
     "@lengthLimitError": {
         "placeholders": {
             "field": {
                 "type": "String"
-            }
+            },
+             "minLength": {
+                "type": "int"
+             }
         }
     },
     "notAllowedToEmpty": "Không được phép để trống",
@@ -316,5 +321,19 @@
             }
         }
     },
-    "isAllow": "Cho phép"
+    "isAllow": "Cho phép",
+
+    "yearUnit": "năm",
+    "monthUnit": "tháng",
+    "weekUnit": "tuần",
+    "dayUnit": "ngày",
+    "hourUnit": "giờ|tiếng",
+    "minuteUnit": "phút",
+
+    "yearFormatted": "{count} năm",
+    "monthFormatted": "{count} tháng",
+    "weekFormatted": "{count} tuần",
+    "dayFormatted": "{count} ngày",
+    "hourFormatted": "{count} giờ",
+    "minuteFormatted": "{count} phút"
 }

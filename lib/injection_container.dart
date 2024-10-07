@@ -10,6 +10,9 @@ import 'features/policy/presentations/bloc/policy_bloc.dart';
 import 'features/ticket/data/repositories/ticket_repository_impl.dart';
 import 'features/ticket/domain/repositories/ticket_repository.dart';
 import 'features/ticket/presentations/bloc/ticket_bloc.dart';
+import 'features/tour/data/repositories/tour_repository_impl.dart';
+import 'features/tour/domain/repositories/tour_repository.dart';
+import 'features/tour/presentations/bloc/tour_bloc.dart';
 
 final getIt = GetIt.I;
 
@@ -22,10 +25,12 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
 
   // Repository
+  getIt.registerSingleton<TourRepository>(TourRepositoryImpl());
   getIt.registerSingleton<TicketRepository>(TicketRepositoryImpl());
   getIt.registerSingleton<PolicyRepository>(PolicyRepositoryImpl());
 
   // Bloc
+  getIt.registerFactory<TourBloc>(() => TourBloc(getIt()));
   getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
   getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));
 }

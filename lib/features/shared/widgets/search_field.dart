@@ -8,14 +8,18 @@ import 'custom_text_field.dart';
 
 class SearchField extends StatefulWidget {
   final String title;
+  final bool isHintAnimated;
   final void Function(String value)? onSelected;
+  final void Function(String? value)? onChanged;
   final String? Function(String? value)? validator;
 
   const SearchField({
     super.key,
     required this.title,
     required this.onSelected,
+    this.onChanged,
     this.validator,
+    this.isHintAnimated = false,
   });
 
   @override
@@ -54,6 +58,8 @@ class _SearchFieldState extends State<SearchField> {
         focusNode: focusNode,
         textEditingController: controller,
         hintTexts: [widget.title],
+        isAnimated: widget.isHintAnimated,
+        onChanged: widget.onChanged,
       ),
       suggestionsController: _suggestionsController,
       onSelected: (value) {

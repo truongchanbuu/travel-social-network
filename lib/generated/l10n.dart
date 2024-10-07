@@ -260,6 +260,16 @@ class S {
     );
   }
 
+  /// `minute`
+  String get minute {
+    return Intl.message(
+      'minute',
+      name: 'minute',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hi {appName} member`
   String greetingAppMember(String appName) {
     return Intl.message(
@@ -1907,13 +1917,13 @@ class S {
     );
   }
 
-  /// `Invalid {field}! It must be at least 10 characters`
-  String lengthLimitError(String field) {
+  /// `Invalid {field}! It must be at least {minLength} characters`
+  String lengthLimitError(String field, int minLength) {
     return Intl.message(
-      'Invalid $field! It must be at least 10 characters',
+      'Invalid $field! It must be at least $minLength characters',
       name: 'lengthLimitError',
       desc: '',
-      args: [field],
+      args: [field, minLength],
     );
   }
 
@@ -1994,6 +2004,138 @@ class S {
       name: 'isAllow',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `year|years|y`
+  String get yearUnit {
+    return Intl.message(
+      'year|years|y',
+      name: 'yearUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `month|months|mo`
+  String get monthUnit {
+    return Intl.message(
+      'month|months|mo',
+      name: 'monthUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `week|weeks|w`
+  String get weekUnit {
+    return Intl.message(
+      'week|weeks|w',
+      name: 'weekUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `day|days|d`
+  String get dayUnit {
+    return Intl.message(
+      'day|days|d',
+      name: 'dayUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hour|hours|h`
+  String get hourUnit {
+    return Intl.message(
+      'hour|hours|h',
+      name: 'hourUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `minute|minutes|min`
+  String get minuteUnit {
+    return Intl.message(
+      'minute|minutes|min',
+      name: 'minuteUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count, plural, =1{1 year} other{{count} years}}`
+  String yearFormatted(num count) {
+    return Intl.plural(
+      count,
+      one: '1 year',
+      other: '$count years',
+      name: 'yearFormatted',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 month} other{{count} months}}`
+  String monthFormatted(num count) {
+    return Intl.plural(
+      count,
+      one: '1 month',
+      other: '$count months',
+      name: 'monthFormatted',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 week} other{{count} weeks}}`
+  String weekFormatted(num count) {
+    return Intl.plural(
+      count,
+      one: '1 week',
+      other: '$count weeks',
+      name: 'weekFormatted',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 day} other{{count} days}}`
+  String dayFormatted(num count) {
+    return Intl.plural(
+      count,
+      one: '1 day',
+      other: '$count days',
+      name: 'dayFormatted',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 hour} other{{count} hours}}`
+  String hourFormatted(num count) {
+    return Intl.plural(
+      count,
+      one: '1 hour',
+      other: '$count hours',
+      name: 'hourFormatted',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{count, plural, =1{1 minute} other{{count} minutes}}`
+  String minuteFormatted(num count) {
+    return Intl.plural(
+      count,
+      one: '1 minute',
+      other: '$count minutes',
+      name: 'minuteFormatted',
+      desc: '',
+      args: [count],
     );
   }
 }

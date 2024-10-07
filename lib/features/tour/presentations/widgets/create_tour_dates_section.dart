@@ -266,11 +266,12 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       ),
     );
 
-    print(data);
-    if (data is List<String>) {
-      setState(() => selectedDates = data);
-    } else {
-      setState(() => tickets = data);
+    if (data != null) {
+      if (data is List<String>) {
+        setState(() => selectedDates = data);
+      } else {
+        setState(() => tickets = data);
+      }
     }
   }
 

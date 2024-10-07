@@ -4,10 +4,9 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/app_progressing_indicator.dart';
-import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../domain/entities/tour.dart';
-import '../widgets/create_tour_add_image_section.dart';
+import '../bloc/tour_bloc.dart';
+import '../../../shared/widgets/add_image_view.dart';
 import '../widgets/create_tour_dates_section.dart';
 import '../widgets/create_tour_details.dart';
 
@@ -21,7 +20,7 @@ class CreateTourPage extends StatefulWidget {
 class _CreateTourPageState extends State<CreateTourPage> {
   List<ImageFile> images = [];
   Map<String, bool> expansionDetails = {};
-  late final TourEntity tour;
+  late TourEntity tour;
 
   static const String detailKey = 'detail';
   static const String imagesKey = 'images';
@@ -31,7 +30,6 @@ class _CreateTourPageState extends State<CreateTourPage> {
   @override
   void initState() {
     super.initState();
-    tour = TourEntity.defaultWithId();
 
     expansionDetails = {
       detailKey: true,
@@ -45,11 +43,12 @@ class _CreateTourPageState extends State<CreateTourPage> {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: BlocConsumer<TicketBloc, TicketState>(
+        body: BlocConsumer<TourBloc, TourState>(
           builder: (context, state) {
-            if (state is TicketActionLoading) {
-              return const AppProgressingIndicator();
+            if (state is TourLoaded) {
+              tour = state.tour;
             }
+
             return _buildBody();
           },
           listener: (context, state) {},
@@ -88,7 +87,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
           S.current.addImageLabel,
           leading: const Icon(Icons.image),
         ),
-        body: CreateTourAddImageSection(
+        body: AddImageView(
           images: images,
           onImageSaved: (images) => this.images = images,
         ),
@@ -100,7 +99,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
           S.current.tourDetails,
           leading: const Icon(Icons.location_on_outlined),
         ),
-        body: const CreateTourDetails(),
+        body: CreateTourDetails(tour: tour),
       );
 
   Widget _buildHeadingText(String title, {Widget? leading}) => ListTile(

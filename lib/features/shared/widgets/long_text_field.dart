@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 import '../../../cores/constants/constants.dart';
 import '../pages/editor_page.dart';

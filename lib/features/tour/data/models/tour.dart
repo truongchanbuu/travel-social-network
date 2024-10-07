@@ -1,7 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../ticket/data/models/ticket_type.dart';
+import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../domain/entities/tour.dart';
+import '../../domain/entities/tour_schedule.dart';
 import 'tour_schedule.dart';
 
 part 'tour.g.dart';
@@ -25,31 +27,36 @@ class Tour extends TourEntity {
           tourSchedule: tourSchedule?.toEntity(),
         );
 
+  @override
   Tour copyWith({
-    String? tourId,
-    String? tourName,
-    String? tourDescription,
     String? createdBy,
-    List<TicketType>? tickets,
-    List<String>? imageUrls,
     String? departure,
     String? destination,
     String? duration,
+    List<String>? imageUrls,
     double? rating,
-    TourSchedule? tourSchedule,
+    List<TicketTypeEntity>? tickets,
+    String? tourDescription,
+    String? tourId,
+    String? tourName,
+    TourScheduleEntity? tourSchedule,
   }) {
     return Tour(
-      tourId: tourId ?? this.tourId,
-      tourName: tourName ?? this.tourName,
-      tourDescription: tourDescription ?? this.tourDescription,
       createdBy: createdBy ?? this.createdBy,
-      tickets: tickets ?? this.tickets.map(TicketType.fromEntity).toList(),
-      imageUrls: imageUrls ?? this.imageUrls,
       departure: departure ?? this.departure,
       destination: destination ?? this.destination,
       duration: duration ?? this.duration,
+      imageUrls: imageUrls ?? this.imageUrls,
       rating: rating ?? this.rating,
-      tourSchedule: tourSchedule,
+      tickets: (tickets ?? this.tickets).map(TicketType.fromEntity).toList(),
+      tourDescription: tourDescription ?? this.tourDescription,
+      tourId: tourId ?? this.tourId,
+      tourName: tourName ?? this.tourName,
+      tourSchedule: tourSchedule != null
+          ? TourSchedule.fromEntity(tourSchedule)
+          : (this.tourSchedule != null)
+              ? TourSchedule.fromEntity(this.tourSchedule!)
+              : null,
     );
   }
 

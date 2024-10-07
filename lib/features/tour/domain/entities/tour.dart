@@ -44,6 +44,34 @@ class TourEntity extends Equatable {
     this.tourSchedule,
   }) : tourId = 'TOUR-${const Uuid().v4()}';
 
+  TourEntity copyWith({
+    String? tourId,
+    String? tourName,
+    String? tourDescription,
+    String? createdBy,
+    List<TicketTypeEntity>? tickets,
+    List<String>? imageUrls,
+    String? departure,
+    String? destination,
+    String? duration,
+    double? rating,
+    TourScheduleEntity? tourSchedule,
+  }) {
+    return TourEntity(
+      tourId: tourId ?? this.tourId,
+      tourName: tourName ?? this.tourName,
+      tourDescription: tourDescription ?? this.tourDescription,
+      createdBy: createdBy ?? this.createdBy,
+      tickets: tickets ?? this.tickets,
+      imageUrls: imageUrls ?? this.imageUrls,
+      departure: departure ?? this.departure,
+      destination: destination ?? this.destination,
+      duration: duration ?? this.duration,
+      rating: rating ?? this.rating,
+      tourSchedule: tourSchedule ?? this.tourSchedule,
+    );
+  }
+
   @override
   List<Object?> get props {
     return [
@@ -60,4 +88,16 @@ class TourEntity extends Equatable {
       tourSchedule,
     ];
   }
+
+  static const String tourIdFieldName = "tourId";
+  static const String tourNameFieldName = "tourName";
+  static const String tourDescriptionFieldName = "tourDescription";
+  static const String createdByFieldName = "createdBy";
+  static const String ticketsFieldName = "tickets";
+  static const String imageUrlsFieldName = "imageUrls";
+  static const String departureFieldName = "departure";
+  static const String destinationFieldName = "destination";
+  static const String durationFieldName = "duration";
+  static const String ratingFieldName = "rating";
+  static const String tourScheduleFieldName = "tourSchedule";
 }

@@ -4,6 +4,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
+import '../../../../cores/utils/form_validator.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/widgets/app_progressing_indicator.dart';
 import '../../../shared/widgets/confirm_dialog.dart';
@@ -115,7 +116,6 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomTextField(
-              validator: _policyNameValidator,
               label: S.current.policyName,
               replaceField: _buildDropdownButton(policy),
             ),
@@ -126,7 +126,8 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
               onSaved: (value) => context
                   .read<PolicyBloc>()
                   .add(UpdatePolicyDescription(value ?? '')),
-              validator: _policyDescValidator,
+              validator: (value) =>
+                  genericValidator(value: value, label: S.current.policyDesc),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -161,7 +162,8 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
       value: policy.policyName.isEmpty
           ? policyLabels.keys.first
           : policy.policyName,
-      validator: _policyNameValidator,
+      validator: (value) =>
+          genericValidator(value: value, label: S.current.policyName),
       onChanged: (value) {
         if (value != null) {
           context.read<PolicyBloc>().add(UpdatePolicyName(value));
@@ -171,21 +173,6 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
         }
       },
     );
-  }
-
-  String? _policyNameValidator(String? name) {
-    if (name?.isEmpty ?? true) {
-      return S.current.notAllowedEmpty;
-    }
-
-    return null;
-  }
-
-  String? _policyDescValidator(String? desc) {
-    if ((desc?.length ?? 0) < minLimitLength) {
-      return S.current.lengthLimitError(S.current.policyDesc);
-    }
-    return null;
   }
 
   void _acceptPolicy(BuildContext context, PolicyEntity policy) {

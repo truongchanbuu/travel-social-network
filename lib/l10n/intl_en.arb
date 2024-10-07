@@ -21,6 +21,7 @@
     "week": "week",
     "month": "month",
     "year": "year",
+    "minute": "minute",
     "greetingAppMember": "Hi {appName} member",
     "@greetingAppMember": {
         "placeholders": {
@@ -296,11 +297,14 @@
     "ticketRedemption": "Redemption Method",
     "policyName": "Policy Name",
     "policyDesc": "Policy Description",
-    "lengthLimitError": "Invalid {field}! It must be at least 10 characters",
+    "lengthLimitError": "Invalid {field}! It must be at least {minLength} characters",
     "@lengthLimitError": {
         "placeholders": {
             "field": {
                 "type": "String"
+            },
+            "minLength": {
+                "type": "int"
             }
         }
     },
@@ -318,5 +322,19 @@
             }
         }
     },
-    "isAllow": "Is Allow"
+    "isAllow": "Is Allow",
+
+    "yearUnit": "year|years|y",
+    "monthUnit": "month|months|mo",
+    "weekUnit": "week|weeks|w",
+    "dayUnit": "day|days|d",
+    "hourUnit": "hour|hours|h",
+    "minuteUnit": "minute|minutes|min",
+
+    "yearFormatted": "{count, plural, =1{1 year} other{{count} years}}",
+    "monthFormatted": "{count, plural, =1{1 month} other{{count} months}}",
+    "weekFormatted": "{count, plural, =1{1 week} other{{count} weeks}}",
+    "dayFormatted": "{count, plural, =1{1 day} other{{count} days}}",
+    "hourFormatted": "{count, plural, =1{1 hour} other{{count} hours}}",
+    "minuteFormatted": "{count, plural, =1{1 minute} other{{count} minutes}}"
 }
