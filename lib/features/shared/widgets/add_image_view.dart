@@ -74,6 +74,10 @@ class _AddImageViewState extends State<AddImageView> {
           id: 'TMP-IMG',
           imageUrls: _images.map((img) => img.path!).toList(),
           imageSize: 200,
+          overflowWidget: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: _buildPickerWidget(),
+          ),
         ),
       );
 

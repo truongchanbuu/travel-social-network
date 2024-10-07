@@ -155,6 +155,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
             : body,
       );
 
+  // TODO: DELETE ON EXIT
   AppBar _buildAppBar() => AppBar(backgroundColor: Colors.white);
 
   void _expansionCallBack(int index, bool isExpanded) {

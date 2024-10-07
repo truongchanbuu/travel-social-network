@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../ticket/presentations/bloc/ticket_bloc.dart';
+import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../../tour/presentations/pages/create_tour_page.dart';
 
 class HomePageFloatingActionButton extends StatefulWidget {
@@ -42,10 +44,12 @@ class _HomePageFloatingActionButtonState
     Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
-            create: (context) => getIt.get<TicketBloc>(),
-            child: const CreateTourPage(),
-          ),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              MultiBlocProvider(providers: [
+            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+            BlocProvider(create: (context) => getIt.get<TourBloc>()),
+            BlocProvider(create: (context) => getIt.get<PolicyBloc>())
+          ], child: const CreateTourPage()),
           transitionDuration:
               const Duration(milliseconds: pageChangeTransitionDuration),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {

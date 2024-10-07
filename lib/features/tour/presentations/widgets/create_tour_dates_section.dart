@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:travel_social_network/injection_container.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../shared/widgets/confirm_dialog.dart';
 import '../../../shared/widgets/expanded_button.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../../ticket/presentations/bloc/ticket_bloc.dart';
@@ -207,37 +208,16 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   void _deleteAll() async {
     var isConfirmed = await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(S.current.deleteConfirmTitle),
-        content: Text(S.current.deleteConfirmText),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(
-              S.current.cancel,
-              style: const TextStyle(
-                color: primaryColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(
-              S.current.delete,
-              style: const TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          )
-        ],
+      builder: (context) => ConfirmDialog(
+        title: S.current.deleteConfirmTitle,
+        content: S.current.deleteConfirmText,
+        onCancel: () => Navigator.pop(context, false),
+        onOk: () => Navigator.pop(context, true),
       ),
     );
 
     if (isConfirmed) {
+      // TODO: DELETE ALL TICKETS OF DELETED DATES
       setState(() {
         for (var date in selectedDates) {
           dates.remove(date);

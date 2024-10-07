@@ -10,6 +10,7 @@ class ConfirmDialog extends StatelessWidget {
   final String? softActionText;
   final void Function()? onCancel;
   final void Function()? onOk;
+
   const ConfirmDialog({
     super.key,
     this.title,
