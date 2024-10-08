@@ -149,6 +149,14 @@
             }
         }
     },
+    "addImageFailure": "Image {name} failed to add",
+    "@addImageFailure": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "reviewTitle": "Reviews & Rating",
     "reviews": "{count, plural, zero{Review} one{Review} other {Reviews}}",
     "reviewed": "Reviewed",

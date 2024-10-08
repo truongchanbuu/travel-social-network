@@ -26,3 +26,11 @@ final class UpdateTourFieldEvent extends TourEvent {
   @override
   List<Object> get props => [fieldName, value];
 }
+
+final class GetToursByUserIdEvent extends TourEvent {
+  final String userId;
+  const GetToursByUserIdEvent(this.userId);
+
+  @override
+  List<Object> get props => [userId];
+}

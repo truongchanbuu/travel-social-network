@@ -20,49 +20,51 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'vi';
 
-  static String m0(prefix, index) => "${prefix}-img-${index}";
+  static String m0(name) => "Không thể thêm hình ảnh ${name}";
 
-  static String m1(imgUrl, index) => "${imgUrl}-${index}";
+  static String m1(prefix, index) => "${prefix}-img-${index}";
 
-  static String m2(count) => "${count} ngày";
+  static String m2(imgUrl, index) => "${imgUrl}-${index}";
 
-  static String m3(ticketType) => "Dành cho ${ticketType}";
+  static String m3(count) => "${count} ngày";
 
-  static String m4(appName) => "Xin chào các thành viên của ${appName}";
+  static String m4(ticketType) => "Dành cho ${ticketType}";
 
-  static String m5(name) => "Xin chào ${name},";
+  static String m5(appName) => "Xin chào các thành viên của ${appName}";
 
-  static String m6(count) => "${count} giờ";
+  static String m6(name) => "Xin chào ${name},";
 
-  static String m7(index) => "Hỉnh ảnh tại vị trí ${index}";
+  static String m7(count) => "${count} giờ";
 
-  static String m8(nameOfCollection) => "Tất cả các ảnh${nameOfCollection}";
+  static String m8(index) => "Hỉnh ảnh tại vị trí ${index}";
 
-  static String m9(field, minLength) =>
+  static String m9(nameOfCollection) => "Tất cả các ảnh${nameOfCollection}";
+
+  static String m10(field, minLength) =>
       "${field} không hợp lệ! Cần ít nhất ${minLength} ký tự";
 
-  static String m10(index) => "Đang tải ảnh tại vị trí thứ ${index}";
+  static String m11(index) => "Đang tải ảnh tại vị trí thứ ${index}";
 
-  static String m11(count) => "${count} phút";
+  static String m12(count) => "${count} phút";
 
-  static String m12(count) => "${count} tháng";
+  static String m13(count) => "${count} tháng";
 
-  static String m13(count) => "đánh giá";
+  static String m14(count) => "đánh giá";
 
-  static String m14(object) => "Không thể lưu ${object}! Hãy thử lại sau";
+  static String m15(object) => "Không thể lưu ${object}! Hãy thử lại sau";
 
-  static String m15(value) => "Ngày thứ ${value}";
+  static String m16(value) => "Ngày thứ ${value}";
 
-  static String m16(name) => "Ảnh bìa của ${name}";
+  static String m17(name) => "Ảnh bìa của ${name}";
 
-  static String m17(value) => "${value}";
+  static String m18(value) => "${value}";
 
-  static String m18(start, end) =>
+  static String m19(start, end) =>
       "Chuyến đi của bạn sẽ khởi hành vào lúc: ${start} kết thúc vào: ${end}";
 
-  static String m19(count) => "${count} tuần";
+  static String m20(count) => "${count} tuần";
 
-  static String m20(count) => "${count} năm";
+  static String m21(count) => "${count} năm";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -70,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accept": MessageLookupByLibrary.simpleMessage("Chấp nhận"),
         "account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "addDate": MessageLookupByLibrary.simpleMessage("Thêm thời gian"),
+        "addImageFailure": m0,
         "addImageLabel": MessageLookupByLibrary.simpleMessage("Thêm hình ảnh"),
         "addVisitorNumber":
             MessageLookupByLibrary.simpleMessage("Thêm số lượng người"),
@@ -89,8 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bookingNow": MessageLookupByLibrary.simpleMessage("Đặt ngay"),
         "brightTheme": MessageLookupByLibrary.simpleMessage("Nền sáng"),
         "buyTicket": MessageLookupByLibrary.simpleMessage("Đặt vé"),
-        "cacheKeyWithId": m0,
-        "cacheKeyWithoutId": m1,
+        "cacheKeyWithId": m1,
+        "cacheKeyWithoutId": m2,
         "canBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Có thể đổi lịch"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),
@@ -131,7 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "currencyChoice": MessageLookupByLibrary.simpleMessage("Bảng Anh"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Nền tối"),
         "day": MessageLookupByLibrary.simpleMessage("ngày"),
-        "dayFormatted": m2,
+        "dayFormatted": m3,
         "dayUnit": MessageLookupByLibrary.simpleMessage("ngày"),
         "days": MessageLookupByLibrary.simpleMessage("ngày"),
         "defaultText": MessageLookupByLibrary.simpleMessage(
@@ -179,20 +182,20 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ưu đãi đặc biệt dành cho bạn - chỉ với một bước đơn giản!"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
             "Để biết thông tin chi tiết về vé này"),
-        "forType": m3,
+        "forType": m4,
         "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khảu"),
-        "greetingAppMember": m4,
+        "greetingAppMember": m5,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Xem hướng dẫn đường đi"),
-        "helloUser": m5,
+        "helloUser": m6,
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "hour": MessageLookupByLibrary.simpleMessage("giờ"),
-        "hourFormatted": m6,
+        "hourFormatted": m7,
         "hourUnit": MessageLookupByLibrary.simpleMessage("giờ|tiếng"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("Cách nhận"),
         "image": MessageLookupByLibrary.simpleMessage("hình ảnh"),
-        "imageAtIndex": m7,
-        "imageCollectionText": m8,
+        "imageAtIndex": m8,
+        "imageCollectionText": m9,
         "importantThingsYouShouldKnow":
             MessageLookupByLibrary.simpleMessage("Một số điều cần lưu ý"),
         "inUseDateError":
@@ -211,10 +214,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "itinerary": MessageLookupByLibrary.simpleMessage("lịch trình"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "leave": MessageLookupByLibrary.simpleMessage("Rời đi"),
-        "lengthLimitError": m9,
+        "lengthLimitError": m10,
         "linkEmail": MessageLookupByLibrary.simpleMessage("Liên kết email"),
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
-        "loadingImageText": m10,
+        "loadingImageText": m11,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Thông tin địa danh"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
@@ -222,10 +225,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "manageYourAccount":
             MessageLookupByLibrary.simpleMessage("Quản lý tài khoản của bạn"),
         "minute": MessageLookupByLibrary.simpleMessage("phút"),
-        "minuteFormatted": m11,
+        "minuteFormatted": m12,
         "minuteUnit": MessageLookupByLibrary.simpleMessage("phút"),
         "month": MessageLookupByLibrary.simpleMessage("tháng"),
-        "monthFormatted": m12,
+        "monthFormatted": m13,
         "monthUnit": MessageLookupByLibrary.simpleMessage("tháng"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Thêm thông tin"),
         "morningText": MessageLookupByLibrary.simpleMessage(
@@ -281,13 +284,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Đã đánh giá"),
-        "reviews": m13,
+        "reviews": m14,
         "sameDateError": MessageLookupByLibrary.simpleMessage(
             "Ngày khởi hành và ngày kết thúc không thể trùng"),
         "save": MessageLookupByLibrary.simpleMessage("Lưu"),
-        "saveError": m14,
+        "saveError": m15,
         "schedule": MessageLookupByLibrary.simpleMessage("Lịch trình"),
-        "scheduleDay": m15,
+        "scheduleDay": m16,
         "search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),
         "searching": MessageLookupByLibrary.simpleMessage("Tìm kiếm..."),
         "securityAccount":
@@ -313,7 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chính sách và Điều khoản"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ"),
-        "thumbDesc": m16,
+        "thumbDesc": m17,
         "ticketCategory": MessageLookupByLibrary.simpleMessage("Loại vé"),
         "ticketDesc": MessageLookupByLibrary.simpleMessage("Mô tả vé"),
         "ticketInfo":
@@ -323,9 +326,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "ticketRedemption":
             MessageLookupByLibrary.simpleMessage("Phương thức quy đổi"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Tổng tiền"),
-        "totalReviews": m17,
+        "totalReviews": m18,
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),
-        "tourDateAnnounce": m18,
+        "tourDateAnnounce": m19,
         "tourDatesLabel":
             MessageLookupByLibrary.simpleMessage("Thời gian xuất phát"),
         "tourDescDetail":
@@ -352,10 +355,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vé có hiệu lực vào"),
         "voucherExp": MessageLookupByLibrary.simpleMessage("Thời hạn vé"),
         "week": MessageLookupByLibrary.simpleMessage("tuần"),
-        "weekFormatted": m19,
+        "weekFormatted": m20,
         "weekUnit": MessageLookupByLibrary.simpleMessage("tuần"),
         "year": MessageLookupByLibrary.simpleMessage("năm"),
-        "yearFormatted": m20,
+        "yearFormatted": m21,
         "yearUnit": MessageLookupByLibrary.simpleMessage("năm")
       };
 }

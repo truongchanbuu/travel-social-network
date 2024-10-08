@@ -5,20 +5,12 @@ import '../../../../injection_container.dart';
 import '../../domain/repositories/image_repository.dart';
 
 class ImageRepositoryImpl implements ImageRepository {
-  final FirebaseStorage _storage;
-  final String basePath;
+  final FirebaseStorage _storage = getIt.get<FirebaseStorage>();
 
   @override
-  String getFullPath(String filename) =>
-      basePath.isEmpty ? filename : '$basePath/$filename';
-
-  ImageRepositoryImpl({this.basePath = '', FirebaseStorage? storage})
-      : _storage = storage = getIt.get<FirebaseStorage>();
-
-  @override
-  Future<DataState<dynamic>> deleteImage(String name) async {
+  Future<DataState<dynamic>> deleteImage(String path) async {
     try {
-      final ref = _storage.ref(getFullPath(name));
+      final ref = _storage.ref(path);
       await ref.delete();
       return const DataSuccess();
     } on FirebaseException catch (e) {
@@ -35,9 +27,9 @@ class ImageRepositoryImpl implements ImageRepository {
   }
 
   @override
-  Future<DataState<String>> getImageUrl(String name) async {
+  Future<DataState<String>> getImageUrl(String path) async {
     try {
-      final ref = _storage.ref(getFullPath(name));
+      final ref = _storage.ref(path);
       return DataSuccess(data: await ref.getDownloadURL());
     } on FirebaseException catch (e) {
       return handleFirebaseException<String>(e);
@@ -47,9 +39,9 @@ class ImageRepositoryImpl implements ImageRepository {
   }
 
   @override
-  Future<DataState<String>> uploadImage(image, String name) async {
+  Future<DataState<String>> uploadImage(image, String path) async {
     try {
-      final ref = _storage.ref(getFullPath(name));
+      final ref = _storage.ref(path);
       await ref.putData(image);
       return DataSuccess(data: await ref.getDownloadURL());
     } on FirebaseException catch (e) {

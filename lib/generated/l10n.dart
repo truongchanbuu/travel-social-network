@@ -901,6 +901,16 @@ class S {
     );
   }
 
+  /// `Image {name} failed to add`
+  String addImageFailure(String name) {
+    return Intl.message(
+      'Image $name failed to add',
+      name: 'addImageFailure',
+      desc: '',
+      args: [name],
+    );
+  }
+
   /// `Reviews & Rating`
   String get reviewTitle {
     return Intl.message(

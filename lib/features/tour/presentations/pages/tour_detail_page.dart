@@ -299,7 +299,6 @@ class _TourDetailPageState extends State<TourDetailPage> {
   }
 
   void _showReviewDetailPage() {
-    print(tour.tourId);
     Navigator.push(
       context,
       MaterialPageRoute(

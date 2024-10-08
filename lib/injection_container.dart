@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 
 import 'cores/constants/constants.dart';
 import 'features/policy/data/repositories/policy_repository_impl.dart';
 import 'features/policy/domain/repositories/policy_repository.dart';
 import 'features/policy/presentations/bloc/policy_bloc.dart';
+import 'features/shared/data/repositories/image_repository_impl.dart';
+import 'features/shared/domain/repositories/image_repository.dart';
 import 'features/ticket/data/repositories/ticket_repository_impl.dart';
 import 'features/ticket/domain/repositories/ticket_repository.dart';
 import 'features/ticket/presentations/bloc/ticket_bloc.dart';
@@ -27,12 +29,14 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<FirebaseStorage>(FirebaseStorage.instance);
 
   // Repository
+  getIt.registerSingleton<ImageRepository>(ImageRepositoryImpl());
   getIt.registerSingleton<TourRepository>(TourRepositoryImpl());
   getIt.registerSingleton<TicketRepository>(TicketRepositoryImpl());
   getIt.registerSingleton<PolicyRepository>(PolicyRepositoryImpl());
 
   // Bloc
-  getIt.registerFactory<TourBloc>(() => TourBloc(getIt()));
+  getIt.registerFactory<TourBloc>(
+      () => TourBloc(tourRepository: getIt(), imageRepository: getIt()));
   getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
   getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));
 }

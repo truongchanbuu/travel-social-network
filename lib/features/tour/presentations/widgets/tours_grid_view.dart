@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
-import '../../../../../cores/constants/constants.dart';
-import '../../../../tour/domain/entities/tour.dart';
-import '../../../../tour/presentations/pages/tour_detail_page.dart';
-import '../app_cached_image.dart';
+import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/app_cached_image.dart';
+import '../../domain/entities/tour.dart';
+import '../pages/tour_detail_page.dart';
 
 class ToursGridView extends StatefulWidget {
   const ToursGridView({super.key});
@@ -26,17 +27,17 @@ class _ToursGridViewState extends State<ToursGridView> {
   }
 
   static const double borderRadius = 10;
+  static const double gridSpacing = 20;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-
     int crossAxisCount = min(screenWidth ~/ 200, maxItemCount);
 
     return SliverMasonryGrid.count(
       crossAxisCount: crossAxisCount,
-      mainAxisSpacing: 20,
-      crossAxisSpacing: 20,
+      mainAxisSpacing: gridSpacing,
+      crossAxisSpacing: gridSpacing,
       childCount: recommendedTours.length,
       itemBuilder: (context, index) => _buildTourItem(
         tour: recommendedTours[index],
@@ -94,14 +95,12 @@ class _ToursGridViewState extends State<ToursGridView> {
         imageUrl: tour.imageUrls[Random().nextInt(tour.imageUrls.length)],
         cacheKey: tour.tourId,
         loadingSemanticLabel:
-            'Loading thumb for tour with name ${tour.tourName}',
-        errorSemanticLabel: 'Thumb of ${tour.tourName} tour',
+            S.current.loadingImageText(recommendedTours.indexOf(tour)),
+        errorSemanticLabel: S.current.errorImage,
       );
 
   void _navigateToTourDetail(String tourId) => Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => TourDetailPage(tourId: tourId),
-        ),
+        MaterialPageRoute(builder: (context) => TourDetailPage(tourId: tourId)),
       );
 }

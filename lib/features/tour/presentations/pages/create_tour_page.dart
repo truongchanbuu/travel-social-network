@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:travel_social_network/features/tour/presentations/pages/your_tours_page.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/add_image_view.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../shared/presentations/widgets/confirm_dialog.dart';
 import '../../../shared/presentations/widgets/default_white_appabar.dart';
 import '../../domain/entities/tour.dart';
 import '../bloc/tour_bloc.dart';
@@ -47,16 +50,25 @@ class _CreateTourPageState extends State<CreateTourPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultWhiteAppBar(),
+        appBar: defaultWhiteAppBar(onBack: _backToPrevious),
         body: BlocConsumer<TourBloc, TourState>(
           builder: (context, state) {
-            if (state is TourLoaded) {
+            if (state is TourActionLoading) {
+              return const AppProgressingIndicator();
+            } else if (state is TourLoaded) {
               tour = state.tour;
             }
 
             return _buildBody();
           },
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is TourActionFailed) {
+              showToast(state.message,
+                  position: StyledToastPosition.center, context: context);
+            } else if (state is TourActionSucceed) {
+              // TODO: SEE WHAT TODO IF TOUR CREATED
+            }
+          },
         ),
         bottomNavigationBar: _buildSaveTourButton(),
       ),
@@ -211,6 +223,18 @@ class _CreateTourPageState extends State<CreateTourPage> {
       return;
     }
 
-    context.read().add();
+    context.read().add(CreateTourEvent(tour: tour, images: images));
+  }
+
+  void _backToPrevious() {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(onOk: () {
+        Navigator.of(context)
+          ..pop()
+          ..push(
+              MaterialPageRoute(builder: (context) => const YourToursPage()));
+      }),
+    );
   }
 }

@@ -148,6 +148,14 @@
             }
         }
     },
+    "addImageFailure": "Không thể thêm hình ảnh {name}",
+    "@addImageFailure": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "reviewTile": "Đánh giá",
     "reviews": "đánh giá",
     "reviewed": "Đã đánh giá",

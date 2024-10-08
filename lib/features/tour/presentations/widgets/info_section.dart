@@ -85,7 +85,7 @@ class InfoSection extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               // TODO: Change the total review later
-              '${S.current.totalReviews(21243)} ${S.current.reviews}',
+              '${S.current.totalReviews(21243)} ${S.current.reviews(20000)}',
               style: const TextStyle(
                 color: reviewNumberTextColor,
                 fontSize: 12,

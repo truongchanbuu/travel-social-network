@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../tour/presentations/widgets/tours_grid_view.dart';
 import '../../widgets/home/destination_list.dart';
 import '../../widgets/home/home_app_bar.dart';
 import '../../widgets/home/homepage_fab.dart';
 import '../../widgets/home/homepage_section_heading.dart';
-import '../../widgets/home/tours_grid_view.dart';
 import '../unsupported_screen.dart';
 
 class HomePage extends StatefulWidget {

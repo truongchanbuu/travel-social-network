@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 import '../../../../cores/resources/data_state.dart';
+import '../../../../generated/l10n.dart';
+import '../../../shared/domain/repositories/image_repository.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
+import '../../data/models/tour.dart';
 import '../../domain/entities/tour.dart';
 import '../../domain/repositories/tour_repository.dart';
 
@@ -14,8 +17,10 @@ part 'tour_state.dart';
 
 class TourBloc extends Bloc<TourEvent, TourState> {
   final TourRepository tourRepository;
+  final ImageRepository imageRepository;
+  static const basePath = '/tours';
 
-  TourBloc(this.tourRepository)
+  TourBloc({required this.tourRepository, required this.imageRepository})
       : super(TourLoaded(TourEntity.defaultWithId())) {
     on<CreateTourEvent>(_onCreateTour);
     on<UpdateTourFieldEvent>(_onUpdateTourField);
@@ -24,20 +29,51 @@ class TourBloc extends Bloc<TourEvent, TourState> {
   Future<void> _onCreateTour(
       CreateTourEvent event, Emitter<TourState> emit) async {
     try {
-      List<String> uploadedUrl = ...
-      final dataState = await tourRepository.createTour();
+      List<String> imgUrls = [];
 
-      if (dataState is DataFailure) {
-        emit(TourActionFailed(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
-      } else if (dataState is DataSuccess) {
-        emit((dataState.data!.map((ticket) => ticket.toEntity()).toList()));
-      } else {
-        emit(TourActionLoading());
+      for (var img in event.images) {
+        String? imgUrl = await _onUploadImage(
+            img, '$basePath/${event.tour.tourId}/${img.name}');
+
+        if (imgUrl?.isNotEmpty ?? false) {
+          imgUrls.add(imgUrl!);
+        } else {
+          emit(TourActionFailed(S.current.addImageFailure(img.name)));
+        }
+      }
+
+      if (imgUrls.isNotEmpty) {
+        final Tour tour =
+            Tour.fromEntity(event.tour.copyWith(imageUrls: imgUrls));
+        final dataState = await tourRepository.createTour(tour);
+
+        if (dataState is DataFailure) {
+          emit(TourActionFailed(dataState.error?.message ??
+              'ERROR OCCURRED: ${dataState.error}'));
+        } else if (dataState is DataSuccess) {
+        } else {
+          emit(TourActionLoading());
+        }
       }
     } catch (e) {
-      emit(TourActionFailed('List of Tickets Created Failure: $e'));
+      emit(TourActionFailed('Tour Create Failed: $e'));
     }
+  }
+
+  Future<String?> _onUploadImage(ImageFile image, String path) async {
+    try {
+      final dataState = await imageRepository.uploadImage(image.bytes, path);
+
+      if (dataState is DataFailure) {
+        return null;
+      }
+
+      return dataState.data;
+    } catch (e) {
+      log(e.toString());
+    }
+
+    return null;
   }
 
   void _onUpdateTourField(UpdateTourFieldEvent event, Emitter<TourState> emit) {

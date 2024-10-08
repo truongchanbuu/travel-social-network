@@ -31,4 +31,12 @@ final class TourLoaded extends TourState {
   List<Object> get props => [tour];
 }
 
+final class ListOfToursLoaded extends TourState {
+  final List<TourEntity> tours;
+  const ListOfToursLoaded(this.tours);
+
+  @override
+  List<Object> get props => [tours];
+}
+
 final class TourActionLoading extends TourState {}
