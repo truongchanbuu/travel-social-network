@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:travel_social_network/features/shared/presentations/widgets/app_bottom_navigation_bar.dart';
+import 'package:travel_social_network/features/tour/presentations/widgets/your_tour_item.dart';
 
 import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
@@ -54,7 +55,8 @@ class MyApp extends StatelessWidget {
               // ], child: CreateTourPage())
               // HomePage(),
               // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
-              TourDetailPage(tourId: generateSampleTours()[0].tourId),
+              // TourDetailPage(tourId: generateSampleTours()[0].tourId),
+              YourTourItem(tour: generateSampleTours()[0]),
           // TicketDetailPage(ticketId: tour1Tickets[0].ticketTypeId),
           // AddTicketTypeItem(ticket: tour1Tickets.first),
         ),

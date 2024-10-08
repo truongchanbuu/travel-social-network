@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../domain/entities/tour.dart';
 import '../bloc/tour_bloc.dart';
+import '../widgets/your_tour_item.dart';
 
 class YourToursPage extends StatefulWidget {
   const YourToursPage({super.key});
@@ -46,7 +47,6 @@ class _YourToursPageState extends State<YourToursPage> {
     );
   }
 
-  Widget _buildTourItem(BuildContext context, int index) {
-    return Container();
-  }
+  Widget _buildTourItem(BuildContext context, int index) =>
+      YourTourItem(tour: tours[index]);
 }
