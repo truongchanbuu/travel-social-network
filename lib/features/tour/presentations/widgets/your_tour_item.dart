@@ -22,13 +22,14 @@ class YourTourItem extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              blurRadius: 5,
-              spreadRadius: 5,
+              blurRadius: 4,
+              spreadRadius: 2,
               color: Colors.black12,
             )
           ],
           borderRadius: BorderRadius.all(Radius.circular(5)),
         ),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: ListTile(
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

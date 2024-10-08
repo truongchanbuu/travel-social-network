@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_social_network/cores/constants/tours.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../shared/presentations/widgets/default_white_appabar.dart';
 import '../../domain/entities/tour.dart';
 import '../bloc/tour_bloc.dart';
 import '../widgets/your_tour_item.dart';
@@ -21,25 +24,32 @@ class _YourToursPageState extends State<YourToursPage> {
     super.initState();
 
     // TODO: Get real user
-    String userId = 'TCB';
-    context.read<TourBloc>().add(GetToursByUserIdEvent(userId));
+    // String userId = 'TCB';
+    // context.read<TourBloc>().add(GetToursByUserIdEvent(userId));
+    tours = generateSampleTours();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: defaultWhiteAppBar(titleText: S.current.myTour),
         body: BlocBuilder<TourBloc, TourState>(
           builder: (context, state) {
-            if (state is TourActionLoading) {
-              return const AppProgressingIndicator();
-            } else if (state is ListOfToursLoaded) {
-              tours = state.tours;
-            }
+            // if (state is TourActionLoading) {
+            //   return const AppProgressingIndicator();
+            // } else if (state is ListOfToursLoaded) {
+            //   tours = state.tours;
+            // }
 
-            return ListView.builder(
-              itemBuilder: _buildTourItem,
-              itemCount: tours.length,
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: ListView.separated(
+                itemBuilder: _buildTourItem,
+                itemCount: tours.length,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
+              ),
             );
           },
         ),

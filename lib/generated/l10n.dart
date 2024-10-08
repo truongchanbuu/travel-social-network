@@ -994,6 +994,16 @@ class S {
     );
   }
 
+  /// `My Tours`
+  String get myTour {
+    return Intl.message(
+      'My Tours',
+      name: 'myTour',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Itinerary`
   String get itinerary {
     return Intl.message(

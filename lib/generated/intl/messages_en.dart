@@ -242,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "moreInfo": MessageLookupByLibrary.simpleMessage("More Information"),
         "morningText": MessageLookupByLibrary.simpleMessage(
             "Good morning! Ready for today\'s adventures?"),
+        "myTour": MessageLookupByLibrary.simpleMessage("My Tours"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nightText": MessageLookupByLibrary.simpleMessage(
             "Have a nice sleep! Dreams are beginning but tomorrow journey will come true"),

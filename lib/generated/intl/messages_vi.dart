@@ -233,6 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "moreInfo": MessageLookupByLibrary.simpleMessage("Thêm thông tin"),
         "morningText": MessageLookupByLibrary.simpleMessage(
             "Buổi sáng tốt lành, đã sẵn sàng cho chuyến hành trình hôm nay chưa?"),
+        "myTour": MessageLookupByLibrary.simpleMessage("Chuyến đi của tôi"),
         "next": MessageLookupByLibrary.simpleMessage("Kế tiếp"),
         "nightText": MessageLookupByLibrary.simpleMessage(
             "Ngủ ngon nhé! Nghỉ ngơi cho một ngày mai không ngừng khám phá!"),
