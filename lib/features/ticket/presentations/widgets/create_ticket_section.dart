@@ -15,9 +15,9 @@ import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../policy/presentations/pages/create_policy_page.dart';
-import '../../../shared/widgets/app_progressing_indicator.dart';
-import '../../../shared/widgets/custom_text_field.dart';
-import '../../../shared/widgets/long_text_field.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../shared/presentations/widgets/custom_text_field.dart';
+import '../../../shared/presentations/widgets/long_text_field.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
 

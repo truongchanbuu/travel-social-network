@@ -5,7 +5,6 @@ import 'package:uuid/uuid.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../data/models/policy.dart';
-import '../../domain/entities/policy.dart';
 import '../../domain/repositories/policy_repository.dart';
 part 'policy_event.dart';
 part 'policy_state.dart';

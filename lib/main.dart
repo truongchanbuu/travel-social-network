@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:travel_social_network/features/shared/widgets/app_bottom_navigation_bar.dart';
+import 'package:travel_social_network/features/shared/presentations/widgets/app_bottom_navigation_bar.dart';
 
 import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';

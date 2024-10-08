@@ -2,7 +2,7 @@ import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../shared/widgets/expanded_button.dart';
+import '../../../shared/presentations/widgets/expanded_button.dart';
 import 'search_item.dart';
 
 class RecentSearch extends StatefulWidget {

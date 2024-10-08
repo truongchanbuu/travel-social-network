@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/utils/form_validator.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/app_progressing_indicator.dart';
-import '../../../shared/widgets/custom_text_field.dart';
-import '../../../shared/widgets/duration_picker.dart';
-import '../../../shared/widgets/long_text_field.dart';
-import '../../../shared/widgets/search_field.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../shared/presentations/widgets/custom_text_field.dart';
+import '../../../shared/presentations/widgets/duration_picker.dart';
+import '../../../shared/presentations/widgets/long_text_field.dart';
+import '../../../shared/presentations/widgets/search_field.dart';
 import '../../domain/entities/tour.dart';
 import '../bloc/tour_bloc.dart';
 
@@ -16,10 +16,10 @@ class CreateTourDetails extends StatefulWidget {
   const CreateTourDetails({super.key, required this.tour});
 
   @override
-  State<CreateTourDetails> createState() => _CreateTourDetailsState();
+  State<CreateTourDetails> createState() => CreateTourDetailsState();
 }
 
-class _CreateTourDetailsState extends State<CreateTourDetails> {
+class CreateTourDetailsState extends State<CreateTourDetails> {
   late final GlobalKey<FormState> _formKey;
   late final TextEditingController _durationController;
 
@@ -72,10 +72,10 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
               CustomTextField(
                 validator: (value) => genericValidator(
                     label: S.current.tourNameLabel, value: value),
-                onSaved: (value) =>
-                    _genericOnValue(TourEntity.tourNameFieldName, value),
-                // onChanged: (value) =>
+                // onSaved: (value) =>
                 //     _genericOnValue(TourEntity.tourNameFieldName, value),
+                onChanged: (value) =>
+                    _genericOnValue(TourEntity.tourNameFieldName, value),
                 label: S.current.tourNameLabel,
                 hintTexts: tourNameHints,
               ),
@@ -120,8 +120,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
                     _genericOnValue(TourEntity.durationFieldName, value),
                 onChanged: (value) =>
                     _genericOnValue(TourEntity.durationFieldName, value),
-                validator: (value) => genericValidator(
-                    value: value, label: S.current.duration, minLength: 0),
+                validator: _durationValidator,
                 hintTexts: [S.current.durationHintText],
                 isAnimated: false,
                 label: S.current.duration,
@@ -138,7 +137,7 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
   void _selectDuration() async {
     var data = await showDialog(
       context: context,
-      builder: (context) => const DurationPicker(),
+      builder: (context) => DurationPicker(initialDuration: tour.duration),
     );
 
     if (data != null && data is String) {
@@ -149,11 +148,24 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
   void _genericOnValue(String fieldName, String? value) {
     final TourBloc tourBloc = context.read<TourBloc>();
     genericOnValue(
-        bloc: tourBloc,
-        updateEventConstructor: (fieldName, value) =>
-            UpdateTourFieldEvent(fieldName, value),
-        fieldName: fieldName,
-        value: value);
+      bloc: tourBloc,
+      updateEventConstructor: (fieldName, value) =>
+          UpdateTourFieldEvent(fieldName, value),
+      fieldName: fieldName,
+      value: value,
+    );
+  }
+
+  String? _durationValidator(String? value) {
+    String? message =
+        genericValidator(value: value, label: S.current.duration, minLength: 0);
+    if (message != null) return message;
+
+    if (value!.startsWith('0')) {
+      return S.current.invalidDurationError;
+    }
+
+    return null;
   }
 
   String? _destValidator(String? value) {
@@ -168,9 +180,12 @@ class _CreateTourDetailsState extends State<CreateTourDetails> {
     return null;
   }
 
-  // void _tourDetailValidator() {
-  //   if (_formKey.currentState?.validate() ?? false) {
-  //     _formKey.currentState?.save();
-  //   }
-  // }
+  bool validateForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      return true;
+    }
+
+    return false;
+  }
 }

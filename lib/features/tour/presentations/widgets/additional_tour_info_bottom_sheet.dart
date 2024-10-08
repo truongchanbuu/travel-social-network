@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/quill_content.dart';
+import '../../../shared/presentations/widgets/quill_content.dart';
 import 'tour_bottom_sheet_template.dart';
 
 class AdditionalTourInfoBottomSheet extends StatelessWidget {

@@ -12,12 +12,14 @@ import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
-import '../../../shared/widgets/confirm_dialog.dart';
-import '../../../shared/widgets/expanded_button.dart';
+import '../../../shared/presentations/widgets/confirm_dialog.dart';
+import '../../../shared/presentations/widgets/expanded_button.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../../ticket/presentations/pages/created_tickets_page.dart';
 import '../../../ticket/presentations/pages/save_ticket_page.dart';
+import '../../domain/entities/tour.dart';
+import '../bloc/tour_bloc.dart';
 import 'date_section_button.dart';
 import 'date_time_item.dart';
 
@@ -34,6 +36,8 @@ class CreateTourDatesSection extends StatefulWidget {
   @override
   State<CreateTourDatesSection> createState() => _CreateTourDatesSectionState();
 }
+
+// TODO: CREATED_BY PROP NEEDED
 
 class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   bool _isExpanded = false;
@@ -78,6 +82,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
           builder: (context, state) {
             if (state is ListOfTicketsLoaded) {
               tickets = state.tickets;
+              context.read<TourBloc>().add(
+                  UpdateTourFieldEvent(TourEntity.ticketsFieldName, tickets));
             }
 
             return _buildActionButton(
@@ -105,7 +111,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          minimumSize: const Size.fromHeight(50),
+          minimumSize: minBtnSize,
           padding: const EdgeInsets.all(20),
         ),
         child: Text(
@@ -211,15 +217,18 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       builder: (context) => ConfirmDialog(
         title: S.current.deleteConfirmTitle,
         content: S.current.deleteConfirmText,
+        strongActionText: S.current.delete,
+        softActionText: S.current.cancel,
         onCancel: () => Navigator.pop(context, false),
         onOk: () => Navigator.pop(context, true),
       ),
     );
 
-    if (isConfirmed) {
-      // TODO: DELETE ALL TICKETS OF DELETED DATES
+    if (isConfirmed != null && isConfirmed) {
       setState(() {
         for (var date in selectedDates) {
+          context.read<TicketBloc>().add(DeleteTourTicketByDateEvent(
+              tourId: widget.tourId, rangeDate: date));
           dates.remove(date);
         }
         selectedDates.clear();
@@ -228,6 +237,9 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   }
 
   void _navigateToCreateTicketPage() async {
+    final TicketBloc ticketBloc = context.read<TicketBloc>();
+    final TourBloc tourBloc = context.read<TourBloc>();
+
     var data = await Navigator.push(
       context,
       PageTransition(
@@ -249,8 +261,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     if (data != null) {
       if (data is List<String>) {
         setState(() => selectedDates = data);
-      } else {
-        setState(() => tickets = data);
+      } else if (data is List<TicketTypeEntity>) {
+        ticketBloc.add(UpdateListOfTicketsEvent(data));
       }
     }
   }

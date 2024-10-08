@@ -308,7 +308,7 @@
         }
     },
     "notAllowedToEmpty": "Không được phép để trống",
-    "invalidForm": "Form chưa hợp lệ",
+    "invalidForm": "Form chưa hợp lệ! Đừng bỏ sót bất kỳ thông tin nào!",
     "duplicateTicketAlert": "Vé bị trùng lặp",
     "duplicateTicketMessage": "Đã có vé trùng lặp trong dữ liệu của bạn! Bạn có muốn tiếp tục tạo những vé không bị trùng? Bạn có thể cập nhật những vé trùng sau trong phần Chuyến đi của tôi",
     "duplicateLocation": "Địa điểm đã bị trùng",

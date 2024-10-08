@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/quill_content.dart';
+import '../../../shared/presentations/widgets/quill_content.dart';
 
 class TourDescModal extends StatelessWidget {
   final String content;

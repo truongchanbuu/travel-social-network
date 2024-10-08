@@ -6,10 +6,10 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/utils/form_validator.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/app_progressing_indicator.dart';
-import '../../../shared/widgets/confirm_dialog.dart';
-import '../../../shared/widgets/custom_text_field.dart';
-import '../../../shared/widgets/long_text_field.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../shared/presentations/widgets/confirm_dialog.dart';
+import '../../../shared/presentations/widgets/custom_text_field.dart';
+import '../../../shared/presentations/widgets/long_text_field.dart';
 import '../../data/models/policy.dart';
 import '../../domain/entities/policy.dart';
 import '../bloc/policy_bloc.dart';
@@ -136,7 +136,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
                 backgroundColor: primaryColor,
                 shape: const RoundedRectangleBorder(
                     borderRadius: defaultFieldBorderRadius),
-                minimumSize: const Size.fromHeight(55),
+                minimumSize: minBtnSize,
               ),
               child: Text(
                 S.current.accept,

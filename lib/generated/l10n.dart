@@ -1937,10 +1937,10 @@ class S {
     );
   }
 
-  /// `Invalid Form`
+  /// `Invalid Form! Do not empty any fields or necessary information`
   String get invalidForm {
     return Intl.message(
-      'Invalid Form',
+      'Invalid Form! Do not empty any fields or necessary information',
       name: 'invalidForm',
       desc: '',
       args: [],

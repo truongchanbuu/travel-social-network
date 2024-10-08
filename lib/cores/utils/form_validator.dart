@@ -15,9 +15,11 @@ String? genericValidator({
     return emptyErrorMessage ?? S.current.notAllowedEmpty;
   }
 
-  if (value!.length < (minLength ?? minLimitLength)) {
-    return lengthErrorMessage ??
-        S.current.lengthLimitError(label ?? '', minLength ?? minLimitLength);
+  if (checkEmpty) {
+    if (value!.length < (minLength ?? minLimitLength)) {
+      return lengthErrorMessage ??
+          S.current.lengthLimitError(label ?? '', minLength ?? minLimitLength);
+    }
   }
 
   return null;

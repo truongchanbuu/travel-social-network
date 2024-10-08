@@ -5,6 +5,7 @@ import 'package:travel_social_network/cores/constants/tours.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/default_white_appabar.dart';
 import '../../../tour/domain/entities/tour.dart';
 import '../../domain/entities/review.dart';
 import '../widgets/review_item.dart';
@@ -110,9 +111,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
         itemCount: reviews.length,
       );
 
-  AppBar _buildAppBar() => AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+  AppBar _buildAppBar() => defaultWhiteAppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

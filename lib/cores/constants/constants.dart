@@ -58,6 +58,7 @@ const double imageIndicatorHeight = 80;
 const double dashLength = 10;
 const double createTourFieldHeight = 100;
 const double createTourImagesBox = 200;
+const Size minBtnSize = Size.fromHeight(50);
 
 // Icons
 const IconData refundableIcon = Icons.money;
@@ -85,6 +86,7 @@ const int minLimitLength = 10;
 // Item
 const int maxReviewItem = 7;
 const int minimumImageShowed = 5;
+const int maxImageLimit = 100;
 
 // Shape
 const OutlinedBorder bottomSheetShape = RoundedRectangleBorder(

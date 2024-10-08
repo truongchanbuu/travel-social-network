@@ -15,9 +15,9 @@ part 'ticket_event.dart';
 part 'ticket_state.dart';
 
 class TicketBloc extends Bloc<TicketEvent, TicketState> {
-  final TicketRepository _ticketRepository;
+  final TicketRepository ticketRepository;
 
-  TicketBloc(this._ticketRepository) : super(TicketInitial()) {
+  TicketBloc(this.ticketRepository) : super(TicketInitial()) {
     on<InitialNewTicketEvent>(_onInitTicket);
     on<CreateTicketEvent>(_onCreateTicket);
     on<CreateListOfTicketsEvent>(_onCreateListOfTickets);
@@ -26,6 +26,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     on<GetAllTicketsByTourId>(_onGetAllTicketsByTourId);
     on<UpdateTicketFieldEvent>(_onUpdateTicketField);
     on<GenerateListOfTicketsEvent>(_onGenerateListOfTickets);
+    on<DeleteTourTicketByDateEvent>(_onDeleteTourTicketByDate);
+    on<UpdateListOfTicketsEvent>(_onUpdateListOfTickets);
   }
 
   void _onInitTicket(event, emit) {
@@ -35,7 +37,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
 
   Future<void> _onCreateTicket(event, emit) async {
     try {
-      final dataState = await _ticketRepository.createTicket(event.ticket);
+      final dataState = await ticketRepository.createTicket(event.ticket);
 
       if (dataState is DataFailure) {
         emit(TicketFailure(
@@ -53,7 +55,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   Future<void> _onCreateListOfTickets(
       CreateListOfTicketsEvent event, Emitter<TicketState> emit) async {
     try {
-      final dataState = await _ticketRepository
+      final dataState = await ticketRepository
           .createTickets(event.tickets.map(TicketType.fromEntity).toList());
 
       if (dataState is DataFailure) {
@@ -76,7 +78,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       emit(TicketActionSuccess(event.oldTicket));
     } else {
       try {
-        final dataState = await _ticketRepository.updateTicket(
+        final dataState = await ticketRepository.updateTicket(
           event.oldTicket.ticketTypeId,
           TicketType.fromEntity(event.newTicket),
         );
@@ -113,7 +115,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   Future<void> _onGetAllTicketsByTourId(event, emit) async {
     try {
       final dataState =
-          await _ticketRepository.getAllTicketsByTourId(event.tourId);
+          await ticketRepository.getAllTicketsByTourId(event.tourId);
 
       if (dataState is DataFailure) {
         emit(TicketFailure(
@@ -205,7 +207,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   Future<bool> _checkDuplicated(TicketType ticket) async {
     try {
       final dataState =
-          await _ticketRepository.getTourTicketWithNameAndCategoryInDate(
+          await ticketRepository.getTourTicketWithNameAndCategoryInDate(
         tourId: ticket.tourId,
         name: ticket.ticketTypeName,
         category: ticket.category.name,
@@ -223,8 +225,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   Future<void> _onDeleteTicket(
       DeleteTicketEvent event, Emitter<TicketState> emit) async {
     try {
-      final dataState =
-          await _ticketRepository.deleteTicketById(event.ticketId);
+      final dataState = await ticketRepository.deleteTicketById(event.ticketId);
 
       if (dataState is DataFailure) {
         emit(TicketFailure(
@@ -236,6 +237,48 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       }
     } catch (e) {
       emit(TicketFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onDeleteTourTicketByDate(
+      DeleteTourTicketByDateEvent event, emit) async {
+    try {
+      final dataState =
+          await ticketRepository.getAllTicketsByTourId(event.tourId);
+
+      if (dataState is DataFailure) {
+        emit(TicketFailure(
+            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+      } else if (dataState is DataSuccess) {
+        final tickets = dataState.data!;
+        final [startDate, endDate] =
+            DateTimeUtils.parseDateTimeRange(event.rangeDate);
+
+        if (tickets.isNotEmpty) {
+          final desiredTickets = tickets
+              .where((ticket) =>
+                  ticket.startDate == startDate && ticket.endDate == endDate)
+              .toList();
+
+          for (var ticket in desiredTickets) {
+            await ticketRepository.deleteTicketById(ticket.ticketTypeId);
+            tickets.remove(ticket);
+            emit(TicketDeleted(ticket));
+          }
+        }
+
+        emit(ListOfTicketsLoaded(tickets));
+      } else {
+        emit(TicketActionLoading());
+      }
+    } catch (e) {
+      emit(TicketFailure(e.toString()));
+    }
+  }
+
+  void _onUpdateListOfTickets(UpdateListOfTicketsEvent event, emit) {
+    if (event.tickets.isNotEmpty) {
+      emit(ListOfTicketsLoaded(event.tickets));
     }
   }
 }

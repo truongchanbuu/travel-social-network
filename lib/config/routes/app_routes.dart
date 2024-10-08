@@ -2,7 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:go_router/go_router.dart" show GoRoute, GoRouter;
 import "package:go_transitions/go_transitions.dart";
 
-import "../../features/shared/pages/home/home_page.dart";
+import "../../features/shared/presentations/pages/home/home_page.dart";
 import "../../features/ticket/presentations/pages/save_ticket_page.dart";
 
 var routes = GoRouter(routes: [

@@ -87,15 +87,18 @@ class TicketRepositoryImpl implements TicketRepository {
   Future<DataState<List<TicketType>>> getAllTicketsByTourId(
       String tourId) async {
     try {
-      List<TicketType> tickets;
+      List<TicketType> tickets = [];
       final docQuery = ticketCollection
           .where('tourId', isEqualTo: tourId)
           .orderBy('createdAt', descending: true);
 
       final docSnaps = await docQuery.get();
-      tickets = docSnaps.docs
-          .map((doc) => TicketType.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
+      if (docSnaps.docs.isNotEmpty) {
+        tickets = docSnaps.docs
+            .map((doc) =>
+                TicketType.fromJson(doc.data() as Map<String, dynamic>))
+            .toList();
+      }
 
       return DataSuccess(data: tickets);
     } on FirebaseException catch (e) {

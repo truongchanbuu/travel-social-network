@@ -203,7 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Điểm đến không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ"),
         "invalidDurationError": MessageLookupByLibrary.simpleMessage(
             "Khoảng thời gian không hợp lệ"),
-        "invalidForm": MessageLookupByLibrary.simpleMessage("Form chưa hợp lệ"),
+        "invalidForm": MessageLookupByLibrary.simpleMessage(
+            "Form chưa hợp lệ! Đừng bỏ sót bất kỳ thông tin nào!"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Cho phép"),

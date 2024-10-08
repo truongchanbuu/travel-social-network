@@ -211,7 +211,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Invalid destination! Please choose or insert a valid destination"),
         "invalidDurationError":
             MessageLookupByLibrary.simpleMessage("Invalid duration"),
-        "invalidForm": MessageLookupByLibrary.simpleMessage("Invalid Form"),
+        "invalidForm": MessageLookupByLibrary.simpleMessage(
+            "Invalid Form! Do not empty any fields or necessary information"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Is Allow"),

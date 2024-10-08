@@ -7,10 +7,10 @@ import '../../../../generated/l10n.dart';
 import '../../../review/domain/entities/review.dart';
 import '../../../review/presentations/pages/review_detail_page.dart';
 import '../../../review/presentations/widgets/tour_reviews_and_rating.dart';
-import '../../../shared/widgets/detail_heading_text.dart';
-import '../../../shared/widgets/detail_section_container.dart';
-import '../../../shared/widgets/detail_section_spacer.dart';
-import '../../../shared/widgets/quill_content.dart';
+import '../../../shared/presentations/widgets/detail_heading_text.dart';
+import '../../../shared/presentations/widgets/detail_section_container.dart';
+import '../../../shared/presentations/widgets/detail_section_spacer.dart';
+import '../../../shared/presentations/widgets/quill_content.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../../ticket/presentations/widgets/available_date_list.dart';
 import '../../../ticket/presentations/widgets/ticket_bottom_sheet.dart';
@@ -173,7 +173,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  minimumSize: const Size.fromHeight(50),
+                  minimumSize: minBtnSize,
                 ),
                 child: Text(
                   '${S.current.viewAll} ${S.current.tickets}',

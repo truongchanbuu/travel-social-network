@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/currency_utils.dart';
-import '../../../shared/widgets/item_counter.dart';
+import '../../../shared/presentations/widgets/item_counter.dart';
 import '../../domain/entities/ticket_type.dart';
 
 class AddTicketTypeItem extends StatelessWidget {

@@ -75,3 +75,24 @@ final class DeleteTicketEvent extends TicketEvent {
   @override
   List<Object> get props => [ticketId];
 }
+
+final class DeleteTourTicketByDateEvent extends TicketEvent {
+  final String tourId;
+  final String rangeDate;
+
+  const DeleteTourTicketByDateEvent({
+    required this.tourId,
+    required this.rangeDate,
+  });
+
+  @override
+  List<Object> get props => [tourId, rangeDate];
+}
+
+final class UpdateListOfTicketsEvent extends TicketEvent {
+  final List<TicketTypeEntity> tickets;
+  const UpdateListOfTicketsEvent(this.tickets);
+
+  @override
+  List<Object> get props => [tickets];
+}

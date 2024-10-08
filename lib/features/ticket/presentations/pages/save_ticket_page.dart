@@ -5,9 +5,11 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/app_progressing_indicator.dart';
-import '../../../shared/widgets/confirm_deletion_dialog.dart';
-import '../../../shared/widgets/confirm_dialog.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../shared/presentations/widgets/confirm_deletion_dialog.dart';
+import '../../../shared/presentations/widgets/confirm_dialog.dart';
+import '../../../shared/presentations/widgets/default_white_appabar.dart';
+import '../../../shared/presentations/widgets/save_button.dart';
 import '../../../tour/presentations/widgets/date_time_item.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
@@ -151,29 +153,13 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
     );
   }
 
-  AppBar _buildAppBar() => AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
-        leading: IconButton(
-          onPressed: _backToPrevious,
-          icon: const Icon(Icons.arrow_back),
-        ),
+  AppBar _buildAppBar() => defaultWhiteAppBar(
+        onBack: _backToPrevious,
         actions: [
-          GestureDetector(
+          SaveButton(
             onTap: widget.ticket != null
                 ? () => _saveTicket(context)
                 : () => validateTicketForm(context),
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                S.current.save.toUpperCase(),
-                style: const TextStyle(
-                  color: primaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
           )
         ],
       );

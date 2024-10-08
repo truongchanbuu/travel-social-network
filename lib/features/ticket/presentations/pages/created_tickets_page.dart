@@ -5,7 +5,10 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/confirm_deletion_dialog.dart';
+import '../../../../injection_container.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../shared/presentations/widgets/confirm_deletion_dialog.dart';
+import '../../../shared/presentations/widgets/default_white_appabar.dart';
 import '../../../tour/presentations/widgets/date_time_item.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
@@ -39,18 +42,7 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(color: Colors.black),
-          title: Text(
-            S.current.ticketList,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-        ),
+        appBar: defaultWhiteAppBar(titleText: S.current.ticketList),
         body: BlocBuilder<TicketBloc, TicketState>(
           builder: (context, state) {
             if (state is TicketDeleted) {
@@ -137,11 +129,17 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
   void _updateTicket(TicketTypeEntity ticket) => Navigator.push(
         context,
         PageTransition(
-          child: SaveTicketPage(
-            ticket: ticket,
-            tourId: ticket.tourId,
-            dates: const [],
-            selectedDates: const [],
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+              BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+            ],
+            child: SaveTicketPage(
+              ticket: ticket,
+              tourId: ticket.tourId,
+              dates: const [],
+              selectedDates: const [],
+            ),
           ),
           type: PageTransitionType.leftToRight,
         ),

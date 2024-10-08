@@ -134,7 +134,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
           onPressed: () {},
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
-            minimumSize: const Size.fromHeight(60),
+            minimumSize: minBtnSize,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),

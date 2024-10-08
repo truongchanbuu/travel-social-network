@@ -6,9 +6,9 @@ import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/widgets/app_cached_image.dart';
+import '../../../shared/presentations/widgets/app_cached_image.dart';
 import '../../domain/entities/tour.dart';
-import '../../../shared/pages/media_view_page.dart';
+import '../../../shared/presentations/pages/media_view_page.dart';
 
 class TourDetailThumb extends StatefulWidget {
   final String tourId;

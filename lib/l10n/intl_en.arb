@@ -309,7 +309,7 @@
         }
     },
     "notAllowedEmpty": "Not allowed to be empty",
-    "invalidForm": "Invalid Form",
+    "invalidForm": "Invalid Form! Do not empty any fields or necessary information",
     "duplicateTicketAlert": "Duplicate Ticket",
     "duplicateTicketMessage": "There are duplicated ticket(s)! Are you want to continue creating without duplicated ticket(s)? You can modify the duplicated ticket(s) later in section My Tour",
     "duplicateLocation": "The location cannot be same",

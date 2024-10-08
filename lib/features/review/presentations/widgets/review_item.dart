@@ -6,7 +6,7 @@ import '../../../../generated/l10n.dart';
 import '../../domain/entities/review.dart';
 import '../pages/review_detail_page.dart';
 import 'tour_rating_widget.dart';
-import '../../../shared/widgets/limit_image_list.dart';
+import '../../../shared/presentations/widgets/limit_image_list.dart';
 
 class ReviewItem extends StatelessWidget {
   final ReviewEntity review;

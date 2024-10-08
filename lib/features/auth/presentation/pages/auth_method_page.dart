@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/shared/widgets/app_name_logo.dart';
+import 'package:travel_social_network/features/shared/presentations/widgets/app_name_logo.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
