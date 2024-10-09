@@ -236,10 +236,10 @@ class _SaveTourPageState extends State<SaveTourPage> {
         images.isNotEmpty &&
         tour.ticketIds.isNotEmpty;
 
-    // if (!isValid) {
-    //   showToast(S.current.invalidForm, context: context);
-    //   return;
-    // }
+    if (!isValid) {
+      showToast(S.current.invalidForm, context: context);
+      return;
+    }
 
     context.read<TourBloc>().add(CreateTourEvent(tour: tour, images: images));
   }
@@ -254,7 +254,9 @@ class _SaveTourPageState extends State<SaveTourPage> {
           }
         }
 
-        Navigator.of(context).pop();
+        Navigator.of(context)
+          ..pop()
+          ..pop();
       }),
     );
   }

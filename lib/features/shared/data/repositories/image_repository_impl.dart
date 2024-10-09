@@ -93,7 +93,7 @@ class ImageRepositoryImpl implements ImageRepository {
         }
 
         uploadTask =
-            ref.putFile(image, SettableMetadata(contentType: mimeType));
+            ref.putFile(imgFile!, SettableMetadata(contentType: mimeType));
       }
 
       await uploadTask;
@@ -132,7 +132,7 @@ class ImageRepositoryImpl implements ImageRepository {
           name: item.name,
           extension: _getFileExtension(item.name),
           bytes: await item.getData(),
-          path: item.fullPath,
+          path: await item.getDownloadURL(),
         ));
       }
     } on FirebaseException catch (e) {

@@ -112,7 +112,7 @@ List<TourEntity> generateSampleTours() {
     final duration = random.nextInt(10) + 1;
 
     return TourEntity(
-      tourId: 'TOUR-0f46c600-38e0-4e4b-ab60-5c56b23ddc2d',
+      tourId: 'TOUR-707e2f9a-74bb-461a-9991-7e7a1cf1148c',
       tourName: '${locations[random.nextInt(locations.length)]} $duration ngày',
       tourDescription: description,
       createdBy: ['BT', 'TCB', 'ABC'][Random().nextInt(3)],
