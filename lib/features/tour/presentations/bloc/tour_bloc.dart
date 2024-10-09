@@ -7,7 +7,6 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/domain/repositories/image_repository.dart';
-import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../data/models/tour.dart';
 import '../../domain/entities/tour.dart';
 import '../../domain/repositories/tour_repository.dart';
@@ -21,9 +20,15 @@ class TourBloc extends Bloc<TourEvent, TourState> {
   static const basePath = '/tours';
 
   TourBloc({required this.tourRepository, required this.imageRepository})
-      : super(TourLoaded(TourEntity.defaultWithId())) {
+      : super(TourInitial()) {
+    on<InitializeNewTourEvent>(_onInitialNewTour);
     on<CreateTourEvent>(_onCreateTour);
     on<UpdateTourFieldEvent>(_onUpdateTourField);
+    on<GetTourImagesEvent>(_onGetTourImages);
+  }
+
+  void _onInitialNewTour(event, emit) {
+    emit(TourLoaded(TourEntity.defaultWithId()));
   }
 
   Future<void> _onCreateTour(
@@ -51,6 +56,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
           emit(TourActionFailed(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
         } else if (dataState is DataSuccess) {
+          emit(TourActionSucceed(tour.toEntity()));
         } else {
           emit(TourActionLoading());
         }
@@ -62,9 +68,11 @@ class TourBloc extends Bloc<TourEvent, TourState> {
 
   Future<String?> _onUploadImage(ImageFile image, String path) async {
     try {
-      final dataState = await imageRepository.uploadImage(image.bytes, path);
+      var data = image.hasPath ? image.path : image.bytes;
+      final dataState = await imageRepository.uploadImage(data, path);
 
       if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'There some error ${dataState.error}');
         return null;
       }
 
@@ -100,8 +108,8 @@ class TourBloc extends Bloc<TourEvent, TourState> {
         return tour.copyWith(destination: value);
       }
     } else if (fieldName == TourEntity.ticketsFieldName &&
-        value is List<TicketTypeEntity>) {
-      return tour.copyWith(tickets: value);
+        value is List<String>) {
+      return tour.copyWith(ticketIds: value);
     }
     // else if (fieldName == TourEntity.tourScheduleFieldName) {
     //   return tour.copyWith(tourSchedule: value);
@@ -109,5 +117,23 @@ class TourBloc extends Bloc<TourEvent, TourState> {
 
     log('Tour may not be changed', level: 0);
     return tour;
+  }
+
+  Future<void> _onGetTourImages(GetTourImagesEvent event, emit) async {
+    try {
+      final dataState =
+          await imageRepository.getFolderImages('$basePath/${event.tourId}');
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TourActionFailed(S.current.errorImage));
+      } else if (dataState is DataSuccess) {
+        emit(TourImagesLoaded(dataState.data!));
+      } else {
+        emit(TourActionLoading());
+      }
+    } catch (e) {
+      emit(TourActionFailed('Get Images Failed: $e'));
+    }
   }
 }

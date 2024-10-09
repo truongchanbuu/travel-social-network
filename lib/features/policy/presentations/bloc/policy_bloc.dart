@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/resources/data_state.dart';
+import '../../../../generated/l10n.dart';
 import '../../data/models/policy.dart';
 import '../../domain/repositories/policy_repository.dart';
+
 part 'policy_event.dart';
 part 'policy_state.dart';
 
@@ -36,13 +40,12 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
 
   Future<void> _onGetPolicyById(
       GetPolicyById event, Emitter<PolicyState> emit) async {
-    emit(PolicyActionLoading());
     try {
       final dataState = await policyRepository.getPolicyById(event.policyId);
 
       if (dataState is DataFailure) {
-        emit(PolicyFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PolicyFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         emit(PolicyLoaded(dataState.data!));
       } else {
@@ -82,13 +85,12 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
 
   Future<void> _onCreatePolicy(
       CreatePolicyEvent event, Emitter<PolicyState> emit) async {
-    emit(PolicyActionLoading());
     try {
       final dataState = await policyRepository.createPolicy(event.policy);
 
       if (dataState is DataFailure) {
-        emit(PolicyFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PolicyFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         emit(PolicyActionSuccess(dataState.data!));
       } else {
@@ -101,13 +103,12 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
 
   Future<void> _onDeletePolicy(
       DeletePolicyEvent event, Emitter<PolicyState> emit) async {
-    emit(PolicyActionLoading());
     try {
       final dataState = await policyRepository.deletePolicyById(event.policyId);
 
       if (dataState is DataFailure) {
-        emit(PolicyFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PolicyFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         emit(PolicyDeleted());
       } else {

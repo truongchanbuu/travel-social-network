@@ -4,7 +4,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
-import '../../../../cores/utils/form_validator.dart';
+import '../../../../cores/utils/form_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/confirm_dialog.dart';

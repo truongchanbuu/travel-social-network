@@ -344,5 +344,10 @@
     "weekFormatted": "{count} tuần",
     "dayFormatted": "{count} ngày",
     "hourFormatted": "{count} giờ",
-    "minuteFormatted": "{count} phút"
+    "minuteFormatted": "{count} phút",
+
+    "dataStateFailure": "Đã có lỗi xảy ra! Hãy thử lại sau!",
+    "invalidImageFileType": "File này hiện không phải là hình ảnh! Vui lòng chọn file khác",
+    "unsupportedImageFormat": "Định dạng này không được hỗ trợ",
+    "fetchDataFailure": "Lấy dữ liệu về thất bại"
 }

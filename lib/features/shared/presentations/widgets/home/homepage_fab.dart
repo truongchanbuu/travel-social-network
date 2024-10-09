@@ -7,7 +7,7 @@ import '../../../../../injection_container.dart';
 import '../../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../../../tour/presentations/bloc/tour_bloc.dart';
-import '../../../../tour/presentations/pages/create_tour_page.dart';
+import '../../../../tour/presentations/pages/save_tour_page.dart';
 
 class HomePageFloatingActionButton extends StatefulWidget {
   const HomePageFloatingActionButton({super.key});
@@ -49,7 +49,7 @@ class _HomePageFloatingActionButtonState
             BlocProvider(create: (context) => getIt.get<TicketBloc>()),
             BlocProvider(create: (context) => getIt.get<TourBloc>()),
             BlocProvider(create: (context) => getIt.get<PolicyBloc>())
-          ], child: const CreateTourPage()),
+          ], child: const SaveTourPage()),
           transitionDuration:
               const Duration(milliseconds: pageChangeTransitionDuration),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {

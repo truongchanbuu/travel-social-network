@@ -7,6 +7,8 @@ sealed class TourEvent extends Equatable {
   List<Object> get props => [];
 }
 
+final class InitializeNewTourEvent extends TourEvent {}
+
 final class CreateTourEvent extends TourEvent {
   final TourEntity tour;
   final List<ImageFile> images;
@@ -33,4 +35,12 @@ final class GetToursByUserIdEvent extends TourEvent {
 
   @override
   List<Object> get props => [userId];
+}
+
+final class GetTourImagesEvent extends TourEvent {
+  final String tourId;
+  const GetTourImagesEvent(this.tourId);
+
+  @override
+  List<Object> get props => [tourId];
 }

@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
-import '../../../shared/presentations/widgets/default_white_appabar.dart';
+import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../domain/entities/tour.dart';
 import '../bloc/tour_bloc.dart';
 import '../widgets/your_tour_item.dart';

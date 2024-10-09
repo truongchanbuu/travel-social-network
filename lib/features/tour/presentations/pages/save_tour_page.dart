@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
-import 'package:travel_social_network/features/tour/presentations/pages/your_tours_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
 import '../../../shared/presentations/widgets/add_image_view.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/confirm_dialog.dart';
-import '../../../shared/presentations/widgets/default_white_appabar.dart';
+import '../../../shared/presentations/widgets/default_white_appbar.dart';
+import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../domain/entities/tour.dart';
 import '../bloc/tour_bloc.dart';
 import '../widgets/create_tour_dates_section.dart';
 import '../widgets/create_tour_details.dart';
+import 'your_tours_page.dart';
 
-class CreateTourPage extends StatefulWidget {
-  const CreateTourPage({super.key});
+class SaveTourPage extends StatefulWidget {
+  final TourEntity? tour;
+  const SaveTourPage({super.key, this.tour});
 
   @override
-  State<CreateTourPage> createState() => _CreateTourPageState();
+  State<SaveTourPage> createState() => _SaveTourPageState();
 }
 
-class _CreateTourPageState extends State<CreateTourPage> {
+class _SaveTourPageState extends State<SaveTourPage> {
   late final GlobalKey<CreateTourDetailsState> _tourDetailKey;
 
   List<ImageFile> images = [];
@@ -44,6 +48,15 @@ class _CreateTourPageState extends State<CreateTourPage> {
       imagesKey: true,
       datesKey: true,
     };
+
+    if (widget.tour != null) {
+      tour = widget.tour!;
+      if (tour.imageUrls.isNotEmpty) {
+        context.read<TourBloc>().add(GetTourImagesEvent(tour.tourId));
+      }
+    } else {
+      context.read<TourBloc>().add(InitializeNewTourEvent());
+    }
   }
 
   @override
@@ -53,10 +66,13 @@ class _CreateTourPageState extends State<CreateTourPage> {
         appBar: defaultWhiteAppBar(onBack: _backToPrevious),
         body: BlocConsumer<TourBloc, TourState>(
           builder: (context, state) {
-            if (state is TourActionLoading) {
+            if (state is TourActionLoading ||
+                (state is TourInitial && widget.tour == null)) {
               return const AppProgressingIndicator();
             } else if (state is TourLoaded) {
               tour = state.tour;
+            } else if (state is TourImagesLoaded) {
+              images = state.images;
             }
 
             return _buildBody();
@@ -66,7 +82,7 @@ class _CreateTourPageState extends State<CreateTourPage> {
               showToast(state.message,
                   position: StyledToastPosition.center, context: context);
             } else if (state is TourActionSucceed) {
-              // TODO: SEE WHAT TODO IF TOUR CREATED
+              _navigateToYourToursPage();
             }
           },
         ),
@@ -105,10 +121,12 @@ class _CreateTourPageState extends State<CreateTourPage> {
           S.current.addImageLabel,
           leading: const Icon(Icons.image),
         ),
-        body: AddImageView(
-          images: images,
-          onImageSaved: (images) => this.images = images,
-        ),
+        body: (tour.imageUrls.isNotEmpty && images.isEmpty)
+            ? const AppProgressingIndicator()
+            : AddImageView(
+                images: images,
+                onImageSaved: (images) => this.images = images,
+              ),
       );
 
   ExpansionPanel _buildTourDetails() => _buildTemplateExpansionPanel(
@@ -216,25 +234,43 @@ class _CreateTourPageState extends State<CreateTourPage> {
     // TODO: CHECK FOR THE USER LATER
     bool isValid = (_tourDetailKey.currentState?.validateForm() ?? false) &&
         images.isNotEmpty &&
-        tour.tickets.isNotEmpty;
+        tour.ticketIds.isNotEmpty;
 
-    if (!isValid) {
-      showToast(S.current.invalidForm, context: context);
-      return;
-    }
+    // if (!isValid) {
+    //   showToast(S.current.invalidForm, context: context);
+    //   return;
+    // }
 
-    context.read().add(CreateTourEvent(tour: tour, images: images));
+    context.read<TourBloc>().add(CreateTourEvent(tour: tour, images: images));
   }
 
   void _backToPrevious() {
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(onOk: () {
-        Navigator.of(context)
-          ..pop()
-          ..push(
-              MaterialPageRoute(builder: (context) => const YourToursPage()));
+        if (tour.ticketIds.isNotEmpty && widget.tour == null) {
+          for (String id in tour.ticketIds) {
+            context.read<TicketBloc>().add(DeleteTicketEvent(id));
+          }
+        }
+
+        Navigator.of(context).pop();
       }),
     );
+  }
+
+  void _navigateToYourToursPage() {
+    Navigator.of(context)
+      ..pop()
+      ..push(PageTransition(
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<TourBloc>()),
+            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+          ],
+          child: const YourToursPage(),
+        ),
+        type: PageTransitionType.leftToRight,
+      ));
   }
 }

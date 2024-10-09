@@ -9,6 +9,7 @@ import 'custom_text_field.dart';
 class SearchField extends StatefulWidget {
   final String title;
   final bool isHintAnimated;
+  final TextEditingController? textEditingController;
   final void Function(String value)? onSelected;
   final void Function(String? value)? onChanged;
   final String? Function(String? value)? validator;
@@ -17,6 +18,7 @@ class SearchField extends StatefulWidget {
     super.key,
     required this.title,
     required this.onSelected,
+    this.textEditingController,
     this.onChanged,
     this.validator,
     this.isHintAnimated = false,
@@ -33,7 +35,7 @@ class _SearchFieldState extends State<SearchField> {
   @override
   void dispose() {
     _suggestionsController.dispose();
-    _textEditingController.dispose();
+    if (widget.textEditingController == null) _textEditingController.dispose();
     super.dispose();
   }
 
@@ -41,7 +43,8 @@ class _SearchFieldState extends State<SearchField> {
   void initState() {
     super.initState();
     _suggestionsController = SuggestionsController();
-    _textEditingController = TextEditingController();
+    _textEditingController =
+        widget.textEditingController ?? TextEditingController();
   }
 
   @override

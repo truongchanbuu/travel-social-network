@@ -2158,6 +2158,46 @@ class S {
       args: [count],
     );
   }
+
+  /// `Some error occurred! Please try again later!`
+  String get dataStateFailure {
+    return Intl.message(
+      'Some error occurred! Please try again later!',
+      name: 'dataStateFailure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid file type. Only images are allowed`
+  String get invalidImageFileType {
+    return Intl.message(
+      'Invalid file type. Only images are allowed',
+      name: 'invalidImageFileType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unsupported image format`
+  String get unsupportedImageFormat {
+    return Intl.message(
+      'Unsupported image format',
+      name: 'unsupportedImageFormat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to fetch image from URL`
+  String get fetchDataFailure {
+    return Intl.message(
+      'Failed to fetch image from URL',
+      name: 'fetchDataFailure',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -49,14 +49,14 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
     super.initState();
     ticket = tour1Tickets.where((t) => t.ticketTypeId == widget.ticketId).first;
     tour = generateSampleTours().where((t) => t.tourId == ticket.tourId).first;
-    availableDates = tour.tickets.map((t) => t.startDate).toList();
+    // availableDates = tour.tickets.map((t) => t.startDate).toList();
     selectedDate = widget.selectedDate ?? availableDates[0];
-    ticketTypeOnDate = tour.tickets
-        .where((t) =>
-            t.ticketTypeId == widget.ticketId &&
-            selectedDate != null &&
-            DateTimeUtils.isSameDate(selectedDate!, t.startDate))
-        .toList();
+    // ticketTypeOnDate = tour.tickets
+    //     .where((t) =>
+    //         t.ticketTypeId == widget.ticketId &&
+    //         selectedDate != null &&
+    //         DateTimeUtils.isSameDate(selectedDate!, t.startDate))
+    //     .toList();
   }
 
   @override

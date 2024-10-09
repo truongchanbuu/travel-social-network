@@ -11,9 +11,8 @@ Tour _$TourFromJson(Map<String, dynamic> json) => Tour(
       tourName: json['tourName'] as String,
       tourDescription: json['tourDescription'] as String,
       createdBy: json['createdBy'] as String,
-      tickets: (json['tickets'] as List<dynamic>)
-          .map((e) => TicketType.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      ticketIds:
+          (json['ticketIds'] as List<dynamic>).map((e) => e as String).toList(),
       imageUrls:
           (json['imageUrls'] as List<dynamic>).map((e) => e as String).toList(),
       departure: json['departure'] as String,
@@ -30,7 +29,7 @@ Map<String, dynamic> _$TourToJson(Tour instance) => <String, dynamic>{
       'tourName': instance.tourName,
       'tourDescription': instance.tourDescription,
       'createdBy': instance.createdBy,
-      'tickets': instance.tickets,
+      'ticketIds': instance.ticketIds,
       'imageUrls': instance.imageUrls,
       'departure': instance.departure,
       'destination': instance.destination,

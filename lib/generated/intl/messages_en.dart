@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "currency": MessageLookupByLibrary.simpleMessage("Currency"),
         "currencyChoice": MessageLookupByLibrary.simpleMessage("Pound"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Dark Theme"),
+        "dataStateFailure": MessageLookupByLibrary.simpleMessage(
+            "Some error occurred! Please try again later!"),
         "day": MessageLookupByLibrary.simpleMessage("day"),
         "dayFormatted": m3,
         "dayUnit": MessageLookupByLibrary.simpleMessage("day|days|d"),
@@ -187,6 +189,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "It\'s time for special dishes on elegant restaurants near you!"),
         "exclusiveOffers": MessageLookupByLibrary.simpleMessage(
             "Exclusive Offers for you - with only one simple step!"),
+        "fetchDataFailure": MessageLookupByLibrary.simpleMessage(
+            "Failed to fetch image from URL"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
             "For more details about this ticket"),
         "forType": m4,
@@ -216,6 +220,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invalid duration"),
         "invalidForm": MessageLookupByLibrary.simpleMessage(
             "Invalid Form! Do not empty any fields or necessary information"),
+        "invalidImageFileType": MessageLookupByLibrary.simpleMessage(
+            "Invalid file type. Only images are allowed"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Is Allow"),
@@ -353,6 +359,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Transportation"),
         "units": MessageLookupByLibrary.simpleMessage("Units"),
         "unitsChoice": MessageLookupByLibrary.simpleMessage("Meter Metric"),
+        "unsupportedImageFormat":
+            MessageLookupByLibrary.simpleMessage("Unsupported image format"),
         "unsupportedText": MessageLookupByLibrary.simpleMessage(
             "Sorry! This device is not supported"),
         "userProfile": MessageLookupByLibrary.simpleMessage("User Profile"),

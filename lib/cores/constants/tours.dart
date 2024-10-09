@@ -112,14 +112,14 @@ List<TourEntity> generateSampleTours() {
     final duration = random.nextInt(10) + 1;
 
     return TourEntity(
-      tourId: 'TOUR-$index',
+      tourId: 'TOUR-0f46c600-38e0-4e4b-ab60-5c56b23ddc2d',
       tourName: '${locations[random.nextInt(locations.length)]} $duration ngày',
       tourDescription: description,
       createdBy: ['BT', 'TCB', 'ABC'][Random().nextInt(3)],
       departure: locations[random.nextInt(locations.length)],
       destination: locations[random.nextInt(locations.length)],
       duration: duration.toString(),
-      tickets: tour1Tickets,
+      ticketIds: tour1Tickets.map((t) => t.ticketTypeId).toList(),
       rating: (random.nextInt(50) + 1) / 10, // 0.1 to 5.0
       imageUrls: const [
         'https://th.bing.com/th/id/OIP.wdbT6M2mBkQTu3dH7psDjgHaDs?rs=1&pid=ImgDetMain',

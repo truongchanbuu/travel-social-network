@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../ticket/domain/entities/ticket_type.dart';
 import 'tour_schedule.dart';
 
 class TourEntity extends Equatable {
@@ -9,7 +8,7 @@ class TourEntity extends Equatable {
   final String tourName;
   final String tourDescription;
   final String createdBy;
-  final List<TicketTypeEntity> tickets;
+  final List<String> ticketIds;
   final List<String> imageUrls;
   final String departure;
   final String destination;
@@ -22,7 +21,7 @@ class TourEntity extends Equatable {
     required this.tourName,
     required this.tourDescription,
     required this.createdBy,
-    required this.tickets,
+    required this.ticketIds,
     required this.imageUrls,
     required this.departure,
     required this.destination,
@@ -35,7 +34,7 @@ class TourEntity extends Equatable {
     this.tourName = '',
     this.tourDescription = '',
     this.createdBy = '',
-    this.tickets = const <TicketTypeEntity>[],
+    this.ticketIds = const <String>[],
     this.imageUrls = const <String>[],
     this.departure = '',
     this.destination = '',
@@ -49,7 +48,7 @@ class TourEntity extends Equatable {
     String? tourName,
     String? tourDescription,
     String? createdBy,
-    List<TicketTypeEntity>? tickets,
+    List<String>? ticketIds,
     List<String>? imageUrls,
     String? departure,
     String? destination,
@@ -62,7 +61,7 @@ class TourEntity extends Equatable {
       tourName: tourName ?? this.tourName,
       tourDescription: tourDescription ?? this.tourDescription,
       createdBy: createdBy ?? this.createdBy,
-      tickets: tickets ?? this.tickets,
+      ticketIds: ticketIds ?? this.ticketIds,
       imageUrls: imageUrls ?? this.imageUrls,
       departure: departure ?? this.departure,
       destination: destination ?? this.destination,
@@ -79,7 +78,7 @@ class TourEntity extends Equatable {
       tourName,
       tourDescription,
       createdBy,
-      tickets,
+      ticketIds,
       imageUrls,
       departure,
       destination,

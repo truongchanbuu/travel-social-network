@@ -53,8 +53,8 @@ class _TourDetailPageState extends State<TourDetailPage> {
     tour = generateSampleTours()
         .where((tour) => tour.tourId == widget.tourId)
         .first;
-    tickets = tour.tickets;
-    availableDates = tour.tickets.map((t) => t.startDate).toList();
+    // tickets = tour.tickets;
+    // availableDates = tour.tickets.map((t) => t.startDate).toList();
     reviews = sampleReviews.where((r) => r.tourId == widget.tourId).toList();
   }
 
@@ -294,8 +294,10 @@ class _TourDetailPageState extends State<TourDetailPage> {
   }
 
   List<TicketTypeEntity> _getTicketsByDate() {
-    if (selectedDate == null) return tour.tickets;
-    return tour.tickets.where((t) => t.startDate == selectedDate).toList();
+    // if (selectedDate == null) return tour.tickets;
+    // return tour.tickets.where((t) => t.startDate == selectedDate).toList();
+    // TODO: MUST FIX
+    return [];
   }
 
   void _showReviewDetailPage() {

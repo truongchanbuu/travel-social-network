@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../ticket/data/models/ticket_type.dart';
-import '../../../ticket/domain/entities/ticket_type.dart';
 import '../../domain/entities/tour.dart';
 import '../../domain/entities/tour_schedule.dart';
 import 'tour_schedule.dart';
@@ -15,7 +14,7 @@ class Tour extends TourEntity {
     required super.tourName,
     required super.tourDescription,
     required super.createdBy,
-    required List<TicketType> tickets,
+    required super.ticketIds,
     required super.imageUrls,
     required super.departure,
     required super.destination,
@@ -23,7 +22,6 @@ class Tour extends TourEntity {
     required super.rating,
     TourSchedule? tourSchedule,
   }) : super(
-          tickets: tickets.map((ticket) => ticket.toEntity()).toList(),
           tourSchedule: tourSchedule?.toEntity(),
         );
 
@@ -35,7 +33,7 @@ class Tour extends TourEntity {
     String? duration,
     List<String>? imageUrls,
     double? rating,
-    List<TicketTypeEntity>? tickets,
+    List<String>? ticketIds,
     String? tourDescription,
     String? tourId,
     String? tourName,
@@ -48,7 +46,7 @@ class Tour extends TourEntity {
       duration: duration ?? this.duration,
       imageUrls: imageUrls ?? this.imageUrls,
       rating: rating ?? this.rating,
-      tickets: (tickets ?? this.tickets).map(TicketType.fromEntity).toList(),
+      ticketIds: ticketIds ?? this.ticketIds,
       tourDescription: tourDescription ?? this.tourDescription,
       tourId: tourId ?? this.tourId,
       tourName: tourName ?? this.tourName,
@@ -66,7 +64,7 @@ class Tour extends TourEntity {
       tourName: tourName,
       tourDescription: tourDescription,
       createdBy: createdBy,
-      tickets: tickets,
+      ticketIds: ticketIds,
       imageUrls: imageUrls,
       departure: departure,
       destination: destination,
@@ -82,7 +80,7 @@ class Tour extends TourEntity {
       tourName: entity.tourName,
       tourDescription: entity.tourDescription,
       createdBy: entity.createdBy,
-      tickets: entity.tickets.map(TicketType.fromEntity).toList(),
+      ticketIds: entity.ticketIds,
       imageUrls: entity.imageUrls,
       departure: entity.departure,
       destination: entity.destination,
@@ -100,7 +98,7 @@ class Tour extends TourEntity {
       "tourName": tourName,
       "tourDescription": tourDescription,
       "createdBy": createdBy,
-      "tickets": tickets.map(TicketType.fromEntity).toList(),
+      "tickets": ticketIds,
       "imageUrls": imageUrls,
       "departure": departure,
       "destination": destination,
@@ -118,7 +116,7 @@ class Tour extends TourEntity {
       tourName: map["tourName"],
       tourDescription: map["tourDescription"],
       createdBy: map["createdBy"],
-      tickets: List<TicketType>.from(map["tickets"].map(TicketType.fromMap)),
+      ticketIds: map["ticketIds"],
       imageUrls: List<String>.from(map["imageUrls"]),
       departure: map["departure"],
       destination: map["destination"],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/form_validator.dart';
+import '../../../../cores/utils/form_utils.dart';
 import '../../../../generated/l10n.dart';
 
 class DurationPicker extends StatefulWidget {
@@ -147,8 +147,7 @@ class _DurationPickerState extends State<DurationPicker> {
                 children: [
                   Expanded(child: Text('${entry.key}:')),
                   const SizedBox(width: 10),
-                  SizedBox(
-                    width: 200,
+                  Expanded(
                     child: TextFormField(
                       controller: _controllers[entry.key],
                       autovalidateMode: AutovalidateMode.onUserInteraction,

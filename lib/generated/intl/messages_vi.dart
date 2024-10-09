@@ -133,6 +133,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "currency": MessageLookupByLibrary.simpleMessage("Tiền tệ"),
         "currencyChoice": MessageLookupByLibrary.simpleMessage("Bảng Anh"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Nền tối"),
+        "dataStateFailure": MessageLookupByLibrary.simpleMessage(
+            "Đã có lỗi xảy ra! Hãy thử lại sau!"),
         "day": MessageLookupByLibrary.simpleMessage("ngày"),
         "dayFormatted": m3,
         "dayUnit": MessageLookupByLibrary.simpleMessage("ngày"),
@@ -180,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Chiều đến rồi! Cùng nhau thưởng thức những món ngon mới lạ cho tại một nhà hàng sang trọng nào!"),
         "exclusiveOffers": MessageLookupByLibrary.simpleMessage(
             "Ưu đãi đặc biệt dành cho bạn - chỉ với một bước đơn giản!"),
+        "fetchDataFailure":
+            MessageLookupByLibrary.simpleMessage("Lấy dữ liệu về thất bại"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
             "Để biết thông tin chi tiết về vé này"),
         "forType": m4,
@@ -208,6 +212,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Khoảng thời gian không hợp lệ"),
         "invalidForm": MessageLookupByLibrary.simpleMessage(
             "Form chưa hợp lệ! Đừng bỏ sót bất kỳ thông tin nào!"),
+        "invalidImageFileType": MessageLookupByLibrary.simpleMessage(
+            "File này hiện không phải là hình ảnh! Vui lòng chọn file khác"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Cho phép"),
@@ -347,6 +353,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Phương tiện di chuyển"),
         "units": MessageLookupByLibrary.simpleMessage("Đơn vị"),
         "unitsChoice": MessageLookupByLibrary.simpleMessage("Mét theo hệ mét"),
+        "unsupportedImageFormat": MessageLookupByLibrary.simpleMessage(
+            "Định dạng này không được hỗ trợ"),
         "unsupportedText": MessageLookupByLibrary.simpleMessage(
             "Màn hình hiện tại không được hỗ trợ"),
         "userProfile": MessageLookupByLibrary.simpleMessage("Hồ sơ người dùng"),

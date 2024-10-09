@@ -8,7 +8,7 @@ import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/confirm_deletion_dialog.dart';
 import '../../../shared/presentations/widgets/confirm_dialog.dart';
-import '../../../shared/presentations/widgets/default_white_appabar.dart';
+import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../../shared/presentations/widgets/save_button.dart';
 import '../../../tour/presentations/widgets/date_time_item.dart';
 import '../../domain/entities/ticket_type.dart';

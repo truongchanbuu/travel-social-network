@@ -9,7 +9,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/enums/ticket_category.dart';
-import '../../../../cores/utils/form_validator.dart';
+import '../../../../cores/utils/form_utils.dart';
 import '../../../../cores/utils/formatters/number_input_formatter.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';

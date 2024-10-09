@@ -345,5 +345,10 @@
     "weekFormatted": "{count, plural, =1{1 week} other{{count} weeks}}",
     "dayFormatted": "{count, plural, =1{1 day} other{{count} days}}",
     "hourFormatted": "{count, plural, =1{1 hour} other{{count} hours}}",
-    "minuteFormatted": "{count, plural, =1{1 minute} other{{count} minutes}}"
+    "minuteFormatted": "{count, plural, =1{1 minute} other{{count} minutes}}",
+
+    "dataStateFailure": "Some error occurred! Please try again later!",
+    "invalidImageFileType": "Invalid file type. Only images are allowed",
+    "unsupportedImageFormat": "Unsupported image format",
+    "fetchDataFailure": "Failed to fetch image from URL"
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../cores/utils/form_validator.dart';
+import '../../../../cores/utils/form_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/custom_text_field.dart';
@@ -22,7 +22,9 @@ class CreateTourDetails extends StatefulWidget {
 class CreateTourDetailsState extends State<CreateTourDetails> {
   late final GlobalKey<FormState> _formKey;
   late final TextEditingController _durationController;
-
+  late final TextEditingController _tourNameController;
+  late final TextEditingController _tourDepartureController;
+  late final TextEditingController _tourDestController;
   late TourEntity tour;
 
   @override
@@ -30,6 +32,10 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
     super.initState();
     _formKey = GlobalKey();
     _durationController = TextEditingController();
+    _tourNameController = TextEditingController();
+    _tourDepartureController = TextEditingController();
+    _tourDestController = TextEditingController();
+
     tour = widget.tour;
 
     _initControllers();
@@ -37,11 +43,17 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
 
   void _initControllers() {
     _durationController.text = tour.duration;
+    _tourNameController.text = tour.tourName;
+    _tourDepartureController.text = tour.departure;
+    _tourDestController.text = tour.destination;
   }
 
   @override
   void dispose() {
     _durationController.dispose();
+    _tourNameController.dispose();
+    _tourDepartureController.dispose();
+    _tourDestController.dispose();
     super.dispose();
   }
 
@@ -70,6 +82,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
+                textEditingController: _tourNameController,
                 validator: (value) => genericValidator(
                     label: S.current.tourNameLabel, value: value),
                 // onSaved: (value) =>
@@ -81,6 +94,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
               ),
               spacing,
               LongTextField(
+                content: tour.tourDescription,
                 title: S.current.tourDescLabel,
                 onSaved: (value) =>
                     _genericOnValue(TourEntity.tourDescriptionFieldName, value),
@@ -89,6 +103,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
               ),
               spacing,
               SearchField(
+                textEditingController: _tourDepartureController,
                 validator: (value) =>
                     genericValidator(value: value, label: S.current.departure),
                 title: S.current.departure,
@@ -99,6 +114,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
               ),
               spacing,
               SearchField(
+                textEditingController: _tourDestController,
                 validator: _destValidator,
                 title: S.current.destination,
                 onSelected: (value) =>
@@ -111,6 +127,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
                 title: S.current.tourItinerary,
                 onSaved: (value) =>
                     _genericOnValue(TourEntity.tourScheduleFieldName, value),
+                // content: tour.tourSchedule,
               ),
               spacing,
               CustomTextField(

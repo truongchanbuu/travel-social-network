@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +10,7 @@ import '../../../../cores/enums/ticket_category.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../cores/utils/enum_utils.dart';
+import '../../../../generated/l10n.dart';
 import '../../data/models/ticket_type.dart';
 import '../../domain/repositories/ticket_repository.dart';
 
@@ -40,8 +43,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       final dataState = await ticketRepository.createTicket(event.ticket);
 
       if (dataState is DataFailure) {
-        emit(TicketFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TicketFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         emit(TicketLoaded(dataState.data!));
       } else {
@@ -59,8 +62,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
           .createTickets(event.tickets.map(TicketType.fromEntity).toList());
 
       if (dataState is DataFailure) {
-        emit(TicketFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TicketFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         emit(ListOfTicketsSuccess(
             dataState.data!.map((ticket) => ticket.toEntity()).toList()));
@@ -84,6 +87,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         );
 
         if (dataState is DataFailure) {
+          log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
           emit(TicketFailure(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
         } else if (dataState is DataSuccess) {
@@ -118,8 +122,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
           await ticketRepository.getAllTicketsByTourId(event.tourId);
 
       if (dataState is DataFailure) {
-        emit(TicketFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TicketFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         emit(ListOfTicketsLoaded(dataState.data!));
       } else {
@@ -228,8 +232,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       final dataState = await ticketRepository.deleteTicketById(event.ticketId);
 
       if (dataState is DataFailure) {
-        emit(TicketFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TicketFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         emit(TicketDeleted(dataState.data!.toEntity()));
       } else {
@@ -247,8 +251,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
           await ticketRepository.getAllTicketsByTourId(event.tourId);
 
       if (dataState is DataFailure) {
-        emit(TicketFailure(
-            dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}'));
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TicketFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
         final tickets = dataState.data!;
         final [startDate, endDate] =

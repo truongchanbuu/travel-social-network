@@ -7,6 +7,8 @@ sealed class TourState extends Equatable {
   List<Object> get props => [];
 }
 
+final class TourInitial extends TourState {}
+
 final class TourActionFailed extends TourState {
   final String message;
   const TourActionFailed(this.message);
@@ -40,3 +42,11 @@ final class ListOfToursLoaded extends TourState {
 }
 
 final class TourActionLoading extends TourState {}
+
+final class TourImagesLoaded extends TourState {
+  final List<ImageFile> images;
+  const TourImagesLoaded(this.images);
+
+  @override
+  List<Object> get props => [images];
+}

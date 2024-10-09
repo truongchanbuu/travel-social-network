@@ -5,7 +5,7 @@ import 'package:travel_social_network/cores/constants/tours.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/presentations/widgets/default_white_appabar.dart';
+import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../../tour/domain/entities/tour.dart';
 import '../../domain/entities/review.dart';
 import '../widgets/review_item.dart';

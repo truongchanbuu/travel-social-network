@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:travel_social_network/features/shared/presentations/widgets/quill_content.dart';
+import 'package:travel_social_network/features/tour/presentations/pages/save_tour_page.dart';
 
+import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../domain/entities/tour.dart';
+import '../bloc/tour_bloc.dart';
 
 class YourTourItem extends StatelessWidget {
   final TourEntity tour;
@@ -11,12 +20,18 @@ class YourTourItem extends StatelessWidget {
     color: subColor,
     fontSize: 16,
   );
-  static const SizedBox spacing = SizedBox(height: 6);
+  static const TextStyle titleTextStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  );
+  static const SizedBox spacing = SizedBox(height: 10);
+  static const double itemContentHeight = 200;
+  static const double iconSize = 23;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _navigateToTourDetail,
+      onTap: () => _navigateToTourDetail(context),
       child: Container(
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -37,10 +52,7 @@ class YourTourItem extends StatelessWidget {
             children: [
               Text(
                 tour.tourName,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: titleTextStyle,
               ),
               spacing,
               Row(
@@ -48,6 +60,7 @@ class YourTourItem extends StatelessWidget {
                   const Icon(
                     Icons.location_on_outlined,
                     color: subColor,
+                    size: iconSize,
                   ),
                   const SizedBox(width: 10),
                   Text(
@@ -62,6 +75,7 @@ class YourTourItem extends StatelessWidget {
                   const Icon(
                     Icons.access_time,
                     color: subColor,
+                    size: iconSize,
                   ),
                   const SizedBox(width: 10),
                   Text(
@@ -70,13 +84,31 @@ class YourTourItem extends StatelessWidget {
                   ),
                 ],
               ),
+              spacing,
+              Text(
+                S.current.tourDescLabel,
+                style: titleTextStyle,
+              ),
+              SizedBox(
+                height: itemContentHeight,
+                child: QuillContent(content: tour.tourDescription),
+              ),
+              spacing,
             ],
           ),
-          trailing: const Icon(Icons.chevron_right, color: subColor),
         ),
       ),
     );
   }
 
-  void _navigateToTourDetail() {}
+  void _navigateToTourDetail(BuildContext context) {
+    Navigator.of(context).push(PageTransition(
+      child: MultiBlocProvider(providers: [
+        BlocProvider(create: (context) => getIt.get<TourBloc>()),
+        BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+        BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+      ], child: SaveTourPage(tour: tour)),
+      type: PageTransitionType.leftToRight,
+    ));
+  }
 }

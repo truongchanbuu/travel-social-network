@@ -38,7 +38,6 @@ class CreateTourDatesSection extends StatefulWidget {
 }
 
 // TODO: CREATED_BY PROP NEEDED
-
 class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   bool _isExpanded = false;
   int minLines = 2;
@@ -82,8 +81,9 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
           builder: (context, state) {
             if (state is ListOfTicketsLoaded) {
               tickets = state.tickets;
-              context.read<TourBloc>().add(
-                  UpdateTourFieldEvent(TourEntity.ticketsFieldName, tickets));
+              context.read<TourBloc>().add(UpdateTourFieldEvent(
+                  TourEntity.ticketsFieldName,
+                  tickets.map((ticket) => ticket.ticketTypeId).toList()));
             }
 
             return _buildActionButton(
