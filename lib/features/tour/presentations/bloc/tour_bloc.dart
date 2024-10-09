@@ -25,6 +25,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     on<CreateTourEvent>(_onCreateTour);
     on<UpdateTourFieldEvent>(_onUpdateTourField);
     on<GetTourImagesEvent>(_onGetTourImages);
+    on<GetTopRatingToursEvent>(_onGetTopRatingTours);
   }
 
   void _onInitialNewTour(event, emit) {
@@ -134,6 +135,24 @@ class TourBloc extends Bloc<TourEvent, TourState> {
       }
     } catch (e) {
       emit(TourActionFailed('Get Images Failed: $e'));
+    }
+  }
+
+  Future<void> _onGetTopRatingTours(
+      GetTopRatingToursEvent event, Emitter<TourState> emit) async {
+    try {
+      final dataState = await ;
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TourActionFailed(S.current.errorImage));
+      } else if (dataState is DataSuccess) {
+        emit(TourImagesLoaded(dataState.data!));
+      } else {
+        emit(TourActionLoading());
+      }
+    } catch (e) {
+      emit(TourActionFailed('Get Tours Failed: $e'));
     }
   }
 }

@@ -44,3 +44,5 @@ final class GetTourImagesEvent extends TourEvent {
   @override
   List<Object> get props => [tourId];
 }
+
+final class GetTopRatingToursEvent extends TourEvent {}

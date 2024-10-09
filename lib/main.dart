@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:travel_social_network/features/shared/presentations/pages/home/home_page.dart';
 import 'package:travel_social_network/features/shared/presentations/widgets/app_bottom_navigation_bar.dart';
 import 'package:travel_social_network/features/tour/presentations/pages/your_tours_page.dart';
 
@@ -55,13 +56,13 @@ class MyApp extends StatelessWidget {
               //   BlocProvider(create: (context) => getIt.get<TicketBloc>()),
               //   BlocProvider(create: (context) => getIt.get<TourBloc>())
               // ], child: SaveTourPage())
-              // HomePage(),
-              // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
-              // TourDetailPage(tourId: generateSampleTours()[0].tourId),
-              MultiBlocProvider(providers: [
-            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
-            BlocProvider(create: (context) => getIt.get<TourBloc>())
-          ], child: YourToursPage()),
+              HomePage(),
+          // AddNumberVisitorPage(ticketId: tour1Tickets.first.ticketTypeId),
+          // TourDetailPage(tourId: generateSampleTours()[0].tourId),
+          //     MultiBlocProvider(providers: [
+          //   BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+          //   BlocProvider(create: (context) => getIt.get<TourBloc>())
+          // ], child: YourToursPage()),
           // TicketDetailPage(ticketId: tour1Tickets[0].ticketTypeId),
           // AddTicketTypeItem(ticket: tour1Tickets.first),
         ),

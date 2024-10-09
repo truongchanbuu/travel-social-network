@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../tour/domain/entities/tour.dart';
+import '../../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../../../tour/presentations/widgets/tours_grid_view.dart';
 import '../../widgets/home/destination_list.dart';
 import '../../widgets/home/home_app_bar.dart';
@@ -17,6 +20,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late List<TourEntity> tours;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<TourBloc>().add();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

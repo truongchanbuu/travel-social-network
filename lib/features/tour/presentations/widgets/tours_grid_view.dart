@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
@@ -11,36 +10,38 @@ import '../../domain/entities/tour.dart';
 import '../pages/tour_detail_page.dart';
 
 class ToursGridView extends StatefulWidget {
-  const ToursGridView({super.key});
+  final List<TourEntity> tours;
+  const ToursGridView({super.key, required this.tours});
 
   @override
   State<ToursGridView> createState() => _ToursGridViewState();
 }
 
 class _ToursGridViewState extends State<ToursGridView> {
-  List<TourEntity> recommendedTours = [];
+  List<TourEntity> tours = [];
 
   @override
   void initState() {
     super.initState();
-    recommendedTours = generateSampleTours();
+    tours = widget.tours;
   }
 
   static const double borderRadius = 10;
   static const double gridSpacing = 20;
+  static const itemWidth = 200;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount = min(screenWidth ~/ 200, maxItemCount);
+    int crossAxisCount = min(screenWidth ~/ itemWidth, maxItemCount);
 
     return SliverMasonryGrid.count(
       crossAxisCount: crossAxisCount,
       mainAxisSpacing: gridSpacing,
       crossAxisSpacing: gridSpacing,
-      childCount: recommendedTours.length,
+      childCount: tours.length,
       itemBuilder: (context, index) => _buildTourItem(
-        tour: recommendedTours[index],
+        tour: tours[index],
         height: crossAxisCount == 1
             ? recommendedTourItemSize
             : tourItemSizes[index % tourItemSizes.length],
@@ -94,13 +95,10 @@ class _ToursGridViewState extends State<ToursGridView> {
   Widget _buildImage(TourEntity tour) => AppCachedImage(
         imageUrl: tour.imageUrls[Random().nextInt(tour.imageUrls.length)],
         cacheKey: tour.tourId,
-        loadingSemanticLabel:
-            S.current.loadingImageText(recommendedTours.indexOf(tour)),
+        loadingSemanticLabel: S.current.loadingImageText(tours.indexOf(tour)),
         errorSemanticLabel: S.current.errorImage,
       );
 
-  void _navigateToTourDetail(String tourId) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => TourDetailPage(tourId: tourId)),
-      );
+  void _navigateToTourDetail(String tourId) => Navigator.push(context,
+      MaterialPageRoute(builder: (context) => TourDetailPage(tourId: tourId)));
 }
