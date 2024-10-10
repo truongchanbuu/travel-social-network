@@ -2,6 +2,7 @@ import '../../../../cores/resources/data_state.dart';
 import '../../data/models/ticket_type.dart';
 
 abstract interface class TicketRepository {
+  Future<DataState<TicketType>> getTicketById(String ticketId);
   Future<DataState<TicketType>> createTicket(TicketType ticket);
   Future<DataState<List<TicketType>>> createTickets(List<TicketType> tickets);
   Future<DataState<TicketType>> updateTicket(String id, TicketType newTicket);

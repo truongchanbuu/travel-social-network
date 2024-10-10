@@ -17,9 +17,9 @@ final class TourActionFailed extends TourState {
   List<Object> get props => [message];
 }
 
-final class TourActionSucceed extends TourState {
+final class TourActionSuccess extends TourState {
   final TourEntity tour;
-  const TourActionSucceed(this.tour);
+  const TourActionSuccess(this.tour);
 
   @override
   List<Object> get props => [tour];

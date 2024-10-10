@@ -23,6 +23,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
       : super(TourInitial()) {
     on<InitializeNewTourEvent>(_onInitialNewTour);
     on<CreateTourEvent>(_onCreateTour);
+    on<GetTourByIdEvent>(_onGetTourById);
     on<UpdateTourFieldEvent>(_onUpdateTourField);
     on<GetTourImagesEvent>(_onGetTourImages);
     on<GetTopRatingToursEvent>(_onGetTopRatingTours);
@@ -30,6 +31,24 @@ class TourBloc extends Bloc<TourEvent, TourState> {
 
   void _onInitialNewTour(event, emit) {
     emit(TourLoaded(TourEntity.defaultWithId()));
+  }
+
+  Future<void> _onGetTourById(GetTourByIdEvent event, emit) async {
+    try {
+      final dataState = await tourRepository.getTourById(event.tourId);
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TourActionFailed(S.current.dataStateFailure));
+      } else if (dataState is DataSuccess) {
+        emit(TourLoaded(dataState.data!.toEntity()));
+      } else {
+        emit(TourActionLoading());
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(TourActionFailed(S.current.dataStateFailure));
+    }
   }
 
   Future<void> _onCreateTour(
@@ -54,16 +73,17 @@ class TourBloc extends Bloc<TourEvent, TourState> {
         final dataState = await tourRepository.createTour(tour);
 
         if (dataState is DataFailure) {
-          emit(TourActionFailed(dataState.error?.message ??
-              'ERROR OCCURRED: ${dataState.error}'));
+          log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+          emit(TourActionFailed(S.current.dataStateFailure));
         } else if (dataState is DataSuccess) {
-          emit(TourActionSucceed(tour.toEntity()));
+          emit(TourActionSuccess(tour.toEntity()));
         } else {
           emit(TourActionLoading());
         }
       }
     } catch (e) {
-      emit(TourActionFailed('Tour Create Failed: $e'));
+      log(e.toString());
+      emit(TourActionFailed(S.current.dataStateFailure));
     }
   }
 
@@ -107,16 +127,17 @@ class TourBloc extends Bloc<TourEvent, TourState> {
         return tour.copyWith(departure: value);
       } else if (fieldName == TourEntity.destinationFieldName) {
         return tour.copyWith(destination: value);
+      } else if (fieldName == TourEntity.tourScheduleFieldName) {
+        return tour.copyWith(tourSchedule: value);
+      } else if (fieldName == TourEntity.additionalInfoFiledName) {
+        return tour.copyWith(additionalInfo: value);
       }
-    } else if (fieldName == TourEntity.ticketsFieldName &&
+    } else if (fieldName == TourEntity.ticketIdsFieldName &&
         value is List<String>) {
       return tour.copyWith(ticketIds: value);
     }
-    // else if (fieldName == TourEntity.tourScheduleFieldName) {
-    //   return tour.copyWith(tourSchedule: value);
-    // }
 
-    log('Tour may not be changed', level: 0);
+    log('Tour may not be changed');
     return tour;
   }
 
@@ -134,25 +155,28 @@ class TourBloc extends Bloc<TourEvent, TourState> {
         emit(TourActionLoading());
       }
     } catch (e) {
-      emit(TourActionFailed('Get Images Failed: $e'));
+      log(e.toString());
+      emit(TourActionFailed(S.current.dataStateFailure));
     }
   }
 
   Future<void> _onGetTopRatingTours(
       GetTopRatingToursEvent event, Emitter<TourState> emit) async {
     try {
-      final dataState = await ;
+      final dataState = await tourRepository.getTopRatingTours();
 
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
-        emit(TourActionFailed(S.current.errorImage));
+        emit(TourActionFailed(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
-        emit(TourImagesLoaded(dataState.data!));
+        emit(ListOfToursLoaded(
+            dataState.data!.map((tour) => tour.toEntity()).toList()));
       } else {
         emit(TourActionLoading());
       }
     } catch (e) {
-      emit(TourActionFailed('Get Tours Failed: $e'));
+      log(e.toString());
+      emit(TourActionFailed(S.current.dataStateFailure));
     }
   }
 }

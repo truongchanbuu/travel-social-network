@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../../review/presentations/pages/review_detail_page.dart';
+import '../../../review/presentations/pages/reviews_page.dart';
 import '../../domain/entities/tour.dart';
 import 'tour_detail_location.dart';
 
@@ -31,7 +31,7 @@ class InfoSection extends StatelessWidget {
                 tour.tourName,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 17,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
                 overflow: defaultTextOverflow,
@@ -74,7 +74,7 @@ class InfoSection extends StatelessWidget {
               ),
               padding: const EdgeInsetsDirectional.all(6),
               child: Text(
-                '${tour.rating.toStringAsFixed(1)} / 5.0',
+                '${tour.rating.toStringAsFixed(1)} / $maxRatingPoint',
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -101,12 +101,12 @@ class InfoSection extends StatelessWidget {
     );
   }
 
-  Widget _buildBriefInfo(BuildContext context) {
-    const Icon trailing = Icon(
-      Icons.chevron_right,
-      color: primaryColor,
-    );
+  static const Icon trailing = Icon(
+    Icons.chevron_right,
+    color: primaryColor,
+  );
 
+  Widget _buildBriefInfo(BuildContext context) {
     return Column(
       children: [
         ListTile(
@@ -127,7 +127,7 @@ class InfoSection extends StatelessWidget {
                   ),
                 ),
                 const TextSpan(text: ' | '),
-                TextSpan(text: '${tour.duration} ${S.current.days}')
+                TextSpan(text: tour.duration)
               ],
             ),
           ),
@@ -141,18 +141,16 @@ class InfoSection extends StatelessWidget {
           trailing: trailing,
           contentPadding: EdgeInsets.zero,
           titleAlignment: ListTileTitleAlignment.center,
-          title: Text(tour.destination, style: const TextStyle(fontSize: 14)),
+          title: Text('${tour.departure} - ${tour.destination}',
+              style: const TextStyle(fontSize: 14)),
         ),
       ],
     );
   }
 
   void _showReviewDetailPage(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ReviewDetailPage(tourId: tour.tourId),
-        ));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ReviewsPage(tour: tour)));
   }
 
   void _showTourDetailLocation(BuildContext context) => showModalBottomSheet(

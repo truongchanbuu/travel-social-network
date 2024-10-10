@@ -1,13 +1,21 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 class QuillContentFormatter {
+  static const String insertKey = 'insert';
+  static const String needleCharacter = '\n';
   static String checkAndConvertQuillFormat(String input) {
     try {
       final decoded = json.decode(input);
       if (decoded is List &&
           decoded.isNotEmpty &&
           decoded.every(_isValidQuillBlock)) {
+        if ((decoded.last)[insertKey] != needleCharacter) {
+          decoded.add({insertKey: needleCharacter});
+          input = json.encode(decoded);
+        }
+
         return input;
       }
     } catch (e) {
@@ -16,13 +24,13 @@ class QuillContentFormatter {
     }
 
     return json.encode([
-      {"insert": '$input\n'}
+      {insertKey: '$input$needleCharacter'}
     ]);
   }
 
   static bool _isValidQuillBlock(dynamic block) {
     return block is Map<String, dynamic> &&
-        block.containsKey('insert') &&
-        block['insert'] is String;
+        block.containsKey(insertKey) &&
+        block[insertKey] is String;
   }
 }

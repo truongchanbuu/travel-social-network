@@ -190,6 +190,16 @@ class S {
     );
   }
 
+  /// `Comment`
+  String get comment {
+    return Intl.message(
+      'Comment',
+      name: 'comment',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Not Found`
   String get notFound {
     return Intl.message(
@@ -800,6 +810,16 @@ class S {
     );
   }
 
+  /// `There are still no tours here!`
+  String get noTours {
+    return Intl.message(
+      'There are still no tours here!',
+      name: 'noTours',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `All Images and Videos`
   String get allImagesAndVideos {
     return Intl.message(
@@ -934,6 +954,16 @@ class S {
     );
   }
 
+  /// `There are still no reviews! Let become the first one for this tour!`
+  String get noReviews {
+    return Intl.message(
+      'There are still no reviews! Let become the first one for this tour!',
+      name: 'noReviews',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reviewed`
   String get reviewed {
     return Intl.message(
@@ -959,6 +989,16 @@ class S {
     return Intl.message(
       'Ticket(s)',
       name: 'tickets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are no tickets!`
+  String get noTickets {
+    return Intl.message(
+      'There are no tickets!',
+      name: 'noTickets',
       desc: '',
       args: [],
     );

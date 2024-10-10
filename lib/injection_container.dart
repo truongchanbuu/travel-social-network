@@ -8,6 +8,9 @@ import 'cores/constants/constants.dart';
 import 'features/policy/data/repositories/policy_repository_impl.dart';
 import 'features/policy/domain/repositories/policy_repository.dart';
 import 'features/policy/presentations/bloc/policy_bloc.dart';
+import 'features/review/data/repositories/review_repository_impl.dart';
+import 'features/review/domain/repositories/review_repository.dart';
+import 'features/review/presentations/bloc/review_bloc.dart';
 import 'features/shared/data/repositories/image_repository_impl.dart';
 import 'features/shared/domain/repositories/image_repository.dart';
 import 'features/ticket/data/repositories/ticket_repository_impl.dart';
@@ -33,10 +36,12 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<TourRepository>(TourRepositoryImpl());
   getIt.registerSingleton<TicketRepository>(TicketRepositoryImpl());
   getIt.registerSingleton<PolicyRepository>(PolicyRepositoryImpl());
+  getIt.registerSingleton<ReviewRepository>(ReviewRepositoryImpl());
 
   // Bloc
   getIt.registerFactory<TourBloc>(
       () => TourBloc(tourRepository: getIt(), imageRepository: getIt()));
   getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
   getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));
+  getIt.registerFactory<ReviewBloc>(() => ReviewBloc(getIt()));
 }

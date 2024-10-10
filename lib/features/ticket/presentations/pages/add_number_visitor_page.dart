@@ -1,18 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 import 'package:travel_social_network/cores/constants/policies.dart';
-import 'package:travel_social_network/cores/constants/tickets.dart';
 import 'package:travel_social_network/cores/constants/tours.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
 import '../../../policy/domain/entities/policy.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../shared/presentations/widgets/app_cached_image.dart';
 import '../../../shared/presentations/widgets/detail_heading_text.dart';
 import '../../../tour/domain/entities/tour.dart';
 import '../../domain/entities/ticket_type.dart';
+import '../bloc/ticket_bloc.dart';
 import '../widgets/add_ticket_type_item.dart';
 import '../widgets/available_date_list.dart';
 import '../widgets/ticket_brief_info.dart';
@@ -47,7 +50,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
   @override
   void initState() {
     super.initState();
-    ticket = tour1Tickets.where((t) => t.ticketTypeId == widget.ticketId).first;
+    context.read<TicketBloc>().add(GetTicketByIdEvent(widget.ticketId));
     tour = generateSampleTours().where((t) => t.tourId == ticket.tourId).first;
     // availableDates = tour.tickets.map((t) => t.startDate).toList();
     selectedDate = widget.selectedDate ?? availableDates[0];
@@ -61,25 +64,27 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildTicketBriefInfo(),
-                  _buildSelectedDateSection(),
-                  _buildTicketTypeList(),
-                  _buildImportantInfo(),
-                  const SizedBox(height: 20),
-                ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildTicketBriefInfo(),
+                    _buildSelectedDateSection(),
+                    _buildTicketTypeList(),
+                    _buildImportantInfo(),
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
-          ),
-          _buildBookingButton(),
-        ],
+            _buildBookingButton(),
+          ],
+        ),
       ),
     );
   }
@@ -274,7 +279,6 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
       );
 
   AppBar _buildAppBar() => AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           S.current.addVisitorNumber,
           style: const TextStyle(
@@ -291,10 +295,16 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
   void _navigateToTicketDetail() => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TicketDetailPage(
-            ticketId: ticket.ticketTypeId,
-            selectedDate: selectedDate,
-            isButtonShowed: false,
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+              // BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+            ],
+            child: TicketDetailPage(
+              ticketId: ticket.ticketTypeId,
+              selectedDate: selectedDate,
+              isButtonShowed: false,
+            ),
           ),
         ),
       );

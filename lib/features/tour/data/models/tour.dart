@@ -1,29 +1,24 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../ticket/data/models/ticket_type.dart';
 import '../../domain/entities/tour.dart';
-import '../../domain/entities/tour_schedule.dart';
-import 'tour_schedule.dart';
 
 part 'tour.g.dart';
 
 @JsonSerializable()
 class Tour extends TourEntity {
-  Tour({
-    required super.tourId,
-    required super.tourName,
-    required super.tourDescription,
-    required super.createdBy,
-    required super.ticketIds,
-    required super.imageUrls,
-    required super.departure,
-    required super.destination,
-    required super.duration,
-    required super.rating,
-    TourSchedule? tourSchedule,
-  }) : super(
-          tourSchedule: tourSchedule?.toEntity(),
-        );
+  const Tour(
+      {required super.tourId,
+      required super.tourName,
+      required super.tourDescription,
+      required super.createdBy,
+      required super.ticketIds,
+      required super.imageUrls,
+      required super.departure,
+      required super.destination,
+      required super.duration,
+      required super.rating,
+      super.tourSchedule,
+      super.additionalInfo});
 
   @override
   Tour copyWith({
@@ -37,7 +32,8 @@ class Tour extends TourEntity {
     String? tourDescription,
     String? tourId,
     String? tourName,
-    TourScheduleEntity? tourSchedule,
+    String? tourSchedule,
+    String? additionalInfo,
   }) {
     return Tour(
       createdBy: createdBy ?? this.createdBy,
@@ -50,11 +46,8 @@ class Tour extends TourEntity {
       tourDescription: tourDescription ?? this.tourDescription,
       tourId: tourId ?? this.tourId,
       tourName: tourName ?? this.tourName,
-      tourSchedule: tourSchedule != null
-          ? TourSchedule.fromEntity(tourSchedule)
-          : (this.tourSchedule != null)
-              ? TourSchedule.fromEntity(this.tourSchedule!)
-              : null,
+      tourSchedule: tourSchedule ?? this.tourSchedule,
+      additionalInfo: additionalInfo ?? this.additionalInfo,
     );
   }
 
@@ -71,6 +64,7 @@ class Tour extends TourEntity {
       duration: duration,
       rating: rating,
       tourSchedule: tourSchedule,
+      additionalInfo: additionalInfo,
     );
   }
 
@@ -86,9 +80,8 @@ class Tour extends TourEntity {
       destination: entity.destination,
       duration: entity.duration,
       rating: entity.rating,
-      tourSchedule: entity.tourSchedule != null
-          ? TourSchedule.fromEntity(entity.tourSchedule!)
-          : null,
+      tourSchedule: entity.tourSchedule,
+      additionalInfo: entity.additionalInfo,
     );
   }
 
@@ -98,15 +91,14 @@ class Tour extends TourEntity {
       "tourName": tourName,
       "tourDescription": tourDescription,
       "createdBy": createdBy,
-      "tickets": ticketIds,
+      "ticketIds": ticketIds,
       "imageUrls": imageUrls,
       "departure": departure,
       "destination": destination,
       "duration": duration,
       "rating": rating,
-      "tourSchedule": tourSchedule != null
-          ? TourSchedule.fromEntity(tourSchedule!).toMap()
-          : null,
+      "tourSchedule": tourSchedule,
+      "additionalInfo": additionalInfo,
     };
   }
 
@@ -122,7 +114,8 @@ class Tour extends TourEntity {
       destination: map["destination"],
       duration: map["duration"]?.toInt(),
       rating: map["rating"]?.toDouble(),
-      tourSchedule: TourSchedule.fromMap(map['tourSchedule']),
+      tourSchedule: map["tourSchedule"],
+      additionalInfo: map["additionalInfo"],
     );
   }
 

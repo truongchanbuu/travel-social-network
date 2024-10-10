@@ -81,7 +81,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
             if (state is TourActionFailed) {
               showToast(state.message,
                   position: StyledToastPosition.center, context: context);
-            } else if (state is TourActionSucceed) {
+            } else if (state is TourActionSuccess) {
               _navigateToYourToursPage();
             }
           },

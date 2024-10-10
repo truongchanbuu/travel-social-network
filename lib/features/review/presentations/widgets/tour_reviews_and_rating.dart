@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/constants/reviews.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/review.dart';
+import 'no_reviews_widget.dart';
 import 'review_item.dart';
 
 class TourReviewsAndRating extends StatefulWidget {
@@ -26,11 +28,15 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
   @override
   void initState() {
     super.initState();
-    reviews = sampleReviews.take(5).toList();
+    reviews = widget.reviews.take(min(5, reviews.length)).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (reviews.isEmpty) {
+      return const NoReviewsWidget();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -8,6 +8,7 @@ class TicketPageAppBar extends StatelessWidget {
   final TicketTypeEntity ticket;
   final bool isVisible;
   final double expandedHeight;
+
   const TicketPageAppBar({
     super.key,
     required this.expandedHeight,
@@ -40,7 +41,7 @@ class TicketPageAppBar extends StatelessWidget {
                 ),
               )
             : null,
-        background: TourDetailThumb(tourId: ticket.tourId),
+        background: const TourDetailThumb(),
       ),
     );
   }

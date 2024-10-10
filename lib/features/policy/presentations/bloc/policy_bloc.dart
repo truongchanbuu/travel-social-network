@@ -52,7 +52,8 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
         emit(PolicyActionLoading());
       }
     } catch (e) {
-      emit(PolicyFailure(e.toString()));
+      log(e.toString());
+      emit(PolicyFailure(S.current.dataStateFailure));
     }
   }
 
@@ -97,7 +98,8 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
         emit(PolicyActionLoading());
       }
     } catch (e) {
-      emit(PolicyFailure(e.toString()));
+      log(e.toString());
+      emit(PolicyFailure(S.current.dataStateFailure));
     }
   }
 
@@ -115,7 +117,8 @@ class PolicyBloc extends Bloc<PolicyEvent, PolicyState> {
         emit(PolicyActionLoading());
       }
     } catch (e) {
-      emit(PolicyFailure(e.toString()));
+      log(e.toString());
+      emit(PolicyFailure(S.current.dataStateFailure));
     }
   }
 }

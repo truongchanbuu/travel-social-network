@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../domain/entities/ticket_type.dart';
 
 class TicketGridView extends StatelessWidget {
@@ -40,7 +41,20 @@ class TicketGridView extends StatelessWidget {
         int columns = (crossAxisExtent / maxCrossAxisExtent).ceil();
         int rows = min(maxRows, (tickets.length / columns).ceil());
 
+        columns = columns != 0 ? columns : 1;
+        rows = rows != 0 ? rows : 1;
         int itemCount = min(rows * columns, tickets.length);
+
+        if (itemCount == 0) {
+          return Text(
+            S.current.noTickets,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          );
+        }
 
         return SizedBox(
           height: itemHeight * rows + verticalSpacing * (rows - 1),

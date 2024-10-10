@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:travel_social_network/cores/resources/data_state.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
+import '../../domain/entities/tour.dart';
 import '../../domain/repositories/tour_repository.dart';
 import '../models/tour.dart';
 
@@ -23,13 +25,49 @@ class TourRepositoryImpl implements TourRepository {
   @override
   Future<DataState<List<Tour>>> getTopRatingTours({int limit = 20}) async {
     try {
+      List<Tour> tours = [];
       final docQuery =
           tourCollection.orderBy('rating', descending: true).limit(limit);
       final docSnaps = await docQuery.get();
-      List<Tour> tours = docSnaps.docs
-          .map((doc) => Tour.fromJson(doc as Map<String, dynamic>))
-          .toList();
+
+      for (var doc in docSnaps.docs) {
+        if (doc.exists) {
+          Map<String, dynamic> data = doc.data();
+
+          for (var field in [
+            TourEntity.imageUrlsFieldName,
+            TourEntity.tourScheduleFieldName,
+            TourEntity.ticketIdsFieldName
+          ]) {
+            if (data[field] == null) {
+              data[field] = [];
+            }
+          }
+
+          Tour tour = Tour.fromJson(data);
+          tours.add(tour);
+        }
+      }
+
       return DataSuccess(data: tours);
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<Tour>> getTourById(String tourId) async {
+    try {
+      final docQuery = tourCollection.doc(tourId);
+      final docSnap = await docQuery.get();
+
+      if (!docSnap.exists) {
+        return defaultDataFailure(S.current.notFound);
+      }
+
+      return DataSuccess(data: Tour.fromJson(docSnap.data()!));
     } on FirebaseException catch (e) {
       return handleFirebaseException(e);
     } catch (e) {

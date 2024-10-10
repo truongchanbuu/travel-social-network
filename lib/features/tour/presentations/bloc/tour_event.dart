@@ -19,6 +19,14 @@ final class CreateTourEvent extends TourEvent {
   List<Object> get props => [tour];
 }
 
+final class GetTourByIdEvent extends TourEvent {
+  final String tourId;
+  const GetTourByIdEvent(this.tourId);
+
+  @override
+  List<Object> get props => [tourId];
+}
+
 final class UpdateTourFieldEvent extends TourEvent {
   final String fieldName;
   final dynamic value;

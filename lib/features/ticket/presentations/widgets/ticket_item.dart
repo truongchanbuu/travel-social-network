@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:travel_social_network/injection_container.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/currency_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../domain/entities/ticket_type.dart';
+import '../bloc/ticket_bloc.dart';
 import '../pages/add_number_visitor_page.dart';
 import '../pages/ticket_detail_page.dart';
 import 'ticket_brief_info.dart';
@@ -112,9 +117,16 @@ class TicketItem extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TicketDetailPage(
-          ticketId: ticket.ticketTypeId,
-          selectedDate: selectedDate,
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+            BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+            BlocProvider(create: (context) => getIt.get<TourBloc>())
+          ],
+          child: TicketDetailPage(
+            ticketId: ticket.ticketTypeId,
+            selectedDate: selectedDate,
+          ),
         ),
       ),
     );

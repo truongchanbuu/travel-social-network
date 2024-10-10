@@ -22,6 +22,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
 
   TicketBloc(this.ticketRepository) : super(TicketInitial()) {
     on<InitialNewTicketEvent>(_onInitTicket);
+    on<GetTicketByIdEvent>(_onGetTicketById);
     on<CreateTicketEvent>(_onCreateTicket);
     on<CreateListOfTicketsEvent>(_onCreateListOfTickets);
     on<UpdateTicketEvent>(_onUpdateTicket);
@@ -38,6 +39,24 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     emit(TicketLoaded(TicketType.fromEntity(newTicket)));
   }
 
+  Future<void> _onGetTicketById(GetTicketByIdEvent event, emit) async {
+    try {
+      final dataState = await ticketRepository.getTicketById(event.ticketId);
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TicketFailure(S.current.dataStateFailure));
+      } else if (dataState is DataSuccess) {
+        emit(TicketLoaded(dataState.data!));
+      } else {
+        emit(TicketActionLoading());
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(TicketFailure(S.current.dataStateFailure));
+    }
+  }
+
   Future<void> _onCreateTicket(event, emit) async {
     try {
       final dataState = await ticketRepository.createTicket(event.ticket);
@@ -51,7 +70,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         emit(TicketActionLoading());
       }
     } catch (e) {
-      emit(TicketFailure(e.toString()));
+      log(e.toString());
+      emit(TicketFailure(S.current.dataStateFailure));
     }
   }
 
@@ -71,7 +91,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         emit(TicketActionLoading());
       }
     } catch (e) {
-      emit(TicketFailure('List of Tickets Created Failure: $e'));
+      log('Failed to create tickets: $e');
+      emit(TicketFailure(S.current.dataStateFailure));
     }
   }
 
@@ -96,7 +117,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
           emit(TicketActionLoading());
         }
       } catch (e) {
-        emit(TicketFailure(e.toString()));
+        log(e.toString());
+        emit(TicketFailure(S.current.dataStateFailure));
       }
     }
   }
@@ -130,7 +152,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         emit(TicketActionLoading());
       }
     } catch (e) {
-      emit(TicketFailure(e.toString()));
+      log(e.toString());
+      emit(TicketFailure(S.current.dataStateFailure));
     }
   }
 
@@ -240,7 +263,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         emit(TicketActionLoading());
       }
     } catch (e) {
-      emit(TicketFailure(e.toString()));
+      log(e.toString());
+      emit(TicketFailure(S.current.dataStateFailure));
     }
   }
 
@@ -276,7 +300,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         emit(TicketActionLoading());
       }
     } catch (e) {
-      emit(TicketFailure(e.toString()));
+      log(e.toString());
+      emit(TicketFailure(S.current.dataStateFailure));
     }
   }
 

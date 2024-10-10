@@ -1,8 +1,10 @@
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../generated/l10n.dart';
 
 class AvailableDateList extends StatefulWidget {
   final List<DateTime> availableDates;
@@ -109,9 +111,12 @@ class _AvailableDateListState extends State<AvailableDateList> {
   Widget _buildAvailableDate() {
     return Expanded(
       child: LayoutBuilder(builder: (context, constraints) {
-        _itemWidth = ((constraints.maxWidth / availableDates.length) + (2 * 20))
-            .ceil()
-            .toDouble();
+        if (availableDates.isNotEmpty) {
+          _itemWidth =
+              ((constraints.maxWidth / availableDates.length) + (2 * 20))
+                  .ceil()
+                  .toDouble();
+        }
 
         return SingleChildScrollView(
           controller: _scrollController,
@@ -176,25 +181,29 @@ class _AvailableDateListState extends State<AvailableDateList> {
   }
 
   void _showDatePicker() async {
-    final DateTime nearestDate = availableDates.reduce(
-        (currentDate, nextDate) =>
-            currentDate.isBefore(nextDate) ? currentDate : nextDate);
-    final DateTime furthestDate = availableDates.reduce(
-        (currentDate, nextDate) =>
-            currentDate.isAfter(nextDate) ? currentDate : nextDate);
+    if (availableDates.isNotEmpty) {
+      final DateTime nearestDate = availableDates.reduce(
+          (currentDate, nextDate) =>
+              currentDate.isBefore(nextDate) ? currentDate : nextDate);
+      final DateTime furthestDate = availableDates.reduce(
+          (currentDate, nextDate) =>
+              currentDate.isAfter(nextDate) ? currentDate : nextDate);
 
-    var selectedDate = await showBoardDateTimePicker(
-      context: context,
-      useSafeArea: true,
-      initialDate: widget.selectedDate,
-      minimumDate: nearestDate,
-      maximumDate: furthestDate,
-      options: const BoardDateTimeOptions(activeColor: primaryColor),
-      pickerType: DateTimePickerType.date,
-    );
+      var selectedDate = await showBoardDateTimePicker(
+        context: context,
+        useSafeArea: true,
+        initialDate: widget.selectedDate,
+        minimumDate: nearestDate,
+        maximumDate: furthestDate,
+        options: const BoardDateTimeOptions(activeColor: primaryColor),
+        pickerType: DateTimePickerType.date,
+      );
 
-    if ((selectedDate != null) && widget.selectedDate != selectedDate) {
-      widget.onSelectDate(selectedDate);
+      if ((selectedDate != null) && widget.selectedDate != selectedDate) {
+        widget.onSelectDate(selectedDate);
+      }
+    } else {
+      showToast(S.current.noTickets, context: context);
     }
   }
 }

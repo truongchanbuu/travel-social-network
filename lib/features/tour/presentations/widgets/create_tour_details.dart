@@ -85,8 +85,6 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
                 textEditingController: _tourNameController,
                 validator: (value) => genericValidator(
                     label: S.current.tourNameLabel, value: value),
-                // onSaved: (value) =>
-                //     _genericOnValue(TourEntity.tourNameFieldName, value),
                 onChanged: (value) =>
                     _genericOnValue(TourEntity.tourNameFieldName, value),
                 label: S.current.tourNameLabel,
@@ -127,7 +125,14 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
                 title: S.current.tourItinerary,
                 onSaved: (value) =>
                     _genericOnValue(TourEntity.tourScheduleFieldName, value),
-                // content: tour.tourSchedule,
+                content: tour.tourSchedule,
+              ),
+              spacing,
+              LongTextField(
+                title: S.current.additionalInformation,
+                onSaved: (value) =>
+                    _genericOnValue(TourEntity.additionalInfoFiledName, value),
+                content: tour.additionalInfo,
               ),
               spacing,
               CustomTextField(

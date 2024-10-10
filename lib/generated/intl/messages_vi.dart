@@ -115,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "classificationWonderful":
             MessageLookupByLibrary.simpleMessage("Tuyệt vời"),
         "clear": MessageLookupByLibrary.simpleMessage("Xóa"),
+        "comment": MessageLookupByLibrary.simpleMessage("Bình luận"),
         "contactServiceProvider": MessageLookupByLibrary.simpleMessage(
             "Liên hệ nhà cung cấp dịch vụ"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
@@ -243,6 +244,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "next": MessageLookupByLibrary.simpleMessage("Kế tiếp"),
         "nightText": MessageLookupByLibrary.simpleMessage(
             "Ngủ ngon nhé! Nghỉ ngơi cho một ngày mai không ngừng khám phá!"),
+        "noReviews": MessageLookupByLibrary.simpleMessage(
+            "Vẫn chưa có đánh giá! Hãy trở thành người đầu tiên đánh giá chuyến đi này!"),
+        "noTickets":
+            MessageLookupByLibrary.simpleMessage("Không có vé để hiển thị!"),
+        "noTours": MessageLookupByLibrary.simpleMessage(
+            "Vẫn chưa có chuyến đi nào ở đây"),
         "nonRefundable":
             MessageLookupByLibrary.simpleMessage("Không thể hoàn tiền"),
         "notFound": MessageLookupByLibrary.simpleMessage("Không tìm thấy"),
@@ -332,6 +339,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ticketName": MessageLookupByLibrary.simpleMessage("Tên vé"),
         "ticketRedemption":
             MessageLookupByLibrary.simpleMessage("Phương thức quy đổi"),
+        "tickets": MessageLookupByLibrary.simpleMessage("Vé"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Tổng tiền"),
         "totalReviews": m18,
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),

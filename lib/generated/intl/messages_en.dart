@@ -124,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "classificationWonderful":
             MessageLookupByLibrary.simpleMessage("Wonderful"),
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
+        "comment": MessageLookupByLibrary.simpleMessage("Comment"),
         "contactServiceProvider":
             MessageLookupByLibrary.simpleMessage("Contact service provider"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -252,6 +253,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nightText": MessageLookupByLibrary.simpleMessage(
             "Have a nice sleep! Dreams are beginning but tomorrow journey will come true"),
+        "noReviews": MessageLookupByLibrary.simpleMessage(
+            "There are still no reviews! Let become the first one for this tour!"),
+        "noTickets":
+            MessageLookupByLibrary.simpleMessage("There are no tickets!"),
+        "noTours": MessageLookupByLibrary.simpleMessage(
+            "There are still no tours here!"),
         "nonRefundable":
             MessageLookupByLibrary.simpleMessage("Cannot be refund"),
         "notAllowedEmpty":

@@ -1,12 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../review/presentations/bloc/review_bloc.dart';
 import '../../../shared/presentations/widgets/app_cached_image.dart';
+import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../domain/entities/tour.dart';
+import '../bloc/tour_bloc.dart';
 import '../pages/tour_detail_page.dart';
 
 class ToursGridView extends StatefulWidget {
@@ -33,7 +38,8 @@ class _ToursGridViewState extends State<ToursGridView> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount = min(screenWidth ~/ itemWidth, maxItemCount);
+    int crossAxisCount =
+        tours.length == 1 ? 1 : min(screenWidth ~/ itemWidth, maxItemCount);
 
     return SliverMasonryGrid.count(
       crossAxisCount: crossAxisCount,
@@ -99,6 +105,12 @@ class _ToursGridViewState extends State<ToursGridView> {
         errorSemanticLabel: S.current.errorImage,
       );
 
-  void _navigateToTourDetail(String tourId) => Navigator.push(context,
-      MaterialPageRoute(builder: (context) => TourDetailPage(tourId: tourId)));
+  void _navigateToTourDetail(String tourId) => Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => MultiBlocProvider(providers: [
+                BlocProvider(create: (context) => getIt.get<TourBloc>()),
+                BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+                BlocProvider(create: (context) => getIt.get<ReviewBloc>()),
+              ], child: TourDetailPage(tourId: tourId))));
 }

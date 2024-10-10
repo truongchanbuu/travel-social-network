@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-import 'tour_schedule.dart';
-
 class TourEntity extends Equatable {
   final String tourId;
   final String tourName;
@@ -14,7 +12,9 @@ class TourEntity extends Equatable {
   final String destination;
   final String duration;
   final double rating;
-  final TourScheduleEntity? tourSchedule;
+  final String? additionalInfo;
+  // final TourScheduleEntity? tourSchedule;
+  final String? tourSchedule;
 
   const TourEntity({
     required this.tourId,
@@ -27,6 +27,7 @@ class TourEntity extends Equatable {
     required this.destination,
     required this.duration,
     required this.rating,
+    this.additionalInfo,
     this.tourSchedule,
   });
 
@@ -41,6 +42,7 @@ class TourEntity extends Equatable {
     this.duration = '',
     this.rating = 0.0,
     this.tourSchedule,
+    this.additionalInfo,
   }) : tourId = 'TOUR-${const Uuid().v4()}';
 
   TourEntity copyWith({
@@ -54,7 +56,8 @@ class TourEntity extends Equatable {
     String? destination,
     String? duration,
     double? rating,
-    TourScheduleEntity? tourSchedule,
+    String? tourSchedule,
+    String? additionalInfo,
   }) {
     return TourEntity(
       tourId: tourId ?? this.tourId,
@@ -68,6 +71,7 @@ class TourEntity extends Equatable {
       duration: duration ?? this.duration,
       rating: rating ?? this.rating,
       tourSchedule: tourSchedule ?? this.tourSchedule,
+      additionalInfo: additionalInfo ?? this.additionalInfo,
     );
   }
 
@@ -85,6 +89,7 @@ class TourEntity extends Equatable {
       duration,
       rating,
       tourSchedule,
+      additionalInfo,
     ];
   }
 
@@ -92,11 +97,12 @@ class TourEntity extends Equatable {
   static const String tourNameFieldName = "tourName";
   static const String tourDescriptionFieldName = "tourDescription";
   static const String createdByFieldName = "createdBy";
-  static const String ticketsFieldName = "tickets";
+  static const String ticketIdsFieldName = "ticketIds";
   static const String imageUrlsFieldName = "imageUrls";
   static const String departureFieldName = "departure";
   static const String destinationFieldName = "destination";
   static const String durationFieldName = "duration";
   static const String ratingFieldName = "rating";
   static const String tourScheduleFieldName = "tourSchedule";
+  static const String additionalInfoFiledName = "additionalInfo";
 }

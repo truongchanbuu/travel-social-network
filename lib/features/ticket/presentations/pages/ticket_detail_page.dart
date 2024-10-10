@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
-import 'package:travel_social_network/cores/constants/policies.dart';
-import 'package:travel_social_network/cores/constants/tickets.dart';
+import 'package:travel_social_network/cores/enums/policy_type.dart';
 import 'package:travel_social_network/features/ticket/presentations/pages/add_number_visitor_page.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/currency_utils.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../policy/domain/entities/policy.dart';
+import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/detail_heading_text.dart';
 import '../../../shared/presentations/widgets/detail_section_container.dart';
 import '../../../shared/presentations/widgets/quill_content.dart';
-import '../../../policy/domain/entities/policy.dart';
 import '../../domain/entities/ticket_type.dart';
+import '../bloc/ticket_bloc.dart';
 import '../widgets/ticket_brief_info.dart';
 import '../widgets/ticket_page_app_bar.dart';
 
@@ -36,32 +39,28 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   late final ScrollController _scrollController;
   Map<String, bool> sectionExpandedMap = {};
 
-  late final TicketTypeEntity ticket;
-  late final PolicyEntity refundPolicy;
-  late final PolicyEntity reschedulePolicy;
+  TicketTypeEntity? ticket;
+  PolicyEntity? refundPolicy;
+  PolicyEntity? reschedulePolicy;
 
   bool _isVisible = false;
   DateTime? selectedDate;
+
+  static const String aboutKey = 'about';
+  static const String expirationKey = 'expiration';
+  static const String redemptionKey = 'redemption';
+  static const String policyKey = 'policy';
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController()..addListener(_onScroll);
-    ticket = tour1Tickets
-        .where((ticket) => ticket.ticketTypeId == widget.ticketId)
-        .first;
-
-    refundPolicy =
-        refundPolicies.where((p) => p.policyId == ticket.refundPolicyId).first;
-    reschedulePolicy = reschedulePolicies
-        .where((p) => p.policyId == ticket.reschedulePolicyId)
-        .first;
-
+    context.read<TicketBloc>().add(GetTicketByIdEvent(widget.ticketId));
     sectionExpandedMap = {
-      'about': true,
-      'expiration': true,
-      'redemption': true,
-      'policy': true,
+      aboutKey: true,
+      expirationKey: true,
+      redemptionKey: true,
+      policyKey: true,
     };
     selectedDate = widget.selectedDate;
   }
@@ -88,21 +87,67 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          TicketPageAppBar(
-            ticket: ticket,
-            isVisible: _isVisible,
-            expandedHeight: ticketDetailPageExpandedAppBarHeight,
-          ),
-          _buildBriefInfo(),
-          _buildPriceSection(),
-          _buildDetailSections()
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: BlocBuilder<TicketBloc, TicketState>(
+          builder: (context, state) {
+            if (state is TicketActionLoading || state is TicketInitial) {
+              return const AppProgressingIndicator();
+            } else if (state is TicketLoaded) {
+              if (ticket != state.ticket) {
+                ticket = state.ticket;
+              }
+
+              context
+                  .read<PolicyBloc>()
+                  .add(GetPolicyById(ticket!.refundPolicyId));
+              context
+                  .read<PolicyBloc>()
+                  .add(GetPolicyById(ticket!.reschedulePolicyId));
+
+              return _buildBody();
+            }
+
+            return const SizedBox.shrink();
+          },
+        ),
+        bottomNavigationBar: widget.isButtonShowed ? _buildBuyButton() : null,
       ),
-      bottomNavigationBar: widget.isButtonShowed ? _buildBuyButton() : null,
+    );
+  }
+
+  Widget _buildBody() {
+    return BlocConsumer<PolicyBloc, PolicyState>(
+      listener: (context, state) {
+        if (state is PolicyLoaded) {
+          if (state.policy.policyType == PolicyType.refund) {
+            refundPolicy = state.policy;
+          } else if (state.policy.policyType == PolicyType.reschedule) {
+            reschedulePolicy = state.policy;
+          }
+        }
+      },
+      builder: (context, state) {
+        if (state is! PolicyLoaded ||
+            refundPolicy == null ||
+            reschedulePolicy == null) {
+          return const AppProgressingIndicator();
+        }
+
+        return CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            TicketPageAppBar(
+              ticket: ticket!,
+              isVisible: _isVisible,
+              expandedHeight: ticketDetailPageExpandedAppBarHeight,
+            ),
+            _buildBriefInfo(),
+            _buildPriceSection(),
+            _buildDetailSections()
+          ],
+        );
+      },
     );
   }
 
@@ -134,9 +179,9 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   Widget _buildBriefInfo() => DetailSectionContainer(
         isPadding: false,
         child: TicketBriefInfo(
-          ticketName: ticket.ticketTypeName,
-          ticketCategory: ticket.category.name.toUpperCase(),
-          ticketDescription: ticket.ticketDescription,
+          ticketName: ticket!.ticketTypeName,
+          ticketCategory: ticket!.category.name.toUpperCase(),
+          ticketDescription: ticket!.ticketDescription,
         ),
       );
 
@@ -165,7 +210,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             ),
           ),
           child: Text(
-            CurrencyUtils.formatCurrency(ticket.ticketPrice),
+            CurrencyUtils.formatCurrency(ticket!.ticketPrice),
             style: const TextStyle(
               color: Colors.deepOrange,
               fontWeight: FontWeight.bold,
@@ -182,9 +227,9 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             DetailHeadingText(title: S.current.aboutThisTicket),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-          child: QuillContent(content: ticket.ticketInfo, isVisible: true),
+          child: QuillContent(content: ticket!.ticketInfo, isVisible: true),
         ),
-        isExpanded: sectionExpandedMap['about'] ?? true,
+        isExpanded: sectionExpandedMap[aboutKey] ?? true,
       );
 
   ExpansionPanel _buildVoucherExpiration() {
@@ -223,14 +268,14 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
           ]),
         ),
       ),
-      isExpanded: sectionExpandedMap['expiration'] ?? true,
+      isExpanded: sectionExpandedMap[expirationKey] ?? true,
     );
   }
 
   ExpansionPanel _buildRedemptionMethod() => ExpansionPanel(
         backgroundColor: backGroundExpansionItemColor,
         canTapOnHeader: true,
-        isExpanded: sectionExpandedMap['redemption'] ?? true,
+        isExpanded: sectionExpandedMap[redemptionKey] ?? true,
         headerBuilder: (context, isExpanded) =>
             DetailHeadingText(title: S.current.redemptionMethod),
         body: Padding(
@@ -253,7 +298,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
               ),
               const SizedBox(height: 5),
               QuillContent(
-                content: ticket.redemptionMethodDesc,
+                content: ticket!.redemptionMethodDesc,
                 isVisible: true,
               ),
             ],
@@ -262,11 +307,11 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       );
 
   ExpansionPanel _buildPolicies() {
-    bool canRefund = refundPolicy.isAllowed;
-    String refundDescription = refundPolicy.policyDescription;
+    bool canRefund = refundPolicy!.isAllowed;
+    String refundDescription = refundPolicy!.policyDescription;
 
-    bool canRescheduled = reschedulePolicy.isAllowed;
-    String rescheduleDescription = reschedulePolicy.policyDescription;
+    bool canRescheduled = reschedulePolicy!.isAllowed;
+    String rescheduleDescription = reschedulePolicy!.policyDescription;
 
     return ExpansionPanel(
       backgroundColor: backGroundExpansionItemColor,
@@ -290,7 +335,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
           ),
         ],
       ),
-      isExpanded: sectionExpandedMap['policy'] ?? true,
+      isExpanded: sectionExpandedMap[policyKey] ?? true,
     );
   }
 
@@ -313,16 +358,16 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
     String key;
     switch (index) {
       case 0:
-        key = 'about';
+        key = aboutKey;
         break;
       case 1:
-        key = 'expiration';
+        key = expirationKey;
         break;
       case 2:
-        key = 'redemption';
+        key = redemptionKey;
         break;
       case 3:
-        key = 'policy';
+        key = policyKey;
         break;
       default:
         return;
@@ -344,7 +389,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             AddNumberVisitorPage(
-          ticketId: ticket.ticketTypeId,
+          ticketId: ticket!.ticketTypeId,
           selectedDate: selectedDate,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {

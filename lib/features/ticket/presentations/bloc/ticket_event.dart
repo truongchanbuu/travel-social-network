@@ -15,6 +15,14 @@ final class InitialNewTicketEvent extends TicketEvent {
   List<Object> get props => [tourId];
 }
 
+final class GetTicketByIdEvent extends TicketEvent {
+  final String ticketId;
+  const GetTicketByIdEvent(this.ticketId);
+
+  @override
+  List<Object> get props => [ticketId];
+}
+
 final class CreateTicketEvent extends TicketEvent {
   final TicketType ticket;
   const CreateTicketEvent(this.ticket);

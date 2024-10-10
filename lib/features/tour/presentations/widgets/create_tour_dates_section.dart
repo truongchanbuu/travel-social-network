@@ -82,7 +82,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
             if (state is ListOfTicketsLoaded) {
               tickets = state.tickets;
               context.read<TourBloc>().add(UpdateTourFieldEvent(
-                  TourEntity.ticketsFieldName,
+                  TourEntity.ticketIdsFieldName,
                   tickets.map((ticket) => ticket.ticketTypeId).toList()));
             }
 
@@ -238,7 +238,6 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
 
   void _navigateToCreateTicketPage() async {
     final TicketBloc ticketBloc = context.read<TicketBloc>();
-    final TourBloc tourBloc = context.read<TourBloc>();
 
     var data = await Navigator.push(
       context,

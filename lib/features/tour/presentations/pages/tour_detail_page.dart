@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/reviews.dart';
-import 'package:travel_social_network/cores/constants/tours.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../review/domain/entities/review.dart';
-import '../../../review/presentations/pages/review_detail_page.dart';
+import '../../../review/presentations/bloc/review_bloc.dart';
+import '../../../review/presentations/pages/reviews_page.dart';
 import '../../../review/presentations/widgets/tour_reviews_and_rating.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/detail_heading_text.dart';
 import '../../../shared/presentations/widgets/detail_section_container.dart';
 import '../../../shared/presentations/widgets/detail_section_spacer.dart';
 import '../../../shared/presentations/widgets/quill_content.dart';
 import '../../../ticket/domain/entities/ticket_type.dart';
+import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../../ticket/presentations/widgets/available_date_list.dart';
 import '../../../ticket/presentations/widgets/ticket_bottom_sheet.dart';
 import '../../../ticket/presentations/widgets/ticket_grid_view.dart';
 import '../../../ticket/presentations/widgets/ticket_item.dart';
 import '../../domain/entities/tour.dart';
-import '../../domain/entities/tour_schedule.dart';
+import '../bloc/tour_bloc.dart';
 import '../widgets/info_section.dart';
+import '../widgets/tour_bottom_sheet_template.dart';
 import '../widgets/tour_desc_modal.dart';
 import '../widgets/tour_detail_app_bar.dart';
 import '../widgets/tour_more_info.dart';
-import '../widgets/tour_schedule_bottom_sheet.dart';
-import '../widgets/tour_schedule_list.dart';
 
 class TourDetailPage extends StatefulWidget {
   final String tourId;
@@ -35,9 +36,8 @@ class TourDetailPage extends StatefulWidget {
 
 class _TourDetailPageState extends State<TourDetailPage> {
   late final ScrollController _scrollController;
-  late final TourEntity tour;
+  late TourEntity tour;
 
-  List<TourScheduleEntity> schedules = [];
   List<TicketTypeEntity> tickets = [];
   List<DateTime> availableDates = [];
   List<ReviewEntity> reviews = [];
@@ -49,13 +49,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController()..addListener(_onScroll);
-
-    tour = generateSampleTours()
-        .where((tour) => tour.tourId == widget.tourId)
-        .first;
-    // tickets = tour.tickets;
-    // availableDates = tour.tickets.map((t) => t.startDate).toList();
-    reviews = sampleReviews.where((r) => r.tourId == widget.tourId).toList();
+    context.read<TourBloc>().add(GetTourByIdEvent(widget.tourId));
+    context.read<TicketBloc>().add(GetAllTicketsByTourId(widget.tourId));
+    context.read<ReviewBloc>().add(GetAllTourReviewsEvent(widget.tourId));
   }
 
   @override
@@ -79,24 +75,56 @@ class _TourDetailPageState extends State<TourDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          TourDetailAppBar(
-            expandedHeight: tourDetailPageExpandedAppBarHeight,
-            titleColor: titleColor,
-            tour: tour,
+    return SafeArea(
+      child: Scaffold(
+        body: MultiBlocListener(
+          listeners: [
+            BlocListener<TicketBloc, TicketState>(
+              listener: (context, ticketState) {
+                if (ticketState is ListOfTicketsLoaded) {
+                  tickets = ticketState.tickets;
+                  availableDates = tickets.map((t) => t.startDate).toList();
+                }
+              },
+            ),
+            BlocListener<ReviewBloc, ReviewState>(
+              listener: (context, reviewState) {
+                if (reviewState is ListOfReviewLoaded) {
+                  reviews = reviewState.reviews;
+                }
+              },
+            ),
+          ],
+          child: BlocBuilder<TourBloc, TourState>(
+            builder: (context, tourState) {
+              if (tourState is TourActionLoading || tourState is TourInitial) {
+                return const AppProgressingIndicator();
+              } else if (tourState is TourLoaded) {
+                tour = tourState.tour;
+                return CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    TourDetailAppBar(
+                      expandedHeight: tourDetailPageExpandedAppBarHeight,
+                      titleColor: titleColor,
+                      tour: tour,
+                    ),
+                    ...buildDetailSections(context),
+                  ],
+                );
+              }
+
+              return const SizedBox.shrink();
+            },
           ),
-          ...buildDetailSections(context),
-        ],
+        ),
       ),
     );
   }
 
   List<Widget> buildDetailSections(BuildContext context) => [
         _buildInfoSection(),
-        if (schedules.isNotEmpty) ...[
+        if (tour.tourSchedule?.isNotEmpty ?? false) ...[
           const DetailSectionSpacer(),
           _buildTourSchedule(),
         ],
@@ -189,12 +217,12 @@ class _TourDetailPageState extends State<TourDetailPage> {
       );
 
   Widget _buildTourSchedule() => DetailSectionContainer(
-        height: MediaQuery.of(context).size.height * 0.5,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DetailHeadingText(title: S.current.tourSchedule),
-            Expanded(child: TourScheduleList(tourSchedule: schedules)),
+            QuillContent(content: tour.tourSchedule!),
             GestureDetector(
               onTap: () => _showTourScheduleBottomSheet(context),
               child: Container(
@@ -227,16 +255,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
             ),
             Expanded(child: QuillContent(content: tour.tourDescription)),
             TextButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  shape: bottomSheetShape,
-                  useSafeArea: true,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) =>
-                      TourDescModal(content: tour.tourDescription),
-                );
-              },
+              onPressed: _openTourDesc,
               style: TextButton.styleFrom(
                 shape: const BeveledRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(3)),
@@ -294,18 +313,26 @@ class _TourDetailPageState extends State<TourDetailPage> {
   }
 
   List<TicketTypeEntity> _getTicketsByDate() {
-    // if (selectedDate == null) return tour.tickets;
-    // return tour.tickets.where((t) => t.startDate == selectedDate).toList();
-    // TODO: MUST FIX
-    return [];
+    if (selectedDate == null) return tickets;
+    return tickets.where((t) => t.startDate == selectedDate).toList();
   }
 
   void _showReviewDetailPage() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ReviewDetailPage(tourId: tour.tourId),
+        builder: (context) => ReviewsPage(tour: tour),
       ),
+    );
+  }
+
+  void _openTourDesc() {
+    showModalBottomSheet(
+      shape: bottomSheetShape,
+      useSafeArea: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => TourDescModal(content: tour.tourDescription),
     );
   }
 
@@ -330,6 +357,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
         shape: bottomSheetShape,
         useSafeArea: true,
         isScrollControlled: true,
-        builder: (context) => TourScheduleBottomSheet(schedules: schedules),
+        builder: (context) => TourBottomSheetTemplate(
+          title: S.current.tourSchedule,
+          children: [QuillContent(content: tour.tourSchedule!)],
+        ),
       );
 }

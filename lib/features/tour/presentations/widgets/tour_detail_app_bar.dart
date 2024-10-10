@@ -77,6 +77,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                   ),
                 ),
               ),
+            // TODO: FAVORITE TOUR FEATURE
             GestureDetector(
               onTap: () => setState(() => _isFavorite = !_isFavorite),
               child: Container(
@@ -109,7 +110,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
       flexibleSpace: FlexibleSpaceBar(
         background: IgnorePointer(
           ignoring: titleColor != Colors.white,
-          child: TourDetailThumb(tourId: tour.tourId),
+          child: const TourDetailThumb(),
         ),
       ),
     );

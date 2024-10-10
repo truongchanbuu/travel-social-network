@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/limit_image_list.dart';
 import '../../domain/entities/review.dart';
 import '../pages/review_detail_page.dart';
 import 'tour_rating_widget.dart';
-import '../../../shared/presentations/widgets/limit_image_list.dart';
 
 class ReviewItem extends StatelessWidget {
   final ReviewEntity review;
@@ -126,11 +126,7 @@ class ReviewItem extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ReviewDetailPage(
-          tourId: review.tourId,
-          reviewId: review.reviewId,
-        ),
-      ),
+          builder: (context) => ReviewDetailPage(reviewId: review.reviewId)),
     );
   }
 

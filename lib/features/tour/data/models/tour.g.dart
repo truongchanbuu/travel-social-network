@@ -19,9 +19,8 @@ Tour _$TourFromJson(Map<String, dynamic> json) => Tour(
       destination: json['destination'] as String,
       duration: json['duration'] as String,
       rating: (json['rating'] as num).toDouble(),
-      tourSchedule: json['tourSchedule'] == null
-          ? null
-          : TourSchedule.fromJson(json['tourSchedule'] as Map<String, dynamic>),
+      tourSchedule: json['tourSchedule'] as String?,
+      additionalInfo: json['additionalInfo'] as String?,
     );
 
 Map<String, dynamic> _$TourToJson(Tour instance) => <String, dynamic>{
@@ -35,5 +34,6 @@ Map<String, dynamic> _$TourToJson(Tour instance) => <String, dynamic>{
       'destination': instance.destination,
       'duration': instance.duration,
       'rating': instance.rating,
+      'additionalInfo': instance.additionalInfo,
       'tourSchedule': instance.tourSchedule,
     };

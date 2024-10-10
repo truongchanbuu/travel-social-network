@@ -13,6 +13,7 @@ class TourMoreInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: TOUR ADDITIONAL TOUR INFO
     var data = [
       {"insert": "Sapa Adventure Tour\n"},
       {
@@ -72,6 +73,7 @@ class TourMoreInfo extends StatelessWidget {
     return Column(
       children: [
         ListTile(
+          // TODO: ADD OWNER PHONE NUMBER
           onTap: () => _callToServiceProvider(context, "0123456789"),
           leading: const Icon(Icons.phone),
           title: Text(S.current.contactServiceProvider),
