@@ -4,4 +4,5 @@ import '../../data/models/review.dart';
 abstract interface class ReviewRepository {
   Future<DataState<Review>> getReviewById(String reviewId);
   Future<DataState<List<Review>>> getAllTourReviews(String tourId);
+  Future<DataState<Review>> createReview(Review review);
 }

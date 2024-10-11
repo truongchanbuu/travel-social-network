@@ -47,4 +47,16 @@ class ReviewRepositoryImpl implements ReviewRepository {
       return defaultDataFailure(e.toString());
     }
   }
+
+  @override
+  Future<DataState<Review>> createReview(Review review) async {
+    try {
+      await reviewCollection.doc(review.reviewId).set(review.toJson());
+      return DataSuccess(data: review);
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
 }

@@ -10,10 +10,13 @@ import 'no_reviews_widget.dart';
 import 'review_item.dart';
 
 class TourReviewsAndRating extends StatefulWidget {
+  final String tourId;
   final double rating;
   final List<ReviewEntity> reviews;
+
   const TourReviewsAndRating({
     super.key,
+    required this.tourId,
     required this.reviews,
     required this.rating,
   });
@@ -34,7 +37,7 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
   @override
   Widget build(BuildContext context) {
     if (reviews.isEmpty) {
-      return const NoReviewsWidget();
+      return NoReviewsWidget(postId: widget.tourId);
     }
 
     return Column(

@@ -94,6 +94,7 @@ dependencies:
   loading_animation_widget: ^1.2.1
   page_transition: ^2.1.0
   firebase_storage: ^12.3.2
+  flutter_rating_stars: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -90,6 +90,16 @@ class S {
     );
   }
 
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue`
   String get continueLabel {
     return Intl.message(
@@ -969,6 +979,36 @@ class S {
     return Intl.message(
       'Reviewed',
       name: 'reviewed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rate Your Experience`
+  String get rateYourExperience {
+    return Intl.message(
+      'Rate Your Experience',
+      name: 'rateYourExperience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap to rate`
+  String get tapToRate {
+    return Intl.message(
+      'Tap to rate',
+      name: 'tapToRate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write your review here...`
+  String get reviewHint {
+    return Intl.message(
+      'Write your review here...',
+      name: 'reviewHint',
       desc: '',
       args: [],
     );

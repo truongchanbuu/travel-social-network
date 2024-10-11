@@ -43,7 +43,7 @@ class TicketItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${ticket.ticketTypeName} - ${S.current.forType(ticket.category.name)}',
+              '${ticket.ticketTypeName} - ${S.current.forType(ticket.category.name).toUpperCase()}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,

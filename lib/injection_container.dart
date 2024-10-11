@@ -43,5 +43,8 @@ Future<void> initializeDependencies() async {
       () => TourBloc(tourRepository: getIt(), imageRepository: getIt()));
   getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
   getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));
-  getIt.registerFactory<ReviewBloc>(() => ReviewBloc(getIt()));
+  getIt.registerFactory<ReviewBloc>(() => ReviewBloc(
+        imageRepository: getIt(),
+        reviewRepository: getIt(),
+      ));
 }

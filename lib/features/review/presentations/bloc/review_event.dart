@@ -22,3 +22,22 @@ final class GetReviewByIdEvent extends ReviewEvent {
   @override
   List<Object> get props => [reviewId];
 }
+
+final class CreateReviewEvent extends ReviewEvent {
+  final String tourId;
+  final String userId;
+  final String content;
+  final List<ImageFile> images;
+  final double rating;
+
+  const CreateReviewEvent({
+    required this.tourId,
+    required this.userId,
+    required this.content,
+    required this.images,
+    required this.rating,
+  });
+
+  @override
+  List<Object> get props => [tourId, content, images, rating];
+}

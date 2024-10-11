@@ -279,6 +279,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "quantity": MessageLookupByLibrary.simpleMessage("Số lượng"),
         "rateForUs":
             MessageLookupByLibrary.simpleMessage("Đánh giá về chúng tôi"),
+        "rateYourExperience": MessageLookupByLibrary.simpleMessage(
+            "Hãy cho chúng tôi biết trải nghiệm của bạn"),
         "recentSearch":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm gần đây"),
         "recommendTours": MessageLookupByLibrary.simpleMessage(
@@ -297,6 +299,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chính sách dời vé"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
+        "reviewHint": MessageLookupByLibrary.simpleMessage(
+            "Viết trải nghiệm của bạn ở đây..."),
         "reviewed": MessageLookupByLibrary.simpleMessage("Đã đánh giá"),
         "reviews": m14,
         "sameDateError": MessageLookupByLibrary.simpleMessage(
@@ -323,7 +327,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "social": MessageLookupByLibrary.simpleMessage("Cộng đồng"),
         "stay": MessageLookupByLibrary.simpleMessage("Ở lại"),
         "stop": MessageLookupByLibrary.simpleMessage("Dừng"),
+        "submit": MessageLookupByLibrary.simpleMessage("Gửi"),
         "success": MessageLookupByLibrary.simpleMessage("Thành công"),
+        "tapToRate":
+            MessageLookupByLibrary.simpleMessage("Nhấn vào để đánh giá"),
         "temperatureScale":
             MessageLookupByLibrary.simpleMessage("Thang đo nhiệt độ"),
         "termAndCondition":

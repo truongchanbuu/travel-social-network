@@ -124,9 +124,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
         body: (tour.imageUrls.isNotEmpty && images.isEmpty)
             ? const AppProgressingIndicator()
             : AddImageView(
-                images: images,
-                onImageSaved: (images) => this.images = images,
-              ),
+                images: images, onImageSaved: (images) => this.images = images),
       );
 
   ExpansionPanel _buildTourDetails() => _buildTemplateExpansionPanel(

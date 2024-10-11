@@ -289,6 +289,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Enjoy the privilege of membership"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "rateForUs": MessageLookupByLibrary.simpleMessage("Rate for us"),
+        "rateYourExperience":
+            MessageLookupByLibrary.simpleMessage("Rate Your Experience"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "recommendTours":
             MessageLookupByLibrary.simpleMessage("Recommend Tours"),
@@ -305,6 +307,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reschedulePolicy":
             MessageLookupByLibrary.simpleMessage("Reschedule Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "reviewHint":
+            MessageLookupByLibrary.simpleMessage("Write your review here..."),
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
         "reviews": m14,
@@ -332,7 +336,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "social": MessageLookupByLibrary.simpleMessage("Social"),
         "stay": MessageLookupByLibrary.simpleMessage("Stay"),
         "stop": MessageLookupByLibrary.simpleMessage("Stop"),
+        "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "tapToRate": MessageLookupByLibrary.simpleMessage("Tap to rate"),
         "temperatureScale":
             MessageLookupByLibrary.simpleMessage("Temperature Scale"),
         "termAndCondition":

@@ -30,7 +30,7 @@ class TicketBriefInfo extends StatelessWidget {
         contentPadding: isPaddingTitle ? null : EdgeInsets.zero,
         trailing: trailing,
         title: Text(
-          '$ticketName - ${S.current.forType(category.name)}',
+          '$ticketName - ${S.current.forType(category.name).toUpperCase()}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: titleFontSize ?? 18,

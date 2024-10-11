@@ -149,6 +149,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
                   }
 
                   return TourReviewsAndRating(
+                    tourId: tour.tourId,
                     reviews: reviews,
                     rating: tour.rating,
                   );

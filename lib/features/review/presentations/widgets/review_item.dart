@@ -130,5 +130,6 @@ class ReviewItem extends StatelessWidget {
     );
   }
 
+  // TODO: SHOW PROFILE
   void _showProfile() {}
 }
