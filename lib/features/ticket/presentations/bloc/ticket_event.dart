@@ -104,3 +104,16 @@ final class UpdateListOfTicketsEvent extends TicketEvent {
   @override
   List<Object> get props => [tickets];
 }
+
+final class GetTicketsByDate extends TicketEvent {
+  final String tourId;
+  final DateTime startDate;
+
+  const GetTicketsByDate({
+    required this.tourId,
+    required this.startDate,
+  });
+
+  @override
+  List<Object> get props => [tourId, startDate];
+}

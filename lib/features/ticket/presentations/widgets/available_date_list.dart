@@ -189,6 +189,8 @@ class _AvailableDateListState extends State<AvailableDateList> {
           (currentDate, nextDate) =>
               currentDate.isAfter(nextDate) ? currentDate : nextDate);
 
+      print(nearestDate);
+      print(furthestDate);
       var selectedDate = await showBoardDateTimePicker(
         context: context,
         useSafeArea: true,
@@ -199,6 +201,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
         pickerType: DateTimePickerType.date,
       );
 
+      print(selectedDate);
       if ((selectedDate != null) && widget.selectedDate != selectedDate) {
         widget.onSelectDate(selectedDate);
       }

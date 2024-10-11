@@ -63,7 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(name) => "Thumb for ${name}";
 
-  static String m18(value) => "${value}";
+  static String m18(value) =>
+      "${Intl.plural(value, zero: '0 review', one: '1 review', other: '${value} reviews')}";
 
   static String m19(start, end) =>
       "Your trip will start at: ${start} and accomplish at: ${end}";

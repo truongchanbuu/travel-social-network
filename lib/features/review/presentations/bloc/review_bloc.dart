@@ -44,7 +44,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(ReviewActionFailure(S.current.dataStateFailure));
       } else if (dataState is DataSuccess) {
-        emit(ListOfReviewLoaded(
+        emit(ListOfReviewsLoaded(
             dataState.data!.map((review) => review.toEntity()).toList()));
       } else {
         emit(ReviewActionLoading());

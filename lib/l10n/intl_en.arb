@@ -185,7 +185,7 @@
         "description": "Singular form of a transportation"
     },
     "additionalInformation": "Additional Information",
-    "totalReviews": "{value}",
+    "totalReviews": "{value, plural, =0{0 review} =1{1 review} other{{value} reviews}}",
     "@totalReviews": {
         "placeholders": {
             "value": {

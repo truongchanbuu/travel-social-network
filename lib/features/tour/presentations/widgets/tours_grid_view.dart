@@ -38,8 +38,10 @@ class _ToursGridViewState extends State<ToursGridView> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount =
-        tours.length == 1 ? 1 : min(screenWidth ~/ itemWidth, maxItemCount);
+    int availableCount = screenWidth ~/ itemWidth;
+    int crossAxisCount = tours.length < availableCount
+        ? tours.length
+        : min(availableCount, maxItemCount);
 
     return SliverMasonryGrid.count(
       crossAxisCount: crossAxisCount,

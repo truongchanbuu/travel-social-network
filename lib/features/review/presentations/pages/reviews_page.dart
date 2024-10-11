@@ -30,8 +30,6 @@ class _ReviewsPageState extends State<ReviewsPage> {
     super.initState();
     tour = widget.tour;
     context.read<ReviewBloc>().add(GetAllTourReviewsEvent(widget.tour.tourId));
-
-    // totalReviews = reviews.length;
   }
 
   @override
@@ -41,8 +39,10 @@ class _ReviewsPageState extends State<ReviewsPage> {
         builder: (context, state) {
           if (state is ReviewActionLoading) {
             return const AppProgressingIndicator();
-          } else if (state is ListOfReviewLoaded) {
+          } else if (state is ListOfReviewsLoaded) {
             reviews = state.reviews;
+            totalReviews = reviews.length;
+
             return Scaffold(
               backgroundColor: Colors.white,
               appBar: _buildAppBar(),

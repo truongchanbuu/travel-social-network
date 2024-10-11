@@ -100,8 +100,7 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
         onTap: () => _updateTicket(tickets[index]),
         child: TicketBriefInfo(
           ticketName: tickets[index].ticketTypeName,
-          ticketDescription: '',
-          ticketCategory: cleanTicketTypeEnum(tickets[index].category.name),
+          category: tickets[index].category,
           trailing: GestureDetector(
               onTap: () => _deleteTicket(tickets[index]),
               child: const Icon(Icons.delete)),

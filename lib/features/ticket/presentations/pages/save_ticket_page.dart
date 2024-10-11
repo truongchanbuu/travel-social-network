@@ -180,6 +180,10 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
 
   void validateTicketForm(BuildContext context) async {
     if (!_isFormValid()) return;
+    if (selectedDates.isEmpty) {
+      showToast(S.current.invalidForm);
+      return;
+    }
 
     final TicketTypeEntity generalTicket = _getFormData();
 

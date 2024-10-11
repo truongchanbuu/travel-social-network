@@ -77,46 +77,27 @@ class _TourDetailPageState extends State<TourDetailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: MultiBlocListener(
-          listeners: [
-            BlocListener<TicketBloc, TicketState>(
-              listener: (context, ticketState) {
-                if (ticketState is ListOfTicketsLoaded) {
-                  tickets = ticketState.tickets;
-                  availableDates = tickets.map((t) => t.startDate).toList();
-                }
-              },
-            ),
-            BlocListener<ReviewBloc, ReviewState>(
-              listener: (context, reviewState) {
-                if (reviewState is ListOfReviewLoaded) {
-                  reviews = reviewState.reviews;
-                }
-              },
-            ),
-          ],
-          child: BlocBuilder<TourBloc, TourState>(
-            builder: (context, tourState) {
-              if (tourState is TourActionLoading || tourState is TourInitial) {
-                return const AppProgressingIndicator();
-              } else if (tourState is TourLoaded) {
-                tour = tourState.tour;
-                return CustomScrollView(
-                  controller: _scrollController,
-                  slivers: [
-                    TourDetailAppBar(
-                      expandedHeight: tourDetailPageExpandedAppBarHeight,
-                      titleColor: titleColor,
-                      tour: tour,
-                    ),
-                    ...buildDetailSections(context),
-                  ],
-                );
-              }
+        body: BlocBuilder<TourBloc, TourState>(
+          builder: (context, tourState) {
+            if (tourState is TourActionLoading || tourState is TourInitial) {
+              return const AppProgressingIndicator();
+            } else if (tourState is TourLoaded) {
+              tour = tourState.tour;
 
-              return const SizedBox.shrink();
-            },
-          ),
+              return CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  TourDetailAppBar(
+                    expandedHeight: tourDetailPageExpandedAppBarHeight,
+                    titleColor: titleColor,
+                  ),
+                  ...buildDetailSections(context),
+                ],
+              );
+            }
+
+            return const SizedBox.shrink();
+          },
         ),
       ),
     );
@@ -142,7 +123,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
       ];
 
   Widget _buildInfoSection() =>
-      DetailSectionContainer(child: InfoSection(tour: tour));
+      const DetailSectionContainer(child: InfoSection());
 
   Widget _buildReviewsAndRating() => DetailSectionContainer(
         child: Column(
@@ -161,9 +142,17 @@ class _TourDetailPageState extends State<TourDetailPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: TourReviewsAndRating(
-                reviews: reviews,
-                rating: tour.rating,
+              child: BlocBuilder<ReviewBloc, ReviewState>(
+                builder: (context, reviewState) {
+                  if (reviewState is! ListOfReviewsLoaded) {
+                    return const AppProgressingIndicator();
+                  }
+
+                  return TourReviewsAndRating(
+                    reviews: reviews,
+                    rating: tour.rating,
+                  );
+                },
               ),
             ),
           ],
@@ -184,7 +173,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
         isPadding: false,
         child: Column(
           children: [
-            TicketGridView(
+            TicketsGridView(
               tickets: tickets,
               itemBuilder: (BuildContext context, int index) => TicketItem(
                 ticket: tickets[index],
@@ -287,17 +276,27 @@ class _TourDetailPageState extends State<TourDetailPage> {
       );
 
   Widget _buildServiceSection() => DetailSectionContainer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DetailHeadingText(title: S.current.services),
-            AvailableDateList(
-              availableDates: availableDates,
-              onSelectDate: _selectTravelDate,
-              selectedDate: selectedDate,
-            ),
-          ],
-        ),
+        child: BlocBuilder<TicketBloc, TicketState>(
+            builder: (context, ticketState) {
+          if (ticketState is! ListOfTicketsLoaded) {
+            return const AppProgressingIndicator();
+          }
+
+          tickets = ticketState.tickets;
+          availableDates = tickets.map((ticket) => ticket.startDate).toList();
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DetailHeadingText(title: S.current.services),
+              AvailableDateList(
+                availableDates: availableDates,
+                onSelectDate: _selectTravelDate,
+                selectedDate: selectedDate,
+              ),
+            ],
+          );
+        }),
       );
 
   void _selectTravelDate(DateTime? date) {

@@ -8,6 +8,7 @@ import '../../domain/entities/ticket_type.dart';
 class AddTicketTypeItem extends StatelessWidget {
   final TicketTypeEntity ticket;
   final void Function(int value) onChange;
+
   const AddTicketTypeItem({
     super.key,
     required this.ticket,

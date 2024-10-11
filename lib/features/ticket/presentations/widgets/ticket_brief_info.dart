@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/enums/ticket_category.dart';
 import '../../../../generated/l10n.dart';
 
 class TicketBriefInfo extends StatelessWidget {
   final String ticketName;
-  final String? ticketCategory;
-  final String ticketDescription;
+  final TicketCategory category;
   final double? titleFontSize;
   final double? subtitleFontSize;
   final Widget? leading;
@@ -16,8 +16,7 @@ class TicketBriefInfo extends StatelessWidget {
   const TicketBriefInfo({
     super.key,
     required this.ticketName,
-    this.ticketCategory,
-    required this.ticketDescription,
+    required this.category,
     this.leading,
     this.trailing,
     this.titleFontSize,
@@ -31,9 +30,7 @@ class TicketBriefInfo extends StatelessWidget {
         contentPadding: isPaddingTitle ? null : EdgeInsets.zero,
         trailing: trailing,
         title: Text(
-          ticketCategory?.isEmpty ?? true
-              ? ticketName
-              : '$ticketName - ${S.current.forType(ticketCategory ?? '')}',
+          '$ticketName - ${S.current.forType(category.name)}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: titleFontSize ?? 18,
@@ -42,18 +39,5 @@ class TicketBriefInfo extends StatelessWidget {
           overflow: defaultTextOverflow,
           maxLines: 2,
         ),
-        subtitle: ticketDescription.isNotEmpty
-            ? Text(
-                ticketDescription,
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: subtitleFontSize ?? 16,
-                ),
-                textDirection: defaultTextDirection,
-                overflow: defaultTextOverflow,
-                maxLines: 2,
-              )
-            : null,
       );
 }

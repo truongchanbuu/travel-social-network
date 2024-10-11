@@ -11,7 +11,6 @@ import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
 import '../pages/add_number_visitor_page.dart';
 import '../pages/ticket_detail_page.dart';
-import 'ticket_brief_info.dart';
 
 class TicketItem extends StatelessWidget {
   final TicketTypeEntity ticket;
@@ -43,13 +42,15 @@ class TicketItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TicketBriefInfo(
-              ticketName: ticket.ticketTypeName,
-              ticketCategory: ticket.category.name.toUpperCase(),
-              ticketDescription: ticket.ticketDescription,
-              titleFontSize: 16,
-              subtitleFontSize: 13,
-              isPaddingTitle: false,
+            Text(
+              '${ticket.ticketTypeName} - ${S.current.forType(ticket.category.name)}',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+              textDirection: defaultTextDirection,
+              overflow: defaultTextOverflow,
+              maxLines: 2,
             ),
             const SizedBox(height: 5),
             Text(
@@ -135,9 +136,15 @@ class TicketItem extends StatelessWidget {
   void _navigateToAddTicketPage(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AddNumberVisitorPage(
-            ticketId: ticket.ticketTypeId,
-            selectedDate: selectedDate,
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+              BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+            ],
+            child: AddNumberVisitorPage(
+              ticketId: ticket.ticketTypeId,
+              selectedDate: selectedDate,
+            ),
           ),
         ),
       );

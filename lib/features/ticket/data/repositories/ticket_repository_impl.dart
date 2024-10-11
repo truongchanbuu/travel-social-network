@@ -160,4 +160,34 @@ class TicketRepositoryImpl implements TicketRepository {
       return defaultDataFailure(e.toString());
     }
   }
+
+  @override
+  Future<DataState<List<TicketType>>> getTicketsByDate({
+    required String tourId,
+    required DateTime startDate,
+  }) async {
+    try {
+      List<TicketType> tickets = [];
+
+      final docQuery = ticketCollection
+          .where('tourId', isEqualTo: tourId)
+          .where('startDate', isEqualTo: startDate.toIso8601String());
+
+      final docSnaps = await docQuery.get();
+
+      if (docSnaps.docs.isEmpty) {
+        return defaultDataFailure('Not found');
+      }
+
+      for (var doc in docSnaps.docs) {
+        tickets.add(TicketType.fromJson(doc.data() as Map<String, dynamic>));
+      }
+
+      return DataSuccess(data: tickets);
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
 }

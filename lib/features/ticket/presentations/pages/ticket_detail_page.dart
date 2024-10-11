@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
-import 'package:travel_social_network/cores/enums/policy_type.dart';
-import 'package:travel_social_network/features/ticket/presentations/pages/add_number_visitor_page.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/utils/currency_utils.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
 import '../../../policy/domain/entities/policy.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/detail_heading_text.dart';
 import '../../../shared/presentations/widgets/detail_section_container.dart';
 import '../../../shared/presentations/widgets/quill_content.dart';
+import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
 import '../widgets/ticket_brief_info.dart';
 import '../widgets/ticket_page_app_bar.dart';
+import 'add_number_visitor_page.dart';
 
 class TicketDetailPage extends StatefulWidget {
   final String ticketId;
@@ -94,9 +96,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             if (state is TicketActionLoading || state is TicketInitial) {
               return const AppProgressingIndicator();
             } else if (state is TicketLoaded) {
-              if (ticket != state.ticket) {
-                ticket = state.ticket;
-              }
+              ticket = state.ticket.toEntity();
 
               context
                   .read<PolicyBloc>()
@@ -104,6 +104,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
               context
                   .read<PolicyBloc>()
                   .add(GetPolicyById(ticket!.reschedulePolicyId));
+              context.read<TourBloc>().add(GetTourImagesEvent(ticket!.tourId));
 
               return _buildBody();
             }
@@ -134,18 +135,26 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
           return const AppProgressingIndicator();
         }
 
-        return CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            TicketPageAppBar(
-              ticket: ticket!,
-              isVisible: _isVisible,
-              expandedHeight: ticketDetailPageExpandedAppBarHeight,
-            ),
-            _buildBriefInfo(),
-            _buildPriceSection(),
-            _buildDetailSections()
-          ],
+        return BlocBuilder<TourBloc, TourState>(
+          builder: (context, tourState) {
+            return CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                TicketPageAppBar(
+                  ticketName: ticket!.ticketTypeName,
+                  isVisible: _isVisible,
+                  isLoading: tourState is! TourImagesLoaded,
+                  expandedHeight: ticketDetailPageExpandedAppBarHeight,
+                  imageUrls: tourState is TourImagesLoaded
+                      ? tourState.images.map((image) => image.path!).toList()
+                      : [],
+                ),
+                _buildBriefInfo(ticket!),
+                _buildPriceSection(),
+                _buildDetailSections()
+              ],
+            );
+          },
         );
       },
     );
@@ -176,12 +185,11 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         ),
       );
 
-  Widget _buildBriefInfo() => DetailSectionContainer(
+  Widget _buildBriefInfo(TicketTypeEntity ticket) => DetailSectionContainer(
         isPadding: false,
         child: TicketBriefInfo(
-          ticketName: ticket!.ticketTypeName,
-          ticketCategory: ticket!.category.name.toUpperCase(),
-          ticketDescription: ticket!.ticketDescription,
+          ticketName: ticket.ticketTypeName,
+          category: ticket.category,
         ),
       );
 
@@ -387,10 +395,12 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
     navigator.push(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            AddNumberVisitorPage(
-          ticketId: ticket!.ticketTypeId,
-          selectedDate: selectedDate,
+        pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+          create: (context) => getIt.get<TicketBloc>(),
+          child: AddNumberVisitorPage(
+            ticketId: ticket!.ticketTypeId,
+            selectedDate: selectedDate,
+          ),
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(1.0, 0.0);

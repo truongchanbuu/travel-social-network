@@ -57,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(name) => "Ảnh bìa của ${name}";
 
-  static String m18(value) => "${value}";
+  static String m18(value) => "${value} đánh giá";
 
   static String m19(start, end) =>
       "Chuyến đi của bạn sẽ khởi hành vào lúc: ${start} kết thúc vào: ${end}";

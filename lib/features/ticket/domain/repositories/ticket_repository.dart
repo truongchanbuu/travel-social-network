@@ -15,4 +15,8 @@ abstract interface class TicketRepository {
     required DateTime startDate,
     required DateTime endDate,
   });
+  Future<DataState<List<TicketType>>> getTicketsByDate({
+    required String tourId,
+    required DateTime startDate,
+  });
 }

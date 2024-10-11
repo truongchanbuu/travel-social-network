@@ -67,7 +67,7 @@ class _TicketBottomSheetState extends State<TicketBottomSheet> {
           ),
         ),
         Expanded(
-          child: TicketGridView(
+          child: TicketsGridView(
             tickets: ticketsByDate,
             scrollable: true,
             itemBuilder: (context, index) => TicketItem(

@@ -35,9 +35,9 @@ final class ReviewLoaded extends ReviewState {
   List<Object> get props => [review];
 }
 
-final class ListOfReviewLoaded extends ReviewState {
+final class ListOfReviewsLoaded extends ReviewState {
   final List<ReviewEntity> reviews;
-  const ListOfReviewLoaded(this.reviews);
+  const ListOfReviewsLoaded(this.reviews);
 
   @override
   List<Object> get props => [reviews];

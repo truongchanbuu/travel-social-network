@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../tour/presentations/widgets/tour_detail_thumb.dart';
-import '../../domain/entities/ticket_type.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../tour/presentations/widgets/thumbnails_widget.dart';
 
 class TicketPageAppBar extends StatelessWidget {
-  final TicketTypeEntity ticket;
+  final bool isLoading;
+  final String ticketName;
+  final List<String> imageUrls;
   final bool isVisible;
   final double expandedHeight;
 
@@ -13,7 +15,9 @@ class TicketPageAppBar extends StatelessWidget {
     super.key,
     required this.expandedHeight,
     this.isVisible = true,
-    required this.ticket,
+    required this.ticketName,
+    this.isLoading = false,
+    this.imageUrls = const <String>[],
   });
 
   @override
@@ -24,12 +28,19 @@ class TicketPageAppBar extends StatelessWidget {
       surfaceTintColor: Colors.white,
       expandedHeight: expandedHeight,
       pinned: true,
+      leading: IgnorePointer(
+        ignoring: !isVisible,
+        child: BackButton(
+          color: !isVisible ? Colors.white : Colors.black,
+          onPressed: () => _backToPrevious(context),
+        ),
+      ),
       flexibleSpace: FlexibleSpaceBar(
         title: isVisible
             ? SizedBox(
                 width: double.infinity,
                 child: Text(
-                  ticket.ticketTypeName,
+                  ticketName,
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -41,8 +52,12 @@ class TicketPageAppBar extends StatelessWidget {
                 ),
               )
             : null,
-        background: const TourDetailThumb(),
+        background: isLoading
+            ? const AppProgressingIndicator()
+            : ThumbnailsWidget(imageUrls: imageUrls),
       ),
     );
   }
+
+  void _backToPrevious(BuildContext context) => Navigator.pop(context);
 }

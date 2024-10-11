@@ -32,6 +32,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     on<GenerateListOfTicketsEvent>(_onGenerateListOfTickets);
     on<DeleteTourTicketByDateEvent>(_onDeleteTourTicketByDate);
     on<UpdateListOfTicketsEvent>(_onUpdateListOfTickets);
+    on<GetTicketsByDate>(_onGetTicketsByDate);
   }
 
   void _onInitTicket(event, emit) {
@@ -308,6 +309,28 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   void _onUpdateListOfTickets(UpdateListOfTicketsEvent event, emit) {
     if (event.tickets.isNotEmpty) {
       emit(ListOfTicketsLoaded(event.tickets));
+    }
+  }
+
+  Future<void> _onGetTicketsByDate(GetTicketsByDate event, emit) async {
+    try {
+      final dataState = await ticketRepository.getTicketsByDate(
+        tourId: event.tourId,
+        startDate: event.startDate,
+      );
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TicketFailure(S.current.dataStateFailure));
+      } else if (dataState is DataSuccess) {
+        emit(ListOfTicketsLoaded(
+            dataState.data!.map((ticket) => ticket.toEntity()).toList()));
+      } else {
+        emit(TicketActionLoading());
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(TicketFailure(S.current.dataStateFailure));
     }
   }
 }

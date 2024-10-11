@@ -183,7 +183,7 @@
         "description": "Dạng số ít"
     },
     "additionalInformation": "Thông tin thêm",
-    "totalReviews": "{value}",
+    "totalReviews": "{value} đánh giá",
     "@totalReviews": {
         "placeholders": {
             "value": {

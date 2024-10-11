@@ -1164,18 +1164,16 @@ class S {
     );
   }
 
-  /// `{value}`
+  /// `{value, plural, =0{0 review} =1{1 review} other{{value} reviews}}`
   String totalReviews(int value) {
-    final NumberFormat valueNumberFormat = NumberFormat.compact(
-      locale: Intl.getCurrentLocale(),
-    );
-    final String valueString = valueNumberFormat.format(value);
-
-    return Intl.message(
-      '$valueString',
+    return Intl.plural(
+      value,
+      zero: '0 review',
+      one: '1 review',
+      other: '$value reviews',
       name: 'totalReviews',
       desc: '',
-      args: [valueString],
+      args: [value],
     );
   }
 

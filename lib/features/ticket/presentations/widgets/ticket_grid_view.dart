@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/ticket_type.dart';
 
-class TicketGridView extends StatelessWidget {
+class TicketsGridView extends StatelessWidget {
   final List<TicketTypeEntity> tickets;
   final bool scrollable;
   final double? itemHeight;
@@ -14,7 +14,7 @@ class TicketGridView extends StatelessWidget {
   final double? verticalSpacing;
   final Widget Function(BuildContext context, int index) itemBuilder;
 
-  const TicketGridView({
+  const TicketsGridView({
     super.key,
     required this.tickets,
     required this.itemBuilder,
@@ -30,7 +30,9 @@ class TicketGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double verticalSpacing = this.verticalSpacing ?? 10;
-    final double maxCrossAxisExtent = itemWidth ?? 600;
+    final double maxCrossAxisExtent = tickets.length == 1
+        ? MediaQuery.of(context).size.width
+        : itemWidth ?? 600;
 
     return LayoutBuilder(
       builder: (context, constraints) {

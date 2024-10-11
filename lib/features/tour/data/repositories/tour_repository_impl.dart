@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:travel_social_network/cores/resources/data_state.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/tour.dart';
 import '../../domain/repositories/tour_repository.dart';
