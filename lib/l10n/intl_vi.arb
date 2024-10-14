@@ -5,7 +5,9 @@
     "success": "Thành công",
     "next": "Kế tiếp",
     "submit": "Gửi",
+    "post": "Đăng",
     "continueLabel": "Tiếp tục",
+    "emotion": "Cảm xúc",
     "stop": "Dừng",
     "clear": "Xóa",
     "delete": "Xóa",
@@ -358,5 +360,7 @@
     "dataStateFailure": "Đã có lỗi xảy ra! Hãy thử lại sau!",
     "invalidImageFileType": "File này hiện không phải là hình ảnh! Vui lòng chọn file khác",
     "unsupportedImageFormat": "Định dạng này không được hỗ trợ",
-    "fetchDataFailure": "Lấy dữ liệu về thất bại"
+    "fetchDataFailure": "Lấy dữ liệu về thất bại",
+    "howYourFeeling": "Hôm nay bạn đang nghĩ gì?",
+    "createPost": "Tạo bài viết"
 }

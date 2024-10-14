@@ -133,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "countryEnglandRegionChoice":
             MessageLookupByLibrary.simpleMessage("England"),
         "countryRegion": MessageLookupByLibrary.simpleMessage("Country/Region"),
+        "createPost": MessageLookupByLibrary.simpleMessage("Create Post"),
         "createTicket": MessageLookupByLibrary.simpleMessage("Create Ticket"),
         "createTicketError":
             MessageLookupByLibrary.simpleMessage("Failed to create ticket(s)"),
@@ -180,6 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Add your tour description here..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
             "We are going to sign in with your email or create a new account if you don\'t have one"),
+        "emotion": MessageLookupByLibrary.simpleMessage("Emotion"),
         "englishLangChoice": MessageLookupByLibrary.simpleMessage("English"),
         "enterPasswordRequirement":
             MessageLookupByLibrary.simpleMessage("Please enter your password"),
@@ -207,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hourFormatted": m7,
         "hourUnit": MessageLookupByLibrary.simpleMessage("hour|hours|h"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("How to redeem"),
+        "howYourFeeling":
+            MessageLookupByLibrary.simpleMessage("How are you feeling today?"),
         "image": MessageLookupByLibrary.simpleMessage("image"),
         "imageAtIndex": m8,
         "imageCollectionText": m9,
@@ -281,6 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "policyName": MessageLookupByLibrary.simpleMessage("Policy Name"),
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Popular Destinations"),
+        "post": MessageLookupByLibrary.simpleMessage("Post"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privacyStatement":

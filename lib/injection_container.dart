@@ -13,6 +13,7 @@ import 'features/review/domain/repositories/review_repository.dart';
 import 'features/review/presentations/bloc/review_bloc.dart';
 import 'features/shared/data/repositories/image_repository_impl.dart';
 import 'features/shared/domain/repositories/image_repository.dart';
+import 'features/social/presentations/bloc/post_bloc.dart';
 import 'features/ticket/data/repositories/ticket_repository_impl.dart';
 import 'features/ticket/domain/repositories/ticket_repository.dart';
 import 'features/ticket/presentations/bloc/ticket_bloc.dart';
@@ -47,4 +48,5 @@ Future<void> initializeDependencies() async {
         imageRepository: getIt(),
         reviewRepository: getIt(),
       ));
+  getIt.registerFactory<PostBloc>(() => PostBloc());
 }

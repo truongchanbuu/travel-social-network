@@ -5,6 +5,8 @@
     "success": "Success",
     "next": "Next",
     "submit": "Submit",
+    "post": "Post",
+    "emotion": "Emotion",
     "continueLabel": "Continue",
     "stop": "Stop",
     "clear": "Clear",
@@ -358,5 +360,8 @@
     "dataStateFailure": "Some error occurred! Please try again later!",
     "invalidImageFileType": "Invalid file type. Only images are allowed",
     "unsupportedImageFormat": "Unsupported image format",
-    "fetchDataFailure": "Failed to fetch image from URL"
+    "fetchDataFailure": "Failed to fetch image from URL",
+    "howYourFeeling": "How are you feeling today?",
+    "createPost": "Create Post"
+
 }

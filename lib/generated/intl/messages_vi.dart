@@ -124,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anh"),
         "countryRegion":
             MessageLookupByLibrary.simpleMessage("Quốc gia/Khu vực"),
+        "createPost": MessageLookupByLibrary.simpleMessage("Tạo bài viết"),
         "createTicket": MessageLookupByLibrary.simpleMessage("Tạo vé"),
         "createTicketError":
             MessageLookupByLibrary.simpleMessage("Tạo vé không thành công"),
@@ -172,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Hãy viết mô tả về chuyến đi của bạn ở đây..."),
         "emailAnnouncement": MessageLookupByLibrary.simpleMessage(
             "Chúng tôi sẽ sử dụng tài khoản email của bạn để đăng nhập. Nếu chưa có tài khoản thì chúng tôi sẽ tạo mới dựa trên email đang được sử dụng"),
+        "emotion": MessageLookupByLibrary.simpleMessage("Cảm xúc"),
         "englishLangChoice": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "enterPasswordRequirement": MessageLookupByLibrary.simpleMessage(
             "Vui lòng nhập mật khẩu của bạn"),
@@ -198,6 +200,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hourFormatted": m7,
         "hourUnit": MessageLookupByLibrary.simpleMessage("giờ|tiếng"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("Cách nhận"),
+        "howYourFeeling":
+            MessageLookupByLibrary.simpleMessage("Hôm nay bạn đang nghĩ gì?"),
         "image": MessageLookupByLibrary.simpleMessage("hình ảnh"),
         "imageAtIndex": m8,
         "imageCollectionText": m9,
@@ -269,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tên của chính sách"),
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Những địa danh nổi tiếng"),
+        "post": MessageLookupByLibrary.simpleMessage("Đăng"),
         "price": MessageLookupByLibrary.simpleMessage("Giá vé"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Chính sách bảo mật"),
