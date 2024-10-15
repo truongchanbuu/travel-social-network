@@ -100,16 +100,6 @@ class S {
     );
   }
 
-  /// `Edit`
-  String get edit {
-    return Intl.message(
-      'Edit',
-      name: 'edit',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Continue`
   String get continueLabel {
     return Intl.message(
@@ -2292,6 +2282,26 @@ class S {
     return Intl.message(
       'Failed to fetch image from URL',
       name: 'fetchDataFailure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How are you feeling today?`
+  String get howYourFeeling {
+    return Intl.message(
+      'How are you feeling today?',
+      name: 'howYourFeeling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Post`
+  String get createPost {
+    return Intl.message(
+      'Create Post',
+      name: 'createPost',
       desc: '',
       args: [],
     );

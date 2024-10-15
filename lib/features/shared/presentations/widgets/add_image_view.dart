@@ -3,8 +3,8 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import 'limit_image_list.dart';
 import '../pages/add_image_page.dart';
+import 'limit_image_list.dart';
 
 class AddImageView extends StatefulWidget {
   final List<ImageFile> images;

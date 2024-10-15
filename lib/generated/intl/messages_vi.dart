@@ -124,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anh"),
         "countryRegion":
             MessageLookupByLibrary.simpleMessage("Quốc gia/Khu vực"),
+        "createPost": MessageLookupByLibrary.simpleMessage("Tạo bài viết"),
         "createTicket": MessageLookupByLibrary.simpleMessage("Tạo vé"),
         "createTicketError":
             MessageLookupByLibrary.simpleMessage("Tạo vé không thành công"),
@@ -167,7 +168,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dễ dàng hoàn tiền"),
         "easyToReschedule":
             MessageLookupByLibrary.simpleMessage("Dễ dàng dời lịch"),
-        "edit": MessageLookupByLibrary.simpleMessage("Chỉnh sửa"),
         "editPage": MessageLookupByLibrary.simpleMessage("Trang chỉnh sửa"),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Hãy viết mô tả về chuyến đi của bạn ở đây..."),
@@ -199,6 +199,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hourFormatted": m7,
         "hourUnit": MessageLookupByLibrary.simpleMessage("giờ|tiếng"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("Cách nhận"),
+        "howYourFeeling":
+            MessageLookupByLibrary.simpleMessage("Hôm nay bạn đang nghĩ gì?"),
         "image": MessageLookupByLibrary.simpleMessage("hình ảnh"),
         "imageAtIndex": m8,
         "imageCollectionText": m9,
