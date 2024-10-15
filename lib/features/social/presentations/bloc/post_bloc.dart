@@ -22,6 +22,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc(this.postRepository) : super(PostInitial()) {
     on<UpdateContentEvent>(_onContentUpdated);
     on<SavePostEvent>(_onSavePost);
+    on<GetPostsEvent>(_onGetAllPosts);
   }
 
   void _onContentUpdated(UpdateContentEvent event, Emitter<PostState> emit) {
@@ -62,5 +63,26 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(PostActionFailed(S.current.dataStateFailure));
       }
     }
+  }
+
+  Future<void> _onGetAllPosts(
+      GetPostsEvent event, Emitter<PostState> emit) async {
+    await emit.forEach(
+      postRepository.getPosts(),
+      onData: (dataState) {
+        if (dataState is DataFailure) {
+          log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+          return PostActionFailed(S.current.dataStateFailure);
+        } else {
+          return ListOfPostReceived(
+            dataState.data?.map((post) => post.toEntity()).toList() ?? [],
+          );
+        }
+      },
+      onError: (error, stackTrace) {
+        log(error.toString());
+        return PostActionFailed(error.toString());
+      },
+    );
   }
 }

@@ -19,4 +19,23 @@ class PostRepositoryImpl implements PostRepository {
       return defaultDataFailure(e.toString());
     }
   }
+
+  @override
+  Stream<DataState<List<Post>>> getPosts() async* {
+    try {
+      postCollection
+          .snapshots()
+          .map((snap) => DataSuccess(
+              data: snap.docs.map((doc) => Post.fromJson(doc.data())).toList()))
+          .handleError((error) {
+        if (error is FirebaseException) {
+          return handleFirebaseException(error);
+        } else {
+          return defaultDataFailure(error.toString());
+        }
+      });
+    } catch (error) {
+      Stream.value(defaultDataFailure(error.toString()));
+    }
+  }
 }

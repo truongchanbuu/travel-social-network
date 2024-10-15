@@ -23,3 +23,5 @@ final class SavePostEvent extends PostEvent {
   @override
   List<Object?> get props => [userId];
 }
+
+final class GetPostsEvent extends PostEvent {}

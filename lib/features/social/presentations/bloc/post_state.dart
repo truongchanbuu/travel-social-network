@@ -37,3 +37,11 @@ final class PostActionSucceed extends PostState {
   @override
   List<Object?> get props => [post];
 }
+
+final class ListOfPostReceived extends PostState {
+  final List<PostEntity> posts;
+  const ListOfPostReceived(this.posts);
+
+  @override
+  List<Object?> get props => [posts];
+}

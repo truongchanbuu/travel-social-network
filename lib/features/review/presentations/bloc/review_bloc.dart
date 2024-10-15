@@ -53,10 +53,8 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(ReviewActionFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(ReviewLoaded(dataState.data!.toEntity()));
       } else {
-        emit(ReviewActionLoading());
+        emit(ReviewLoaded(dataState.data!.toEntity()));
       }
     } catch (e) {
       log(e.toString());
@@ -72,15 +70,13 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
         if (dataState is DataFailure) {
           log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
           return ReviewActionFailure(S.current.dataStateFailure);
-        } else if (dataState is DataSuccess) {
+        } else {
           double newRating = _calculateAverageRating(
               dataState.data!.map((review) => review.toEntity()).toList());
           tourBloc.add(UpdateTourRatingEvent(event.tourId, newRating));
           return ListOfReviewsLoaded(
               dataState.data?.map((review) => review.toEntity()).toList() ??
                   []);
-        } else {
-          return ReviewActionLoading();
         }
       },
       onError: (error, stackTrace) {
@@ -112,10 +108,8 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(ReviewActionFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(ReviewActionSuccess(dataState.data!.toEntity()));
       } else {
-        emit(ReviewActionLoading());
+        emit(ReviewActionSuccess(dataState.data!.toEntity()));
       }
     } catch (e) {
       log(e.toString());
@@ -130,10 +124,8 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(ReviewActionFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(ReviewDeleted());
       } else {
-        emit(ReviewActionLoading());
+        emit(ReviewDeleted());
       }
     } catch (e) {
       log(e.toString());
