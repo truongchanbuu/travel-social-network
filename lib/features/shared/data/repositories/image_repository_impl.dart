@@ -87,7 +87,7 @@ class ImageRepositoryImpl implements ImageRepository {
       } else {
         File? imgFile;
         if (image is! File) {
-          imgFile = await createTmpFile(imageData!, mimeType);
+          imgFile = await ImageUtils.createTmpFile(imageData!, mimeType);
         } else {
           imgFile = image;
         }

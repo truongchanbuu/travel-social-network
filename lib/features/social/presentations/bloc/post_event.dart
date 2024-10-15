@@ -15,3 +15,11 @@ final class UpdateContentEvent extends PostEvent {
   @override
   List<Object?> get props => [content, images];
 }
+
+final class SavePostEvent extends PostEvent {
+  final String userId;
+  const SavePostEvent(this.userId);
+
+  @override
+  List<Object?> get props => [userId];
+}

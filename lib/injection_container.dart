@@ -13,6 +13,8 @@ import 'features/review/domain/repositories/review_repository.dart';
 import 'features/review/presentations/bloc/review_bloc.dart';
 import 'features/shared/data/repositories/image_repository_impl.dart';
 import 'features/shared/domain/repositories/image_repository.dart';
+import 'features/social/data/repositories/post_repository_impl.dart';
+import 'features/social/domain/repositories/post_repository.dart';
 import 'features/social/presentations/bloc/post_bloc.dart';
 import 'features/ticket/data/repositories/ticket_repository_impl.dart';
 import 'features/ticket/domain/repositories/ticket_repository.dart';
@@ -38,18 +40,15 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<TicketRepository>(TicketRepositoryImpl());
   getIt.registerSingleton<PolicyRepository>(PolicyRepositoryImpl());
   getIt.registerSingleton<ReviewRepository>(ReviewRepositoryImpl());
+  getIt.registerSingleton<PostRepository>(PostRepositoryImpl());
 
   // Bloc
-  getIt.registerFactory<TourBloc>(() => TourBloc(
-        tourRepository: getIt(),
-        imageRepository: getIt(),
-      ));
+  getIt.registerFactory<TourBloc>(() => TourBloc(getIt()));
   getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
   getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));
   getIt.registerFactory<ReviewBloc>(() => ReviewBloc(
         tourBloc: getIt(),
-        imageRepository: getIt(),
         reviewRepository: getIt(),
       ));
-  getIt.registerFactory<PostBloc>(() => PostBloc());
+  getIt.registerFactory<PostBloc>(() => PostBloc(getIt()));
 }

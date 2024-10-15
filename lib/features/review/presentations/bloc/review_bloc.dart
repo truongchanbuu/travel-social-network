@@ -6,8 +6,8 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../cores/resources/data_state.dart';
+import '../../../../cores/utils/image_utils.dart';
 import '../../../../generated/l10n.dart';
-import '../../../shared/domain/repositories/image_repository.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../data/models/review.dart';
 import '../../domain/entities/review.dart';
@@ -18,13 +18,11 @@ part 'review_state.dart';
 
 class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
   final ReviewRepository reviewRepository;
-  final ImageRepository imageRepository;
   final TourBloc tourBloc;
   static const basePath = '/reviews';
 
   ReviewBloc({
     required this.reviewRepository,
-    required this.imageRepository,
     required this.tourBloc,
   }) : super(ReviewInitial()) {
     on<InitializeNewReviewEvent>(_onInitializeNewReview);
@@ -98,7 +96,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       List<String> imgUrls = [];
 
       for (var img in event.images) {
-        String? imgUrl = await _onUploadImage(img,
+        String? imgUrl = await ImageUtils.uploadImage(img,
             '$basePath/${event.review.tourId}/${event.review.userId}/${img.name}');
 
         if (imgUrl?.isNotEmpty ?? false) {
@@ -123,24 +121,6 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       log(e.toString());
       emit(ReviewActionFailure(S.current.dataStateFailure));
     }
-  }
-
-  Future<String?> _onUploadImage(ImageFile image, String path) async {
-    try {
-      var data = image.hasPath ? image.path : image.bytes;
-      final dataState = await imageRepository.uploadImage(data, path);
-
-      if (dataState is DataFailure) {
-        log(dataState.error?.message ?? 'There some error ${dataState.error}');
-        return null;
-      }
-
-      return dataState.data;
-    } catch (e) {
-      log(e.toString());
-    }
-
-    return null;
   }
 
   Future<void> _onDeleteReviewById(DeleteReviewEvent event, emit) async {
@@ -189,7 +169,6 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
   }
 
   void _onUploadImageFile(UploadImageEvent event, emit) {
-    emit(ReviewActionLoading());
     emit(ReviewImageLoaded(event.images));
   }
 }

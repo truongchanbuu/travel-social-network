@@ -8,6 +8,7 @@ import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
 import './firebase_options.dart';
 import './injection_container.dart';
+import 'features/shared/presentations/pages/home/home_page.dart';
 import 'features/social/presentations/bloc/post_bloc.dart';
 import 'features/social/presentations/pages/social_network_page.dart';
 import 'features/tour/presentations/bloc/tour_bloc.dart';

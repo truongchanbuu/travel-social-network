@@ -47,10 +47,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(TicketLoaded(dataState.data!));
       } else {
-        emit(TicketActionLoading());
+        emit(TicketLoaded(dataState.data!));
       }
     } catch (e) {
       log(e.toString());
@@ -65,10 +63,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(TicketLoaded(dataState.data!));
       } else {
-        emit(TicketActionLoading());
+        emit(TicketLoaded(dataState.data!));
       }
     } catch (e) {
       log(e.toString());
@@ -85,11 +81,9 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
+      } else {
         emit(ListOfTicketsSuccess(
             dataState.data!.map((ticket) => ticket.toEntity()).toList()));
-      } else {
-        emit(TicketActionLoading());
       }
     } catch (e) {
       log('Failed to create tickets: $e');
@@ -112,10 +106,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
           log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
           emit(TicketFailure(dataState.error?.message ??
               'ERROR OCCURRED: ${dataState.error}'));
-        } else if (dataState is DataSuccess) {
-          emit(TicketActionSuccess(dataState.data!.toEntity()));
         } else {
-          emit(TicketActionLoading());
+          emit(TicketActionSuccess(dataState.data!.toEntity()));
         }
       } catch (e) {
         log(e.toString());
@@ -147,10 +139,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(ListOfTicketsLoaded(dataState.data!));
       } else {
-        emit(TicketActionLoading());
+        emit(ListOfTicketsLoaded(dataState.data!));
       }
     } catch (e) {
       log(e.toString());
@@ -258,10 +248,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(TicketDeleted(dataState.data!.toEntity()));
       } else {
-        emit(TicketActionLoading());
+        emit(TicketDeleted(dataState.data!.toEntity()));
       }
     } catch (e) {
       log(e.toString());
@@ -278,7 +266,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
+      } else {
         final tickets = dataState.data!;
         final [startDate, endDate] =
             DateTimeUtils.parseDateTimeRange(event.rangeDate);
@@ -297,8 +285,6 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         }
 
         emit(ListOfTicketsLoaded(tickets));
-      } else {
-        emit(TicketActionLoading());
       }
     } catch (e) {
       log(e.toString());
@@ -322,11 +308,9 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
+      } else {
         emit(ListOfTicketsLoaded(
             dataState.data!.map((ticket) => ticket.toEntity()).toList()));
-      } else {
-        emit(TicketActionLoading());
       }
     } catch (e) {
       log(e.toString());

@@ -55,6 +55,9 @@ dependencies:
   flutter_svg_provider: ^1.0.7
   image_picker: ^1.1.2
   multi_image_picker_view: ^1.1.0
+  mime: ^1.0.6
+  photo_view: ^0.15.0
+  image_size_getter: ^2.2.0
 
   # Utils
   package_info_plus: ^8.0.2
@@ -70,7 +73,6 @@ dependencies:
   go_transitions: ^0.7.0
   http: ^1.2.2
   path: ^1.9.0
-  mime: ^1.0.6
   path_provider: ^2.1.4
   flutter_localizations:
     sdk: flutter
@@ -84,7 +86,6 @@ dependencies:
   extended_wrap: ^0.1.5
   carousel_slider: ^5.0.0
   flutter_quill: ^10.5.19
-  photo_view: ^0.15.0
   mobkit_dashed_border: ^0.0.6
   animated_hint_textfield: ^1.0.3
   flutter_quill_extensions: ^10.7.5

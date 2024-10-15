@@ -8,28 +8,36 @@ import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/pages/add_image_page.dart';
 import '../../data/models/post_toolbar_item.dart';
 import '../bloc/post_bloc.dart';
-import 'post_toolbar_bottom_sheet.dart';
 
 class PostUploadToolbar extends StatelessWidget {
   final List<ImageFile>? images;
   const PostUploadToolbar({super.key, this.images});
 
+  static const IconData imageIconData = Icons.image;
+  static const IconData checkInIconData = Icons.location_on;
+  static const IconData emojiIconData = Icons.emoji_emotions;
+  static const IconData moreIconData = Icons.more_horiz;
+
   static final List<PostToolbarItem> items = [
     PostToolbarItem(
       text: S.current.image,
-      icon: Icons.image,
+      icon: imageIconData,
       iconColor: Colors.green,
-      onTap: () => _onImage(context),
     ),
     const PostToolbarItem(
       text: 'Check in',
-      icon: Icons.location_on,
+      icon: checkInIconData,
       iconColor: Colors.red,
     ),
     PostToolbarItem(
       text: S.current.emotion,
-      icon: Icons.emoji_emotions,
+      icon: emojiIconData,
       iconColor: Colors.orange,
+    ),
+    PostToolbarItem(
+      text: S.current.moreInfo,
+      icon: moreIconData,
+      iconColor: Colors.grey,
     ),
   ];
 
@@ -46,12 +54,26 @@ class PostUploadToolbar extends StatelessWidget {
 
   Widget _buildToolbars(BuildContext context, PostToolbarItem item) {
     return IconButton(
-      onPressed: () {},
+      onPressed: () => _getOnPressed(
+        context,
+        item.icon,
+      ),
       icon: Icon(
         item.icon,
         color: item.iconColor,
       ),
     );
+  }
+
+  void _getOnPressed(BuildContext context, IconData iconData) {
+    switch (iconData) {
+      case imageIconData:
+        _onImage(context);
+        break;
+      case moreIconData:
+        _onBottomSheet(context);
+        break;
+    }
   }
 
   void _onImage(BuildContext context) async {
@@ -73,7 +95,25 @@ class PostUploadToolbar extends StatelessWidget {
       shape: bottomSheetShape,
       useSafeArea: true,
       isScrollControlled: true,
-      builder: (context) => const PostToolbarBottomSheet(),
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: items.take(items.length - 1).map(_buildItem).toList(),
+      ),
+    );
+  }
+
+  Widget _buildItem(PostToolbarItem item) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.withOpacity(0.5)),
+      ),
+      child: ListTile(
+        leading: Icon(
+          item.icon,
+          color: item.iconColor,
+        ),
+        title: Text(item.text),
+      ),
     );
   }
 }

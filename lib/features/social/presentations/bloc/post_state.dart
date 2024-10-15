@@ -21,3 +21,19 @@ final class ContentUpdated extends PostState {
   @override
   List<Object?> get props => [content, images];
 }
+
+final class PostActionFailed extends PostState {
+  final String message;
+  const PostActionFailed(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+final class PostActionSucceed extends PostState {
+  final PostEntity post;
+  const PostActionSucceed(this.post);
+
+  @override
+  List<Object?> get props => [post];
+}

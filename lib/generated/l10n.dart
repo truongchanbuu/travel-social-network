@@ -100,6 +100,36 @@ class S {
     );
   }
 
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Post`
+  String get post {
+    return Intl.message(
+      'Post',
+      name: 'post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Emotion`
+  String get emotion {
+    return Intl.message(
+      'Emotion',
+      name: 'emotion',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue`
   String get continueLabel {
     return Intl.message(
