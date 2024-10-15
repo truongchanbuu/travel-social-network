@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../shared/presentations/widgets/app_name_logo.dart';
+import '../bloc/post_bloc.dart';
 import '../widgets/social_network_upload_field.dart';
 import '../widgets/social_post_list.dart';
 
@@ -11,6 +13,7 @@ class SocialNetworkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.grey.withOpacity(0.3),
         appBar: _buildAppBar(),
         body: _buildBody(),
       ),
@@ -22,12 +25,19 @@ class SocialNetworkPage extends StatelessWidget {
   Widget _buildBody() {
     return RefreshIndicator(
       onRefresh: () async {},
-      child: const CustomScrollView(
+      child: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SocialNetworkUploadField(),
           ),
-          SocialPostList(posts: []),
+          const SliverToBoxAdapter(child: SizedBox(height: 5)),
+          BlocBuilder<PostBloc, PostState>(
+            builder: (context, state) {
+              return SocialPostList(
+                posts: state is ListOfPostReceived ? state.posts : [],
+              );
+            },
+          ),
         ],
       ),
     );

@@ -13,11 +13,12 @@ class SocialNetworkUploadField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: Colors.white,
       padding: const EdgeInsets.all(defaultPadding),
       child: Row(
         children: [
-          const CircleAvatar(radius: circleAvatarRadius),
+          const CircleAvatar(radius: smallCircleAvatarRadius),
           const SizedBox(width: 10),
           Expanded(
             child: TextFormField(

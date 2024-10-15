@@ -21,9 +21,9 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Stream<DataState<List<Post>>> getPosts() async* {
+  Stream<DataState<List<Post>>> getPosts() {
     try {
-      postCollection
+      return postCollection
           .snapshots()
           .map((snap) => DataSuccess(
               data: snap.docs.map((doc) => Post.fromJson(doc.data())).toList()))
@@ -35,7 +35,7 @@ class PostRepositoryImpl implements PostRepository {
         }
       });
     } catch (error) {
-      Stream.value(defaultDataFailure(error.toString()));
+      return Stream.value(defaultDataFailure(error.toString()));
     }
   }
 }

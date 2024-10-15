@@ -1194,6 +1194,16 @@ class S {
     );
   }
 
+  /// `Show Less`
+  String get showLess {
+    return Intl.message(
+      'Show Less',
+      name: 'showLess',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Services`
   String get services {
     return Intl.message(

@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
-import 'package:travel_social_network/cores/resources/data_state.dart';
-import 'package:travel_social_network/features/social/data/models/post.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../cores/resources/data_state.dart';
 import '../../../../cores/utils/image_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../data/models/post.dart';
 import '../../domain/entities/post.dart';
 import '../../domain/repositories/post_repository.dart';
 

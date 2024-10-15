@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/post.dart';
+import 'post_item.dart';
 
 class SocialPostList extends StatelessWidget {
   final List<PostEntity> posts;
@@ -8,13 +9,14 @@ class SocialPostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList.builder(
+    return SliverList.separated(
       itemBuilder: _buildPostItem,
       itemCount: posts.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 5),
     );
   }
 
   Widget _buildPostItem(BuildContext context, int index) {
-    return Container();
+    return Container(color: Colors.white, child: PostItem(post: posts[index]));
   }
 }

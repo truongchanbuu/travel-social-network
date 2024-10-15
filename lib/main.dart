@@ -60,7 +60,8 @@ class MyApp extends StatelessWidget {
                 // ], child: SaveTourPage())
                 // HomePage(),
                 BlocProvider(
-                    create: (context) => getIt.get<PostBloc>(),
+                    create: (context) =>
+                        getIt.get<PostBloc>()..add(GetPostsEvent()),
                     child: const SocialNetworkPage()),
             //     BlocProvider(
             //   create: (context) => getIt.get<ReviewBloc>(),

@@ -338,6 +338,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Maximum length of phone number"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "showLess": MessageLookupByLibrary.simpleMessage("Show Less"),
         "showMore": MessageLookupByLibrary.simpleMessage("Show More"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),

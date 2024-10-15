@@ -45,6 +45,7 @@ dependencies:
 
   # Bloc
   flutter_bloc: ^8.1.6
+  bloc_concurrency: ^0.2.5
 
   # Dio
   dio: ^5.6.0
@@ -57,7 +58,6 @@ dependencies:
   multi_image_picker_view: ^1.1.0
   mime: ^1.0.6
   photo_view: ^0.15.0
-  image_size_getter: ^2.2.0
 
   # Utils
   package_info_plus: ^8.0.2
@@ -73,6 +73,7 @@ dependencies:
   go_transitions: ^0.7.0
   http: ^1.2.2
   path: ^1.9.0
+  readmore: ^3.0.0
   path_provider: ^2.1.4
   flutter_localizations:
     sdk: flutter
@@ -96,7 +97,6 @@ dependencies:
   page_transition: ^2.1.0
   firebase_storage: ^12.3.2
   flutter_rating_stars: ^1.1.0
-  bloc_concurrency: ^0.2.5
 
 dev_dependencies:
   flutter_test:

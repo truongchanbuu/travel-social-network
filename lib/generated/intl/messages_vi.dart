@@ -329,6 +329,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số chữ số tối đa"),
         "services": MessageLookupByLibrary.simpleMessage("Các dịch vụ"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
+        "showLess": MessageLookupByLibrary.simpleMessage("Ẩn bớt"),
         "showMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),
         "signIn": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "signUp": MessageLookupByLibrary.simpleMessage("Đăng ký"),
