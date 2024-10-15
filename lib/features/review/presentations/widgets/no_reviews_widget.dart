@@ -5,8 +5,9 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../bloc/review_bloc.dart';
-import '../pages/create_review_page.dart';
+import '../pages/save_review_page.dart';
 
 class NoReviewsWidget extends StatelessWidget {
   final String postId;
@@ -60,9 +61,12 @@ class NoReviewsWidget extends StatelessWidget {
     Navigator.push(
       context,
       PageTransition(
-        child: BlocProvider(
-          create: (context) => getIt.get<ReviewBloc>(),
-          child: CreateReviewPage(postId: postId),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<ReviewBloc>()),
+            BlocProvider(create: (context) => getIt.get<TourBloc>()),
+          ],
+          child: SaveReviewPage(postId: postId),
         ),
         type: PageTransitionType.bottomToTop,
       ),

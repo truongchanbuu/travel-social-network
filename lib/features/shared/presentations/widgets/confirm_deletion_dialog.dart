@@ -4,7 +4,7 @@ import '../../../../generated/l10n.dart';
 import 'confirm_dialog.dart';
 
 Future<bool> confirmDeletion(BuildContext context) async {
-  return await showDialog(
+  bool? result = await showDialog(
     context: context,
     builder: (context) => ConfirmDialog(
       softActionText: S.current.cancel,
@@ -13,4 +13,6 @@ Future<bool> confirmDeletion(BuildContext context) async {
       onCancel: () => Navigator.pop(context, false),
     ),
   );
+
+  return result ?? false;
 }

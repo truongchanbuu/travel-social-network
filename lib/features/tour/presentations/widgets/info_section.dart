@@ -85,7 +85,7 @@ class InfoSection extends StatelessWidget {
               ),
               padding: const EdgeInsetsDirectional.all(6),
               child: Text(
-                '${tour.rating.toStringAsFixed(1)} / $maxRatingPoint',
+                '${tour.rating.toStringAsFixed(2)} / $maxRatingPoint',
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

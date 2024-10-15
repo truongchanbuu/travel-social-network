@@ -54,3 +54,12 @@ final class GetTourImagesEvent extends TourEvent {
 }
 
 final class GetTopRatingToursEvent extends TourEvent {}
+
+final class UpdateTourRatingEvent extends TourEvent {
+  final String tourId;
+  final double rating;
+  const UpdateTourRatingEvent(this.tourId, this.rating);
+
+  @override
+  List<Object> get props => [tourId, rating];
+}

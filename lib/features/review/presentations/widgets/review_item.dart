@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../shared/presentations/widgets/confirm_deletion_dialog.dart';
 import '../../../shared/presentations/widgets/limit_image_list.dart';
+import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../domain/entities/review.dart';
+import '../bloc/review_bloc.dart';
 import '../pages/review_detail_page.dart';
+import '../pages/save_review_page.dart';
 import 'tour_rating_widget.dart';
 
 class ReviewItem extends StatelessWidget {
@@ -14,6 +21,7 @@ class ReviewItem extends StatelessWidget {
   final int contentMaxLines;
   final double? imageSize;
   final bool clickable;
+
   const ReviewItem({
     super.key,
     required this.review,
@@ -27,6 +35,7 @@ class ReviewItem extends StatelessWidget {
       ? DateTimeUtils.getTimeAgo(date)
       : DateTimeUtils.formatDayAndMonth(date);
 
+  static String userId = 'TCB';
   @override
   Widget build(BuildContext context) {
     List<String> imageUrls =
@@ -58,7 +67,7 @@ class ReviewItem extends StatelessWidget {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () => _showProfile,
+                        onTap: _showProfile,
                         child: const CircleAvatar(radius: circleAvatarRadius),
                       ),
                       const SizedBox(width: 10),
@@ -66,19 +75,20 @@ class ReviewItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap: () => _showProfile,
+                            onTap: _showProfile,
                             child: const Text(
                               'Truong Chan Buu',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
+                              textDirection: defaultTextDirection,
                               overflow: defaultTextOverflow,
                             ),
                           ),
                           TourRatingWidget(rating: review.rating),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -91,12 +101,14 @@ class ReviewItem extends StatelessWidget {
                     overflow: defaultTextOverflow,
                     maxLines: contentMaxLines,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   if (imageUrls.isNotEmpty) ...[
-                    LimitImageList(
-                      id: review.reviewId,
-                      imageUrls: imageUrls,
-                      imageSize: imageSize,
+                    Expanded(
+                      child: LimitImageList(
+                        id: review.reviewId,
+                        imageUrls: imageUrls,
+                        imageSize: imageSize,
+                      ),
                     ),
                     const SizedBox(height: 10)
                   ],
@@ -113,7 +125,8 @@ class ReviewItem extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
                   ),
-                )
+                ),
+                if (userId == review.userId) _buildActionButtons(context),
               ],
             ),
           ],
@@ -122,14 +135,59 @@ class ReviewItem extends StatelessWidget {
     );
   }
 
+  Widget _buildActionButtons(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+            onPressed: () => _editReview(context),
+            icon: const Icon(Icons.edit_note)),
+        IconButton(
+          onPressed: () => _deleteReview(context),
+          icon: const Icon(Icons.delete),
+        ),
+      ],
+    );
+  }
+
   void _showReviewItemDetail(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ReviewDetailPage(reviewId: review.reviewId)),
+          builder: (context) => BlocProvider(
+                create: (context) => getIt.get<ReviewBloc>(),
+                child: ReviewDetailPage(reviewId: review.reviewId),
+              )),
     );
   }
 
   // TODO: SHOW PROFILE
   void _showProfile() {}
+
+  void _deleteReview(BuildContext context) async {
+    final reviewBloc = context.read<ReviewBloc>();
+    bool confirmed = await confirmDeletion(context);
+
+    if (confirmed) {
+      reviewBloc.add(DeleteReviewEvent(review.reviewId));
+    }
+  }
+
+  void _editReview(BuildContext context) {
+    Navigator.push(
+        context,
+        PageTransition(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt.get<ReviewBloc>()),
+              BlocProvider(create: (context) => getIt.get<TourBloc>()),
+            ],
+            child: SaveReviewPage(
+              postId: review.tourId,
+              reviewId: review.reviewId,
+            ),
+          ),
+          type: PageTransitionType.bottomToTop,
+        ));
+  }
 }

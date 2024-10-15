@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
 import '../../../review/domain/entities/review.dart';
 import '../../../review/presentations/bloc/review_bloc.dart';
 import '../../../review/presentations/pages/reviews_page.dart';
@@ -142,10 +144,22 @@ class _TourDetailPageState extends State<TourDetailPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: defaultPadding),
-              child: BlocBuilder<ReviewBloc, ReviewState>(
+              child: BlocConsumer<ReviewBloc, ReviewState>(
+                listener: (context, reviewState) {
+                  if (reviewState is ReviewDeleted) {
+                    showToast(S.current.success, context: context);
+                    context
+                        .read<ReviewBloc>()
+                        .add(GetAllTourReviewsEvent(widget.tourId));
+                  }
+                },
                 builder: (context, reviewState) {
                   if (reviewState is! ListOfReviewsLoaded) {
                     return const AppProgressingIndicator();
+                  }
+
+                  if (reviews != reviewState.reviews) {
+                    reviews = reviewState.reviews;
                   }
 
                   return TourReviewsAndRating(
@@ -165,7 +179,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DetailHeadingText(title: S.current.moreInfo),
-            const TourMoreInfo(),
+            TourMoreInfo(additionalInfo: tour.additionalInfo),
           ],
         ),
       );
@@ -321,7 +335,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ReviewsPage(tour: tour),
+        builder: (context) => BlocProvider(
+            create: (context) => getIt.get<ReviewBloc>(),
+            child: ReviewsPage(tour: tour)),
       ),
     );
   }

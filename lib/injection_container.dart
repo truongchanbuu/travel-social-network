@@ -39,11 +39,14 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<ReviewRepository>(ReviewRepositoryImpl());
 
   // Bloc
-  getIt.registerFactory<TourBloc>(
-      () => TourBloc(tourRepository: getIt(), imageRepository: getIt()));
+  getIt.registerFactory<TourBloc>(() => TourBloc(
+        tourRepository: getIt(),
+        imageRepository: getIt(),
+      ));
   getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
   getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));
   getIt.registerFactory<ReviewBloc>(() => ReviewBloc(
+        tourBloc: getIt(),
         imageRepository: getIt(),
         reviewRepository: getIt(),
       ));

@@ -46,7 +46,7 @@ const TextDirection defaultTextDirection = TextDirection.ltr;
 const TextOverflow defaultTextOverflow = TextOverflow.ellipsis;
 
 // Size
-const double reviewBoxSize = 320;
+const double reviewBoxSize = 350;
 const double reviewBoxHeight = 280;
 const double reviewItemDetailPageHeight = 350;
 const double reviewItemDetailImageSize = 140;
@@ -103,3 +103,4 @@ const String defaultDateFormat = 'HH:mm dd/MM/yyyy';
 const num $1BMaxCurrency = 1000000000;
 const num $0Currency = 0;
 const String maxRatingPoint = '5.0';
+const int fixStringFloatingPointNumber = 2;

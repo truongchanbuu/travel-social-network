@@ -7,15 +7,15 @@ import '../../../../generated/l10n.dart';
 import '../widgets/confirm_deletion_dialog.dart';
 import '../widgets/save_button.dart';
 
-class CreateTourImagesPage extends StatefulWidget {
+class AddImagePage extends StatefulWidget {
   final List<ImageFile>? images;
-  const CreateTourImagesPage({super.key, this.images});
+  const AddImagePage({super.key, this.images});
 
   @override
-  State<CreateTourImagesPage> createState() => _CreateTourImagesPageState();
+  State<AddImagePage> createState() => _AddImagePageState();
 }
 
-class _CreateTourImagesPageState extends State<CreateTourImagesPage> {
+class _AddImagePageState extends State<AddImagePage> {
   late final MultiImagePickerController _controller;
 
   @override

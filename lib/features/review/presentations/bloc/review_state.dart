@@ -42,3 +42,13 @@ final class ListOfReviewsLoaded extends ReviewState {
   @override
   List<Object> get props => [reviews];
 }
+
+final class ReviewDeleted extends ReviewState {}
+
+final class ReviewImageLoaded extends ReviewState {
+  final List<ImageFile> images;
+  const ReviewImageLoaded(this.images);
+
+  @override
+  List<Object> get props => [images];
+}

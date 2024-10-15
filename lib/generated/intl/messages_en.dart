@@ -175,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "easyToRefund": MessageLookupByLibrary.simpleMessage("Easy to refund"),
         "easyToReschedule":
             MessageLookupByLibrary.simpleMessage("Easy to reschedule"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editPage": MessageLookupByLibrary.simpleMessage("Editor Page"),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Add your tour description here..."),
@@ -307,6 +308,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reschedulePolicy":
             MessageLookupByLibrary.simpleMessage("Reschedule Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "reviewDeleted":
+            MessageLookupByLibrary.simpleMessage("The review has been deleted"),
         "reviewHint":
             MessageLookupByLibrary.simpleMessage("Write your review here..."),
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),

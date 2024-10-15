@@ -18,6 +18,7 @@ class Review extends ReviewEntity {
     required super.images,
   });
 
+  @override
   Review copyWith({
     String? reviewId,
     String? userId,

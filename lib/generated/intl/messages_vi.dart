@@ -167,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dễ dàng hoàn tiền"),
         "easyToReschedule":
             MessageLookupByLibrary.simpleMessage("Dễ dàng dời lịch"),
+        "edit": MessageLookupByLibrary.simpleMessage("Chỉnh sửa"),
         "editPage": MessageLookupByLibrary.simpleMessage("Trang chỉnh sửa"),
         "editingPlaceholderText": MessageLookupByLibrary.simpleMessage(
             "Hãy viết mô tả về chuyến đi của bạn ở đây..."),
@@ -299,6 +300,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chính sách dời vé"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
+        "reviewDeleted":
+            MessageLookupByLibrary.simpleMessage("Bài đánh giá đã được xóa"),
         "reviewHint": MessageLookupByLibrary.simpleMessage(
             "Viết trải nghiệm của bạn ở đây..."),
         "reviewed": MessageLookupByLibrary.simpleMessage("Đã đánh giá"),

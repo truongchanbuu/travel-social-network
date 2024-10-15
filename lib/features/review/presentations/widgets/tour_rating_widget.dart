@@ -19,7 +19,7 @@ class TourRatingWidget extends StatelessWidget {
         overflow: defaultTextOverflow,
         text: TextSpan(children: [
           TextSpan(
-            text: rating.toStringAsFixed(1),
+            text: rating.toStringAsFixed(fixStringFloatingPointNumber),
             style: const TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.bold,

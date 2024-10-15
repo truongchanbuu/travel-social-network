@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/review.dart';
 import '../../domain/repositories/review_repository.dart';
 import '../models/review.dart';
 
@@ -10,23 +11,25 @@ class ReviewRepositoryImpl implements ReviewRepository {
   final reviewCollection = firestore.collection('reviews');
 
   @override
-  Future<DataState<List<Review>>> getAllTourReviews(String tourId) async {
+  Stream<DataState<List<Review>>> getAllTourReviews(String tourId) async* {
     try {
-      List<Review> reviews = [];
-      final docQuery = reviewCollection.where('tourId', isEqualTo: tourId);
-      final docSnaps = await docQuery.get();
+      yield* reviewCollection
+          .where(ReviewEntity.tourIdFieldName, isEqualTo: tourId)
+          .snapshots()
+          .map((snapshot) {
+        final reviews =
+            snapshot.docs.map((doc) => Review.fromJson(doc.data())).toList();
 
-      docSnaps.docs.map((doc) {
-        if (doc.exists) {
-          reviews.add(Review.fromJson(doc.data()));
+        return DataSuccess(data: reviews);
+      }).handleError((e) {
+        if (e is FirebaseException) {
+          return handleFirebaseException(e);
+        } else {
+          return defaultDataFailure(e.toString());
         }
       });
-
-      return DataSuccess(data: reviews);
-    } on FirebaseException catch (e) {
-      return handleFirebaseException(e);
     } catch (e) {
-      return defaultDataFailure(e.toString());
+      Stream.value(defaultDataFailure(e.toString()));
     }
   }
 
@@ -53,6 +56,18 @@ class ReviewRepositoryImpl implements ReviewRepository {
     try {
       await reviewCollection.doc(review.reviewId).set(review.toJson());
       return DataSuccess(data: review);
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<void>> deleteReviewById(String reviewId) async {
+    try {
+      await reviewCollection.doc(reviewId).delete();
+      return const DataSuccess();
     } on FirebaseException catch (e) {
       return handleFirebaseException(e);
     } catch (e) {

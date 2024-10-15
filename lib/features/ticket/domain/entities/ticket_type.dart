@@ -127,4 +127,5 @@ class TicketTypeEntity extends Equatable {
   static const String redemptionMethodDescFieldName = "redemptionMethodDesc";
   static const String refundPolicyIdFieldName = "refundPolicyId";
   static const String reschedulePolicyIdFieldName = "reschedulePolicyId";
+  static const String createAtFieldName = "createdAt";
 }

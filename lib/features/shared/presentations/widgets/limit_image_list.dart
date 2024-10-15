@@ -59,7 +59,8 @@ class LimitImageList extends StatelessWidget {
                         height: size,
                         child: AppCachedImage(
                           imageUrl: url,
-                          cacheKey: S.current.cacheKeyWithId(id, index),
+                          cacheKey:
+                              S.current.cacheKeyWithId('${id}_$url', index),
                           errorImageSize: 20,
                           errorSemanticLabel: S.current.imageAtIndex(index),
                           loadingSemanticLabel:

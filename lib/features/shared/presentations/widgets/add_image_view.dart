@@ -29,6 +29,7 @@ class _AddImageViewState extends State<AddImageView> {
     _images = widget.images;
   }
 
+  static const String templateIdString = 'TMP_IMG';
   @override
   Widget build(BuildContext context) {
     if (_images.isNotEmpty) {
@@ -70,7 +71,7 @@ class _AddImageViewState extends State<AddImageView> {
   Widget _buildImagesWidget() => Padding(
         padding: const EdgeInsets.all(defaultPadding),
         child: LimitImageList(
-          id: 'TMP-IMG',
+          id: templateIdString,
           imageUrls: _images.map((img) => img.path!).toList(),
           imageSize: 200,
           overflowWidget: Padding(
@@ -83,8 +84,7 @@ class _AddImageViewState extends State<AddImageView> {
   void _pickImage(BuildContext context) async {
     var data = await Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => CreateTourImagesPage(images: _images)),
+      MaterialPageRoute(builder: (context) => AddImagePage(images: _images)),
     );
 
     if (data != null) setState(() => _images = data);

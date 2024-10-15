@@ -26,8 +26,9 @@ class TourRepositoryImpl implements TourRepository {
   Future<DataState<List<Tour>>> getTopRatingTours({int limit = 20}) async {
     try {
       List<Tour> tours = [];
-      final docQuery =
-          tourCollection.orderBy('rating', descending: true).limit(limit);
+      final docQuery = tourCollection
+          .orderBy(TourEntity.ratingFieldName, descending: true)
+          .limit(limit);
       final docSnaps = await docQuery.get();
 
       for (var doc in docSnaps.docs) {
@@ -68,6 +69,27 @@ class TourRepositoryImpl implements TourRepository {
       }
 
       return DataSuccess(data: Tour.fromJson(docSnap.data()!));
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<Tour>> updateTour(
+      String tourId, Map<String, dynamic> data) async {
+    try {
+      final docQuery = tourCollection.doc(tourId);
+      docQuery.update(data);
+
+      final docSnap = await docQuery.get();
+
+      if (docSnap.exists) {
+        return DataSuccess(data: Tour.fromJson(docSnap.data()!));
+      } else {
+        return defaultDataFailure(S.current.notFound);
+      }
     } on FirebaseException catch (e) {
       return handleFirebaseException(e);
     } catch (e) {

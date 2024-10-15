@@ -100,6 +100,16 @@ class S {
     );
   }
 
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue`
   String get continueLabel {
     return Intl.message(
@@ -1009,6 +1019,16 @@ class S {
     return Intl.message(
       'Write your review here...',
       name: 'reviewHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The review has been deleted`
+  String get reviewDeleted {
+    return Intl.message(
+      'The review has been deleted',
+      name: 'reviewDeleted',
       desc: '',
       args: [],
     );

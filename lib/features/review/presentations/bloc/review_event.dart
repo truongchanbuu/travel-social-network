@@ -24,20 +24,47 @@ final class GetReviewByIdEvent extends ReviewEvent {
 }
 
 final class CreateReviewEvent extends ReviewEvent {
-  final String tourId;
-  final String userId;
-  final String content;
+  final ReviewEntity review;
   final List<ImageFile> images;
-  final double rating;
 
-  const CreateReviewEvent({
-    required this.tourId,
-    required this.userId,
-    required this.content,
-    required this.images,
-    required this.rating,
-  });
+  const CreateReviewEvent(this.review, this.images);
 
   @override
-  List<Object> get props => [tourId, content, images, rating];
+  List<Object> get props => [review, images];
+}
+
+final class DeleteReviewEvent extends ReviewEvent {
+  final String reviewId;
+  const DeleteReviewEvent(this.reviewId);
+
+  @override
+  List<Object> get props => [reviewId];
+}
+
+final class UpdateReviewFieldEvent extends ReviewEvent {
+  final String fieldName;
+  final dynamic value;
+
+  const UpdateReviewFieldEvent(this.fieldName, this.value);
+
+  @override
+  List<Object> get props => [fieldName, value];
+}
+
+final class InitializeNewReviewEvent extends ReviewEvent {
+  final String tourId;
+  final String userId;
+
+  const InitializeNewReviewEvent({required this.tourId, required this.userId});
+
+  @override
+  List<Object> get props => [userId, tourId];
+}
+
+final class UploadImageEvent extends ReviewEvent {
+  final List<ImageFile> images;
+  const UploadImageEvent(this.images);
+
+  @override
+  List<Object> get props => [images];
 }

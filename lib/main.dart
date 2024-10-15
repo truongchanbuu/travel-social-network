@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:travel_social_network/features/review/presentations/pages/create_review_page.dart';
+import 'package:travel_social_network/features/review/presentations/pages/save_review_page.dart';
 import 'package:travel_social_network/features/shared/presentations/pages/home/home_page.dart';
 import 'package:travel_social_network/features/shared/presentations/widgets/app_bottom_navigation_bar.dart';
 

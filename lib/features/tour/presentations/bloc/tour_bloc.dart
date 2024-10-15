@@ -6,6 +6,8 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
+import '../../../review/domain/entities/review.dart';
+import '../../../review/domain/repositories/review_repository.dart';
 import '../../../shared/domain/repositories/image_repository.dart';
 import '../../data/models/tour.dart';
 import '../../domain/entities/tour.dart';
@@ -19,14 +21,17 @@ class TourBloc extends Bloc<TourEvent, TourState> {
   final ImageRepository imageRepository;
   static const basePath = '/tours';
 
-  TourBloc({required this.tourRepository, required this.imageRepository})
-      : super(TourInitial()) {
+  TourBloc({
+    required this.tourRepository,
+    required this.imageRepository,
+  }) : super(TourInitial()) {
     on<InitializeNewTourEvent>(_onInitialNewTour);
     on<CreateTourEvent>(_onCreateTour);
     on<GetTourByIdEvent>(_onGetTourById);
     on<UpdateTourFieldEvent>(_onUpdateTourField);
     on<GetTourImagesEvent>(_onGetTourImages);
     on<GetTopRatingToursEvent>(_onGetTopRatingTours);
+    on<UpdateTourRatingEvent>(_onUpdateTourRating);
   }
 
   void _onInitialNewTour(event, emit) {
@@ -171,6 +176,27 @@ class TourBloc extends Bloc<TourEvent, TourState> {
       } else if (dataState is DataSuccess) {
         emit(ListOfToursLoaded(
             dataState.data!.map((tour) => tour.toEntity()).toList()));
+      } else {
+        emit(TourActionLoading());
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(TourActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onUpdateTourRating(
+      UpdateTourRatingEvent event, Emitter<TourState> emit) async {
+    try {
+      final dataState = await tourRepository.updateTour(event.tourId, {
+        TourEntity.ratingFieldName: event.rating,
+      });
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TourActionFailed(S.current.dataStateFailure));
+      } else if (dataState is DataSuccess) {
+        emit(TourActionSuccess(dataState.data!.toEntity()));
       } else {
         emit(TourActionLoading());
       }

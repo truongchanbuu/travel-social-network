@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/ticket_type.dart';
 import '../../domain/repositories/ticket_repository.dart';
 import '../models/ticket_type.dart';
 
@@ -67,7 +68,7 @@ class TicketRepositoryImpl implements TicketRepository {
       final docSnap = await docRef.get();
 
       if (!docSnap.exists) {
-        return defaultDataFailure('Not found');
+        return defaultDataFailure(S.current.notFound);
       }
 
       await docRef.delete();
@@ -89,7 +90,7 @@ class TicketRepositoryImpl implements TicketRepository {
       final docSnap = await docRef.get();
 
       if (!docSnap.exists) {
-        return defaultDataFailure('Not found');
+        return defaultDataFailure(S.current.notFound);
       }
 
       newTicket.copyWith(updatedAt: DateTime.now());
@@ -109,8 +110,8 @@ class TicketRepositoryImpl implements TicketRepository {
     try {
       List<TicketType> tickets = [];
       final docQuery = ticketCollection
-          .where('tourId', isEqualTo: tourId)
-          .orderBy('createdAt', descending: true);
+          .where(TicketTypeEntity.tourIdFieldName, isEqualTo: tourId)
+          .orderBy(TicketTypeEntity.createAtFieldName, descending: true);
 
       final docSnaps = await docQuery.get();
       if (docSnaps.docs.isNotEmpty) {
@@ -138,17 +139,19 @@ class TicketRepositoryImpl implements TicketRepository {
   }) async {
     try {
       final docQuery = ticketCollection
-          .where('tourId', isEqualTo: tourId)
-          .where('ticketTypeName', isEqualTo: name)
-          .where('category', isEqualTo: category)
-          .where('startDate', isEqualTo: startDate.toIso8601String())
-          .where('endDate', isEqualTo: endDate.toIso8601String())
+          .where(TicketTypeEntity.tourIdFieldName, isEqualTo: tourId)
+          .where(TicketTypeEntity.ticketTypeNameFieldName, isEqualTo: name)
+          .where(TicketTypeEntity.categoryFieldName, isEqualTo: category)
+          .where(TicketTypeEntity.startDateFieldName,
+              isEqualTo: startDate.toIso8601String())
+          .where(TicketTypeEntity.endDateFieldName,
+              isEqualTo: endDate.toIso8601String())
           .limit(1);
 
       final docSnaps = await docQuery.get();
 
       if (docSnaps.docs.isEmpty) {
-        return defaultDataFailure('Not found');
+        return defaultDataFailure(S.current.notFound);
       }
 
       return DataSuccess(
@@ -170,13 +173,14 @@ class TicketRepositoryImpl implements TicketRepository {
       List<TicketType> tickets = [];
 
       final docQuery = ticketCollection
-          .where('tourId', isEqualTo: tourId)
-          .where('startDate', isEqualTo: startDate.toIso8601String());
+          .where(TicketTypeEntity.tourIdFieldName, isEqualTo: tourId)
+          .where(TicketTypeEntity.startDateFieldName,
+              isEqualTo: startDate.toIso8601String());
 
       final docSnaps = await docQuery.get();
 
       if (docSnaps.docs.isEmpty) {
-        return defaultDataFailure('Not found');
+        return defaultDataFailure(S.current.notFound);
       }
 
       for (var doc in docSnaps.docs) {

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../generated/l10n.dart';
-import '../../../../tour/data/models/tour.dart';
 import '../../../../tour/domain/entities/tour.dart';
 import '../../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../../../tour/presentations/widgets/tours_grid_view.dart';

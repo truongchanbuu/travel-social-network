@@ -95,6 +95,7 @@ dependencies:
   page_transition: ^2.1.0
   firebase_storage: ^12.3.2
   flutter_rating_stars: ^1.1.0
+  bloc_concurrency: ^0.2.5
 
 dev_dependencies:
   flutter_test:

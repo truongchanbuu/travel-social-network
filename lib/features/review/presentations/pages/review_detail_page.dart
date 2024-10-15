@@ -32,15 +32,22 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
         builder: (context, state) {
           if (state is ReviewActionLoading) {
             return const AppProgressingIndicator();
-          } else if (state is ReviewActionSuccess) {
+          } else if (state is ReviewLoaded) {
             review = state.review;
             return Scaffold(
               appBar: _buildAppBar(),
-              body: ReviewItem(
-                review: review,
-                isLimited: false,
-                imageSize: reviewItemDetailImageSize,
-                clickable: false,
+              body: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: reviewBoxHeight,
+                  child: ReviewItem(
+                    review: review,
+                    isLimited: false,
+                    imageSize: reviewItemDetailImageSize,
+                    clickable: false,
+                  ),
+                ),
               ),
             );
           }

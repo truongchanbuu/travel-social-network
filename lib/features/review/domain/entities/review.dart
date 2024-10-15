@@ -34,4 +34,35 @@ class ReviewEntity extends Equatable {
       images,
     ];
   }
+
+  static const String reviewIdFieldName = 'reviewId';
+  static const String userIdFieldName = 'userId';
+  static const String tourIdFieldName = 'tourId';
+  static const String contentFieldName = 'content';
+  static const String ratingFieldName = 'rating';
+  static const String createdAtFieldName = 'createdAt';
+  static const String updatedAtFieldName = 'updatedAt';
+  static const String imagesFieldName = 'images';
+
+  ReviewEntity copyWith({
+    String? reviewId,
+    String? userId,
+    String? tourId,
+    String? content,
+    double? rating,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    List<String>? images,
+  }) {
+    return ReviewEntity(
+      reviewId: reviewId ?? this.reviewId,
+      userId: userId ?? this.userId,
+      tourId: tourId ?? this.tourId,
+      content: content ?? this.content,
+      rating: rating ?? this.rating,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      images: images ?? this.images,
+    );
+  }
 }
