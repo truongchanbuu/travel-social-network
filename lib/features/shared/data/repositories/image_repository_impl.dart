@@ -8,9 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:mime/mime.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path/path.dart' as path;
-import 'package:travel_social_network/cores/utils/image_utils.dart';
 
 import '../../../../cores/resources/data_state.dart';
+import '../../../../cores/utils/image_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../domain/repositories/image_repository.dart';
@@ -98,6 +98,7 @@ class ImageRepositoryImpl implements ImageRepository {
 
       await uploadTask;
       final downloadUrl = await ref.getDownloadURL();
+      uploadTask.cancel();
 
       return DataSuccess(data: downloadUrl);
     } on FirebaseException catch (e) {

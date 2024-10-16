@@ -97,6 +97,7 @@ dependencies:
   page_transition: ^2.1.0
   firebase_storage: ^12.3.2
   flutter_rating_stars: ^1.1.0
+  community_material_icon: ^5.9.55
 
 dev_dependencies:
   flutter_test:

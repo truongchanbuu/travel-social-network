@@ -45,3 +45,7 @@ final class ListOfPostReceived extends PostState {
   @override
   List<Object?> get props => [posts];
 }
+
+final class PostActionLoading extends PostState {}
+
+final class PostDeleted extends PostState {}

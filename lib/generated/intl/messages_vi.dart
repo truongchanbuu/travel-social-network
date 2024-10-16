@@ -186,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Chiều đến rồi! Cùng nhau thưởng thức những món ngon mới lạ cho tại một nhà hàng sang trọng nào!"),
         "exclusiveOffers": MessageLookupByLibrary.simpleMessage(
             "Ưu đãi đặc biệt dành cho bạn - chỉ với một bước đơn giản!"),
+        "favorite": MessageLookupByLibrary.simpleMessage("Yêu thích"),
         "fetchDataFailure":
             MessageLookupByLibrary.simpleMessage("Lấy dữ liệu về thất bại"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
@@ -196,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Xem hướng dẫn đường đi"),
         "helloUser": m6,
+        "here": MessageLookupByLibrary.simpleMessage("Ở đây"),
         "home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "hour": MessageLookupByLibrary.simpleMessage("giờ"),
         "hourFormatted": m7,
@@ -242,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "month": MessageLookupByLibrary.simpleMessage("tháng"),
         "monthFormatted": m13,
         "monthUnit": MessageLookupByLibrary.simpleMessage("tháng"),
+        "moreAction": MessageLookupByLibrary.simpleMessage("Hành động khác"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("Thêm thông tin"),
         "morningText": MessageLookupByLibrary.simpleMessage(
             "Buổi sáng tốt lành, đã sẵn sàng cho chuyến hành trình hôm nay chưa?"),
@@ -329,6 +332,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số chữ số tối đa"),
         "services": MessageLookupByLibrary.simpleMessage("Các dịch vụ"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
+        "share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
         "showLess": MessageLookupByLibrary.simpleMessage("Ẩn bớt"),
         "showMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),
         "signIn": MessageLookupByLibrary.simpleMessage("Đăng nhập"),

@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Here`
+  String get here {
+    return Intl.message(
+      'Here',
+      name: 'here',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Success`
   String get success {
     return Intl.message(
@@ -100,6 +110,16 @@ class S {
     );
   }
 
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Edit`
   String get edit {
     return Intl.message(
@@ -125,6 +145,16 @@ class S {
     return Intl.message(
       'Emotion',
       name: 'emotion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite`
+  String get favorite {
+    return Intl.message(
+      'Favorite',
+      name: 'favorite',
       desc: '',
       args: [],
     );
@@ -1199,6 +1229,16 @@ class S {
     return Intl.message(
       'Show Less',
       name: 'showLess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More Action`
+  String get moreAction {
+    return Intl.message(
+      'More Action',
+      name: 'moreAction',
       desc: '',
       args: [],
     );

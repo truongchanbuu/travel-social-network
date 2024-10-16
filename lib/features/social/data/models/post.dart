@@ -10,7 +10,10 @@ class Post extends PostEntity {
     required super.postId,
     required super.content,
     required super.images,
+    required super.likedUsers,
     required super.userId,
+    required super.createdAt,
+    super.updatedAt,
   });
 
   PostEntity toEntity() {
@@ -19,6 +22,9 @@ class Post extends PostEntity {
       content: content,
       images: images,
       userId: userId,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      likedUsers: likedUsers,
     );
   }
 
@@ -27,7 +33,10 @@ class Post extends PostEntity {
       postId: entity.postId,
       content: entity.content,
       images: entity.images,
+      likedUsers: entity.likedUsers,
       userId: entity.userId,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     );
   }
 

@@ -194,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "It\'s time for special dishes on elegant restaurants near you!"),
         "exclusiveOffers": MessageLookupByLibrary.simpleMessage(
             "Exclusive Offers for you - with only one simple step!"),
+        "favorite": MessageLookupByLibrary.simpleMessage("Favorite"),
         "fetchDataFailure": MessageLookupByLibrary.simpleMessage(
             "Failed to fetch image from URL"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
@@ -205,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Guide to location"),
         "helloUser": m6,
+        "here": MessageLookupByLibrary.simpleMessage("Here"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
         "hourFormatted": m7,
@@ -252,6 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "month": MessageLookupByLibrary.simpleMessage("month"),
         "monthFormatted": m13,
         "monthUnit": MessageLookupByLibrary.simpleMessage("month|months|mo"),
+        "moreAction": MessageLookupByLibrary.simpleMessage("More Action"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("More Information"),
         "morningText": MessageLookupByLibrary.simpleMessage(
             "Good morning! Ready for today\'s adventures?"),
@@ -338,6 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Maximum length of phone number"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "showLess": MessageLookupByLibrary.simpleMessage("Show Less"),
         "showMore": MessageLookupByLibrary.simpleMessage("Show More"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),

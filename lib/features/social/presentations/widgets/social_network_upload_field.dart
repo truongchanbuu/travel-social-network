@@ -37,8 +37,10 @@ class SocialNetworkUploadField extends StatelessWidget {
     );
   }
 
-  void _onPost(BuildContext context) {
-    Navigator.push(
+  void _onPost(BuildContext context) async {
+    final postBloc = context.read<PostBloc>();
+
+    var data = await Navigator.push(
       context,
       PageTransition(
         child: BlocProvider(
@@ -49,5 +51,9 @@ class SocialNetworkUploadField extends StatelessWidget {
         duration: const Duration(milliseconds: pageChangeTransitionDuration),
       ),
     );
+
+    if (data != null) {
+      postBloc.add(GetPostsEvent());
+    }
   }
 }

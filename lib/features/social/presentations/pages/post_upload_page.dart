@@ -4,6 +4,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../bloc/post_bloc.dart';
 import '../widgets/post_upload_toolbar.dart';
@@ -20,12 +21,16 @@ class PostUploadPage extends StatelessWidget {
         listener: (context, state) {
           if (state is PostActionSucceed) {
             showToast(S.current.success, context: context);
-            Navigator.pop(context);
+            Navigator.pop(context, state.post);
+          } else if (state is PostActionFailed) {
+            showToast(state.message, context: context);
           }
         },
         builder: (context, state) => Scaffold(
           appBar: _buildAppBar(context, state),
-          body: _buildBody(context, state),
+          body: state is PostActionLoading
+              ? const AppProgressingIndicator()
+              : _buildBody(context, state),
           bottomNavigationBar: PostUploadToolbar(
             images: state is ContentUpdated ? state.images : [],
           ),
@@ -65,6 +70,7 @@ class PostUploadPage extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            autofocus: true,
             maxLines: null,
             keyboardType: TextInputType.multiline,
             textInputAction: TextInputAction.send,

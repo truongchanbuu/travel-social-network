@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../cores/constants/constants.dart';
 import '../../../shared/presentations/widgets/app_name_logo.dart';
 import '../bloc/post_bloc.dart';
 import '../widgets/social_network_upload_field.dart';
@@ -15,23 +16,29 @@ class SocialNetworkPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.grey.withOpacity(0.3),
         appBar: _buildAppBar(),
-        body: _buildBody(),
+        body: _buildBody(context),
       ),
     );
   }
 
   AppBar _buildAppBar() => AppBar(title: const AppName());
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async {},
+      color: primaryColor,
+      onRefresh: () async => _refreshPosts(context),
       child: CustomScrollView(
         slivers: [
           const SliverToBoxAdapter(
             child: SocialNetworkUploadField(),
           ),
           const SliverToBoxAdapter(child: SizedBox(height: 5)),
-          BlocBuilder<PostBloc, PostState>(
+          BlocConsumer<PostBloc, PostState>(
+            listener: (context, state) {
+              if (state is PostDeleted) {
+                _refreshPosts(context);
+              }
+            },
             builder: (context, state) {
               return SocialPostList(
                 posts: state is ListOfPostReceived ? state.posts : [],
@@ -41,5 +48,9 @@ class SocialNetworkPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _refreshPosts(BuildContext context) {
+    context.read<PostBloc>().add(GetPostsEvent());
   }
 }

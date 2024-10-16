@@ -23,6 +23,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<UpdateContentEvent>(_onContentUpdated);
     on<SavePostEvent>(_onSavePost);
     on<GetPostsEvent>(_onGetAllPosts);
+    on<DeletePostById>(_onDeletePost);
+    on<UpdatePostEvent>(_onUpdatePost);
+    on<LikePostEvent>(_onLikePost);
   }
 
   void _onContentUpdated(UpdateContentEvent event, Emitter<PostState> emit) {
@@ -31,18 +34,23 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   Future<void> _onSavePost(SavePostEvent event, Emitter<PostState> emit) async {
     if (state is ContentUpdated) {
+      String content = state.content;
+      List<ImageFile> images = state.images;
+      emit(PostActionLoading());
       try {
         List<String> imageUrls = [];
         Post post = Post(
           postId: 'POST-${const Uuid().v4()}',
-          content: state.content,
+          likedUsers: const [],
+          content: content,
           images: imageUrls,
           userId: event.userId,
+          createdAt: DateTime.now(),
         );
 
-        for (var img in state.images) {
-          String? imgUrl =
-              await ImageUtils.uploadImage(img, '$basePath/${post.postId}');
+        for (var img in images) {
+          String? imgUrl = await ImageUtils.uploadImage(
+              img, '$basePath/${post.postId}/${img.name}');
 
           if (imgUrl?.isNotEmpty ?? false) {
             imageUrls.add(imgUrl!);
@@ -67,22 +75,68 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   Future<void> _onGetAllPosts(
       GetPostsEvent event, Emitter<PostState> emit) async {
-    await emit.forEach(
-      postRepository.getPosts(),
-      onData: (dataState) {
-        if (dataState is DataFailure) {
-          log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
-          return PostActionFailed(S.current.dataStateFailure);
-        } else {
-          return ListOfPostReceived(
-            dataState.data?.map((post) => post.toEntity()).toList() ?? [],
-          );
-        }
-      },
-      onError: (error, stackTrace) {
-        log(error.toString());
-        return PostActionFailed(error.toString());
-      },
-    );
+    emit(PostActionLoading());
+    try {
+      final dataState = await postRepository.getPosts();
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ??
+            'Get all posts failed: ${dataState.error}');
+        emit(PostActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(ListOfPostReceived(
+          dataState.data?.map((post) => post.toEntity()).toList() ?? [],
+        ));
+      }
+    } catch (e) {
+      log('Get all posts failed: $e');
+      emit(PostActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onDeletePost(
+      DeletePostById event, Emitter<PostState> emit) async {
+    try {
+      final dataState = await postRepository.deletePostById(event.postId);
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PostActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(PostDeleted());
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(PostActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onUpdatePost(
+      UpdatePostEvent event, Emitter<PostState> emit) async {
+    try {
+      final dataState =
+          await postRepository.updatePost(event.postId, event.data);
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PostActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(PostActionSucceed(dataState.data!));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(PostActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onLikePost(LikePostEvent event, Emitter<PostState> emit) async {
+    try {
+      final dataState =
+          await postRepository.updatePost(event.postId, event.data);
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PostActionFailed(S.current.dataStateFailure));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(PostActionFailed(S.current.dataStateFailure));
+    }
   }
 }
