@@ -5,6 +5,8 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../../comment/presentations/widgets/comment_bottom_sheet.dart';
 import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
@@ -105,7 +107,11 @@ class _PostFooterActionsState extends State<PostFooterActions> {
       useSafeArea: true,
       shape: bottomSheetShape,
       context: context,
-      builder: (context) => const CommentBottomSheet(),
+      builder: (context) => BlocProvider(
+        create: (context) => getIt.get<CommentBloc>()
+          ..add(GetPostCommentsEvent(widget.post.postId)),
+        child: CommentBottomSheet(postId: widget.post.postId),
+      ),
     );
   }
 

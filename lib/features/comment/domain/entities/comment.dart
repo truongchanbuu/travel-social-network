@@ -32,4 +32,13 @@ class CommentEntity extends Equatable {
         createdAt,
         updatedAt,
       ];
+
+  static const String commentIdFieldName = "commentId";
+  static const String contentFieldName = "content";
+  static const String likedUsersFieldName = "likedUsers";
+  static const String userIdFieldName = "userId";
+  static const String createdAtFieldName = "createdAt";
+  static const String updatedAtFieldName = "updatedAt";
+  static const String postIdFieldName = "postId";
+  static const String parentCommentIdFieldName = "parentCommentId";
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/resources/data_state.dart';
+import '../../domain/entities/comment.dart';
 import '../../domain/repositories/comment_repository.dart';
 import '../models/comment.dart';
 
@@ -21,15 +22,37 @@ class CommentRepositoryImpl implements CommentRepository {
   }
 
   @override
-  Future<DataState<void>> deleteComment(String commentId) {
-    // TODO: implement deleteComment
-    throw UnimplementedError();
+  Future<DataState<void>> deleteComment(String commentId) async {
+    try {
+      await commentCollection.doc(commentId).delete();
+      return const DataSuccess();
+    } on FirebaseException catch (error) {
+      return handleFirebaseException(error);
+    } catch (error) {
+      return defaultDataFailure(error.toString());
+    }
   }
 
   @override
-  Future<DataState<Comment>> getPostComment(String postId) {
-    // TODO: implement getPostComment
-    throw UnimplementedError();
+  Future<DataState<List<Comment>>> getPostComments(String postId) async {
+    try {
+      List<Comment> comments = [];
+
+      final docSnaps = await commentCollection
+          .where(CommentEntity.postIdFieldName, isEqualTo: postId)
+          .get();
+
+      for (var doc in docSnaps.docs) {
+        final comment = Comment.fromJson(doc.data());
+        comments.add(comment);
+      }
+
+      return DataSuccess(data: comments);
+    } on FirebaseException catch (error) {
+      return handleFirebaseException(error);
+    } catch (error) {
+      return defaultDataFailure(error.toString());
+    }
   }
 
   @override

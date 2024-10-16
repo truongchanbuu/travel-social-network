@@ -3,31 +3,55 @@ import 'package:readmore/readmore.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/comment.dart';
 
 class CommentItem extends StatelessWidget {
-  const CommentItem({super.key});
+  final CommentEntity comment;
+  const CommentItem({super.key, required this.comment});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const CircleAvatar(radius: smallCircleAvatarRadius),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Nguyen Van A',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 1,
+            spreadRadius: 1,
+            color: Colors.black12,
           ),
-          ReadMoreText(
-            'Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao! Comment dao!',
-            trimCollapsedText: ' ${S.current.showMore}',
-            trimExpandedText: ' ${S.current.showLess}',
-            moreStyle: const TextStyle(color: primaryColor),
-            lessStyle: const TextStyle(color: primaryColor),
-            trimLines: 3,
-            trimMode: TrimMode.Line,
-          )
         ],
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: ListTile(
+        leading: const CircleAvatar(radius: smallCircleAvatarRadius),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              // TODO: CHANGE TO USERNAME
+              comment.userId,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+            ReadMoreText(
+              comment.content,
+              style: const TextStyle(
+                fontSize: 14,
+              ),
+              trimCollapsedText: ' ${S.current.showMore}',
+              trimExpandedText: ' ${S.current.showLess}',
+              moreStyle: const TextStyle(color: primaryColor),
+              lessStyle: const TextStyle(color: primaryColor),
+              trimLines: 2,
+              trimMode: TrimMode.Line,
+            )
+          ],
+        ),
       ),
     );
   }

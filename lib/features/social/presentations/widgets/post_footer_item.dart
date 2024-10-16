@@ -21,7 +21,7 @@ class PostFooterItem extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
