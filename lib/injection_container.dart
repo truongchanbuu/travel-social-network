@@ -5,6 +5,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 
 import 'cores/constants/constants.dart';
+import 'features/comment/data/repositories/comment_repository_impl.dart';
+import 'features/comment/domain/repositories/comment_repository.dart';
+import 'features/comment/presentations/bloc/comment_bloc.dart';
 import 'features/policy/data/repositories/policy_repository_impl.dart';
 import 'features/policy/domain/repositories/policy_repository.dart';
 import 'features/policy/presentations/bloc/policy_bloc.dart';
@@ -41,6 +44,7 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<PolicyRepository>(PolicyRepositoryImpl());
   getIt.registerSingleton<ReviewRepository>(ReviewRepositoryImpl());
   getIt.registerSingleton<PostRepository>(PostRepositoryImpl());
+  getIt.registerSingleton<CommentRepository>(CommentRepositoryImpl());
 
   // Bloc
   getIt.registerFactory<TourBloc>(() => TourBloc(getIt()));
@@ -51,4 +55,5 @@ Future<void> initializeDependencies() async {
         reviewRepository: getIt(),
       ));
   getIt.registerFactory<PostBloc>(() => PostBloc(getIt()));
+  getIt.registerFactory<CommentBloc>(() => CommentBloc(getIt()));
 }

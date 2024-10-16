@@ -13,7 +13,6 @@ class CommentBottomSheet extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey)),

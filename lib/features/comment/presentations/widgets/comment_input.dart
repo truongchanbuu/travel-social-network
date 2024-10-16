@@ -9,21 +9,28 @@ class CommentInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        TextFormField(
-          decoration: InputDecoration(
-            hintText: '${S.current.comment} ${S.current.here.toLowerCase()}...',
-            hintMaxLines: 1,
-            hintStyle: const TextStyle(overflow: defaultTextOverflow),
+        Expanded(
+          child: TextFormField(
+            maxLines: null,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(5),
+              hintText:
+                  '${S.current.comment} ${S.current.here.toLowerCase()}...',
+              hintMaxLines: 1,
+              hintStyle: const TextStyle(overflow: defaultTextOverflow),
+            ),
+            textInputAction: TextInputAction.send,
           ),
-          textInputAction: TextInputAction.send,
         ),
         IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.send,
-              color: primaryColor,
-            ))
+          onPressed: () {},
+          icon: const Icon(
+            Icons.send,
+            color: primaryColor,
+          ),
+        )
       ],
     );
   }
