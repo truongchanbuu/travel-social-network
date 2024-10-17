@@ -63,8 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(name) => "Thumb for ${name}";
 
-  static String m18(value) =>
-      "${Intl.plural(value, zero: '0 review', one: '1 review', other: '${value} reviews')}";
+  static String m18(value, formattedValue) =>
+      "${Intl.plural(value, zero: '0 review', one: '1 review', other: '${formattedValue} reviews')}";
 
   static String m19(start, end) =>
       "Your trip will start at: ${start} and accomplish at: ${end}";
@@ -109,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cannotBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Cannot be Rescheduled"),
+        "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "classificationDisappointing":
             MessageLookupByLibrary.simpleMessage("Disappointing"),
         "classificationError":
@@ -238,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
         "lengthLimitError": m10,
+        "like": MessageLookupByLibrary.simpleMessage("Like"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "loadingImageText": m11,
@@ -312,6 +314,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Refund & Reschedule"),
         "refundPolicy": MessageLookupByLibrary.simpleMessage("Refund Policy"),
         "refundable": MessageLookupByLibrary.simpleMessage("Can be refund"),
+        "reply": MessageLookupByLibrary.simpleMessage("Reply"),
         "reschedule": MessageLookupByLibrary.simpleMessage("reschedule"),
         "reschedulePolicy":
             MessageLookupByLibrary.simpleMessage("Reschedule Policy"),

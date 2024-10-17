@@ -16,6 +16,7 @@ class CommentInput extends StatefulWidget {
 class _CommentInputState extends State<CommentInput> {
   static const String userId = 'TCB';
   late final TextEditingController _commentController;
+  String? _content;
 
   @override
   void initState() {
@@ -26,39 +27,54 @@ class _CommentInputState extends State<CommentInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(
-          child: TextFormField(
-            controller: _commentController,
-            maxLines: null,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(5),
-              hintText:
-                  '${S.current.comment} ${S.current.here.toLowerCase()}...',
-              hintMaxLines: 1,
-              hintStyle: const TextStyle(overflow: defaultTextOverflow),
-              border: const OutlineInputBorder(borderSide: BorderSide.none),
+    return BlocListener<CommentBloc, CommentState>(
+      listener: (context, state) {
+        if (state is CommentActionSucceed) {
+          _commentController.clear();
+          setState(() {
+            _content = _commentController.text;
+          });
+          context.read<CommentBloc>().add(GetPostCommentsEvent(widget.postId));
+        }
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: TextFormField(
+              onFieldSubmitted: (value) => _onComment(context),
+              controller: _commentController,
+              maxLines: null,
+              onChanged: (value) => setState(() => _content = value),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(5),
+                hintText:
+                    '${S.current.comment} ${S.current.here.toLowerCase()}...',
+                hintMaxLines: 1,
+                hintStyle: const TextStyle(overflow: defaultTextOverflow),
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+              ),
+              textInputAction: TextInputAction.send,
             ),
-            textInputAction: TextInputAction.send,
           ),
-        ),
-        IconButton(
-          onPressed: () => _onComment(context),
-          icon: const Icon(
-            Icons.send,
-            color: primaryColor,
-          ),
-        )
-      ],
+          IconButton(
+            onPressed: _content?.isNotEmpty ?? false
+                ? () => _onComment(context)
+                : null,
+            icon: Icon(
+              Icons.send,
+              color: _content?.isNotEmpty ?? false ? primaryColor : Colors.grey,
+            ),
+          )
+        ],
+      ),
     );
   }
 
   void _onComment(BuildContext context) {
     context.read<CommentBloc>().add(CreateCommentEvent(
           userId: userId,
-          content: _commentController.text,
+          content: _content!,
           postId: widget.postId,
         ));
   }

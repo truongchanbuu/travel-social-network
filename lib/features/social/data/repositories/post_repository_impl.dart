@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/post.dart';
 import '../../domain/repositories/post_repository.dart';
 import '../models/post.dart';
 
@@ -25,7 +26,9 @@ class PostRepositoryImpl implements PostRepository {
   Future<DataState<List<Post>>> getPosts() async {
     try {
       List<Post> posts = [];
-      final docRef = await postCollection.get();
+      final docRef = await postCollection
+          .orderBy(PostEntity.createdAtFieldName, descending: true)
+          .get();
       final docSnaps = docRef.docs;
 
       for (var doc in docSnaps) {

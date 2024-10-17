@@ -3,6 +3,9 @@
     "ofWord": "of",
     "and": "and",
     "here": "Here",
+    "like": "Like",
+    "reply": "Reply",
+    "chat": "Chat",
     "success": "Success",
     "next": "Next",
     "submit": "Submit",
@@ -198,12 +201,14 @@
         "description": "Singular form of a transportation"
     },
     "additionalInformation": "Additional Information",
-    "totalReviews": "{value, plural, =0{0 review} =1{1 review} other{{value} reviews}}",
+    "totalReviews": "{value, plural, =0{0 review} =1{1 review} other{{formattedValue} reviews}}",
     "@totalReviews": {
         "placeholders": {
             "value": {
-                "type": "int",
-                "format": "compact"
+                "type": "int"
+            },
+            "formattedValue": {
+                "type": "String"
             }
         }
     },

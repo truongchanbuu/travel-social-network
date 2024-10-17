@@ -34,3 +34,19 @@ final class ListOfCommentsReceived extends CommentState {
   @override
   List<Object?> get props => [comments];
 }
+
+final class CommentDeleted extends CommentState {
+  final CommentEntity comment;
+  const CommentDeleted(this.comment);
+
+  @override
+  List<Object?> get props => [comment];
+}
+
+final class ListOfRepliesReceived extends CommentState {
+  final List<CommentEntity> replies;
+  const ListOfRepliesReceived(this.replies);
+
+  @override
+  List<Object?> get props => [replies];
+}

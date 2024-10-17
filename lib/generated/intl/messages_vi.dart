@@ -57,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(name) => "Ảnh bìa của ${name}";
 
-  static String m18(value) => "${value} đánh giá";
+  static String m18(value, formattedValue) => "${value} đánh giá";
 
   static String m19(start, end) =>
       "Chuyến đi của bạn sẽ khởi hành vào lúc: ${start} kết thúc vào: ${end}";
@@ -99,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),
         "cannotBeRescheduled":
             MessageLookupByLibrary.simpleMessage("Không thể dời lịch"),
+        "chat": MessageLookupByLibrary.simpleMessage("Nhắn tin"),
         "classificationDisappointing":
             MessageLookupByLibrary.simpleMessage("Thất vọng"),
         "classificationError":
@@ -229,6 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "leave": MessageLookupByLibrary.simpleMessage("Rời đi"),
         "lengthLimitError": m10,
+        "like": MessageLookupByLibrary.simpleMessage("Thích"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Liên kết email"),
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
         "loadingImageText": m11,
@@ -303,6 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "refundPolicy":
             MessageLookupByLibrary.simpleMessage("Chính sách hoàn tiền"),
         "refundable": MessageLookupByLibrary.simpleMessage("Có thể hoàn tiền"),
+        "reply": MessageLookupByLibrary.simpleMessage("Phản hồi"),
         "reschedule": MessageLookupByLibrary.simpleMessage("dời lịch"),
         "reschedulePolicy":
             MessageLookupByLibrary.simpleMessage("Chính sách dời vé"),

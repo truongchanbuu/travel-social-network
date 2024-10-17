@@ -44,6 +44,7 @@ class SocialNetworkPage extends StatelessWidget {
                 posts: state is ListOfPostReceived ? state.posts : [],
               );
             },
+            buildWhen: (previous, current) => current is ListOfPostReceived,
           ),
         ],
       ),

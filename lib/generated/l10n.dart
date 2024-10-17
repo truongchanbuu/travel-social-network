@@ -80,6 +80,36 @@ class S {
     );
   }
 
+  /// `Like`
+  String get like {
+    return Intl.message(
+      'Like',
+      name: 'like',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reply`
+  String get reply {
+    return Intl.message(
+      'Reply',
+      name: 'reply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat`
+  String get chat {
+    return Intl.message(
+      'Chat',
+      name: 'chat',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Success`
   String get success {
     return Intl.message(
@@ -1294,16 +1324,16 @@ class S {
     );
   }
 
-  /// `{value, plural, =0{0 review} =1{1 review} other{{value} reviews}}`
-  String totalReviews(int value) {
+  /// `{value, plural, =0{0 review} =1{1 review} other{{formattedValue} reviews}}`
+  String totalReviews(int value, String formattedValue) {
     return Intl.plural(
       value,
       zero: '0 review',
       one: '1 review',
-      other: '$value reviews',
+      other: '$formattedValue reviews',
       name: 'totalReviews',
       desc: '',
-      args: [value],
+      args: [value, formattedValue],
     );
   }
 

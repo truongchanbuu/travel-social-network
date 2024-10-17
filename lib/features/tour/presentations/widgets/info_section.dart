@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
@@ -96,12 +97,15 @@ class InfoSection extends StatelessWidget {
             const SizedBox(width: 10),
             BlocBuilder<ReviewBloc, ReviewState>(
               builder: (context, reviewState) {
-                int reviews = reviewState is ListOfReviewsLoaded
+                int numOfReviews = reviewState is ListOfReviewsLoaded
                     ? reviewState.reviews.length
                     : 0;
 
                 return Text(
-                  S.current.totalReviews(reviews),
+                  S.current.totalReviews(
+                    numOfReviews,
+                    NumberFormat.compact().format(numOfReviews),
+                  ),
                   style: const TextStyle(
                     color: reviewNumberTextColor,
                     fontSize: 12,

@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/confirm_deletion_dialog.dart';
+import '../../../shared/presentations/widgets/custom_popup_menu.dart';
 import '../../../shared/presentations/widgets/limit_image_gridview.dart';
 import '../../domain/entities/post.dart';
-import 'post_item_footer.dart';
-import 'post_popup_menu.dart';
+import '../bloc/post_bloc.dart';
+import 'post_footer.dart';
 
 class PostItem extends StatelessWidget {
   final PostEntity post;
   const PostItem({super.key, required this.post});
 
-  static const userId = 'TCB';
+  static const String userId = 'TCB';
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildPostHeader(),
+        _buildPostHeader(context),
         _buildContent(context),
-        PostItemFooter(post: post),
+        PostFooter(post: post),
       ],
     );
   }
 
-  Widget _buildPostHeader() {
+  Widget _buildPostHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -63,7 +66,10 @@ class PostItem extends StatelessWidget {
             ),
           ],
         ),
-        if (userId == post.userId) PostPopupMenu(postId: post.postId),
+        CustomPopupMenu(
+          hasPrivilege: userId == post.userId,
+          onDelete: () => _deletePost(context),
+        ),
       ],
     );
   }
@@ -99,5 +105,18 @@ class PostItem extends StatelessWidget {
       padding: const EdgeInsets.only(top: 5, bottom: 10),
       child: LimitImageGridView(images: post.images),
     );
+  }
+
+  void _deletePost(BuildContext context) async {
+    final postBloc = context.read<PostBloc>();
+    var confirmed = await confirmDeletion(
+      context,
+      confirmTitle: S.current.deleteConfirmTitle,
+      confirmMessage: S.current.deleteConfirmText,
+    );
+
+    if (confirmed) {
+      postBloc.add(DeletePostById(post.postId));
+    }
   }
 }

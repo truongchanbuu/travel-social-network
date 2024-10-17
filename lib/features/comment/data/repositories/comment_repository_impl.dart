@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/resources/data_state.dart';
+import '../../../../generated/l10n.dart';
 import '../../domain/entities/comment.dart';
 import '../../domain/repositories/comment_repository.dart';
 import '../models/comment.dart';
@@ -22,10 +23,17 @@ class CommentRepositoryImpl implements CommentRepository {
   }
 
   @override
-  Future<DataState<void>> deleteComment(String commentId) async {
+  Future<DataState<Comment>> deleteComment(String commentId) async {
     try {
-      await commentCollection.doc(commentId).delete();
-      return const DataSuccess();
+      final docRef = commentCollection.doc(commentId);
+      final docSnap = await docRef.get();
+
+      if (!docSnap.exists) {
+        return defaultDataFailure(S.current.notFound);
+      }
+
+      await docRef.delete();
+      return DataSuccess(data: Comment.fromJson(docSnap.data()!));
     } on FirebaseException catch (error) {
       return handleFirebaseException(error);
     } catch (error) {
@@ -34,12 +42,14 @@ class CommentRepositoryImpl implements CommentRepository {
   }
 
   @override
-  Future<DataState<List<Comment>>> getPostComments(String postId) async {
+  Future<DataState<List<Comment>>> getPostRootComments(String postId) async {
     try {
       List<Comment> comments = [];
 
       final docSnaps = await commentCollection
           .where(CommentEntity.postIdFieldName, isEqualTo: postId)
+          .where(CommentEntity.parentCommentIdFieldName, isNull: true)
+          .orderBy(CommentEntity.createdAtFieldName, descending: true)
           .get();
 
       for (var doc in docSnaps.docs) {
@@ -56,8 +66,47 @@ class CommentRepositoryImpl implements CommentRepository {
   }
 
   @override
-  Future<DataState<Comment>> updateComment(String commentId) {
-    // TODO: implement updateComment
-    throw UnimplementedError();
+  Future<DataState<Comment>> updateComment(
+      String commentId, Map<String, dynamic> data) async {
+    try {
+      final docRef = commentCollection.doc(commentId);
+      final docSnap = await docRef.get();
+
+      if (!docSnap.exists) {
+        return defaultDataFailure(S.current.notFound);
+      }
+
+      await docRef.update(data);
+      return DataSuccess(data: Comment.fromJson(docSnap.data()!));
+    } on FirebaseException catch (error) {
+      return handleFirebaseException(error);
+    } catch (error) {
+      return defaultDataFailure(error.toString());
+    }
+  }
+
+  @override
+  Future<DataState<List<Comment>>> getReplies(String commentId,
+      {int limit = 5}) async {
+    try {
+      List<Comment> comments = [];
+
+      final docSnaps = await commentCollection
+          .where(CommentEntity.parentCommentIdFieldName, isEqualTo: commentId)
+          .orderBy(CommentEntity.createdAtFieldName, descending: true)
+          .limit(limit)
+          .get();
+
+      for (var doc in docSnaps.docs) {
+        final comment = Comment.fromJson(doc.data());
+        comments.add(comment);
+      }
+
+      return DataSuccess(data: comments);
+    } on FirebaseException catch (error) {
+      return handleFirebaseException(error);
+    } catch (error) {
+      return defaultDataFailure(error.toString());
+    }
   }
 }

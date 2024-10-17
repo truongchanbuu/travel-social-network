@@ -133,6 +133,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(PostActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(PostActionSucceed(dataState.data!));
       }
     } catch (e) {
       log(e.toString());

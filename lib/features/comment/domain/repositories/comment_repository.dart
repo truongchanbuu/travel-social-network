@@ -3,7 +3,9 @@ import '../../data/models/comment.dart';
 
 abstract interface class CommentRepository {
   Future<DataState<Comment>> createComment(Comment comment);
-  Future<DataState<void>> deleteComment(String commentId);
-  Future<DataState<List<Comment>>> getPostComments(String postId);
-  Future<DataState<Comment>> updateComment(String commentId);
+  Future<DataState<Comment>> deleteComment(String commentId);
+  Future<DataState<List<Comment>>> getPostRootComments(String postId);
+  Future<DataState<List<Comment>>> getReplies(String commentId);
+  Future<DataState<Comment>> updateComment(
+      String commentId, Map<String, dynamic> data);
 }

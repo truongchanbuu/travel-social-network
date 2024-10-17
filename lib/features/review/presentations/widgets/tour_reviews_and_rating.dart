@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
@@ -78,7 +79,8 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
                   ),
                 ),
                 Text(
-                  S.current.totalReviews(reviews.length),
+                  S.current.totalReviews(reviews.length,
+                      NumberFormat.compact().format(reviews.length)),
                   style: const TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,

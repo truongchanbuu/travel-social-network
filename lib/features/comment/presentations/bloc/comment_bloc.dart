@@ -19,6 +19,9 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
   CommentBloc(this.commentRepository) : super(CommentInitial()) {
     on<CreateCommentEvent>(_onCreateComment);
     on<GetPostCommentsEvent>(_onGetPostComments);
+    on<GetRepliesEvent>(_onGetReplies);
+    on<DeleteCommentEvent>(_onDeleteComment);
+    on<UpdateCommentEvent>(_onUpdateComment);
   }
 
   Future<void> _onCreateComment(
@@ -39,7 +42,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         log('Create Comment Failed: ${dataState.error?.message ?? dataState.error}');
         emit(CommentActionFailed(S.current.dataStateFailure));
       } else {
-        emit(CommentActionSucceed(dataState.data!));
+        emit(CommentActionSucceed(dataState.data!.toEntity()));
       }
     } catch (error) {
       log('Create Comment Failed: $error');
@@ -50,13 +53,69 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
   Future<void> _onGetPostComments(
       GetPostCommentsEvent event, Emitter<CommentState> emit) async {
     try {
-      final dataState = await commentRepository.getPostComments(event.postId);
+      final dataState =
+          await commentRepository.getPostRootComments(event.postId);
 
       if (dataState is DataFailure) {
-        log('Create Comment Failed: ${dataState.error?.message ?? dataState.error}');
+        log('Get Comments Failed: ${dataState.error?.message ?? dataState.error}');
         emit(CommentActionFailed(S.current.dataStateFailure));
       } else {
         emit(ListOfCommentsReceived(
+          dataState.data?.map((comment) => comment.toEntity()).toList() ?? [],
+        ));
+      }
+    } catch (error) {
+      log('Get Comments Failed: $error');
+      emit(CommentActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onDeleteComment(
+      DeleteCommentEvent event, Emitter<CommentState> emit) async {
+    try {
+      final dataState = await commentRepository.deleteComment(event.commentId);
+
+      if (dataState is DataFailure) {
+        log('Delete Comment Failed: ${dataState.error?.message ?? dataState.error}');
+        emit(CommentActionFailed(S.current.dataStateFailure));
+      } else {
+        emit((CommentDeleted(dataState.data!)));
+      }
+    } catch (error) {
+      log('Delete Comment Failed: $error');
+      emit(CommentActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onUpdateComment(
+      UpdateCommentEvent event, Emitter<CommentState> emit) async {
+    try {
+      final dataState =
+          await commentRepository.updateComment(event.commentId, event.data);
+
+      if (dataState is DataFailure) {
+        log('Update Comment Failed: ${dataState.error?.message ?? dataState.error}');
+        emit(CommentActionFailed(S.current.dataStateFailure));
+      } else {
+        emit((CommentDeleted(dataState.data!)));
+      }
+    } catch (error) {
+      log('Update Comment Failed: $error');
+      emit(CommentActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onGetReplies(
+      GetRepliesEvent event, Emitter<CommentState> emit) async {
+    try {
+      final dataState =
+          await commentRepository.getReplies(event.parentCommentId);
+
+      if (dataState is DataFailure) {
+        log('Get Comments Failed: ${dataState.error?.message ?? dataState.error}');
+        emit(CommentActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(ListOfRepliesReceived(
           dataState.data?.map((comment) => comment.toEntity()).toList() ?? [],
         ));
       }
