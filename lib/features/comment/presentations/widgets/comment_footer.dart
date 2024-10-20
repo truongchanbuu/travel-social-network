@@ -74,6 +74,10 @@ class _CommentFooterState extends State<CommentFooter> {
   }
 
   void _onReply() {
-    context.read<CommentBloc>().add(InitializeReplyEvent());
+    context.read<CommentBloc>().add(InitializeReplyEvent(
+          parentCommentId: widget.comment.commentId,
+          postId: widget.comment.postId,
+          userId: userId,
+        ));
   }
 }

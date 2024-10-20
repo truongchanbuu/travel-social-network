@@ -86,15 +86,13 @@ class CommentRepositoryImpl implements CommentRepository {
   }
 
   @override
-  Future<DataState<List<Comment>>> getReplies(String commentId,
-      {int limit = 5}) async {
+  Future<DataState<List<Comment>>> getReplies(String commentId) async {
     try {
       List<Comment> comments = [];
 
       final docSnaps = await commentCollection
           .where(CommentEntity.parentCommentIdFieldName, isEqualTo: commentId)
           .orderBy(CommentEntity.createdAtFieldName, descending: true)
-          .limit(limit)
           .get();
 
       for (var doc in docSnaps.docs) {

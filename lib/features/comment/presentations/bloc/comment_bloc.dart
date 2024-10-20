@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel_social_network/cores/resources/data_state.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/comment.dart';
 import '../../domain/entities/comment.dart';
@@ -22,6 +22,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     on<GetRepliesEvent>(_onGetReplies);
     on<DeleteCommentEvent>(_onDeleteComment);
     on<UpdateCommentEvent>(_onUpdateComment);
+    on<InitializeReplyEvent>(_onInitializeReply);
   }
 
   Future<void> _onCreateComment(
@@ -97,7 +98,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         log('Update Comment Failed: ${dataState.error?.message ?? dataState.error}');
         emit(CommentActionFailed(S.current.dataStateFailure));
       } else {
-        emit((CommentDeleted(dataState.data!)));
+        emit((CommentActionSucceed(dataState.data!)));
       }
     } catch (error) {
       log('Update Comment Failed: $error');
@@ -123,5 +124,18 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       log('Get Comments Failed: $error');
       emit(CommentActionFailed(S.current.dataStateFailure));
     }
+  }
+
+  void _onInitializeReply(
+      InitializeReplyEvent event, Emitter<CommentState> emit) {
+    emit(ReplyInitialized(CommentEntity(
+      commentId: 'CMT-${const Uuid().v4()}',
+      content: '@${event.userId} ',
+      createdAt: DateTime.now(),
+      likedUsers: const [],
+      postId: event.postId,
+      parentCommentId: event.parentCommentId,
+      userId: event.userId,
+    )));
   }
 }

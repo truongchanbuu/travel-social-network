@@ -48,7 +48,20 @@ final class UpdateCommentEvent extends CommentEvent {
   List<Object?> get props => [commentId, data];
 }
 
-final class InitializeReplyEvent extends CommentEvent {}
+final class InitializeReplyEvent extends CommentEvent {
+  final String parentCommentId;
+  final String postId;
+  final String userId;
+
+  const InitializeReplyEvent({
+    required this.parentCommentId,
+    required this.postId,
+    required this.userId,
+  });
+
+  @override
+  List<Object?> get props => [parentCommentId, postId, userId];
+}
 
 final class GetRepliesEvent extends CommentEvent {
   final String parentCommentId;
