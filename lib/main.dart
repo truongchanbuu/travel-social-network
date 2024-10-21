@@ -8,6 +8,7 @@ import './config/themes/app_theme.dart';
 import './cores/constants/constants.dart';
 import './firebase_options.dart';
 import './injection_container.dart';
+import 'features/comment/presentations/bloc/comment_bloc.dart';
 import 'features/social/presentations/bloc/post_bloc.dart';
 import 'features/social/presentations/pages/social_network_page.dart';
 import 'features/tour/presentations/bloc/tour_bloc.dart';
@@ -59,10 +60,12 @@ class MyApp extends StatelessWidget {
                 //   BlocProvider(create: (context) => getIt.get<TourBloc>())
                 // ], child: SaveTourPage())
                 // HomePage(),
-                BlocProvider(
-                    create: (context) =>
-                        getIt.get<PostBloc>()..add(GetPostsEvent()),
-                    child: const SocialNetworkPage()),
+                MultiBlocProvider(providers: [
+              BlocProvider(
+                  create: (context) =>
+                      getIt.get<PostBloc>()..add(GetPostsEvent())),
+              BlocProvider(create: (context) => getIt.get<CommentBloc>()),
+            ], child: const SocialNetworkPage()),
             //     BlocProvider(
             //   create: (context) => getIt.get<ReviewBloc>(),
             //   child: CreateReviewPage(),

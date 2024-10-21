@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../generated/l10n.dart';
+import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
 import 'post_footer_actions.dart';
@@ -34,13 +36,18 @@ class PostFooter extends StatelessWidget {
                   return current is PostActionSucceed && current.post != post;
                 },
               ),
-              const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('200k'),
-                  SizedBox(width: 5),
-                  Text('300k'),
-                ],
+              BlocBuilder<CommentBloc, CommentState>(
+                builder: (context, state) {
+                  print(state);
+                  return Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('200k ${S.current.comment}'),
+                      const SizedBox(width: 5),
+                      const Text('300k'),
+                    ],
+                  );
+                },
               )
             ],
           ),

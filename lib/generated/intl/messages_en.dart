@@ -126,7 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "classificationWonderful":
             MessageLookupByLibrary.simpleMessage("Wonderful"),
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
-        "comment": MessageLookupByLibrary.simpleMessage("Comment"),
+        "comment": MessageLookupByLibrary.simpleMessage("Comments"),
         "contactServiceProvider":
             MessageLookupByLibrary.simpleMessage("Contact service provider"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Continue"),

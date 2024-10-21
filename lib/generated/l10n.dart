@@ -290,10 +290,10 @@ class S {
     );
   }
 
-  /// `Comment`
+  /// `Comments`
   String get comment {
     return Intl.message(
-      'Comment',
+      'Comments',
       name: 'comment',
       desc: '',
       args: [],
