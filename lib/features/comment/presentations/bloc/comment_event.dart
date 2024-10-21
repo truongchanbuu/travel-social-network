@@ -70,3 +70,11 @@ final class GetRepliesEvent extends CommentEvent {
   @override
   List<Object?> get props => [parentCommentId];
 }
+
+final class CreateReplyEvent extends CommentEvent {
+  final CommentEntity comment;
+  const CreateReplyEvent(this.comment);
+
+  @override
+  List<Object?> get props => [comment];
+}

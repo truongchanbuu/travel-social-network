@@ -23,6 +23,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     on<DeleteCommentEvent>(_onDeleteComment);
     on<UpdateCommentEvent>(_onUpdateComment);
     on<InitializeReplyEvent>(_onInitializeReply);
+    on<CreateReplyEvent>(_onReply);
   }
 
   Future<void> _onCreateComment(
@@ -130,6 +131,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       InitializeReplyEvent event, Emitter<CommentState> emit) {
     emit(ReplyInitialized(CommentEntity(
       commentId: 'CMT-${const Uuid().v4()}',
+      // TODO: CHANGE TO FETCH PARENT COMMENT USERNAME
       content: '@${event.userId} ',
       createdAt: DateTime.now(),
       likedUsers: const [],
@@ -137,5 +139,25 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       parentCommentId: event.parentCommentId,
       userId: event.userId,
     )));
+  }
+
+  Future<void> _onReply(
+      CreateReplyEvent event, Emitter<CommentState> emit) async {
+    if (state is ReplyInitialized) {
+      try {
+        final dataState = await commentRepository
+            .createComment(Comment.fromEntity(event.comment));
+
+        if (dataState is DataFailure) {
+          log('Create Reply Failed: ${dataState.error?.message ?? dataState.error}');
+          emit(CommentActionFailed(S.current.dataStateFailure));
+        } else {
+          emit((CommentActionSucceed(dataState.data!)));
+        }
+      } catch (error) {
+        log('Create Reply Failed: $error');
+        emit(CommentActionFailed(S.current.dataStateFailure));
+      }
+    }
   }
 }

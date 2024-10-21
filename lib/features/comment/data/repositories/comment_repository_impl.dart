@@ -92,7 +92,7 @@ class CommentRepositoryImpl implements CommentRepository {
 
       final docSnaps = await commentCollection
           .where(CommentEntity.parentCommentIdFieldName, isEqualTo: commentId)
-          .orderBy(CommentEntity.createdAtFieldName, descending: true)
+          .orderBy(CommentEntity.createdAtFieldName)
           .get();
 
       for (var doc in docSnaps.docs) {

@@ -77,13 +77,12 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
 
   Widget _buildComments(List<CommentEntity> comments) {
     return Expanded(
-      child: ListView.separated(
+      child: ListView.builder(
         itemBuilder: (context, index) => CommentWithReplies(
           key: ValueKey(comments[index].commentId),
           parentComment: comments[index],
         ),
         itemCount: comments.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 10),
       ),
     );
   }

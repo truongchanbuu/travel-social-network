@@ -21,6 +21,28 @@ class CommentEntity extends Equatable {
     this.parentCommentId,
   });
 
+  CommentEntity copyWith({
+    String? commentId,
+    String? content,
+    List<String>? likedUsers,
+    String? userId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? postId,
+    String? parentCommentId,
+  }) {
+    return CommentEntity(
+      commentId: commentId ?? this.commentId,
+      content: content ?? this.content,
+      likedUsers: likedUsers ?? this.likedUsers,
+      userId: userId ?? this.userId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      postId: postId ?? this.postId,
+      parentCommentId: parentCommentId ?? this.parentCommentId,
+    );
+  }
+
   @override
   List<Object?> get props => [
         commentId,

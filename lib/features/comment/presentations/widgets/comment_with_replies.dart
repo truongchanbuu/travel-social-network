@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/comment.dart';
 import '../bloc/comment_bloc.dart';
-import 'comment_input.dart';
 import 'comment_item.dart';
 import 'reply_input.dart';
 
@@ -47,6 +46,11 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
                   widget.parentComment.commentId;
         }
 
+        if (current is ReplyAdded) {
+          _cachedReplies = _cachedReplies..add(current.comment);
+          return true;
+        }
+
         return current is CommentActionLoading;
       },
       builder: (context, state) {
@@ -67,7 +71,7 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
                   ),
                 ),
               Padding(
-                padding: const EdgeInsets.only(left: 100),
+                padding: const EdgeInsets.only(left: 100, bottom: 10),
                 child: _buildExpandButton(),
               ),
             ],

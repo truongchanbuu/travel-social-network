@@ -16,7 +16,7 @@ class CommentFooter extends StatefulWidget {
 }
 
 class _CommentFooterState extends State<CommentFooter> {
-  String userId = 'TCB';
+  String userId = 'TCBs';
   bool _isLiked = false;
 
   @override
@@ -75,7 +75,8 @@ class _CommentFooterState extends State<CommentFooter> {
 
   void _onReply() {
     context.read<CommentBloc>().add(InitializeReplyEvent(
-          parentCommentId: widget.comment.commentId,
+          parentCommentId:
+              widget.comment.parentCommentId ?? widget.comment.commentId,
           postId: widget.comment.postId,
           userId: userId,
         ));
