@@ -49,6 +49,7 @@ final class UpdateCommentEvent extends CommentEvent {
 }
 
 final class InitializeReplyEvent extends CommentEvent {
+  final String commentOwner;
   final String parentCommentId;
   final String postId;
   final String userId;
@@ -57,10 +58,11 @@ final class InitializeReplyEvent extends CommentEvent {
     required this.parentCommentId,
     required this.postId,
     required this.userId,
+    required this.commentOwner,
   });
 
   @override
-  List<Object?> get props => [parentCommentId, postId, userId];
+  List<Object?> get props => [parentCommentId, postId, userId, commentOwner];
 }
 
 final class GetRepliesEvent extends CommentEvent {

@@ -47,8 +47,9 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
         }
 
         if (current is ReplyAdded) {
-          _cachedReplies = _cachedReplies..add(current.comment);
-          return true;
+          return current.reply.parentCommentId ==
+                  widget.parentComment.commentId &&
+              previous is! ReplyAdded;
         }
 
         return current is CommentActionLoading;
@@ -56,6 +57,8 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
       builder: (context, state) {
         if (state is ListOfRepliesReceived) {
           _cachedReplies = state.replies;
+        } else if (state is ReplyAdded) {
+          _reloadCachedReplies(state);
         }
 
         return Column(
@@ -107,5 +110,13 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
 
   Widget _buildReplyInput(CommentEntity comment) {
     return ReplyInput(comment: comment);
+  }
+
+  void _reloadCachedReplies(ReplyAdded state) {
+    final replyExists =
+        _cachedReplies.any((reply) => reply.commentId == state.reply.commentId);
+    if (!replyExists) {
+      _cachedReplies = [..._cachedReplies, state.reply];
+    }
   }
 }

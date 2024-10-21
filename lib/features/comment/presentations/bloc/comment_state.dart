@@ -60,9 +60,9 @@ final class ReplyInitialized extends CommentState {
 }
 
 final class ReplyAdded extends CommentState {
-  final CommentEntity comment;
-  const ReplyAdded(this.comment);
+  final CommentEntity reply;
+  const ReplyAdded(this.reply);
 
   @override
-  List<Object?> get props => [comment];
+  List<Object?> get props => [reply];
 }

@@ -79,6 +79,7 @@ class _CommentFooterState extends State<CommentFooter> {
               widget.comment.parentCommentId ?? widget.comment.commentId,
           postId: widget.comment.postId,
           userId: userId,
+          commentOwner: widget.comment.userId,
         ));
   }
 }

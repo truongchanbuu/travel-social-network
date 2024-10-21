@@ -131,8 +131,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
       InitializeReplyEvent event, Emitter<CommentState> emit) {
     emit(ReplyInitialized(CommentEntity(
       commentId: 'CMT-${const Uuid().v4()}',
-      // TODO: CHANGE TO FETCH PARENT COMMENT USERNAME
-      content: '@${event.userId} ',
+      content: '@${event.commentOwner} ',
       createdAt: DateTime.now(),
       likedUsers: const [],
       postId: event.postId,
@@ -152,7 +151,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
           log('Create Reply Failed: ${dataState.error?.message ?? dataState.error}');
           emit(CommentActionFailed(S.current.dataStateFailure));
         } else {
-          emit((CommentActionSucceed(dataState.data!)));
+          emit((ReplyAdded(dataState.data!)));
         }
       } catch (error) {
         log('Create Reply Failed: $error');

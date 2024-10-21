@@ -47,6 +47,8 @@ class _CommentInputState extends State<CommentInput> {
               maxLines: null,
               onChanged: (value) => setState(() => _content = value),
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
                 contentPadding: const EdgeInsets.all(10),
                 hintText:
                     '${S.current.comment} ${S.current.here.toLowerCase()}...',

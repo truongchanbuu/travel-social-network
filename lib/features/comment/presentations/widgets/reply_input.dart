@@ -45,6 +45,7 @@ class _ReplyInputState extends State<ReplyInput> {
         maxLines: null,
         textDirection: defaultTextDirection,
         style: const TextStyle(fontSize: 14),
+        textInputAction: TextInputAction.send,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
@@ -73,7 +74,7 @@ class _ReplyInputState extends State<ReplyInput> {
   }
 
   bool get _isAllowed =>
-      _controller.text.isNotEmpty &&
-      _controller.text.split(' ').length == 2 &&
-      _controller.text.split(' ').last.isNotEmpty;
+      _controller.text.trim().isNotEmpty &&
+      _controller.text.trim().split(' ').length >= 2 &&
+      _controller.text.trim().split(' ').last.isNotEmpty;
 }
