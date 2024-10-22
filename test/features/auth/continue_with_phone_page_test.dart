@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:travel_social_network/features/auth/presentation/pages/continue_with_phone_page.dart';
+import 'package:travel_social_network/features/auth/presentations/pages/continue_with_phone_page.dart';
 
 void main() {
   testWidgets(
