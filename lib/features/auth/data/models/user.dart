@@ -7,27 +7,27 @@ part 'user.g.dart';
 @JsonSerializable()
 class UserModel extends UserEntity {
   const UserModel({
-    required super.email,
+    required super.id,
+    super.email,
     super.username,
-    super.dateOfBirth,
     super.avatarUrl,
   });
 
   UserEntity toEntity() {
     return UserEntity(
+      id: id,
       email: email,
       username: username,
       avatarUrl: avatarUrl,
-      dateOfBirth: dateOfBirth,
     );
   }
 
   factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
+      id: entity.id,
       email: entity.email,
       username: entity.username,
       avatarUrl: entity.avatarUrl,
-      dateOfBirth: entity.dateOfBirth,
     );
   }
 
@@ -35,13 +35,12 @@ class UserModel extends UserEntity {
     String? id,
     String? email,
     String? username,
-    DateTime? dateOfBirth,
     String? avatarUrl,
   }) {
     return UserModel(
+      id: id ?? this.id,
       email: email ?? this.email,
       username: username ?? this.username,
-      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       avatarUrl: avatarUrl ?? this.avatarUrl,
     );
   }
