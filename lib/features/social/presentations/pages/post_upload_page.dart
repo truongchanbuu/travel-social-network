@@ -9,10 +9,12 @@ import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
 import '../widgets/post_upload_toolbar.dart';
+import '../widgets/share_post_widget.dart';
 import '../widgets/uploaded_image_section.dart';
 
 class PostUploadPage extends StatefulWidget {
-  const PostUploadPage({super.key});
+  final PostEntity? sharedPost;
+  const PostUploadPage({super.key, this.sharedPost});
 
   @override
   State<PostUploadPage> createState() => _PostUploadPageState();
@@ -102,7 +104,9 @@ class _PostUploadPageState extends State<PostUploadPage> {
             keyboardType: TextInputType.multiline,
             textInputAction: TextInputAction.send,
             decoration: InputDecoration(
-              hintText: S.current.howYourFeeling,
+              hintText: widget.sharedPost != null
+                  ? S.current.whatYouThinkAboutThisPost
+                  : S.current.howYourFeeling,
               hintStyle: const TextStyle(
                 color: Colors.grey,
                 fontSize: 18,
@@ -117,6 +121,8 @@ class _PostUploadPageState extends State<PostUploadPage> {
           ),
           if (state is ContentUpdated && state.images.isNotEmpty)
             UploadedImageSection(images: state.images),
+          if (widget.sharedPost != null)
+            SharePostWidget(post: widget.sharedPost!),
         ],
       ),
     );

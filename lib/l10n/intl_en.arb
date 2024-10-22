@@ -375,6 +375,6 @@
     "unsupportedImageFormat": "Unsupported image format",
     "fetchDataFailure": "Failed to fetch image from URL",
     "howYourFeeling": "How are you feeling today?",
-    "createPost": "Create Post"
-
+    "createPost": "Create Post",
+    "whatYouThinkAboutThisPost": "What do you think about this post?"
 }

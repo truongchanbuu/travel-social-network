@@ -2429,6 +2429,16 @@ class S {
       args: [],
     );
   }
+
+  /// `What do you think about this post?`
+  String get whatYouThinkAboutThisPost {
+    return Intl.message(
+      'What do you think about this post?',
+      name: 'whatYouThinkAboutThisPost',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

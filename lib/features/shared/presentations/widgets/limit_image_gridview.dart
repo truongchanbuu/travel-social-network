@@ -8,6 +8,7 @@ import 'app_cached_image.dart';
 
 class LimitImageGridView extends StatelessWidget {
   final List<String> images;
+
   const LimitImageGridView({super.key, required this.images});
 
   @override
@@ -137,6 +138,7 @@ class LimitImageGridView extends StatelessWidget {
       onTap: () => _openFullViewPage(context, index),
       child: AppCachedImage(
         cacheKey: '${index}_${images[index]}',
+        fit: BoxFit.contain,
         imageUrl: images[index],
         errorSemanticLabel: S.current.errorImage,
         loadingSemanticLabel: S.current.loading,

@@ -401,6 +401,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "week": MessageLookupByLibrary.simpleMessage("tuần"),
         "weekFormatted": m21,
         "weekUnit": MessageLookupByLibrary.simpleMessage("tuần"),
+        "whatYouThinkAboutThisPost": MessageLookupByLibrary.simpleMessage(
+            "Bạn nghĩ sao về bài post này?"),
         "year": MessageLookupByLibrary.simpleMessage("năm"),
         "yearFormatted": m22,
         "yearUnit": MessageLookupByLibrary.simpleMessage("năm")

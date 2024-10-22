@@ -2,6 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
@@ -10,6 +11,7 @@ import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../../comment/presentations/widgets/comment_bottom_sheet.dart';
 import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
+import '../pages/post_upload_page.dart';
 import 'post_footer_item.dart';
 
 class PostFooterActions extends StatefulWidget {
@@ -75,7 +77,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
               child: PostFooterItem(
                 icon: CommunityMaterialIcons.share_outline,
                 title: S.current.share,
-                onTap: _onShare,
+                onTap: () => _onShare(widget.post),
               ),
             ),
           ],
@@ -114,5 +116,14 @@ class _PostFooterActionsState extends State<PostFooterActions> {
     );
   }
 
-  void _onShare() {}
+  void _onShare(PostEntity post) {
+    Navigator.push(
+        context,
+        PageTransition(
+          child: BlocProvider(
+              create: (context) => getIt.get<PostBloc>(),
+              child: PostUploadPage(sharedPost: post)),
+          type: PageTransitionType.bottomToTop,
+        ));
+  }
 }

@@ -13,6 +13,7 @@ class AppCachedImage extends StatelessWidget {
   final double? errorImageSize;
   final double? width;
   final double? height;
+  final BoxFit? fit;
 
   const AppCachedImage({
     super.key,
@@ -24,6 +25,7 @@ class AppCachedImage extends StatelessWidget {
     this.errorImageSize,
     this.width,
     this.height,
+    this.fit,
   });
 
   @override
@@ -32,7 +34,7 @@ class AppCachedImage extends StatelessWidget {
       width: width,
       height: height,
       imageUrl: imageUrl,
-      fit: BoxFit.cover,
+      fit: fit ?? BoxFit.cover,
       alignment: Alignment.center,
       cacheKey: cacheKey,
       errorWidget: (context, error, stackTrace) =>

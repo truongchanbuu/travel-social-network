@@ -373,5 +373,6 @@
     "unsupportedImageFormat": "Định dạng này không được hỗ trợ",
     "fetchDataFailure": "Lấy dữ liệu về thất bại",
     "howYourFeeling": "Hôm nay bạn đang nghĩ gì?",
-    "createPost": "Tạo bài viết"
+    "createPost": "Tạo bài viết",
+    "whatYouThinkAboutThisPost": "Bạn nghĩ sao về bài post này?"
 }

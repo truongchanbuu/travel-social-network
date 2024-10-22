@@ -99,6 +99,7 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
         itemCount: widget.imageUrls.length,
         builder: (context, index) => PhotoViewGalleryPageOptions.customChild(
           child: AppCachedImage(
+            fit: BoxFit.contain,
             imageUrl: widget.imageUrls[index],
             cacheKey:
                 S.current.cacheKeyWithoutId(widget.imageUrls[index], index),
