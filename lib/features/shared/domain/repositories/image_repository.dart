@@ -10,4 +10,5 @@ abstract interface class ImageRepository {
   Future<DataState<String>> getImageUrl(String path);
   Future<DataState<Uint8List?>> getImage(String path);
   Future<DataState<List<ImageFile>>> getFolderImages(String folderPath);
+  Future<DataState<Uint8List>> getDataFromUrl(String url);
 }

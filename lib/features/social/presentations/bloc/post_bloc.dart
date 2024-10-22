@@ -23,6 +23,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<UpdateContentEvent>(_onContentUpdated);
     on<SavePostEvent>(_onSavePost);
     on<GetPostsEvent>(_onGetAllPosts);
+    on<GetPostByIdEvent>(_onGetPostById);
     on<DeletePostById>(_onDeletePost);
     on<UpdatePostEvent>(_onUpdatePost);
     on<LikePostEvent>(_onLikePost);
@@ -39,14 +40,23 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(PostActionLoading());
       try {
         List<String> imageUrls = [];
-        Post post = Post(
-          postId: 'POST-${const Uuid().v4()}',
-          likedUsers: const [],
-          content: content,
-          images: imageUrls,
-          userId: event.userId,
-          createdAt: DateTime.now(),
-        );
+        Post post;
+
+        if (event.post == null) {
+          post = Post(
+            postId: 'POST-${const Uuid().v4()}',
+            likedUsers: const [],
+            content: content,
+            images: imageUrls,
+            userId: event.userId,
+            createdAt: DateTime.now(),
+          );
+        } else {
+          post = Post.fromEntity(event.post!.copyWith(
+            content: content,
+            updatedAt: DateTime.now(),
+          ));
+        }
 
         for (var img in images) {
           String? imgUrl = await ImageUtils.uploadImage(
@@ -64,7 +74,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
           emit(PostActionFailed(S.current.dataStateFailure));
         } else {
-          emit(PostActionSucceed(dataState.data!));
+          emit(PostActionSucceed(dataState.data!.toEntity()));
         }
       } catch (e) {
         log(e.toString());
@@ -135,6 +145,28 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         emit(PostActionSucceed(dataState.data!));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(PostActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onGetPostById(
+      GetPostByIdEvent event, Emitter<PostState> emit) async {
+    emit(PostActionLoading());
+    try {
+      final dataState = await postRepository.getPostById(event.postId);
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PostActionFailed(S.current.dataStateFailure));
+      } else {
+        PostEntity post = dataState.data!.toEntity();
+        emit(PostReceived(post));
+
+        add(UpdateContentEvent(
+            content: post.content,
+            images: ImageUtils.converImageUrlToImageFile(post.images)));
       }
     } catch (e) {
       log(e.toString());

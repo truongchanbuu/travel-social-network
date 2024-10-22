@@ -89,7 +89,7 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
   }
 
   Widget _buildReplyItem(CommentEntity comment) {
-    return CommentItem(comment: comment);
+    return CommentItem(key: ValueKey(comment.commentId), comment: comment);
   }
 
   Widget _buildExpandButton() {

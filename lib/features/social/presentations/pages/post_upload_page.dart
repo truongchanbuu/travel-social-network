@@ -6,14 +6,34 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
+import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
 import '../widgets/post_upload_toolbar.dart';
 import '../widgets/uploaded_image_section.dart';
 
-class PostUploadPage extends StatelessWidget {
+class PostUploadPage extends StatefulWidget {
   const PostUploadPage({super.key});
 
-  static const String userId = 'TCB';
+  @override
+  State<PostUploadPage> createState() => _PostUploadPageState();
+}
+
+class _PostUploadPageState extends State<PostUploadPage> {
+  late final TextEditingController _controller;
+  PostEntity? post;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,6 +44,8 @@ class PostUploadPage extends StatelessWidget {
             Navigator.pop(context, state.post);
           } else if (state is PostActionFailed) {
             showToast(state.message, context: context);
+          } else if (state is PostReceived) {
+            post = state.post;
           }
         },
         builder: (context, state) => Scaffold(
@@ -66,10 +88,15 @@ class PostUploadPage extends StatelessWidget {
       ]);
 
   Widget _buildBody(BuildContext context, PostState state) {
+    if (state is ContentUpdated) {
+      _controller.text = state.content;
+    }
+
     return SingleChildScrollView(
       child: Column(
         children: [
           TextFormField(
+            controller: _controller,
             autofocus: true,
             maxLines: null,
             keyboardType: TextInputType.multiline,
@@ -96,6 +123,9 @@ class PostUploadPage extends StatelessWidget {
   }
 
   void _onPost(BuildContext context) {
-    context.read<PostBloc>().add(const SavePostEvent(userId));
+    context.read<PostBloc>().add(SavePostEvent(
+          userId: currentUserId,
+          post: post,
+        ));
   }
 }

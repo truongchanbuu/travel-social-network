@@ -21,7 +21,6 @@ class PostFooterActions extends StatefulWidget {
 }
 
 class _PostFooterActionsState extends State<PostFooterActions> {
-  static const userId = 'TCB';
   bool _isLiked = false;
 
   @override
@@ -32,7 +31,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
   }
 
   void _isUserLiked() {
-    _isLiked = widget.post.likedUsers.contains(userId);
+    _isLiked = widget.post.likedUsers.contains(currentUserId);
   }
 
   @override
@@ -68,7 +67,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
             Expanded(
               child: PostFooterItem(
                 icon: CommunityMaterialIcons.comment_outline,
-                title: S.current.comment,
+                title: S.current.commentLabel,
                 onTap: _onComment,
               ),
             ),
@@ -91,9 +90,9 @@ class _PostFooterActionsState extends State<PostFooterActions> {
     setState(() {
       _isLiked = !_isLiked;
       if (_isLiked) {
-        likedUsers.add(userId);
+        likedUsers.add(currentUserId);
       } else {
-        likedUsers.remove(userId);
+        likedUsers.remove(currentUserId);
       }
     });
 

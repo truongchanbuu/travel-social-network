@@ -44,7 +44,7 @@ class NoReviewsWidget extends StatelessWidget {
             TextButton(
               onPressed: () => _openCommentPage(context),
               child: Text(
-                S.current.comment,
+                S.current.commentLabel,
                 style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.bold,

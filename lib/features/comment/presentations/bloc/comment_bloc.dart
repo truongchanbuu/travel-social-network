@@ -24,6 +24,7 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
     on<UpdateCommentEvent>(_onUpdateComment);
     on<InitializeReplyEvent>(_onInitializeReply);
     on<CreateReplyEvent>(_onReply);
+    on<UpdatingCommentEvent>(_onUpdatingComment);
   }
 
   Future<void> _onCreateComment(
@@ -158,5 +159,10 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
         emit(CommentActionFailed(S.current.dataStateFailure));
       }
     }
+  }
+
+  void _onUpdatingComment(
+      UpdatingCommentEvent event, Emitter<CommentState> emit) async {
+    emit(CommentUpdating(event.comment));
   }
 }

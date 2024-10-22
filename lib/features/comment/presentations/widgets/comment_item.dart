@@ -20,7 +20,6 @@ class CommentItem extends StatefulWidget {
 }
 
 class _CommentItemState extends State<CommentItem> {
-  String userId = 'TCB';
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -69,12 +68,13 @@ class _CommentItemState extends State<CommentItem> {
                 CustomPopupMenu(
                   iconSize: 20,
                   padding: EdgeInsets.zero,
-                  hasPrivilege: userId == widget.comment.userId,
+                  hasPrivilege: currentUserId == widget.comment.userId,
                   types: const [
                     PopupMenuItemType.edit,
                     PopupMenuItemType.delete
                   ],
                   onDelete: () => _onDeleteComment(context),
+                  onEdit: () => _onEditComment(context),
                 )
               ],
             ),
@@ -140,6 +140,10 @@ class _CommentItemState extends State<CommentItem> {
     if (confirmed) {
       commentBloc.add(DeleteCommentEvent(widget.comment.commentId));
     }
+  }
+
+  void _onEditComment(BuildContext context) {
+    context.read<CommentBloc>().add(UpdatingCommentEvent(widget.comment));
   }
 
   bool get _isSomebodyLiked => widget.comment.likedUsers.isNotEmpty;

@@ -34,7 +34,7 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   border: Border(bottom: BorderSide(color: Colors.grey)),
                 ),
                 child: Text(
-                  S.current.comment,
+                  S.current.commentLabel,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

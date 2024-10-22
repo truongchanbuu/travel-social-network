@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../generated/l10n.dart';
 import '../../domain/entities/comment.dart';
 import '../bloc/comment_bloc.dart';
 
@@ -36,6 +35,7 @@ class _ReplyInputState extends State<ReplyInput> {
     return Form(
       key: _formKey,
       child: TextFormField(
+        autofocus: true,
         controller: _controller,
         onFieldSubmitted: (value) =>
             _replyComment(widget.comment, content: value),
@@ -46,12 +46,18 @@ class _ReplyInputState extends State<ReplyInput> {
         textDirection: defaultTextDirection,
         style: const TextStyle(fontSize: 14),
         textInputAction: TextInputAction.send,
+        cursorColor: primaryColor,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
             borderSide: BorderSide(color: Colors.black12, width: 0.5),
+          ),
+          focusColor: primaryColor,
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderSide: BorderSide(color: primaryColor, width: 0.5),
           ),
           suffixIcon: GestureDetector(
             onTap: _isAllowed ? () => _replyComment(widget.comment) : null,

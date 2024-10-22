@@ -27,52 +27,55 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m2(imgUrl, index) => "${imgUrl}-${index}";
 
   static String m3(count) =>
+      "${Intl.plural(count, zero: 'Comment', one: 'Comment', other: 'Comments')}";
+
+  static String m4(count) =>
       "${Intl.plural(count, one: '1 day', other: '${count} days')}";
 
-  static String m4(ticketType) => "For ${ticketType}";
+  static String m5(ticketType) => "For ${ticketType}";
 
-  static String m5(appName) => "Hi ${appName} member";
+  static String m6(appName) => "Hi ${appName} member";
 
-  static String m6(name) => "Hello ${name},";
+  static String m7(name) => "Hello ${name},";
 
-  static String m7(count) =>
+  static String m8(count) =>
       "${Intl.plural(count, one: '1 hour', other: '${count} hours')}";
 
-  static String m8(index) => "Image at ${index}";
+  static String m9(index) => "Image at ${index}";
 
-  static String m9(nameOfCollection) => "Illustrators${nameOfCollection}";
+  static String m10(nameOfCollection) => "Illustrators${nameOfCollection}";
 
-  static String m10(field, minLength) =>
+  static String m11(field, minLength) =>
       "Invalid ${field}! It must be at least ${minLength} characters";
 
-  static String m11(index) => "Loading image at index ${index}";
-
-  static String m12(count) =>
-      "${Intl.plural(count, one: '1 minute', other: '${count} minutes')}";
+  static String m12(index) => "Loading image at index ${index}";
 
   static String m13(count) =>
-      "${Intl.plural(count, one: '1 month', other: '${count} months')}";
+      "${Intl.plural(count, one: '1 minute', other: '${count} minutes')}";
 
   static String m14(count) =>
+      "${Intl.plural(count, one: '1 month', other: '${count} months')}";
+
+  static String m15(count) =>
       "${Intl.plural(count, zero: 'Review', one: 'Review', other: 'Reviews')}";
 
-  static String m15(object) =>
+  static String m16(object) =>
       "Cannot save the ${object}! Please try again later";
 
-  static String m16(value) => "Day ${value}";
+  static String m17(value) => "Day ${value}";
 
-  static String m17(name) => "Thumb for ${name}";
+  static String m18(name) => "Thumb for ${name}";
 
-  static String m18(value, formattedValue) =>
+  static String m19(value, formattedValue) =>
       "${Intl.plural(value, zero: '0 review', one: '1 review', other: '${formattedValue} reviews')}";
 
-  static String m19(start, end) =>
+  static String m20(start, end) =>
       "Your trip will start at: ${start} and accomplish at: ${end}";
 
-  static String m20(count) =>
+  static String m21(count) =>
       "${Intl.plural(count, one: '1 week', other: '${count} weeks')}";
 
-  static String m21(count) =>
+  static String m22(count) =>
       "${Intl.plural(count, one: '1 year', other: '${count} years')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -126,7 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "classificationWonderful":
             MessageLookupByLibrary.simpleMessage("Wonderful"),
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
-        "comment": MessageLookupByLibrary.simpleMessage("Comments"),
+        "comment": m3,
+        "commentLabel": MessageLookupByLibrary.simpleMessage("Comment"),
         "contactServiceProvider":
             MessageLookupByLibrary.simpleMessage("Contact service provider"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -148,7 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dataStateFailure": MessageLookupByLibrary.simpleMessage(
             "Some error occurred! Please try again later!"),
         "day": MessageLookupByLibrary.simpleMessage("day"),
-        "dayFormatted": m3,
+        "dayFormatted": m4,
         "dayUnit": MessageLookupByLibrary.simpleMessage("day|days|d"),
         "days": MessageLookupByLibrary.simpleMessage("day(s)"),
         "defaultText": MessageLookupByLibrary.simpleMessage(
@@ -200,24 +204,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "Failed to fetch image from URL"),
         "forMoreInfoAboutTicket": MessageLookupByLibrary.simpleMessage(
             "For more details about this ticket"),
-        "forType": m4,
+        "forType": m5,
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
-        "greetingAppMember": m5,
+        "greetingAppMember": m6,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Guide to location"),
-        "helloUser": m6,
+        "helloUser": m7,
         "here": MessageLookupByLibrary.simpleMessage("Here"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "hour": MessageLookupByLibrary.simpleMessage("hour"),
-        "hourFormatted": m7,
+        "hourFormatted": m8,
         "hourUnit": MessageLookupByLibrary.simpleMessage("hour|hours|h"),
         "howToRedeem": MessageLookupByLibrary.simpleMessage("How to redeem"),
         "howYourFeeling":
             MessageLookupByLibrary.simpleMessage("How are you feeling today?"),
         "image": MessageLookupByLibrary.simpleMessage("image"),
-        "imageAtIndex": m8,
-        "imageCollectionText": m9,
+        "imageAtIndex": m9,
+        "imageCollectionText": m10,
         "importantThingsYouShouldKnow": MessageLookupByLibrary.simpleMessage(
             "Important things you should know"),
         "inUseDateError":
@@ -238,11 +242,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "itinerary": MessageLookupByLibrary.simpleMessage("Itinerary"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
-        "lengthLimitError": m10,
+        "lengthLimitError": m11,
         "like": MessageLookupByLibrary.simpleMessage("Like"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
-        "loadingImageText": m11,
+        "loadingImageText": m12,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Location Information"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
@@ -250,11 +254,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "manageYourAccount":
             MessageLookupByLibrary.simpleMessage("Manage your account"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
-        "minuteFormatted": m12,
+        "minuteFormatted": m13,
         "minuteUnit":
             MessageLookupByLibrary.simpleMessage("minute|minutes|min"),
         "month": MessageLookupByLibrary.simpleMessage("month"),
-        "monthFormatted": m13,
+        "monthFormatted": m14,
         "monthUnit": MessageLookupByLibrary.simpleMessage("month|months|mo"),
         "moreAction": MessageLookupByLibrary.simpleMessage("More Action"),
         "moreInfo": MessageLookupByLibrary.simpleMessage("More Information"),
@@ -325,13 +329,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Write your review here..."),
         "reviewTitle": MessageLookupByLibrary.simpleMessage("Reviews & Rating"),
         "reviewed": MessageLookupByLibrary.simpleMessage("Reviewed"),
-        "reviews": m14,
+        "reviews": m15,
         "sameDateError": MessageLookupByLibrary.simpleMessage(
             "Start date and end date cannot be same"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
-        "saveError": m15,
+        "saveError": m16,
         "schedule": MessageLookupByLibrary.simpleMessage("Schedule"),
-        "scheduleDay": m16,
+        "scheduleDay": m17,
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searching": MessageLookupByLibrary.simpleMessage("Searching..."),
         "securityAccount":
@@ -361,7 +365,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m17,
+        "thumbDesc": m18,
         "ticketCategory":
             MessageLookupByLibrary.simpleMessage("Ticket Category"),
         "ticketDesc":
@@ -373,9 +377,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m18,
+        "totalReviews": m19,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
-        "tourDateAnnounce": m19,
+        "tourDateAnnounce": m20,
         "tourDatesLabel": MessageLookupByLibrary.simpleMessage("Tour Dates"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),
@@ -401,10 +405,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "voucherExp":
             MessageLookupByLibrary.simpleMessage("Voucher Expiration"),
         "week": MessageLookupByLibrary.simpleMessage("week"),
-        "weekFormatted": m20,
+        "weekFormatted": m21,
         "weekUnit": MessageLookupByLibrary.simpleMessage("week|weeks|w"),
         "year": MessageLookupByLibrary.simpleMessage("year"),
-        "yearFormatted": m21,
+        "yearFormatted": m22,
         "yearUnit": MessageLookupByLibrary.simpleMessage("year|years|y")
       };
 }

@@ -8,13 +8,16 @@ class CustomPopupMenu extends StatefulWidget {
   final double? iconSize;
   final VoidCallback? onDelete;
   final VoidCallback? onEdit;
+  final VoidCallback? onChat;
   final bool hasPrivilege;
   final List<PopupMenuItemType> types;
+
   const CustomPopupMenu({
     super.key,
     this.hasPrivilege = false,
     this.onDelete,
     this.onEdit,
+    this.onChat,
     this.iconSize,
     this.padding,
     this.types = const <PopupMenuItemType>[],
@@ -96,7 +99,7 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
         widget.onDelete?.call();
         break;
       case PopupMenuItemType.edit:
-        // TODO: EDIT
+        widget.onEdit?.call();
         break;
       case PopupMenuItemType.chat:
       // TODO: Handle this case.

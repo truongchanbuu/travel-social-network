@@ -66,3 +66,11 @@ final class ReplyAdded extends CommentState {
   @override
   List<Object?> get props => [reply];
 }
+
+final class CommentUpdating extends CommentState {
+  final CommentEntity comment;
+  const CommentUpdating(this.comment);
+
+  @override
+  List<Object?> get props => [comment];
+}

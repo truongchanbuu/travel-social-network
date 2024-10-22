@@ -23,7 +23,6 @@ class _YourToursPageState extends State<YourToursPage> {
     super.initState();
 
     // TODO: Get real user
-    // String userId = 'TCB';
     // context.read<TourBloc>().add(GetToursByUserIdEvent(userId));
     tours = generateSampleTours();
   }

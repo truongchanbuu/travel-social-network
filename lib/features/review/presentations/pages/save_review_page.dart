@@ -7,6 +7,7 @@ import 'package:travel_social_network/features/shared/presentations/widgets/app_
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/form_utils.dart';
+import '../../../../cores/utils/image_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/add_image_view.dart';
 import '../../../shared/presentations/widgets/custom_text_field.dart';
@@ -38,9 +39,6 @@ class _SaveReviewPageState extends State<SaveReviewPage> {
     _formKey = GlobalKey();
     _contentController = TextEditingController();
 
-    // TODO: MUST HAVE
-    userId = 'TCB';
-
     if (widget.reviewId?.isNotEmpty ?? false) {
       context.read<ReviewBloc>().add(GetReviewByIdEvent(widget.reviewId!));
     } else {
@@ -71,15 +69,8 @@ class _SaveReviewPageState extends State<SaveReviewPage> {
               review = state.review;
               _rating = state.review.rating;
               _contentController.text = state.review.content;
-              images = state.review.images.map((imgUrl) {
-                int index = state.review.images.indexOf(imgUrl);
-                return ImageFile(
-                  UniqueKey().toString(),
-                  name: 'Review image $index',
-                  path: imgUrl,
-                  extension: 'jpg',
-                );
-              }).toList();
+              images =
+                  ImageUtils.converImageUrlToImageFile(state.review.images);
             } else if (state is ReviewImageLoaded) {
               images = state.images;
             }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/comment.dart';
 import '../bloc/comment_bloc.dart';
 
 class CommentInput extends StatefulWidget {
@@ -14,8 +15,8 @@ class CommentInput extends StatefulWidget {
 }
 
 class _CommentInputState extends State<CommentInput> {
-  static const String userId = 'TCB';
   late final TextEditingController _commentController;
+  late final FocusNode _focusNode;
   String? _content;
 
   @override
@@ -23,11 +24,12 @@ class _CommentInputState extends State<CommentInput> {
     super.initState();
 
     _commentController = TextEditingController();
+    _focusNode = FocusNode();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CommentBloc, CommentState>(
+    return BlocConsumer<CommentBloc, CommentState>(
       listener: (context, state) {
         if (state is CommentActionSucceed) {
           _commentController.clear();
@@ -35,49 +37,78 @@ class _CommentInputState extends State<CommentInput> {
             _content = _commentController.text;
           });
           context.read<CommentBloc>().add(GetPostCommentsEvent(widget.postId));
+        } else if (state is CommentUpdating) {
+          _commentController.text = state.comment.content;
+          _commentController.selection = TextSelection.fromPosition(
+            TextPosition(offset: _commentController.text.length),
+          );
+          setState(() {
+            _content = state.comment.content;
+          });
+          _focusNode.requestFocus();
         }
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: TextFormField(
-              onFieldSubmitted: (value) => _onComment(context),
-              controller: _commentController,
-              maxLines: null,
-              onChanged: (value) => setState(() => _content = value),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: const EdgeInsets.all(10),
-                hintText:
-                    '${S.current.comment} ${S.current.here.toLowerCase()}...',
-                hintMaxLines: 1,
-                hintStyle: const TextStyle(overflow: defaultTextOverflow),
-                border: const OutlineInputBorder(borderSide: BorderSide.none),
-              ),
-              textInputAction: TextInputAction.send,
+      builder: (context, state) {
+        if (state is ReplyInitialized) {
+          return const SizedBox.shrink();
+        }
+
+        return _buildBody(state);
+      },
+    );
+  }
+
+  Widget _buildBody(CommentState state) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: TextFormField(
+            focusNode: _focusNode,
+            onFieldSubmitted: (value) => _onComment(context),
+            controller: _commentController,
+            maxLines: null,
+            onChanged: (value) => setState(() => _content = value),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: const EdgeInsets.all(10),
+              hintText:
+                  '${S.current.commentLabel} ${S.current.here.toLowerCase()}...',
+              hintMaxLines: 1,
+              hintStyle: const TextStyle(overflow: defaultTextOverflow),
+              border: const OutlineInputBorder(borderSide: BorderSide.none),
             ),
+            textInputAction: TextInputAction.send,
           ),
-          IconButton(
-            onPressed: _content?.isNotEmpty ?? false
-                ? () => _onComment(context)
-                : null,
-            icon: Icon(
-              Icons.send,
-              color: _content?.isNotEmpty ?? false ? primaryColor : Colors.grey,
-            ),
-          )
-        ],
-      ),
+        ),
+        IconButton(
+          onPressed:
+              _content?.isNotEmpty ?? false ? () => _onComment(context) : null,
+          icon: Icon(
+            Icons.send,
+            color: _content?.isNotEmpty ?? false ? primaryColor : Colors.grey,
+          ),
+        )
+      ],
     );
   }
 
   void _onComment(BuildContext context) {
-    context.read<CommentBloc>().add(CreateCommentEvent(
-          userId: userId,
-          content: _content!,
-          postId: widget.postId,
-        ));
+    final commentBloc = context.read<CommentBloc>();
+    final state = commentBloc.state;
+
+    if (state is! CommentUpdating) {
+      commentBloc.add(CreateCommentEvent(
+        userId: currentUserId,
+        content: _content!,
+        postId: widget.postId,
+      ));
+    } else {
+      commentBloc.add(UpdateCommentEvent(state.comment.commentId, {
+        CommentEntity.contentFieldName: _content,
+        CommentEntity.updatedAtFieldName: DateTime.now().toIso8601String(),
+      }));
+    }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:travel_social_network/features/comment/domain/entities/comment.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
@@ -37,12 +39,25 @@ class PostFooter extends StatelessWidget {
                 },
               ),
               BlocBuilder<CommentBloc, CommentState>(
+                buildWhen: (previous, current) {
+                  return current is ListOfCommentsReceived &&
+                      current.comments.isNotEmpty &&
+                      current.comments.first.postId == post.postId;
+                },
                 builder: (context, state) {
-                  print(state);
+                  int total = 0;
+
+                  if (state is ListOfCommentsReceived) {
+                    total = _getCurrentPostComment(state.comments);
+                  }
+
+                  String commentTotalFormated =
+                      NumberFormat.compact().format(total);
+
                   return Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('200k ${S.current.comment}'),
+                      Text('$commentTotalFormated ${S.current.comment(total)}'),
                       const SizedBox(width: 5),
                       const Text('300k'),
                     ],
@@ -55,5 +70,9 @@ class PostFooter extends StatelessWidget {
         PostFooterActions(post: post)
       ],
     );
+  }
+
+  int _getCurrentPostComment(List<CommentEntity> comments) {
+    return comments.where((cmt) => cmt.postId == post.postId).length;
   }
 }

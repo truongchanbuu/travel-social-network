@@ -80,3 +80,19 @@ final class CreateReplyEvent extends CommentEvent {
   @override
   List<Object?> get props => [comment];
 }
+
+final class GetPostCommentsCountEvent extends CommentEvent {
+  final String postId;
+  const GetPostCommentsCountEvent(this.postId);
+
+  @override
+  List<Object?> get props => [postId];
+}
+
+final class UpdatingCommentEvent extends CommentEvent {
+  final CommentEntity comment;
+  const UpdatingCommentEvent(this.comment);
+
+  @override
+  List<Object?> get props => [comment];
+}

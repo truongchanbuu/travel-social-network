@@ -35,7 +35,6 @@ class ReviewItem extends StatelessWidget {
       ? DateTimeUtils.getTimeAgo(date)
       : DateTimeUtils.formatDayAndMonth(date);
 
-  static String userId = 'TCB';
   @override
   Widget build(BuildContext context) {
     List<String> imageUrls =
@@ -126,7 +125,8 @@ class ReviewItem extends StatelessWidget {
                     fontSize: 13,
                   ),
                 ),
-                if (userId == review.userId) _buildActionButtons(context),
+                if (currentUserId == review.userId)
+                  _buildActionButtons(context),
               ],
             ),
           ],

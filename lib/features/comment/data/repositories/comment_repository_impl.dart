@@ -107,4 +107,22 @@ class CommentRepositoryImpl implements CommentRepository {
       return defaultDataFailure(error.toString());
     }
   }
+
+  @override
+  Future<DataState<int>> countAllPostComment(String postId) async {
+    try {
+      int total = (await commentCollection
+                  .where(CommentEntity.postIdFieldName, isEqualTo: postId)
+                  .count()
+                  .get())
+              .count ??
+          0;
+
+      return DataSuccess(data: total);
+    } on FirebaseException catch (error) {
+      return handleFirebaseException(error);
+    } catch (error) {
+      return defaultDataFailure(error.toString());
+    }
+  }
 }

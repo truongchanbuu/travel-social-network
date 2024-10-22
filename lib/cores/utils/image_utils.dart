@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path_provider/path_provider.dart';
@@ -62,5 +63,50 @@ class ImageUtils {
     }
 
     return null;
+  }
+
+  static List<ImageFile> converImageUrlToImageFile(List<String> imgUrls) {
+    return imgUrls.map((imgUrl) {
+      int index = imgUrls.indexOf(imgUrl);
+      return ImageFile(
+        UniqueKey().toString(),
+        name: 'Review image $index',
+        path: imgUrl,
+        extension: _getFirebaseExtension(imgUrl) ?? 'jpg',
+      );
+    }).toList();
+  }
+
+  static String? _getFirebaseExtension(String url) {
+    List<String> segments = url.split('/');
+    String lastSegment = segments.last;
+    String fileName = lastSegment.split('?')[0];
+    String extension = fileName.split('.').last;
+    return extension;
+  }
+
+  static Future<bool> compareFirebaseImageWithImageFile(
+      String firebaseImgUrl, Uint8List imgBytes) async {
+    try {
+      final dataState = await imageRepository.getDataFromUrl(firebaseImgUrl);
+      if (dataState is DataFailure) return false;
+      final firebaseData = dataState.data;
+
+      if (firebaseData?.isEmpty ?? true) return false;
+
+      if (firebaseData!.length != imgBytes.length) return false;
+
+      for (int i = 0; i < firebaseData.length; i++) {
+        if (firebaseData[i] != imgBytes[i]) {
+          return false;
+        }
+      }
+
+      return true;
+    } catch (e) {
+      log(e.toString());
+    }
+
+    return false;
   }
 }

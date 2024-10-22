@@ -17,7 +17,6 @@ import 'generated/l10n.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // TODO:  REPLY COMMENT - EDIT COMMENT
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

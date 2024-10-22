@@ -155,4 +155,18 @@ class ImageRepositoryImpl implements ImageRepository {
 
   bool isImageInWeb(image) =>
       image is String && (isHttpBasedUrl(image) || image.startsWith('blob'));
+
+  @override
+  Future<DataState<Uint8List>> getDataFromUrl(String url) async {
+    try {
+      final ref = _storage.refFromURL(url);
+      final Uint8List? imageData = await ref.getData();
+
+      return DataSuccess(data: imageData);
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
 }

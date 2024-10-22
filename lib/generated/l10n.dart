@@ -290,13 +290,26 @@ class S {
     );
   }
 
-  /// `Comments`
-  String get comment {
+  /// `Comment`
+  String get commentLabel {
     return Intl.message(
-      'Comments',
-      name: 'comment',
+      'Comment',
+      name: 'commentLabel',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{count, plural, =0{Comment} =1{Comment} other{Comments}}`
+  String comment(num count) {
+    return Intl.plural(
+      count,
+      zero: 'Comment',
+      one: 'Comment',
+      other: 'Comments',
+      name: 'comment',
+      desc: '',
+      args: [count],
     );
   }
 
