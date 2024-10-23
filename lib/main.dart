@@ -10,6 +10,8 @@ import 'config/themes/app_theme.dart';
 import 'cores/constants/constants.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/presentations/bloc/auth_bloc.dart';
+import 'features/shared/presentations/pages/home/home_page.dart';
+import 'features/tour/presentations/bloc/tour_bloc.dart';
 import 'generated/l10n.dart';
 
 class MyApp extends StatelessWidget {
@@ -47,11 +49,14 @@ class AppView extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: FlowBuilder<AuthStatus>(
-        onGeneratePages: (AuthStatus state, List<Page<dynamic>> pages) {
-          return [];
-        },
-      ),
+      // home: FlowBuilder<AuthStatus>(
+      //   state: context.read<AuthState>().status,
+      //   onGeneratePages: (AuthStatus state, List<Page<dynamic>> pages) {
+      //     return [];
+      //   },
+      // ),
+      home: BlocProvider(
+          create: (context) => getIt.get<TourBloc>(), child: HomePage()),
     );
   }
 }
