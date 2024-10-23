@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
-import 'icon_with_text.dart';
+import '../../../auth/presentations/widgets/icon_with_text.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});

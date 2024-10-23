@@ -1,14 +1,21 @@
 part of 'auth_bloc.dart';
 
+enum AuthStatus { authenticated, unauthenticated }
+
 sealed class AuthState extends Equatable {
-  const AuthState();
-  
+  final AuthStatus status;
+  final UserEntity user;
+  const AuthState({required this.status, required this.user});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status, user];
 }
 
-final class AuthInitial extends AuthState {}
-
-final class Authenticated extends AuthState {}
-
-final class Unauthenticated extends AuthState {}
+final class AppAuthState extends AuthState {
+  const AppAuthState({super.user = UserEntity.empty})
+      : super(
+          status: user != UserEntity.empty
+              ? AuthStatus.authenticated
+              : AuthStatus.unauthenticated,
+        );
+}

@@ -30,14 +30,3 @@ class UserEntity extends Equatable {
   static const String avatarUrlFieldName = 'avatarUrl';
   static const String phoneNumberFieldName = 'phoneNumber';
 }
-
-extension on User {
-  UserEntity get toUser {
-    return UserEntity(
-      id: uid,
-      email: email,
-      avatarUrl: photoURL,
-      username: displayName,
-    );
-  }
-}

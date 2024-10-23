@@ -3,10 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'cores/constants/constants.dart';
+import 'cores/utils/cached_client.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
+import 'features/auth/presentations/bloc/auth_bloc.dart';
 import 'features/comment/data/repositories/comment_repository_impl.dart';
 import 'features/comment/domain/repositories/comment_repository.dart';
 import 'features/comment/presentations/bloc/comment_bloc.dart';
@@ -34,6 +37,12 @@ Future<void> initializeDependencies() async {
   // Dio
   getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(baseUrl: baseUrl)));
 
+  // SharedPreference
+  getIt.registerSingleton<CacheClient>(CacheClient());
+
+  // Google
+  getIt.registerSingleton<GoogleSignIn>(GoogleSignIn.standard());
+
   // Firebase
   getIt.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
   getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
@@ -47,10 +56,14 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<ReviewRepository>(ReviewRepositoryImpl());
   getIt.registerSingleton<PostRepository>(PostRepositoryImpl());
   getIt.registerSingleton<CommentRepository>(CommentRepositoryImpl());
-  getIt.registerSingleton<AuthRepository>(
-      AuthRepositoryImpl(firebaseAuth: getIt()));
+  getIt.registerSingleton<AuthRepository>(AuthRepositoryImpl(
+    firebaseAuth: getIt(),
+    cache: getIt.get<CacheClient>(),
+    googleSignIn: getIt.get<GoogleSignIn>(),
+  ));
 
   // Bloc
+  getIt.registerFactory<AuthBloc>(() => AuthBloc(getIt.get<AuthRepository>()));
   getIt.registerFactory<TourBloc>(() => TourBloc(getIt()));
   getIt.registerFactory<TicketBloc>(() => TicketBloc(getIt()));
   getIt.registerFactory<PolicyBloc>(() => PolicyBloc(getIt()));

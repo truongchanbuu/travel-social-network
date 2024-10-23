@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../auth/presentations/widgets/account_detail_section.dart';
 import '../../../setting/presentation/widgets/user_avatar.dart';
-import '../widgets/account_detail_section.dart';
 import '../widgets/account_section_item.dart';
 
 class AccountDetailPage extends StatelessWidget {

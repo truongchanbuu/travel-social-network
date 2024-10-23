@@ -1,57 +1,60 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheClient {
+  late SharedPreferencesWithCache _prefs;
+  bool _initialized = false;
+
+  Future<void> _ensureInitialized() async {
+    if (!_initialized) {
+      _prefs = await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions(),
+      );
+      _initialized = true;
+    }
+  }
+
   Future<String?> getString(String key) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    return prefs.getString(key);
+    await _ensureInitialized();
+    return _prefs.getString(key);
   }
 
   Future<void> setString(String key, String value) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    await prefs.setString(key, value);
+    await _ensureInitialized();
+    await _prefs.setString(key, value);
   }
 
   Future<int?> getInt(String key) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    return prefs.getInt(key);
+    await _ensureInitialized();
+    return _prefs.getInt(key);
   }
 
   Future<void> setInt(String key, int value) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    await prefs.setInt(key, value);
+    await _ensureInitialized();
+    await _prefs.setInt(key, value);
   }
 
   Future<bool?> getBool(String key) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    return prefs.getBool(key);
+    await _ensureInitialized();
+    return _prefs.getBool(key);
   }
 
   Future<void> setBool(String key, bool value) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    await prefs.setBool(key, value);
+    await _ensureInitialized();
+    await _prefs.setBool(key, value);
   }
 
   Future<void> remove(String key) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    await prefs.remove(key);
+    await _ensureInitialized();
+    await _prefs.remove(key);
   }
 
   Future<void> clear() async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    await prefs.clear();
+    await _ensureInitialized();
+    await _prefs.clear();
   }
 
   Future<bool> containsKey(String key) async {
-    final prefs = await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions());
-    return prefs.containsKey(key);
+    await _ensureInitialized();
+    return _prefs.containsKey(key);
   }
 }

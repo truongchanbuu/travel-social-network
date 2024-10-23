@@ -1,55 +1,137 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../cores/resources/data_state.dart';
 import '../../../../cores/utils/cached_client.dart';
-import '../../../../injection_container.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../models/user.dart';
+import 'exceptions/auth_exception.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final CacheClient _cache;
-  final FirebaseAuth _firebaseAuth;
-  final GoogleSignIn _googleSignIn;
+  final CacheClient cache;
+  final FirebaseAuth firebaseAuth;
+  final GoogleSignIn googleSignIn;
 
   AuthRepositoryImpl({
-    CacheClient? cacheClient,
-    FirebaseAuth? firebaseAuth,
-    GoogleSignIn? googleSignIn,
-  })  : _cache = cacheClient ?? CacheClient(),
-        _firebaseAuth = firebaseAuth ?? getIt.get<FirebaseAuth>(),
-        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+    required this.cache,
+    required this.firebaseAuth,
+    required this.googleSignIn,
+  });
+
+  static const userCacheKey = '__usercache_key__';
+  bool isWeb = kIsWeb;
 
   @override
-  UserEntity get currentUser => throw UnimplementedError();
+  Stream<UserModel> get user =>
+      firebaseAuth.authStateChanges().map((firebaseUser) {
+        final user = firebaseUser == null
+            ? UserModel.fromEntity(UserEntity.empty)
+            : UserModel.fromEntity(firebaseUser.toUser);
+        cache
+            .setString(userCacheKey, jsonEncode(user.toJson()))
+            .catchError((error) => log("Failed to cached user: $error"));
+        return user;
+      });
+
+  @override
+  Future<UserModel> get currentUser async {
+    try {
+      final data = await cache.getString(userCacheKey);
+      if (data == null) return UserModel.fromEntity(UserEntity.empty);
+      return UserModel.fromJson(jsonDecode(data));
+    } catch (error) {
+      log("Failed to get current user: $error");
+      return UserModel.fromEntity(UserEntity.empty);
+    }
+  }
 
   @override
   Future<DataState<void>> logInWithEmailAndPassword(
-      {required String email, required String password}) {
-    // TODO: implement logInWithEmailAndPassword
-    throw UnimplementedError();
+      {required String email, required String password}) async {
+    try {
+      await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return const DataSuccess();
+    } on FirebaseAuthException catch (e) {
+      throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const LogInWithEmailAndPasswordFailure();
+    }
   }
 
   @override
-  Future<DataState<void>> logInWithGoogle() {
-    // TODO: implement logInWithGoogle
-    throw UnimplementedError();
-  }
+  Future<DataState<void>> logInWithGoogle() async {
+    try {
+      late final AuthCredential credential;
+      if (isWeb) {
+        final googleProvider = GoogleAuthProvider();
+        final userCredential =
+            await firebaseAuth.signInWithPopup(googleProvider);
+        credential = userCredential.credential!;
+      } else {
+        final googleUser = await googleSignIn.signIn();
+        final googleAuth = await googleUser!.authentication;
+        credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+      }
 
-  @override
-  Future<DataState<void>> logOut() {
-    // TODO: implement logOut
-    throw UnimplementedError();
+      await firebaseAuth.signInWithCredential(credential);
+      return const DataSuccess();
+    } on FirebaseAuthException catch (e) {
+      throw LogInWithGoogleFailure.fromCode(e.code);
+    } catch (_) {
+      throw const LogInWithGoogleFailure();
+    }
   }
 
   @override
   Future<DataState<void>> signUp(
-      {required String email, required String password}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+      {required String email, required String password}) async {
+    try {
+      await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return const DataSuccess();
+    } on FirebaseAuthException catch (e) {
+      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const SignUpWithEmailAndPasswordFailure();
+    }
   }
 
   @override
-  // TODO: implement user
-  Stream<UserEntity> get user => throw UnimplementedError();
+  Future<DataState<void>> logOut() async {
+    try {
+      await Future.wait([
+        firebaseAuth.signOut(),
+        googleSignIn.signOut(),
+      ]);
+
+      return const DataSuccess();
+    } catch (_) {
+      throw const LogOutFailure();
+    }
+  }
+}
+
+extension on User {
+  UserEntity get toUser {
+    return UserEntity(
+      id: uid,
+      email: email,
+      avatarUrl: photoURL,
+      username: displayName,
+    );
+  }
 }

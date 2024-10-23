@@ -1,9 +1,9 @@
 import '../../../../cores/resources/data_state.dart';
-import '../entities/user.dart';
+import '../../data/models/user.dart';
 
 abstract interface class AuthRepository {
-  Stream<UserEntity> get user;
-  UserEntity get currentUser;
+  Stream<UserModel> get user;
+  Future<UserModel> get currentUser;
   Future<DataState<void>> signUp({
     required String email,
     required String password,

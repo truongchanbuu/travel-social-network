@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../setting/presentation/widgets/setting_icon.dart';
-import '../widgets/about_section.dart';
+import '../../../user/presentations/widgets/about_section.dart';
 import '../widgets/hero_image.dart';
 
 class HeroAuthPage extends StatefulWidget {
