@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../shared/presentations/widgets/app_name_logo.dart';
+import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
 import '../widgets/social_network_upload_field.dart';
 import '../widgets/social_post_list.dart';
@@ -24,6 +26,7 @@ class SocialNetworkPage extends StatelessWidget {
   AppBar _buildAppBar() => AppBar(title: const AppName());
 
   Widget _buildBody(BuildContext context) {
+    List<PostEntity> posts = [];
     return RefreshIndicator(
       color: primaryColor,
       onRefresh: () async => _refreshPosts(context),
@@ -40,11 +43,18 @@ class SocialNetworkPage extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              return SocialPostList(
-                posts: state is ListOfPostReceived ? state.posts : [],
-              );
+              if (state is ListOfPostReceived) {
+                posts = state.posts;
+              }
+
+              return SocialPostList(posts: posts);
             },
-            buildWhen: (previous, current) => current is ListOfPostReceived,
+            buildWhen: (previous, current) {
+              return current is ListOfPostReceived &&
+                  (previous is! ListOfPostReceived ||
+                      (!const DeepCollectionEquality.unordered()
+                          .equals(previous.posts, current.posts)));
+            },
           ),
         ],
       ),

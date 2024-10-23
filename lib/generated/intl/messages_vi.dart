@@ -58,16 +58,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(value) => "Ngày thứ ${value}";
 
-  static String m18(name) => "Ảnh bìa của ${name}";
+  static String m18(count) => "lượt chia sẻ";
 
-  static String m19(value, formattedValue) => "${value} đánh giá";
+  static String m19(name) => "Ảnh bìa của ${name}";
 
-  static String m20(start, end) =>
+  static String m20(value, formattedValue) => "${value} đánh giá";
+
+  static String m21(start, end) =>
       "Chuyến đi của bạn sẽ khởi hành vào lúc: ${start} kết thúc vào: ${end}";
 
-  static String m21(count) => "${count} tuần";
+  static String m22(count) => "${count} tuần";
 
-  static String m22(count) => "${count} năm";
+  static String m23(count) => "${count} năm";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -339,7 +341,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Số chữ số tối đa"),
         "services": MessageLookupByLibrary.simpleMessage("Các dịch vụ"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
-        "share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
+        "share": m18,
+        "shareLabel": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
         "showLess": MessageLookupByLibrary.simpleMessage("Ẩn bớt"),
         "showMore": MessageLookupByLibrary.simpleMessage("Xem thêm"),
         "signIn": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
@@ -357,7 +360,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chính sách và Điều khoản"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Điều khoản dịch vụ"),
-        "thumbDesc": m18,
+        "thumbDesc": m19,
         "ticketCategory": MessageLookupByLibrary.simpleMessage("Loại vé"),
         "ticketDesc": MessageLookupByLibrary.simpleMessage("Mô tả vé"),
         "ticketInfo":
@@ -368,9 +371,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Phương thức quy đổi"),
         "tickets": MessageLookupByLibrary.simpleMessage("Vé"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Tổng tiền"),
-        "totalReviews": m19,
+        "totalReviews": m20,
         "tour": MessageLookupByLibrary.simpleMessage("Chuyến đi"),
-        "tourDateAnnounce": m20,
+        "tourDateAnnounce": m21,
         "tourDatesLabel":
             MessageLookupByLibrary.simpleMessage("Thời gian xuất phát"),
         "tourDescDetail":
@@ -399,12 +402,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vé có hiệu lực vào"),
         "voucherExp": MessageLookupByLibrary.simpleMessage("Thời hạn vé"),
         "week": MessageLookupByLibrary.simpleMessage("tuần"),
-        "weekFormatted": m21,
+        "weekFormatted": m22,
         "weekUnit": MessageLookupByLibrary.simpleMessage("tuần"),
         "whatYouThinkAboutThisPost": MessageLookupByLibrary.simpleMessage(
             "Bạn nghĩ sao về bài post này?"),
         "year": MessageLookupByLibrary.simpleMessage("năm"),
-        "yearFormatted": m22,
+        "yearFormatted": m23,
         "yearUnit": MessageLookupByLibrary.simpleMessage("năm")
       };
 }

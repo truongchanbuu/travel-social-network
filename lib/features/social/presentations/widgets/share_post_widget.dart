@@ -12,6 +12,7 @@ class SharePostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: const [
@@ -25,6 +26,7 @@ class SharePostWidget extends StatelessWidget {
         border: Border.all(color: Colors.black12, width: 0.5),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           PostHeader(

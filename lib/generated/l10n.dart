@@ -141,12 +141,25 @@ class S {
   }
 
   /// `Share`
-  String get share {
+  String get shareLabel {
     return Intl.message(
       'Share',
-      name: 'share',
+      name: 'shareLabel',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{count, plural, =0 {Share} =1 {Share} other{Shares}}`
+  String share(num count) {
+    return Intl.plural(
+      count,
+      zero: 'Share',
+      one: 'Share',
+      other: 'Shares',
+      name: 'share',
+      desc: '',
+      args: [count],
     );
   }
 

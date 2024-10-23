@@ -19,10 +19,16 @@ final class UpdateContentEvent extends PostEvent {
 final class SavePostEvent extends PostEvent {
   final PostEntity? post;
   final String userId;
-  const SavePostEvent({required this.userId, this.post});
+  final String? sharedPostId;
+
+  const SavePostEvent({
+    required this.userId,
+    this.post,
+    this.sharedPostId,
+  });
 
   @override
-  List<Object?> get props => [userId, post];
+  List<Object?> get props => [userId, post, sharedPostId];
 }
 
 final class GetPostsEvent extends PostEvent {}
@@ -61,4 +67,12 @@ final class UpdatePostEvent extends PostEvent {
 
   @override
   List<Object?> get props => [postId, data];
+}
+
+final class EditPostProgressEvent extends PostEvent {
+  final String postId;
+  const EditPostProgressEvent(this.postId);
+
+  @override
+  List<Object?> get props => [postId];
 }

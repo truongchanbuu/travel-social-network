@@ -16,6 +16,9 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
           .toList(),
       userId: json['userId'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
+      sharedBy:
+          (json['sharedBy'] as List<dynamic>).map((e) => e as String).toList(),
+      refPostId: json['refPostId'] as String?,
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
@@ -29,4 +32,6 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'userId': instance.userId,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'refPostId': instance.refPostId,
+      'sharedBy': instance.sharedBy,
     };

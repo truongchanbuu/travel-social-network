@@ -132,6 +132,7 @@ class _PostUploadPageState extends State<PostUploadPage> {
     context.read<PostBloc>().add(SavePostEvent(
           userId: currentUserId,
           post: post,
+          sharedPostId: widget.sharedPost?.postId,
         ));
   }
 }

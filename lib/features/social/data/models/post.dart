@@ -13,6 +13,8 @@ class Post extends PostEntity {
     required super.likedUsers,
     required super.userId,
     required super.createdAt,
+    required super.sharedBy,
+    required super.refPostId,
     super.updatedAt,
   });
 
@@ -25,6 +27,8 @@ class Post extends PostEntity {
       createdAt: createdAt,
       updatedAt: updatedAt,
       likedUsers: likedUsers,
+      sharedBy: sharedBy,
+      refPostId: refPostId,
     );
   }
 
@@ -37,6 +41,8 @@ class Post extends PostEntity {
       userId: entity.userId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      sharedBy: entity.sharedBy,
+      refPostId: entity.refPostId,
     );
   }
 

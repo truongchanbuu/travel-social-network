@@ -27,6 +27,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<DeletePostById>(_onDeletePost);
     on<UpdatePostEvent>(_onUpdatePost);
     on<LikePostEvent>(_onLikePost);
+    on<EditPostProgressEvent>(_onEditingPostProcess);
   }
 
   void _onContentUpdated(UpdateContentEvent event, Emitter<PostState> emit) {
@@ -50,6 +51,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
             images: imageUrls,
             userId: event.userId,
             createdAt: DateTime.now(),
+            sharedBy: const [],
+            refPostId: event.sharedPostId,
           );
         } else {
           post = Post.fromEntity(event.post!.copyWith(
@@ -75,6 +78,14 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           emit(PostActionFailed(S.current.dataStateFailure));
         } else {
           emit(PostActionSucceed(dataState.data!.toEntity()));
+          if (event.sharedPostId != null) {
+            add(UpdatePostEvent(
+              event.sharedPostId!,
+              {
+                PostEntity.sharedByFieldName: [post.postId]
+              },
+            ));
+          }
         }
       } catch (e) {
         log(e.toString());
@@ -154,6 +165,24 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   Future<void> _onGetPostById(
       GetPostByIdEvent event, Emitter<PostState> emit) async {
+    emit(PostActionLoading());
+    try {
+      final dataState = await postRepository.getPostById(event.postId);
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PostActionFailed(S.current.dataStateFailure));
+      } else {
+        PostEntity post = dataState.data!.toEntity();
+        emit(PostReceived(post));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(PostActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onEditingPostProcess(
+      EditPostProgressEvent event, Emitter<PostState> emit) async {
     emit(PostActionLoading());
     try {
       final dataState = await postRepository.getPostById(event.postId);

@@ -64,18 +64,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m17(value) => "Day ${value}";
 
-  static String m18(name) => "Thumb for ${name}";
+  static String m18(count) =>
+      "${Intl.plural(count, zero: 'Share', one: 'Share', other: 'Shares')}";
 
-  static String m19(value, formattedValue) =>
+  static String m19(name) => "Thumb for ${name}";
+
+  static String m20(value, formattedValue) =>
       "${Intl.plural(value, zero: '0 review', one: '1 review', other: '${formattedValue} reviews')}";
 
-  static String m20(start, end) =>
+  static String m21(start, end) =>
       "Your trip will start at: ${start} and accomplish at: ${end}";
 
-  static String m21(count) =>
+  static String m22(count) =>
       "${Intl.plural(count, one: '1 week', other: '${count} weeks')}";
 
-  static String m22(count) =>
+  static String m23(count) =>
       "${Intl.plural(count, one: '1 year', other: '${count} years')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -348,7 +351,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Maximum length of phone number"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "share": MessageLookupByLibrary.simpleMessage("Share"),
+        "share": m18,
+        "shareLabel": MessageLookupByLibrary.simpleMessage("Share"),
         "showLess": MessageLookupByLibrary.simpleMessage("Show Less"),
         "showMore": MessageLookupByLibrary.simpleMessage("Show More"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
@@ -365,7 +369,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "termsOfService":
             MessageLookupByLibrary.simpleMessage("Terms of Service"),
-        "thumbDesc": m18,
+        "thumbDesc": m19,
         "ticketCategory":
             MessageLookupByLibrary.simpleMessage("Ticket Category"),
         "ticketDesc":
@@ -377,9 +381,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Redemption Method"),
         "tickets": MessageLookupByLibrary.simpleMessage("Ticket(s)"),
         "totalPrice": MessageLookupByLibrary.simpleMessage("Total Price"),
-        "totalReviews": m19,
+        "totalReviews": m20,
         "tour": MessageLookupByLibrary.simpleMessage("Tour"),
-        "tourDateAnnounce": m20,
+        "tourDateAnnounce": m21,
         "tourDatesLabel": MessageLookupByLibrary.simpleMessage("Tour Dates"),
         "tourDescDetail":
             MessageLookupByLibrary.simpleMessage("Tour Description Detail"),
@@ -405,12 +409,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "voucherExp":
             MessageLookupByLibrary.simpleMessage("Voucher Expiration"),
         "week": MessageLookupByLibrary.simpleMessage("week"),
-        "weekFormatted": m21,
+        "weekFormatted": m22,
         "weekUnit": MessageLookupByLibrary.simpleMessage("week|weeks|w"),
         "whatYouThinkAboutThisPost": MessageLookupByLibrary.simpleMessage(
             "What do you think about this post?"),
         "year": MessageLookupByLibrary.simpleMessage("year"),
-        "yearFormatted": m22,
+        "yearFormatted": m23,
         "yearUnit": MessageLookupByLibrary.simpleMessage("year|years|y")
       };
 }

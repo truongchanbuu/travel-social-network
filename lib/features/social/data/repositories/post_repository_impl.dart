@@ -80,7 +80,17 @@ class PostRepositoryImpl implements PostRepository {
       String postId, Map<String, dynamic> data) async {
     try {
       final docRef = postCollection.doc(postId);
-      await docRef.update(data);
+
+      final Map<String, dynamic> updateData = {};
+      data.forEach((key, value) {
+        if (value is List && value.isNotEmpty) {
+          updateData[key] = FieldValue.arrayUnion(value);
+        } else {
+          updateData[key] = value;
+        }
+      });
+
+      await docRef.update(updateData);
 
       final docSnap = await docRef.get();
 

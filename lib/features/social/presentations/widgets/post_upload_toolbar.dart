@@ -89,30 +89,39 @@ class PostUploadToolbar extends StatelessWidget {
         .add(UpdateContentEvent(images: data, content: postBloc.state.content));
   }
 
-  void _onBottomSheet(BuildContext context) {
+  void _onBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
-      context: context,
+      context: ctx,
       shape: bottomSheetShape,
       useSafeArea: true,
       isScrollControlled: true,
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
-        children: items.take(items.length - 1).map(_buildItem).toList(),
+        children: items
+            .take(items.length - 1)
+            .map((item) => _buildItem(ctx, item))
+            .toList(),
       ),
     );
   }
 
-  Widget _buildItem(PostToolbarItem item) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.withOpacity(0.5)),
-      ),
-      child: ListTile(
-        leading: Icon(
-          item.icon,
-          color: item.iconColor,
+  Widget _buildItem(BuildContext context, PostToolbarItem item) {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+        _getOnPressed(context, item.icon);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.withOpacity(0.5)),
         ),
-        title: Text(item.text),
+        child: ListTile(
+          leading: Icon(
+            item.icon,
+            color: item.iconColor,
+          ),
+          title: Text(item.text),
+        ),
       ),
     );
   }

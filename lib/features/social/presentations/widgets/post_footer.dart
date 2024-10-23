@@ -16,6 +16,9 @@ class PostFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final numCompactFormatter = NumberFormat.compact();
+    PostEntity builtPost = post;
+
     return Column(
       children: [
         Padding(
@@ -26,16 +29,21 @@ class PostFooter extends StatelessWidget {
             children: [
               BlocBuilder<PostBloc, PostState>(
                 builder: (context, state) {
+                  if (state is PostActionSucceed) {
+                    builtPost = state.post;
+                  }
+
                   return Row(
                     children: [
                       const Icon(Icons.thumb_up, color: primaryColor),
                       const SizedBox(width: 8),
-                      Text(post.likedUsers.length.toString()),
+                      Text(numCompactFormatter
+                          .format(builtPost.likedUsers.length)),
                     ],
                   );
                 },
                 buildWhen: (previous, current) {
-                  return current is PostActionSucceed && current.post != post;
+                  return current is PostActionSucceed;
                 },
               ),
               BlocBuilder<CommentBloc, CommentState>(
@@ -45,21 +53,31 @@ class PostFooter extends StatelessWidget {
                       current.comments.first.postId == post.postId;
                 },
                 builder: (context, state) {
-                  int total = 0;
+                  int totalComments = 0;
 
                   if (state is ListOfCommentsReceived) {
-                    total = _getCurrentPostComment(state.comments);
+                    totalComments = _getCurrentPostComment(state.comments);
                   }
-
-                  String commentTotalFormated =
-                      NumberFormat.compact().format(total);
 
                   return Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('$commentTotalFormated ${S.current.comment(total)}'),
+                      Text(
+                          '${numCompactFormatter.format(totalComments)} ${S.current.comment(totalComments)}'),
                       const SizedBox(width: 5),
-                      const Text('300k'),
+                      BlocBuilder<PostBloc, PostState>(
+                        builder: (context, state) {
+                          if (state is PostActionSucceed) {
+                            builtPost = state.post;
+                          }
+
+                          return Text(
+                              '${numCompactFormatter.format(builtPost.sharedBy.length)} ${S.current.share(builtPost.sharedBy.length)}');
+                        },
+                        buildWhen: (previous, current) {
+                          return current is PostActionSucceed;
+                        },
+                      ),
                     ],
                   );
                 },

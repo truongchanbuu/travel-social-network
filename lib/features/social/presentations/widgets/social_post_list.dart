@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../domain/entities/post.dart';
 import 'post_item.dart';
 
@@ -19,12 +17,8 @@ class SocialPostList extends StatelessWidget {
   }
 
   Widget _buildPostItem(BuildContext context, int index) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context
-          .read<CommentBloc>()
-          .add(GetPostCommentsEvent(posts[index].postId));
-    });
+    final postItem = posts[index];
 
-    return Container(color: Colors.white, child: PostItem(post: posts[index]));
+    return Container(color: Colors.white, child: PostItem(post: postItem));
   }
 }

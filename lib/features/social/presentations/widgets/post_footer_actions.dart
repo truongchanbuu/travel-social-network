@@ -76,7 +76,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
             Expanded(
               child: PostFooterItem(
                 icon: CommunityMaterialIcons.share_outline,
-                title: S.current.share,
+                title: S.current.shareLabel,
                 onTap: () => _onShare(widget.post),
               ),
             ),
@@ -116,8 +116,9 @@ class _PostFooterActionsState extends State<PostFooterActions> {
     );
   }
 
-  void _onShare(PostEntity post) {
-    Navigator.push(
+  void _onShare(PostEntity post) async {
+    final postBloc = context.read<PostBloc>();
+    var data = await Navigator.push(
         context,
         PageTransition(
           child: BlocProvider(
@@ -125,5 +126,9 @@ class _PostFooterActionsState extends State<PostFooterActions> {
               child: PostUploadPage(sharedPost: post)),
           type: PageTransitionType.bottomToTop,
         ));
+
+    if (data != null && data is PostEntity) {
+      postBloc.add(GetPostsEvent());
+    }
   }
 }

@@ -1,9 +1,11 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../../shared/presentations/widgets/confirm_deletion_dialog.dart';
 import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
@@ -18,22 +20,27 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostBloc, PostState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PostHeader(
-              post: _getPost(state),
-              onDelete: () => _deletePost(context),
-              onEdit: () => _editPost(context),
-            ),
-            PostContent(post: _getPost(state)),
-            PostFooter(post: _getPost(state)),
-          ],
-        );
-      },
-      buildWhen: (previous, current) => current is PostReceived,
+    return BlocProvider.value(
+      value: context.read<CommentBloc>()
+        ..add(GetPostCommentsEvent(post.postId)),
+      child: BlocBuilder<PostBloc, PostState>(
+        builder: (context, state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PostHeader(
+                post: _getPost(state),
+                onDelete: () => _deletePost(context),
+                onEdit: () => _editPost(context),
+              ),
+              PostContent(post: _getPost(state)),
+              PostFooter(post: _getPost(state)),
+            ],
+          );
+        },
+        buildWhen: (previous, current) =>
+            current is PostReceived && _isPostChanged(current),
+      ),
     );
   }
 
@@ -57,7 +64,7 @@ class PostItem extends StatelessWidget {
       PageTransition(
         child: BlocProvider(
           create: (context) =>
-              getIt.get<PostBloc>()..add(GetPostByIdEvent(post.postId)),
+              getIt.get<PostBloc>()..add(EditPostProgressEvent(post.postId)),
           child: const PostUploadPage(),
         ),
         type: PageTransitionType.leftToRight,
@@ -73,5 +80,17 @@ class PostItem extends StatelessWidget {
     return state is PostReceived && state.post.postId == post.postId
         ? state.post
         : post;
+  }
+
+  bool _isPostChanged(PostReceived current) {
+    return current.post.postId == post.postId &&
+        (current.post.refPostId != post.refPostId ||
+            current.post.content != post.content ||
+            !const DeepCollectionEquality.unordered()
+                .equals(current.post.sharedBy, post.sharedBy) ||
+            !const DeepCollectionEquality.unordered()
+                .equals(current.post.images, post.images) ||
+            !const DeepCollectionEquality.unordered()
+                .equals(current.post.likedUsers, post.likedUsers));
   }
 }
