@@ -96,4 +96,25 @@ class TourRepositoryImpl implements TourRepository {
       return defaultDataFailure(e.toString());
     }
   }
+
+  @override
+  Future<DataState<List<Tour>>> getTourByUserId(String userId) async {
+    try {
+      List<Tour> tours = [];
+      final docQuery = tourCollection.where(TourEntity.createdByFieldName,
+          isEqualTo: userId);
+      final docSnaps = await docQuery.get();
+
+      for (var doc in docSnaps.docs) {
+        final tour = Tour.fromJson(doc.data());
+        tours.add(tour);
+      }
+
+      return DataSuccess(data: tours);
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
 }

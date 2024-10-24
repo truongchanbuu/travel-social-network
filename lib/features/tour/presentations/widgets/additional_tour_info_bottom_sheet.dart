@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/utils/formatters/quill_content_formatter.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/quill_content.dart';
 import 'tour_bottom_sheet_template.dart';
@@ -19,10 +18,7 @@ class AdditionalTourInfoBottomSheet extends StatelessWidget {
       title: S.current.additionalInformation,
       children: [
         Expanded(
-          child: QuillContent(
-              content: QuillContentFormatter.checkAndConvertQuillFormat(
-                  additionalInfo),
-              isScrollable: true),
+          child: QuillContent(content: additionalInfo, isScrollable: true),
         ),
       ],
     );

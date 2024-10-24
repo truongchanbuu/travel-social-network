@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../auth/domain/entities/user.dart';
+import '../../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../../tour/domain/entities/tour.dart';
 import '../../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../../../tour/presentations/widgets/tours_grid_view.dart';
@@ -31,9 +33,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final UserEntity user =
+        context.select((AuthBloc authBloc) => authBloc.state.user);
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: const HomePageFloatingActionButton(),
+        floatingActionButton:
+            user.isLoggedIn ? const HomePageFloatingActionButton() : null,
         body: BlocBuilder<TourBloc, TourState>(
           builder: (context, state) {
             if (state is TourActionLoading || state is TourInitial) {

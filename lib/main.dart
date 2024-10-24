@@ -20,14 +20,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: authenticationRepository,
-      child: BlocProvider<AuthBloc>(
-        lazy: false,
-        create: (_) =>
-            getIt.get<AuthBloc>()..add(AuthUserSubscriptionRequest()),
-        child: const AppView(),
-      ),
+    return BlocProvider<AuthBloc>(
+      lazy: false,
+      create: (_) => getIt.get<AuthBloc>()..add(AuthUserSubscriptionRequest()),
+      child: const AppView(),
     );
   }
 }

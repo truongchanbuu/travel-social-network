@@ -16,7 +16,6 @@ class QuillContentFormatter {
           input = json.encode(decoded);
         }
 
-        print('AFTER: $input');
         return input;
       }
     } catch (e) {

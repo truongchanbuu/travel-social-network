@@ -286,6 +286,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Những địa danh nổi tiếng"),
         "post": MessageLookupByLibrary.simpleMessage("Đăng"),
+        "postNoLoginText": MessageLookupByLibrary.simpleMessage(
+            "Đăng nhập để chia sẻ những khoảnh khắc của riêng bạn"),
         "price": MessageLookupByLibrary.simpleMessage("Giá vé"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Chính sách bảo mật"),

@@ -4,7 +4,8 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
-  const AppBottomNavigationBar({super.key});
+  final void Function(int index)? onTap;
+  const AppBottomNavigationBar({super.key, this.onTap});
 
   @override
   State<AppBottomNavigationBar> createState() => _AppBottomNavigationBarState();
@@ -40,7 +41,10 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
       elevation: 20,
       currentIndex: _currentTabIndex,
       items: icons,
-      onTap: (index) => setState(() => _currentTabIndex = index),
+      onTap: (index) {
+        setState(() => _currentTabIndex = index);
+        widget.onTap?.call(index);
+      },
     );
   }
 }

@@ -377,5 +377,6 @@
     "fetchDataFailure": "Failed to fetch image from URL",
     "howYourFeeling": "How are you feeling today?",
     "createPost": "Create Post",
-    "whatYouThinkAboutThisPost": "What do you think about this post?"
+    "whatYouThinkAboutThisPost": "What do you think about this post?",
+    "postNoLoginText": "Please login to share your feeling with everyone"
 }

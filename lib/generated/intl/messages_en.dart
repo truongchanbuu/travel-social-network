@@ -299,6 +299,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "popularDest":
             MessageLookupByLibrary.simpleMessage("Popular Destinations"),
         "post": MessageLookupByLibrary.simpleMessage("Post"),
+        "postNoLoginText": MessageLookupByLibrary.simpleMessage(
+            "Please login to share your feeling with everyone"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "privacyStatement":

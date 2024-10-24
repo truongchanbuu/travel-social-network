@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
+
 class IconWithText extends StatelessWidget {
   final IconData iconData;
   final String text;
@@ -17,13 +19,21 @@ class IconWithText extends StatelessWidget {
         onTap: () {},
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(iconData),
-              const SizedBox(height: 8),
-              Text(text),
-            ],
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(iconData),
+                const SizedBox(height: 8),
+                Text(
+                  text,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  textDirection: defaultTextDirection,
+                  overflow: defaultTextOverflow,
+                ),
+              ],
+            ),
           ),
         ),
       ),

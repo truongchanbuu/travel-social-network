@@ -375,5 +375,6 @@
     "fetchDataFailure": "Lấy dữ liệu về thất bại",
     "howYourFeeling": "Hôm nay bạn đang nghĩ gì?",
     "createPost": "Tạo bài viết",
-    "whatYouThinkAboutThisPost": "Bạn nghĩ sao về bài post này?"
+    "whatYouThinkAboutThisPost": "Bạn nghĩ sao về bài post này?",
+    "postNoLoginText": "Đăng nhập để chia sẻ những khoảnh khắc của riêng bạn"
 }

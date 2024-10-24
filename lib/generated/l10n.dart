@@ -2452,6 +2452,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please login to share your feeling with everyone`
+  String get postNoLoginText {
+    return Intl.message(
+      'Please login to share your feeling with everyone',
+      name: 'postNoLoginText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

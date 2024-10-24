@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../setting/presentation/widgets/setting_icon.dart';
 import '../../../user/presentations/widgets/about_section.dart';
+import '../../domain/entities/user.dart';
+import '../bloc/auth_bloc.dart';
 import '../widgets/hero_image.dart';
 
 class HeroAuthPage extends StatefulWidget {
@@ -14,34 +17,38 @@ class HeroAuthPage extends StatefulWidget {
 }
 
 class _HeroAuthPageState extends State<HeroAuthPage> {
+  static const SizedBox spacing = SizedBox(height: 10);
+
   @override
   Widget build(BuildContext context) {
-    const SizedBox spacing = SizedBox(height: 10);
-
-    return Scaffold(
-      backgroundColor: scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        actionsIconTheme: const IconThemeData(color: Colors.black),
-        actions: const <Widget>[
-          SettingIcon(),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            _buildInfoSection(),
-            spacing,
-            const AboutSection(),
-          ],
+    final UserEntity user =
+        context.select((AuthBloc authBloc) => authBloc.state.user);
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: scaffoldBackgroundColor,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          actionsIconTheme: const IconThemeData(color: Colors.black),
+          actions: const <Widget>[SettingIcon()],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildInfoSection(user.isLoggedIn),
+                spacing,
+                const AboutSection(),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildInfoSection() {
-    const SizedBox spacing = SizedBox(height: 15);
+  static const SizedBox infoSpacing = SizedBox(height: 15);
+  Widget _buildInfoSection(bool isLoggedIn) {
     return Container(
       color: Colors.white,
       child: Padding(
@@ -50,10 +57,10 @@ class _HeroAuthPageState extends State<HeroAuthPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const HeroImage(),
-            spacing,
+            infoSpacing,
             _buildPromotionText(),
-            spacing,
-            _buildAuthButton(),
+            infoSpacing,
+            if (!isLoggedIn) _buildAuthButton(),
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class UserEntity extends Equatable {
   final String id;
@@ -19,6 +18,8 @@ class UserEntity extends Equatable {
   });
 
   static const empty = UserEntity(id: '');
+
+  bool get isLoggedIn => this != empty;
 
   @override
   List<Object?> get props => [id, email, username, avatarUrl, phoneNumber];

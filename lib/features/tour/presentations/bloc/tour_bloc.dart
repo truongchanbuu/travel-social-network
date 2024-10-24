@@ -26,6 +26,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     on<GetTourImagesEvent>(_onGetTourImages);
     on<GetTopRatingToursEvent>(_onGetTopRatingTours);
     on<UpdateTourRatingEvent>(_onUpdateTourRating);
+    on<GetToursByUserIdEvent>(_onGetUserTours);
   }
 
   void _onInitialNewTour(event, emit) {
@@ -141,11 +142,9 @@ class TourBloc extends Bloc<TourEvent, TourState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TourActionFailed(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
+      } else {
         emit(ListOfToursLoaded(
             dataState.data!.map((tour) => tour.toEntity()).toList()));
-      } else {
-        emit(TourActionLoading());
       }
     } catch (e) {
       log(e.toString());
@@ -163,10 +162,28 @@ class TourBloc extends Bloc<TourEvent, TourState> {
       if (dataState is DataFailure) {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TourActionFailed(S.current.dataStateFailure));
-      } else if (dataState is DataSuccess) {
-        emit(TourActionSuccess(dataState.data!.toEntity()));
       } else {
-        emit(TourActionLoading());
+        emit(TourActionSuccess(dataState.data!.toEntity()));
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(TourActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onGetUserTours(
+      GetToursByUserIdEvent event, Emitter<TourState> emit) async {
+    try {
+      final dataState = await tourRepository.getTourByUserId(event.userId);
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TourActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(
+          ListOfToursLoaded(
+              dataState.data?.map((tour) => tour.toEntity()).toList() ?? []),
+        );
       }
     } catch (e) {
       log(e.toString());
