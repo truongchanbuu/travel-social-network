@@ -62,7 +62,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
     'Singapore Tour with Significant Lion State Visit',
     'Culture Heritage Tour at Ha Long Bay',
     'Historical Landmarks Exploration at Ho Chi Minh Museum',
-    'Sunset Beach Tour at Da Nang City',
+    'Sunset Beach Tour at Nha Trang',
   ];
 
   @override
@@ -168,6 +168,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
   }
 
   void _genericOnValue(String fieldName, String? value) {
+    print('$fieldName - $value');
     final TourBloc tourBloc = context.read<TourBloc>();
     genericOnValue(
       bloc: tourBloc,

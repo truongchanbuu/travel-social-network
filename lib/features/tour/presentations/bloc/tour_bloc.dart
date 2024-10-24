@@ -93,28 +93,27 @@ class TourBloc extends Bloc<TourEvent, TourState> {
 
   TourEntity _updateTourField(
       TourEntity tour, String fieldName, dynamic value) {
-    if (value is String) {
-      if (fieldName == TourEntity.tourNameFieldName) {
-        return tour.copyWith(tourName: value);
-      } else if (fieldName == TourEntity.tourDescriptionFieldName) {
-        return tour.copyWith(tourDescription: value);
-      } else if (fieldName == TourEntity.durationFieldName) {
-        return tour.copyWith(duration: value);
-      } else if (fieldName == TourEntity.departureFieldName) {
-        return tour.copyWith(departure: value);
-      } else if (fieldName == TourEntity.destinationFieldName) {
-        return tour.copyWith(destination: value);
-      } else if (fieldName == TourEntity.tourScheduleFieldName) {
-        return tour.copyWith(tourSchedule: value);
-      } else if (fieldName == TourEntity.additionalInfoFiledName) {
-        return tour.copyWith(additionalInfo: value);
-      }
+    if (fieldName == TourEntity.tourNameFieldName) {
+      return tour.copyWith(tourName: value.toString());
+    } else if (fieldName == TourEntity.tourDescriptionFieldName) {
+      return tour.copyWith(tourDescription: value.toString());
+    } else if (fieldName == TourEntity.durationFieldName) {
+      return tour.copyWith(duration: value.toString());
+    } else if (fieldName == TourEntity.departureFieldName) {
+      return tour.copyWith(departure: value.toString());
+    } else if (fieldName == TourEntity.destinationFieldName) {
+      return tour.copyWith(destination: value.toString());
+    } else if (fieldName == TourEntity.tourScheduleFieldName) {
+      return tour.copyWith(tourSchedule: value.toString());
+    } else if (fieldName == TourEntity.additionalInfoFiledName) {
+      return tour.copyWith(additionalInfo: value.toString());
     } else if (fieldName == TourEntity.ticketIdsFieldName &&
         value is List<String>) {
       return tour.copyWith(ticketIds: value);
+    } else {
+      log('Tour may not be changed');
     }
 
-    log('Tour may not be changed');
     return tour;
   }
 

@@ -267,7 +267,6 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   }
 
   void _viewAllCreatedTickets() {
-    print(tickets);
     Navigator.push(
         context,
         MaterialPageRoute(
