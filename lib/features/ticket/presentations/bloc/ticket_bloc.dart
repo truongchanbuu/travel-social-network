@@ -161,7 +161,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       TicketType ticket, String field, dynamic value) {
     switch (field) {
       case TicketTypeEntity.ticketTypeNameFieldName:
-        return ticket.copyWith(ticketTypeName: value as String);
+        return ticket.copyWith(ticketTypeName: value.toString());
       case TicketTypeEntity.ticketPriceFieldName:
         return ticket.copyWith(ticketPrice: value as num);
       case TicketTypeEntity.quantityFieldName:
@@ -170,15 +170,15 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         return ticket.copyWith(
             category: stringToEnum(value as String, TicketCategory.values));
       case TicketTypeEntity.ticketDescriptionFieldName:
-        return ticket.copyWith(ticketDescription: value as String);
+        return ticket.copyWith(ticketDescription: value.toString());
       case TicketTypeEntity.ticketInfoFieldName:
-        return ticket.copyWith(ticketInfo: value as String);
+        return ticket.copyWith(ticketInfo: value.toString());
       case TicketTypeEntity.redemptionMethodDescFieldName:
-        return ticket.copyWith(redemptionMethodDesc: value as String);
+        return ticket.copyWith(redemptionMethodDesc: value.toString());
       case TicketTypeEntity.refundPolicyIdFieldName:
-        return ticket.copyWith(refundPolicyId: value as String);
+        return ticket.copyWith(refundPolicyId: value.toString());
       case TicketTypeEntity.reschedulePolicyIdFieldName:
-        return ticket.copyWith(reschedulePolicyId: value as String);
+        return ticket.copyWith(reschedulePolicyId: value.toString());
       default:
         return ticket;
     }

@@ -1,9 +1,13 @@
-import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:go_router/go_router.dart" show GoRoute, GoRouter;
 import "package:go_transitions/go_transitions.dart";
 
+import "../../features/auth/presentations/bloc/auth_bloc.dart";
 import "../../features/shared/presentations/pages/home/home_page.dart";
 import "../../features/ticket/presentations/pages/save_ticket_page.dart";
+import "../../features/tour/presentations/bloc/tour_bloc.dart";
+import "../../injection_container.dart";
 
 var routes = GoRouter(routes: [
   GoRoute(
@@ -36,3 +40,14 @@ var routes = GoRouter(routes: [
         )
       ])
 ]);
+List<Page<dynamic>> onGeneratePages(
+    AuthStatus state, List<Page<dynamic>> pages) {
+  return [
+    MaterialPage(
+      child: BlocProvider(
+        create: (context) => getIt.get<TourBloc>(),
+        child: const HomePage(),
+      ),
+    ),
+  ];
+}

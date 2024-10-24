@@ -17,7 +17,7 @@ class ThumbnailsWidget extends StatefulWidget {
   const ThumbnailsWidget({
     super.key,
     required this.imageUrls,
-    this.minShowedImages = minimunShowedImage,
+    this.minShowedImages = minImageShowed,
     this.collectionId = '',
     this.onImage,
   });
@@ -51,7 +51,7 @@ class _ThumbnailsWidgetState extends State<ThumbnailsWidget> {
         children: [
           CarouselSlider.builder(
             carouselController: _carouselSliderController,
-            itemCount: min(imageUrls.length, minimunShowedImage),
+            itemCount: min(imageUrls.length, minImageShowed),
             itemBuilder: _buildImageItem,
             options: CarouselOptions(
               autoPlay: false,

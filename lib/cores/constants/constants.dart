@@ -86,7 +86,7 @@ const int minLimitLength = 10;
 
 // Item
 const int maxReviewItem = 7;
-const int minimunShowedImage = 5;
+const int minImageShowed = 5;
 const int maxImageLimit = 100;
 
 // Shape

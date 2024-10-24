@@ -138,7 +138,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
                 isAnimated: false,
                 hintTexts: [S.current.ticketName],
                 onSaved: (value) => _genericOnValue(
-                    TicketTypeEntity.ticketInfoFieldName, value),
+                    TicketTypeEntity.ticketTypeNameFieldName, value),
                 onChanged: (value) => _genericOnValue(
                     TicketTypeEntity.ticketTypeNameFieldName, value),
                 validator: (value) =>

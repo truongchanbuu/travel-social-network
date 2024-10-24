@@ -6,12 +6,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import './firebase_options.dart';
 import './injection_container.dart';
+import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
 import 'cores/constants/constants.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/presentations/bloc/auth_bloc.dart';
-import 'features/shared/presentations/pages/home/home_page.dart';
-import 'features/tour/presentations/bloc/tour_bloc.dart';
 import 'generated/l10n.dart';
 
 class MyApp extends StatelessWidget {
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: authenticationRepository,
-      child: BlocProvider(
+      child: BlocProvider<AuthBloc>(
         lazy: false,
         create: (_) =>
             getIt.get<AuthBloc>()..add(AuthUserSubscriptionRequest()),
@@ -49,14 +48,10 @@ class AppView extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      // home: FlowBuilder<AuthStatus>(
-      //   state: context.read<AuthState>().status,
-      //   onGeneratePages: (AuthStatus state, List<Page<dynamic>> pages) {
-      //     return [];
-      //   },
-      // ),
-      home: BlocProvider(
-          create: (context) => getIt.get<TourBloc>(), child: HomePage()),
+      home: FlowBuilder<AuthStatus>(
+        state: context.select((AuthBloc bloc) => bloc.state.status),
+        onGeneratePages: onGeneratePages,
+      ),
     );
   }
 }
@@ -68,6 +63,5 @@ void main() async {
 
   final authenticationRepository = getIt.get<AuthRepository>();
   await authenticationRepository.user.first;
-
   runApp(MyApp(authenticationRepository: authenticationRepository));
 }

@@ -111,9 +111,7 @@ class _PostUploadPageState extends State<PostUploadPage> {
                 color: Colors.grey,
                 fontSize: 18,
               ),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide.none,
-              ),
+              border: const OutlineInputBorder(borderSide: BorderSide.none),
             ),
             onChanged: (value) => context
                 .read<PostBloc>()
