@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -55,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDuhg_2G1Kzjx7jI5eic3EV63hV0hQEX5w',
-    appId: '1:572145211961:android:2ff328bd5bb3b1e88e4be8',
+    appId: '1:572145211961:android:a1af626c2cf807ae8e4be8',
     messagingSenderId: '572145211961',
     projectId: 'travel-social-network-ad4b0',
     storageBucket: 'travel-social-network-ad4b0.appspot.com',
@@ -67,15 +64,28 @@ class DefaultFirebaseOptions {
     messagingSenderId: '572145211961',
     projectId: 'travel-social-network-ad4b0',
     storageBucket: 'travel-social-network-ad4b0.appspot.com',
+    iosClientId: '572145211961-26hto7t5e8ieq187idgistujsr59tdb8.apps.googleusercontent.com',
     iosBundleId: 'com.example.travelSocialNetwork',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBk5ibL1h-hEhmqltqgxHJSCL7oTb6FA2E',
-    appId: '1:572145211961:ios:d41f14b324da0f778e4be8',
+    appId: '1:572145211961:ios:7a88f7e93ab68f6c8e4be8',
     messagingSenderId: '572145211961',
     projectId: 'travel-social-network-ad4b0',
     storageBucket: 'travel-social-network-ad4b0.appspot.com',
-    iosBundleId: 'com.example.travelSocialNetwork.RunnerTests',
+    iosClientId: '572145211961-26hto7t5e8ieq187idgistujsr59tdb8.apps.googleusercontent.com',
+    iosBundleId: 'com.example.travelSocialNetwork',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDuWUDZv19XhTnfRHOhj7lvNiDTJ5JF5JQ',
+    appId: '1:572145211961:web:7e28aec55d3da78b8e4be8',
+    messagingSenderId: '572145211961',
+    projectId: 'travel-social-network-ad4b0',
+    authDomain: 'travel-social-network-ad4b0.firebaseapp.com',
+    storageBucket: 'travel-social-network-ad4b0.appspot.com',
+    measurementId: 'G-Z1TP74RGY4',
+  );
+
 }
