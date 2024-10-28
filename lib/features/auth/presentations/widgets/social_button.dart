@@ -7,6 +7,7 @@ class SocialButton extends StatelessWidget {
   final Color? textColor;
   final Widget? leading;
   final Color? buttonColor;
+  final void Function()? onTap;
 
   const SocialButton({
     super.key,
@@ -14,6 +15,7 @@ class SocialButton extends StatelessWidget {
     this.textColor,
     this.leading,
     this.buttonColor,
+    this.onTap,
   });
 
   @override
@@ -50,7 +52,7 @@ class SocialButton extends StatelessWidget {
             ),
             titleAlignment: ListTileTitleAlignment.center,
             tileColor: buttonColor,
-            onTap: () {},
+            onTap: onTap,
           ),
         );
       },

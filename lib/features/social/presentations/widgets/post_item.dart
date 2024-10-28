@@ -24,17 +24,17 @@ class PostItem extends StatelessWidget {
       value: context.read<CommentBloc>()
         ..add(GetPostCommentsEvent(post.postId)),
       child: BlocBuilder<PostBloc, PostState>(
-        builder: (context, state) {
+        builder: (context, postState) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PostHeader(
-                post: _getPost(state),
+                post: _getPost(postState),
                 onDelete: () => _deletePost(context),
                 onEdit: () => _editPost(context),
               ),
-              PostContent(post: _getPost(state)),
-              PostFooter(post: _getPost(state)),
+              PostContent(post: _getPost(postState)),
+              PostFooter(post: _getPost(postState)),
             ],
           );
         },

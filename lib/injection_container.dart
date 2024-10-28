@@ -10,6 +10,8 @@ import 'cores/utils/cached_client.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/presentations/bloc/auth_bloc.dart';
+import 'features/auth/presentations/bloc/login/login_cubit.dart';
+import 'features/auth/presentations/bloc/signup/signup_cubit.dart';
 import 'features/comment/data/repositories/comment_repository_impl.dart';
 import 'features/comment/domain/repositories/comment_repository.dart';
 import 'features/comment/presentations/bloc/comment_bloc.dart';
@@ -30,6 +32,9 @@ import 'features/ticket/presentations/bloc/ticket_bloc.dart';
 import 'features/tour/data/repositories/tour_repository_impl.dart';
 import 'features/tour/domain/repositories/tour_repository.dart';
 import 'features/tour/presentations/bloc/tour_bloc.dart';
+import 'features/user/data/repositories/user_repository_impl.dart';
+import 'features/user/domain/repositories/user_repository.dart';
+import 'features/user/presentations/bloc/user_cubit.dart';
 
 final getIt = GetIt.I;
 
@@ -49,6 +54,7 @@ Future<void> initializeDependencies() async {
   getIt.registerSingleton<FirebaseStorage>(FirebaseStorage.instance);
 
   // Repository
+  getIt.registerSingleton<UserRepository>(UserRepositoryImpl());
   getIt.registerSingleton<ImageRepository>(ImageRepositoryImpl());
   getIt.registerSingleton<TourRepository>(TourRepositoryImpl());
   getIt.registerSingleton<TicketRepository>(TicketRepositoryImpl());
@@ -60,6 +66,7 @@ Future<void> initializeDependencies() async {
     firebaseAuth: getIt(),
     cache: getIt(),
     googleSignIn: getIt(),
+    userRepository: getIt(),
   ));
 
   // Bloc
@@ -73,4 +80,9 @@ Future<void> initializeDependencies() async {
       ));
   getIt.registerFactory<PostBloc>(() => PostBloc(getIt()));
   getIt.registerFactory<CommentBloc>(() => CommentBloc(getIt()));
+
+  // Cubit
+  getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+  getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
 }

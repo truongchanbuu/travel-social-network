@@ -1773,6 +1773,26 @@ class S {
     );
   }
 
+  /// `Log out`
+  String get logout {
+    return Intl.message(
+      'Log out',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid email`
+  String get invalidEmail {
+    return Intl.message(
+      'Invalid email',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `We are going to sign in with your email or create a new account if you don't have one`
   String get emailAnnouncement {
     return Intl.message(
@@ -1798,6 +1818,26 @@ class S {
     return Intl.message(
       'Password',
       name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmed Password`
+  String get confirmedPassword {
+    return Intl.message(
+      'Confirmed Password',
+      name: 'confirmedPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmed Password does not match`
+  String get isNotSamePassword {
+    return Intl.message(
+      'Confirmed Password does not match',
+      name: 'isNotSamePassword',
       desc: '',
       args: [],
     );
@@ -2458,6 +2498,36 @@ class S {
     return Intl.message(
       'Please login to share your feeling with everyone',
       name: 'postNoLoginText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login to review`
+  String get loginToReview {
+    return Intl.message(
+      'Login to review',
+      name: 'loginToReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login to comment`
+  String get loginToComment {
+    return Intl.message(
+      'Login to comment',
+      name: 'loginToComment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to login or signup`
+  String get authenticateFailed {
+    return Intl.message(
+      'Failed to login or signup',
+      name: 'authenticateFailed',
       desc: '',
       args: [],
     );

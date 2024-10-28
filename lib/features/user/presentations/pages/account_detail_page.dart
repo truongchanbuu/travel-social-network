@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/widgets/account_detail_section.dart';
-import '../../../setting/presentation/widgets/user_avatar.dart';
 import '../widgets/account_section_item.dart';
+import '../widgets/user_avatar.dart';
 
 class AccountDetailPage extends StatelessWidget {
   const AccountDetailPage({super.key});
@@ -55,7 +56,7 @@ class AccountDetailPage extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.center,
-            child: UserAvatar(),
+            child: UserAvatar(user: UserEntity.empty),
           ),
           Align(
             alignment: Alignment.bottomRight,

@@ -37,7 +37,6 @@ class CreateTourDatesSection extends StatefulWidget {
   State<CreateTourDatesSection> createState() => _CreateTourDatesSectionState();
 }
 
-// TODO: CREATED_BY PROP NEEDED
 class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   bool _isExpanded = false;
   int minLines = 2;
@@ -50,7 +49,11 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   @override
   void initState() {
     super.initState();
-    context.read<TicketBloc>().add(GetAllTicketsByTourId(widget.tourId));
+
+    if (widget.tourId.isNotEmpty) {
+      context.read<TicketBloc>().add(GetAllTicketsByTourId(widget.tourId));
+    }
+
     maxLines = minLines + 1;
   }
 
@@ -261,13 +264,14 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       if (data is List<String>) {
         setState(() => selectedDates = data);
       } else if (data is List<TicketTypeEntity>) {
-        ticketBloc.add(UpdateListOfTicketsEvent(data));
+        _updateLocalTickets(data);
+        ticketBloc.add(UpdateListOfTicketsEvent(tickets));
       }
     }
   }
 
-  void _viewAllCreatedTickets() {
-    Navigator.push(
+  void _viewAllCreatedTickets() async {
+    var data = await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
@@ -278,5 +282,33 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
             child: CreatedTicketsPage(tickets: tickets),
           ),
         ));
+
+    if (data != null && data is List<TicketTypeEntity>) {
+      _updateLocalTickets(data);
+    }
+  }
+
+  void _updateLocalTickets(List<TicketTypeEntity> data) {
+    bool hasChanges = false;
+
+    for (var ticket in data) {
+      final index =
+          tickets.indexWhere((t) => t.ticketTypeId == ticket.ticketTypeId);
+      if (index != -1) {
+        if (tickets[index] != ticket) {
+          tickets[index] = ticket;
+          hasChanges = true;
+        }
+      } else {
+        tickets.add(ticket);
+        hasChanges = true;
+      }
+    }
+
+    if (hasChanges) {
+      setState(() {
+        tickets = List.from(tickets);
+      });
+    }
   }
 }

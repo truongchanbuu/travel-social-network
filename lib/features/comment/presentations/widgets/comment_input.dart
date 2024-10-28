@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../domain/entities/comment.dart';
 import '../bloc/comment_bloc.dart';
 
@@ -29,6 +30,7 @@ class _CommentInputState extends State<CommentInput> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
     return BlocConsumer<CommentBloc, CommentState>(
       listener: (context, state) {
         if (state is CommentActionSucceed) {
@@ -53,19 +55,19 @@ class _CommentInputState extends State<CommentInput> {
           return const SizedBox.shrink();
         }
 
-        return _buildBody(state);
+        return _buildBody(state, user.id);
       },
     );
   }
 
-  Widget _buildBody(CommentState state) {
+  Widget _buildBody(CommentState state, String userId) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
           child: TextFormField(
             focusNode: _focusNode,
-            onFieldSubmitted: (value) => _onComment(context),
+            onFieldSubmitted: (value) => _onComment(context, userId),
             controller: _commentController,
             maxLines: null,
             onChanged: (value) => setState(() => _content = value),
@@ -83,8 +85,9 @@ class _CommentInputState extends State<CommentInput> {
           ),
         ),
         IconButton(
-          onPressed:
-              _content?.isNotEmpty ?? false ? () => _onComment(context) : null,
+          onPressed: _content?.isNotEmpty ?? false
+              ? () => _onComment(context, userId)
+              : null,
           icon: Icon(
             Icons.send,
             color: _content?.isNotEmpty ?? false ? primaryColor : Colors.grey,
@@ -94,13 +97,13 @@ class _CommentInputState extends State<CommentInput> {
     );
   }
 
-  void _onComment(BuildContext context) {
+  void _onComment(BuildContext context, String userId) {
     final commentBloc = context.read<CommentBloc>();
     final state = commentBloc.state;
 
     if (state is! CommentUpdating) {
       commentBloc.add(CreateCommentEvent(
-        userId: currentUserId,
+        userId: userId,
         content: _content!,
         postId: widget.postId,
       ));

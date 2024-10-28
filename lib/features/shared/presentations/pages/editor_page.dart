@@ -39,13 +39,13 @@ class _EditorPageState extends State<EditorPage> {
               widget.initialValue!)));
 
       quillController = QuillController(
-          document: doc,
-          selection: TextSelection.collapsed(offset: doc.length));
+          document: doc, selection: const TextSelection.collapsed(offset: 0));
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (quillController.document.length > 0) {
           quillController.updateSelection(
-            TextSelection.collapsed(offset: quillController.document.length),
+            TextSelection.collapsed(
+                offset: quillController.document.toPlainText().length),
             ChangeSource.local,
           );
         }
@@ -56,7 +56,7 @@ class _EditorPageState extends State<EditorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
       body: Column(
         children: [
           QuillToolbar.simple(
@@ -105,16 +105,16 @@ class _EditorPageState extends State<EditorPage> {
     );
   }
 
-  AppBar _buildAppBar() => defaultWhiteAppBar(
-        onBack: _backToCreateTourPage,
+  AppBar _buildAppBar(BuildContext context) => defaultWhiteAppBar(
+        onBack: () => _backToCreateTourPage(context),
         actions: [SaveButton(onTap: _saveDescription)],
         titleText: S.current.editPage,
       );
 
-  void _backToCreateTourPage() {
+  void _backToCreateTourPage(BuildContext ctx) {
     String processedString = _processContent();
     if (processedString != (widget.initialValue ?? '')) {
-      _showAlert();
+      _showAlert(ctx);
       return;
     }
 
@@ -135,9 +135,12 @@ class _EditorPageState extends State<EditorPage> {
     return allWhitespace ? '' : jsonEncode(json);
   }
 
-  void _showAlert() => showDialog(
-        context: context,
-        builder: (context) => const ConfirmDialog(),
+  void _showAlert(BuildContext ctx) => showDialog(
+        context: ctx,
+        builder: (context) => ConfirmDialog(onOk: () {
+          Navigator.of(ctx).pop();
+          Navigator.of(context).pop();
+        }),
       );
 
   void _saveDescription() {

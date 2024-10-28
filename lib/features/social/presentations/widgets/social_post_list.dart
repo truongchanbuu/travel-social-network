@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/post.dart';
 import 'post_item.dart';
 
@@ -19,6 +21,12 @@ class SocialPostList extends StatelessWidget {
   Widget _buildPostItem(BuildContext context, int index) {
     final postItem = posts[index];
 
-    return Container(color: Colors.white, child: PostItem(post: postItem));
+    return Container(
+      color: Colors.white,
+      child: BlocProvider.value(
+        value: context.read<UserCubit>()..getUser(postItem.userId),
+        child: PostItem(post: postItem),
+      ),
+    );
   }
 }

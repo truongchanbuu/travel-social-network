@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../shared/presentations/widgets/add_image_view.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/confirm_dialog.dart';
@@ -61,9 +62,10 @@ class _SaveTourPageState extends State<SaveTourPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
     return SafeArea(
       child: Scaffold(
-        appBar: defaultWhiteAppBar(onBack: _backToPrevious),
+        appBar: defaultWhiteAppBar(onBack: () => _backToPrevious(context)),
         body: BlocConsumer<TourBloc, TourState>(
           builder: (context, state) {
             if (state is TourActionLoading ||
@@ -82,11 +84,11 @@ class _SaveTourPageState extends State<SaveTourPage> {
               showToast(state.message,
                   position: StyledToastPosition.center, context: context);
             } else if (state is TourActionSuccess) {
-              _navigateToYourToursPage();
+              _navigateToYourToursPage(user.id);
             }
           },
         ),
-        bottomNavigationBar: _buildSaveTourButton(),
+        bottomNavigationBar: _buildSaveTourButton(user.id),
       ),
     );
   }
@@ -208,9 +210,9 @@ class _SaveTourPageState extends State<SaveTourPage> {
     }
   }
 
-  Widget _buildSaveTourButton() {
+  Widget _buildSaveTourButton(String userId) {
     return ElevatedButton(
-      onPressed: _createTour,
+      onPressed: () => _createTour(userId),
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
         minimumSize: minBtnSize,
@@ -228,8 +230,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
     );
   }
 
-  void _createTour() {
-    // TODO: CHECK FOR THE USER LATER
+  void _createTour(String userId) {
     bool isValid = (_tourDetailKey.currentState?.validateForm() ?? false) &&
         images.isNotEmpty &&
         tour.ticketIds.isNotEmpty;
@@ -239,36 +240,46 @@ class _SaveTourPageState extends State<SaveTourPage> {
       return;
     }
 
-    context.read<TourBloc>().add(CreateTourEvent(tour: tour, images: images));
+    context.read<TourBloc>().add(CreateTourEvent(
+          tour: tour,
+          images: images,
+          createdBy: userId,
+        ));
   }
 
-  void _backToPrevious() {
+  void _backToPrevious(BuildContext ctx) {
+    if (tour == TourEntity.empty) {
+      Navigator.pop(ctx);
+      return;
+    }
+
     showDialog(
-      context: context,
+      context: ctx,
       builder: (context) => ConfirmDialog(onOk: () {
         if (tour.ticketIds.isNotEmpty && widget.tour == null) {
           for (String id in tour.ticketIds) {
-            context.read<TicketBloc>().add(DeleteTicketEvent(id));
+            ctx.read<TicketBloc>().add(DeleteTicketEvent(id));
           }
         }
 
-        Navigator.of(context)
-          ..pop()
-          ..pop();
+        Navigator.of(context).pop();
+        Navigator.of(ctx).pop();
       }),
     );
   }
 
-  void _navigateToYourToursPage() {
+  void _navigateToYourToursPage(String userId) {
     Navigator.of(context)
       ..pop()
       ..push(PageTransition(
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => getIt.get<TourBloc>()),
+            BlocProvider(
+                create: (context) =>
+                    getIt.get<TourBloc>()..add(GetToursByUserIdEvent(userId))),
             BlocProvider(create: (context) => getIt.get<TicketBloc>()),
           ],
-          child: const YourToursPage(),
+          child: YourToursPage(userId: userId),
         ),
         type: PageTransitionType.leftToRight,
       ));

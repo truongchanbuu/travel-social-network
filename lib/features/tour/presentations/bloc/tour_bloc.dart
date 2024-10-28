@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../cores/resources/data_state.dart';
 import '../../../../cores/utils/image_utils.dart';
@@ -30,7 +31,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
   }
 
   void _onInitialNewTour(event, emit) {
-    emit(TourLoaded(TourEntity.defaultWithId()));
+    emit(const TourLoaded(TourEntity.empty));
   }
 
   Future<void> _onGetTourById(GetTourByIdEvent event, emit) async {
@@ -66,8 +67,13 @@ class TourBloc extends Bloc<TourEvent, TourState> {
       }
 
       if (imgUrls.isNotEmpty) {
-        final Tour tour =
-            Tour.fromEntity(event.tour.copyWith(imageUrls: imgUrls));
+        final Tour tour = Tour.fromEntity(
+          event.tour.copyWith(
+            imageUrls: imgUrls,
+            tourId: 'TOUR-${const Uuid().v4()}',
+            createdBy: event.createdBy,
+          ),
+        );
         final dataState = await tourRepository.createTour(tour);
 
         if (dataState is DataFailure) {

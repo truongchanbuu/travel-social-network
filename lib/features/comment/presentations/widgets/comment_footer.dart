@@ -9,20 +9,20 @@ import '../bloc/comment_bloc.dart';
 
 class CommentFooter extends StatefulWidget {
   final CommentEntity comment;
-  const CommentFooter({super.key, required this.comment});
+  final String userId;
+  const CommentFooter({super.key, required this.comment, required this.userId});
 
   @override
   State<CommentFooter> createState() => _CommentFooterState();
 }
 
 class _CommentFooterState extends State<CommentFooter> {
-  String userId = 'TCBs';
   bool _isLiked = false;
 
   @override
   void initState() {
     super.initState();
-    _isLiked = widget.comment.likedUsers.contains(userId);
+    _isLiked = widget.comment.likedUsers.contains(widget.userId);
   }
 
   static const TextStyle actionTextStyle =
@@ -63,9 +63,9 @@ class _CommentFooterState extends State<CommentFooter> {
       _isLiked = !_isLiked;
 
       if (_isLiked) {
-        likedUsers.add(userId);
+        likedUsers.add(widget.userId);
       } else {
-        likedUsers.remove(userId);
+        likedUsers.remove(widget.userId);
       }
     });
 
@@ -78,7 +78,7 @@ class _CommentFooterState extends State<CommentFooter> {
           parentCommentId:
               widget.comment.parentCommentId ?? widget.comment.commentId,
           postId: widget.comment.postId,
-          userId: userId,
+          userId: widget.userId,
           commentOwner: widget.comment.userId,
         ));
   }

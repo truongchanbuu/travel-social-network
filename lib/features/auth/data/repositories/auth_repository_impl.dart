@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../cores/resources/data_state.dart';
 import '../../../../cores/utils/cached_client.dart';
+import '../../../user/domain/repositories/user_repository.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../models/user.dart';
@@ -16,11 +17,13 @@ class AuthRepositoryImpl implements AuthRepository {
   final CacheClient cache;
   final FirebaseAuth firebaseAuth;
   final GoogleSignIn googleSignIn;
+  final UserRepository userRepository;
 
   AuthRepositoryImpl({
     required this.cache,
     required this.firebaseAuth,
     required this.googleSignIn,
+    required this.userRepository,
   });
 
   static const userCacheKey = '__usercache_key__';
@@ -95,13 +98,19 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<DataState<void>> signUp(
-      {required String email, required String password}) async {
+  Future<DataState<void>> signUp({
+    required String email,
+    required String password,
+  }) async {
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      final user = userCredential.user!.toUser;
+      await userRepository.createUser(UserModel.fromEntity(user));
+
       return const DataSuccess();
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
@@ -123,6 +132,12 @@ class AuthRepositoryImpl implements AuthRepository {
       throw const LogOutFailure();
     }
   }
+
+  @override
+  Future<DataState<void>> logInWithPhone(String phoneNumber) {
+    // TODO: implement logInWithPhone
+    throw UnimplementedError();
+  }
 }
 
 extension on User {
@@ -132,6 +147,7 @@ extension on User {
       email: email,
       avatarUrl: photoURL,
       username: displayName,
+      phoneNumber: phoneNumber,
     );
   }
 }

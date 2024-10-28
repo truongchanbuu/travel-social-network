@@ -10,13 +10,18 @@ sealed class TourEvent extends Equatable {
 final class InitializeNewTourEvent extends TourEvent {}
 
 final class CreateTourEvent extends TourEvent {
+  final String createdBy;
   final TourEntity tour;
   final List<ImageFile> images;
 
-  const CreateTourEvent({required this.tour, required this.images});
+  const CreateTourEvent({
+    required this.tour,
+    required this.images,
+    required this.createdBy,
+  });
 
   @override
-  List<Object> get props => [tour];
+  List<Object> get props => [tour, images, createdBy];
 }
 
 final class GetTourByIdEvent extends TourEvent {

@@ -39,7 +39,8 @@ class TicketTypeEntity extends Equatable {
     this.updatedAt,
   });
 
-  TicketTypeEntity.defaultWithId({
+  TicketTypeEntity.init({
+    this.ticketTypeId = '',
     required this.tourId,
     this.ticketTypeName = '',
     DateTime? startDate,
@@ -53,8 +54,7 @@ class TicketTypeEntity extends Equatable {
     this.ticketInfo = '',
     this.category = TicketCategory.standard,
     this.updatedAt,
-  })  : ticketTypeId = '',
-        startDate = startDate ?? DateTime.now(),
+  })  : startDate = startDate ?? DateTime.now(),
         endDate = endDate ?? DateTime.now(),
         createdAt = DateTime.now();
 

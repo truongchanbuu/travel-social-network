@@ -5,10 +5,13 @@ import '../../../../cores/constants/constants.dart';
 class IconWithText extends StatelessWidget {
   final IconData iconData;
   final String text;
+  final VoidCallback? onTap;
+
   const IconWithText({
     super.key,
     required this.iconData,
     required this.text,
+    this.onTap,
   });
 
   @override
@@ -16,7 +19,7 @@ class IconWithText extends StatelessWidget {
     return Material(
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
-        onTap: () {},
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Center(

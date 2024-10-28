@@ -25,7 +25,7 @@ class YourTourItem extends StatelessWidget {
     fontSize: 18,
   );
   static const SizedBox spacing = SizedBox(height: 10);
-  static const double itemContentHeight = 200;
+  static const double itemContentHeight = 50;
   static const double iconSize = 23;
 
   @override

@@ -13,5 +13,6 @@ abstract interface class AuthRepository {
     required String email,
     required String password,
   });
+  Future<DataState<void>> logInWithPhone(String phoneNumber);
   Future<DataState<void>> logOut();
 }

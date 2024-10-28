@@ -4,7 +4,8 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
 class ContinueButton extends StatelessWidget {
-  const ContinueButton({super.key});
+  final VoidCallback? onTap;
+  const ContinueButton({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class ContinueButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
       ),
+      onPressed: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -34,7 +36,6 @@ class ContinueButton extends StatelessWidget {
           ),
         ],
       ),
-      onPressed: () {},
     );
   }
 }

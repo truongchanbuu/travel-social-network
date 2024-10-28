@@ -1,40 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../bloc/login/login_cubit.dart';
 
 class PasswordInputField extends StatefulWidget {
-  const PasswordInputField({super.key});
+  final String? password;
+  const PasswordInputField({super.key, this.password});
 
   @override
   State<PasswordInputField> createState() => _PasswordInputFieldState();
 }
 
 class _PasswordInputFieldState extends State<PasswordInputField> {
+  late final TextEditingController textEditingController;
+
   bool _isHidden = true;
-  late FocusNode focusNode;
 
   @override
   void initState() {
     super.initState();
-    focusNode = FocusNode();
-    focusNode.addListener(() => setState(() {}));
+    textEditingController = TextEditingController(text: widget.password);
   }
 
   @override
   Widget build(BuildContext context) {
+    final displayError =
+        context.select((LoginCubit cubit) => cubit.state.password.displayError);
+
+    final isProgressing =
+        context.select((LoginCubit cubit) => cubit.state is PasswordChanged);
+
     return TextFormField(
-      focusNode: focusNode,
+      controller: textEditingController,
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.lock,
-          color: focusNode.hasFocus ? primaryColor : null,
+          color: displayError != null
+              ? Colors.red
+              : isProgressing
+                  ? primaryColor
+                  : null,
         ),
         suffixIcon: IconButton(
           onPressed: () => setState(() => _isHidden = !_isHidden),
           icon: Icon(
             _isHidden ? Icons.visibility : Icons.visibility_off,
-            color: focusNode.hasFocus ? primaryColor : null,
+            color: displayError != null
+                ? Colors.red
+                : isProgressing
+                    ? primaryColor
+                    : null,
           ),
         ),
         labelText: S.current.password,
@@ -45,8 +62,12 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: primaryColor),
         ),
-        floatingLabelStyle: const TextStyle(color: primaryColor),
+        floatingLabelStyle:
+            TextStyle(color: displayError != null ? Colors.red : primaryColor),
+        labelStyle: TextStyle(color: displayError != null ? Colors.red : null),
         counterText: '',
+        errorMaxLines: 2,
+        errorText: displayError != null ? S.current.passwordRequirement : null,
       ),
       obscureText: _isHidden,
       textDirection: defaultTextDirection,
@@ -54,7 +75,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.send,
       validator: _validatePassword,
-      onChanged: (String? value) {},
+      onChanged: (value) => context.read<LoginCubit>().passwordChanged(value),
     );
   }
 

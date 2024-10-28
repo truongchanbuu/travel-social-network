@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:travel_social_network/features/auth/presentations/bloc/auth_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
+import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/review.dart';
 import '../bloc/review_bloc.dart';
 import '../pages/save_review_page.dart';
@@ -37,6 +39,8 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
+
     reviews = widget.reviews
       ..take(min(5, reviews.length)).toList()
       ..sort((prevReview, curReview) =>
@@ -95,16 +99,16 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
         _buildReviews(),
         const SizedBox(height: 10),
         ElevatedButton(
-          onPressed: _createReview,
+          onPressed: user.isLoggedIn ? () => _createReview(user.id) : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
             minimumSize: minBtnSize,
             shape: bottomSheetShape,
           ),
           child: Text(
-            S.current.reviews(1),
-            style: const TextStyle(
-              color: Colors.white,
+            user.isLoggedIn ? S.current.reviews(1) : S.current.loginToReview,
+            style: TextStyle(
+              color: user.isLoggedIn ? Colors.white : primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -118,14 +122,21 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
       height: reviewBoxHeight,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => ReviewItem(review: reviews[index]),
+        itemBuilder: (context, index) => BlocProvider.value(
+          value: context.read<UserCubit>()..getUser(reviews[index].userId),
+          child: ReviewItem(
+            key: ValueKey(
+                'review_${reviews[index].userId}_${reviews[index].reviewId}'),
+            review: reviews[index],
+          ),
+        ),
         itemCount: reviews.length,
         separatorBuilder: (context, index) => const SizedBox(width: 10),
       ),
     );
   }
 
-  void _createReview() {
+  void _createReview(String userId) {
     Navigator.push(
       context,
       PageTransition(
@@ -134,7 +145,10 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
             BlocProvider(create: (context) => getIt.get<ReviewBloc>()),
             BlocProvider(create: (context) => getIt.get<TourBloc>()),
           ],
-          child: SaveReviewPage(postId: widget.tourId),
+          child: SaveReviewPage(
+            postId: widget.tourId,
+            userId: userId,
+          ),
         ),
         type: PageTransitionType.leftToRight,
       ),

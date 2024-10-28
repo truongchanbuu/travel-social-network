@@ -11,6 +11,9 @@ class UserModel extends UserEntity {
     super.email,
     super.username,
     super.avatarUrl,
+    super.phoneNumber,
+    super.createdAt,
+    super.updatedAt,
   });
 
   UserEntity toEntity() {
@@ -19,6 +22,9 @@ class UserModel extends UserEntity {
       email: email,
       username: username,
       avatarUrl: avatarUrl,
+      phoneNumber: phoneNumber,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 
@@ -28,6 +34,9 @@ class UserModel extends UserEntity {
       email: entity.email,
       username: entity.username,
       avatarUrl: entity.avatarUrl,
+      phoneNumber: entity.phoneNumber,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     );
   }
 
@@ -36,12 +45,18 @@ class UserModel extends UserEntity {
     String? email,
     String? username,
     String? avatarUrl,
+    String? phoneNumber,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return UserModel(
       id: id ?? this.id,
       email: email ?? this.email,
       username: username ?? this.username,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 

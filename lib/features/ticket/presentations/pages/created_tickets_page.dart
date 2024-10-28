@@ -31,7 +31,11 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
   @override
   void initState() {
     super.initState();
-    tickets = widget.tickets;
+    initData(widget.tickets);
+  }
+
+  void initData(List<TicketTypeEntity> ticketsData) {
+    tickets = ticketsData;
     dateRanges = tickets
         .map((ticket) =>
             DateTimeUtils.formatDateRange(ticket.startDate, ticket.endDate))
@@ -42,11 +46,15 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultWhiteAppBar(titleText: S.current.ticketList),
+        appBar: defaultWhiteAppBar(
+          titleText: S.current.ticketList,
+          onBack: () => Navigator.pop(context, tickets),
+        ),
         body: BlocBuilder<TicketBloc, TicketState>(
           builder: (context, state) {
             if (state is TicketDeleted) {
               tickets.remove(state.ticket);
+              initData(tickets);
             }
 
             return _buildBody();
@@ -61,14 +69,14 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           child: Row(children: dateRanges.map(_buildDateTimeItem).toList()),
         ),
         const SizedBox(height: 20),
         Expanded(
-          child: ListView.separated(
+          child: ListView.builder(
             itemBuilder: _buildTicketItem,
             itemCount: tickets.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 10),
           ),
         )
       ],
@@ -98,12 +106,26 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
 
   Widget _buildTicketItem(BuildContext context, int index) => GestureDetector(
         onTap: () => _updateTicket(tickets[index]),
-        child: TicketBriefInfo(
-          ticketName: tickets[index].ticketTypeName,
-          category: tickets[index].category,
-          trailing: GestureDetector(
-              onTap: () => _deleteTicket(tickets[index]),
-              child: const Icon(Icons.delete)),
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 1,
+                spreadRadius: 1,
+                color: Colors.black12,
+              )
+            ],
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: TicketBriefInfo(
+            ticketName: tickets[index].ticketTypeName,
+            category: tickets[index].category,
+            trailing: GestureDetector(
+                onTap: () => _deleteTicket(tickets[index]),
+                child: const Icon(Icons.delete)),
+          ),
         ),
       );
 
@@ -125,24 +147,40 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
     return ticketsByDates;
   }
 
-  void _updateTicket(TicketTypeEntity ticket) => Navigator.push(
-        context,
-        PageTransition(
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (context) => getIt.get<TicketBloc>()),
-              BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
-            ],
-            child: SaveTicketPage(
-              ticket: ticket,
-              tourId: ticket.tourId,
-              dates: const [],
-              selectedDates: const [],
-            ),
+  void _updateTicket(TicketTypeEntity ticket) async {
+    var data = await Navigator.push(
+      context,
+      PageTransition(
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+            BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+          ],
+          child: SaveTicketPage(
+            ticket: ticket,
+            tourId: ticket.tourId,
+            dates: const [],
+            selectedDates: const [],
           ),
-          type: PageTransitionType.leftToRight,
         ),
-      );
+        type: PageTransitionType.leftToRight,
+      ),
+    );
+
+    if (data is TicketTypeEntity) {
+      final updatedTicket = tickets.firstWhereOrNull(
+          (ticket) => ticket.ticketTypeId == data.ticketTypeId);
+
+      if (updatedTicket != data) {
+        tickets
+          ..removeWhere((ticket) => ticket.ticketTypeId == data.ticketTypeId)
+          ..add(data);
+        setState(() {
+          initData(tickets);
+        });
+      }
+    }
+  }
 
   void _deleteTicket(TicketTypeEntity ticket) async {
     final TicketBloc ticketBloc = context.read<TicketBloc>();

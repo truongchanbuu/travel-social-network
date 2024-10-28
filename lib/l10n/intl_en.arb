@@ -278,9 +278,13 @@
     "bookingNow": "Booking Now",
     "signIn": "Sign in",
     "signUp": "Sign up",
+    "logout": "Log out",
+    "invalidEmail": "Invalid email",
     "emailAnnouncement": "We are going to sign in with your email or create a new account if you don't have one",
     "forgotPassword": "Forgot Password",
     "password": "Password",
+    "confirmedPassword": "Confirmed Password",
+    "isNotSamePassword": "Confirmed Password does not match",
     "enterPasswordRequirement": "Please enter your password",
     "passwordRequirement": "Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
     "durationHintText": "6 hours, 1 day, 2 weeks, 3 months, ...",
@@ -378,5 +382,8 @@
     "howYourFeeling": "How are you feeling today?",
     "createPost": "Create Post",
     "whatYouThinkAboutThisPost": "What do you think about this post?",
-    "postNoLoginText": "Please login to share your feeling with everyone"
+    "postNoLoginText": "Please login to share your feeling with everyone",
+    "loginToReview": "Login to review",
+    "loginToComment": "Login to comment",
+    "authenticateFailed": "Failed to login or signup"
 }

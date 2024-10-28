@@ -103,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("All Images and Videos"),
         "allPhotos": MessageLookupByLibrary.simpleMessage("All Photos"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
+        "authenticateFailed":
+            MessageLookupByLibrary.simpleMessage("Failed to login or signup"),
         "backToPreviousPage":
             MessageLookupByLibrary.simpleMessage("Back to previous page"),
         "bookingNow": MessageLookupByLibrary.simpleMessage("Booking Now"),
@@ -134,6 +136,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
         "comment": m3,
         "commentLabel": MessageLookupByLibrary.simpleMessage("Comment"),
+        "confirmedPassword":
+            MessageLookupByLibrary.simpleMessage("Confirmed Password"),
         "contactServiceProvider":
             MessageLookupByLibrary.simpleMessage("Contact service provider"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -235,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Invalid destination! Please choose or insert a valid destination"),
         "invalidDurationError":
             MessageLookupByLibrary.simpleMessage("Invalid duration"),
+        "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "invalidForm": MessageLookupByLibrary.simpleMessage(
             "Invalid Form! Do not empty any fields or necessary information"),
         "invalidImageFileType": MessageLookupByLibrary.simpleMessage(
@@ -242,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Is Allow"),
+        "isNotSamePassword": MessageLookupByLibrary.simpleMessage(
+            "Confirmed Password does not match"),
         "itinerary": MessageLookupByLibrary.simpleMessage("Itinerary"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
@@ -252,6 +259,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingImageText": m12,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Location Information"),
+        "loginToComment":
+            MessageLookupByLibrary.simpleMessage("Login to comment"),
+        "loginToReview":
+            MessageLookupByLibrary.simpleMessage("Login to review"),
+        "logout": MessageLookupByLibrary.simpleMessage("Log out"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
             "Could not make the phone call"),
         "manageYourAccount":

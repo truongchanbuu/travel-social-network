@@ -3,7 +3,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../../setting/presentation/widgets/setting_icon.dart';
+import '../../../setting/presentations/widgets/setting_icon.dart';
 
 class AccountBriefInfo extends StatelessWidget {
   const AccountBriefInfo({super.key});

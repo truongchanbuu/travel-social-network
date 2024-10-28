@@ -1,4 +1,4 @@
-# travel_social_network
+# travelsocial
 
 This is Travel Social Network Project
 

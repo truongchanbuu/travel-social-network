@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/post.dart';
 import 'post_content.dart';
 import 'post_header.dart';
@@ -25,16 +27,19 @@ class SharePostWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(5)),
         border: Border.all(color: Colors.black12, width: 0.5),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          PostHeader(
-            post: post,
-            isMoreActionShowed: false,
-          ),
-          PostContent(post: post),
-        ],
+      child: BlocProvider.value(
+        value: context.read<UserCubit>()..getUser(post.userId),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PostHeader(
+              post: post,
+              isMoreActionShowed: false,
+            ),
+            PostContent(post: post),
+          ],
+        ),
       ),
     );
   }

@@ -6,13 +6,14 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../../tour/domain/entities/tour.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../domain/entities/review.dart';
 import '../bloc/review_bloc.dart';
-import '../widgets/review_item.dart';
+import '../widgets/review_list.dart';
 import 'save_review_page.dart';
 
 class ReviewsPage extends StatefulWidget {
@@ -38,6 +39,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
     return SafeArea(
       child: BlocBuilder<ReviewBloc, ReviewState>(
         builder: (context, state) {
@@ -59,10 +61,10 @@ class _ReviewsPageState extends State<ReviewsPage> {
                     thickness: 1,
                     color: Colors.grey,
                   ),
-                  Expanded(child: _buildReviewList()),
+                  Expanded(child: ReviewList(reviews: reviews)),
                 ],
               ),
-              floatingActionButton: _reviewFAB(),
+              floatingActionButton: _reviewFAB(user.id),
             );
           }
 
@@ -108,18 +110,6 @@ class _ReviewsPageState extends State<ReviewsPage> {
         ),
       );
 
-  Widget _buildReviewList() => ListView.builder(
-        itemBuilder: (context, index) => SizedBox(
-          height: reviewItemDetailPageHeight,
-          child: ReviewItem(
-            review: reviews[index],
-            isLimited: false,
-            imageSize: reviewItemDetailImageSize,
-          ),
-        ),
-        itemCount: reviews.length,
-      );
-
   AppBar _buildAppBar() => defaultWhiteAppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,16 +138,16 @@ class _ReviewsPageState extends State<ReviewsPage> {
         ),
       );
 
-  FloatingActionButton _reviewFAB() {
+  FloatingActionButton _reviewFAB(String userId) {
     return FloatingActionButton(
-      onPressed: _reviewTour,
+      onPressed: () => _reviewTour(userId),
       backgroundColor: primaryColor,
       shape: const CircleBorder(),
       child: const Icon(Icons.rate_review_sharp, color: Colors.white),
     );
   }
 
-  void _reviewTour() {
+  void _reviewTour(String userId) {
     Navigator.push(
       context,
       PageTransition(
@@ -166,7 +156,10 @@ class _ReviewsPageState extends State<ReviewsPage> {
             BlocProvider(create: (context) => getIt.get<ReviewBloc>()),
             BlocProvider(create: (context) => getIt.get<TourBloc>()),
           ],
-          child: SaveReviewPage(postId: tour.tourId),
+          child: SaveReviewPage(
+            postId: tour.tourId,
+            userId: userId,
+          ),
         ),
         type: PageTransitionType.leftToRight,
       ),

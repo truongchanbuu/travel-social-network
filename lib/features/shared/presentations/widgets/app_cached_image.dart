@@ -14,6 +14,7 @@ class AppCachedImage extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit? fit;
+  final Widget? errorImage;
 
   const AppCachedImage({
     super.key,
@@ -26,6 +27,7 @@ class AppCachedImage extends StatelessWidget {
     this.width,
     this.height,
     this.fit,
+    this.errorImage,
   });
 
   @override
@@ -38,6 +40,7 @@ class AppCachedImage extends StatelessWidget {
       alignment: Alignment.center,
       cacheKey: cacheKey,
       errorWidget: (context, error, stackTrace) =>
+          errorImage ??
           ErrorImage(semanticLabel: errorSemanticLabel, size: errorImageSize),
       progressIndicatorBuilder: (context, child, loadingProgress) =>
           AppProgressingIndicator(size: loadingIndicatorSize),

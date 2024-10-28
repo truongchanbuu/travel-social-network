@@ -105,6 +105,3 @@ const num $1BMaxCurrency = 1000000000;
 const num $0Currency = 0;
 const String maxRatingPoint = '5.0';
 const int fixStringFloatingPointNumber = 2;
-
-
-const currentUserId = 'TCB';

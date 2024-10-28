@@ -4,6 +4,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../domain/entities/post.dart';
@@ -38,6 +39,7 @@ class _PostUploadPageState extends State<PostUploadPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
     return SafeArea(
       child: BlocConsumer<PostBloc, PostState>(
         listener: (context, state) {
@@ -51,7 +53,7 @@ class _PostUploadPageState extends State<PostUploadPage> {
           }
         },
         builder: (context, state) => Scaffold(
-          appBar: _buildAppBar(context, state),
+          appBar: _buildAppBar(context, state, user.id),
           body: state is PostActionLoading
               ? const AppProgressingIndicator()
               : _buildBody(context, state),
@@ -63,14 +65,14 @@ class _PostUploadPageState extends State<PostUploadPage> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context, PostState state) =>
+  AppBar _buildAppBar(BuildContext context, PostState state, String userId) =>
       defaultWhiteAppBar(titleText: S.current.createPost, actions: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: ElevatedButton(
             onPressed: state is ContentUpdated &&
                     (state.images.isNotEmpty || state.content.isNotEmpty)
-                ? () => _onPost(context)
+                ? () => _onPost(context, userId)
                 : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: primaryColor,
@@ -126,9 +128,9 @@ class _PostUploadPageState extends State<PostUploadPage> {
     );
   }
 
-  void _onPost(BuildContext context) {
+  void _onPost(BuildContext context, String userId) {
     context.read<PostBloc>().add(SavePostEvent(
-          userId: currentUserId,
+          userId: userId,
           post: post,
           sharedPostId: widget.sharedPost?.postId,
         ));

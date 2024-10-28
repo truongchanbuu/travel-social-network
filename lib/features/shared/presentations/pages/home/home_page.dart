@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final UserEntity user =
         context.select((AuthBloc authBloc) => authBloc.state.user);
+
     return SafeArea(
       child: Scaffold(
         floatingActionButton:

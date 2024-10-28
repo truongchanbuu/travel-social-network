@@ -16,9 +16,16 @@ import '../../domain/entities/review.dart';
 import '../bloc/review_bloc.dart';
 
 class SaveReviewPage extends StatefulWidget {
+  final String userId;
   final String? reviewId;
   final String postId;
-  const SaveReviewPage({super.key, required this.postId, this.reviewId});
+
+  const SaveReviewPage({
+    super.key,
+    required this.postId,
+    required this.userId,
+    this.reviewId,
+  });
 
   @override
   State<SaveReviewPage> createState() => _SaveReviewPageState();
@@ -27,7 +34,6 @@ class SaveReviewPage extends StatefulWidget {
 class _SaveReviewPageState extends State<SaveReviewPage> {
   late final GlobalKey<FormState> _formKey;
   double _rating = 5;
-  late String userId;
   ReviewEntity? review;
   List<ImageFile> images = [];
 
@@ -42,9 +48,10 @@ class _SaveReviewPageState extends State<SaveReviewPage> {
     if (widget.reviewId?.isNotEmpty ?? false) {
       context.read<ReviewBloc>().add(GetReviewByIdEvent(widget.reviewId!));
     } else {
-      context
-          .read<ReviewBloc>()
-          .add(InitializeNewReviewEvent(tourId: widget.postId, userId: userId));
+      context.read<ReviewBloc>().add(InitializeNewReviewEvent(
+            tourId: widget.postId,
+            userId: widget.userId,
+          ));
     }
   }
 
@@ -119,6 +126,9 @@ class _SaveReviewPageState extends State<SaveReviewPage> {
                             label: S.current.reviews(1),
                             minLength: 0,
                           ),
+                          onChanged: (value) => context.read<ReviewBloc>().add(
+                              UpdateReviewFieldEvent(
+                                  ReviewEntity.contentFieldName, value)),
                           label: '',
                           isAnimated: false,
                           hintTexts: [S.current.reviewHint],

@@ -7,6 +7,8 @@ class UserEntity extends Equatable {
   final DateTime? dateOfBirth;
   final String? avatarUrl;
   final String? phoneNumber;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   const UserEntity({
     required this.id,
@@ -15,6 +17,8 @@ class UserEntity extends Equatable {
     this.dateOfBirth,
     this.avatarUrl,
     this.phoneNumber,
+    this.createdAt,
+    this.updatedAt,
   });
 
   static const empty = UserEntity(id: '');
@@ -22,7 +26,8 @@ class UserEntity extends Equatable {
   bool get isLoggedIn => this != empty;
 
   @override
-  List<Object?> get props => [id, email, username, avatarUrl, phoneNumber];
+  List<Object?> get props =>
+      [id, email, username, avatarUrl, phoneNumber, createdAt, updatedAt];
 
   static const String idFieldName = 'id';
   static const String emailFieldName = 'email';
@@ -30,4 +35,6 @@ class UserEntity extends Equatable {
   static const String dateOfBirthFieldName = 'dateOfBirth';
   static const String avatarUrlFieldName = 'avatarUrl';
   static const String phoneNumberFieldName = 'phoneNumber';
+  static const String createdAtFieldName = 'createdAt';
+  static const String updatedAtFieldName = 'updatedAt';
 }

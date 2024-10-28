@@ -36,7 +36,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   }
 
   void _onInitTicket(event, emit) {
-    final newTicket = TicketTypeEntity.defaultWithId(tourId: event.tourId);
+    final newTicket = TicketTypeEntity.init(tourId: event.tourId);
     emit(TicketLoaded(TicketType.fromEntity(newTicket)));
   }
 
@@ -93,7 +93,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
 
   Future<void> _onUpdateTicket(
       UpdateTicketEvent event, Emitter<TicketState> emit) async {
-    if (_isTicketChanged(event.oldTicket, event.newTicket)) {
+    if (!_isTicketChanged(event.oldTicket, event.newTicket)) {
       emit(TicketActionSuccess(event.oldTicket));
     } else {
       try {
@@ -140,7 +140,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
         emit(TicketFailure(S.current.dataStateFailure));
       } else {
-        emit(ListOfTicketsLoaded(dataState.data!));
+        emit(ListOfTicketsLoaded(
+            dataState.data!.map((data) => data.toEntity()).toList()));
       }
     } catch (e) {
       log(e.toString());

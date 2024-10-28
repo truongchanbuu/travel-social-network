@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:uuid/uuid.dart';
 
 class TourEntity extends Equatable {
   final String tourId;
@@ -31,19 +30,20 @@ class TourEntity extends Equatable {
     this.tourSchedule,
   });
 
-  TourEntity.defaultWithId({
-    this.tourName = '',
-    this.tourDescription = '',
-    this.createdBy = '',
-    this.ticketIds = const <String>[],
-    this.imageUrls = const <String>[],
-    this.departure = '',
-    this.destination = '',
-    this.duration = '',
-    this.rating = 0.0,
-    this.tourSchedule,
-    this.additionalInfo,
-  }) : tourId = 'TOUR-${const Uuid().v4()}';
+  static const empty = TourEntity(
+    tourId: '',
+    tourName: '',
+    tourDescription: '',
+    createdBy: '',
+    ticketIds: <String>[],
+    imageUrls: <String>[],
+    departure: '',
+    destination: '',
+    duration: '',
+    rating: 0.0,
+    additionalInfo: '',
+    tourSchedule: '',
+  );
 
   TourEntity copyWith({
     String? tourId,

@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../../comment/presentations/widgets/comment_bottom_sheet.dart';
 import '../../domain/entities/post.dart';
@@ -28,16 +29,16 @@ class _PostFooterActionsState extends State<PostFooterActions> {
   @override
   void initState() {
     super.initState();
-
-    _isUserLiked();
   }
 
-  void _isUserLiked() {
+  void _isUserLiked(String currentUserId) {
     _isLiked = widget.post.likedUsers.contains(currentUserId);
   }
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
+    _isUserLiked(user.id);
     return BlocListener<PostBloc, PostState>(
       listener: (context, state) {
         if (state is PostActionFailed) {
@@ -62,7 +63,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
                     ? CommunityMaterialIcons.thumb_up
                     : CommunityMaterialIcons.thumb_up_outline,
                 title: 'Like',
-                onTap: _onLike,
+                onTap: () => _onLike(user.id),
                 iconColor: _isLiked ? primaryColor : null,
               ),
             ),
@@ -70,7 +71,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
               child: PostFooterItem(
                 icon: CommunityMaterialIcons.comment_outline,
                 title: S.current.commentLabel,
-                onTap: _onComment,
+                onTap: user.isLoggedIn ? _onComment : _onLoginAnnounce,
               ),
             ),
             Expanded(
@@ -86,7 +87,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
     );
   }
 
-  void _onLike() {
+  void _onLike(String currentUserId) {
     List<String> likedUsers = widget.post.likedUsers;
 
     setState(() {
@@ -130,5 +131,9 @@ class _PostFooterActionsState extends State<PostFooterActions> {
     if (data != null && data is PostEntity) {
       postBloc.add(GetPostsEvent());
     }
+  }
+
+  void _onLoginAnnounce() {
+    showToast(S.current.loginToReview, context: context);
   }
 }

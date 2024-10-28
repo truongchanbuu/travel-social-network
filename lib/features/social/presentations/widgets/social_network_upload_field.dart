@@ -5,6 +5,8 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
+import '../../../user/presentations/widgets/user_avatar.dart';
 import '../bloc/post_bloc.dart';
 import '../pages/post_upload_page.dart';
 
@@ -13,12 +15,14 @@ class SocialNetworkUploadField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser =
+        context.select((AuthBloc authBloc) => authBloc.state.user);
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(defaultPadding),
       child: Row(
         children: [
-          const CircleAvatar(radius: smallCircleAvatarRadius),
+          UserAvatar(user: currentUser),
           const SizedBox(width: 10),
           Expanded(
             child: TextFormField(

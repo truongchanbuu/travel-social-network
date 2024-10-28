@@ -55,7 +55,7 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(),
+        appBar: _buildAppBar(context),
         body: BlocConsumer<TicketBloc, TicketState>(
           builder: (context, state) {
             if (state is TicketActionLoading) {
@@ -153,8 +153,8 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
     );
   }
 
-  AppBar _buildAppBar() => defaultWhiteAppBar(
-        onBack: _backToPrevious,
+  AppBar _buildAppBar(BuildContext ctx) => defaultWhiteAppBar(
+        onBack: () => _backToPrevious(ctx),
         actions: [
           SaveButton(
             onTap: widget.ticket != null
@@ -164,15 +164,16 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
         ],
       );
 
-  void _backToPrevious() {
+  void _backToPrevious(BuildContext ctx) {
     showDialog(
-      context: context,
+      context: ctx,
       builder: (context) => ConfirmDialog(
         onOk: () {
-          _deletePolicy();
-          Navigator.of(context)
-            ..pop()
-            ..pop(selectedDates);
+          if (widget.ticket == null) {
+            _deletePolicy();
+          }
+          Navigator.of(ctx).pop();
+          Navigator.of(context).pop(selectedDates);
         },
       ),
     );

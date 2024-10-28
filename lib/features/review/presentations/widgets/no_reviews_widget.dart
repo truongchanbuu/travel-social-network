@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../bloc/review_bloc.dart';
 import '../pages/save_review_page.dart';
@@ -15,6 +16,7 @@ class NoReviewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
     return Container(
       color: Colors.transparent,
       alignment: Alignment.center,
@@ -42,9 +44,13 @@ class NoReviewsWidget extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             TextButton(
-              onPressed: () => _openCommentPage(context),
+              onPressed: user.isLoggedIn
+                  ? () => _openCommentPage(context, user.id)
+                  : null,
               child: Text(
-                S.current.commentLabel,
+                user.isLoggedIn
+                    ? S.current.commentLabel
+                    : S.current.loginToReview,
                 style: const TextStyle(
                   color: primaryColor,
                   fontWeight: FontWeight.bold,
@@ -57,7 +63,7 @@ class NoReviewsWidget extends StatelessWidget {
     );
   }
 
-  void _openCommentPage(BuildContext context) {
+  void _openCommentPage(BuildContext context, String userId) {
     Navigator.push(
       context,
       PageTransition(
@@ -66,7 +72,10 @@ class NoReviewsWidget extends StatelessWidget {
             BlocProvider(create: (context) => getIt.get<ReviewBloc>()),
             BlocProvider(create: (context) => getIt.get<TourBloc>()),
           ],
-          child: SaveReviewPage(postId: postId),
+          child: SaveReviewPage(
+            postId: postId,
+            userId: userId,
+          ),
         ),
         type: PageTransitionType.bottomToTop,
       ),

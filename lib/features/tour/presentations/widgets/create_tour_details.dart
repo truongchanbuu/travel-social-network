@@ -168,7 +168,6 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
   }
 
   void _genericOnValue(String fieldName, String? value) {
-    print('$fieldName - $value');
     final TourBloc tourBloc = context.read<TourBloc>();
     genericOnValue(
       bloc: tourBloc,

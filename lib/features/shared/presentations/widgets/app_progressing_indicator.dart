@@ -19,10 +19,13 @@ class AppProgressingIndicator extends StatelessWidget {
   Widget build(BuildContext context) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            LoadingAnimationWidget.waveDots(
-              color: color,
-              size: size,
+            Flexible(
+              child: LoadingAnimationWidget.waveDots(
+                color: color,
+                size: size,
+              ),
             ),
             if (text != null)
               Padding(

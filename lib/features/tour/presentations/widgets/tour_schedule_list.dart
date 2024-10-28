@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/constants/tour_schedules.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../../data/models/tour_schedule.dart';
 import '../../domain/entities/tour_schedule.dart';
 import '../pages/tour_schedule_detail_page.dart';
 import 'tour_schedule_icon_text.dart';
@@ -27,9 +25,6 @@ class _TourScheduleListState extends State<TourScheduleList> {
   @override
   void initState() {
     super.initState();
-    schedules = tourSchedules
-        .map((schedule) => TourSchedule.fromMap(schedule).toEntity())
-        .toList();
   }
 
   @override

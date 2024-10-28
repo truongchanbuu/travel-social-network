@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
@@ -10,7 +9,8 @@ import '../bloc/tour_bloc.dart';
 import '../widgets/your_tour_item.dart';
 
 class YourToursPage extends StatefulWidget {
-  const YourToursPage({super.key});
+  final String userId;
+  const YourToursPage({super.key, required this.userId});
 
   @override
   State<YourToursPage> createState() => _YourToursPageState();
@@ -18,14 +18,6 @@ class YourToursPage extends StatefulWidget {
 
 class _YourToursPageState extends State<YourToursPage> {
   List<TourEntity> tours = [];
-
-  @override
-  void initState() {
-    super.initState();
-
-    // TODO: Get real user
-    context.read<TourBloc>().add(const GetToursByUserIdEvent(currentUserId));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +29,13 @@ class _YourToursPageState extends State<YourToursPage> {
             if (state is TourActionLoading) {
               return const AppProgressingIndicator();
             } else if (state is ListOfToursLoaded) {
-              tours = state.tours;
+              tours = state.tours
+                  .where((tour) => tour.createdBy == widget.userId)
+                  .toList();
             }
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.all(10),
               child: ListView.separated(
                 itemBuilder: _buildTourItem,
                 itemCount: tours.length,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../widgets/multiple_choice_setting_item.dart';
 import '../widgets/switch_setting_item.dart';
 
@@ -11,16 +12,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(S.current.settings),
-        shape: const Border(
-          bottom: BorderSide(
-            width: 0.5,
-            color: Colors.grey,
-          ),
-        ),
-      ),
+      appBar: defaultWhiteAppBar(titleText: S.current.settings),
       body: ListView(
         children: [
           _buildMultipleChoiceSection(),

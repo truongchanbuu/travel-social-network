@@ -1,115 +1,129 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/features/shared/presentations/widgets/app_name_logo.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
+import '../../../shared/presentations/widgets/app_name_logo.dart';
+import '../bloc/login/login_cubit.dart';
+import '../bloc/signup/signup_cubit.dart';
 import '../widgets/hero_image.dart';
 import '../widgets/social_button.dart';
 import '../widgets/social_icon.dart';
+import 'continue_with_email_page.dart';
+import 'continue_with_phone_page.dart';
 
 class AuthMethodPage extends StatelessWidget {
   const AuthMethodPage({super.key});
 
+  static const String googleProviderName = "google";
+  static const String facebookProviderName = "facebook";
+  static const String emailProviderName = "email";
+  static const String phoneProviderName = "phone";
+
+  static const Color descColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    const Color descColor = Colors.grey;
+    return SafeArea(
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 200) {
+              return Center(
+                child: Text(
+                  S.current.unsupportedText,
+                  textAlign: TextAlign.left,
+                  overflow: defaultTextOverflow,
+                  semanticsLabel: S.current.unsupportedText,
+                ),
+              );
+            }
 
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth < 200) {
-            return Center(
-              child: Text(
-                S.current.unsupportedText,
-                textAlign: TextAlign.center,
-                overflow: defaultTextOverflow,
-                semanticsLabel: S.current.unsupportedText,
+            return SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: const HeroImage(),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '${S.current.signIn} / ${S.current.signUp}',
+                      semanticsLabel:
+                          '${S.current.signIn} / ${S.current.signUp}',
+                      overflow: defaultTextOverflow,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.discount_outlined,
+                          color: descColor,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          S.current.promotionText,
+                          overflow: defaultTextOverflow,
+                          style: const TextStyle(color: descColor),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    _buildSocialList(context),
+                    const SizedBox(height: 30),
+                    _buildConditionAndPolicyConfirmation(),
+                  ],
+                ),
               ),
             );
-          }
-
-          return SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    child: const HeroImage(),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${S.current.signIn} / ${S.current.signUp}',
-                    semanticsLabel: '${S.current.signIn} / ${S.current.signUp}',
-                    overflow: defaultTextOverflow,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.discount_outlined,
-                        color: descColor,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        S.current.promotionText,
-                        overflow: defaultTextOverflow,
-                        style: const TextStyle(color: descColor),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  _buildSocialList(),
-                  const SizedBox(height: 30),
-                  _buildConditionAndPolicyConfirmation(),
-                ],
-              ),
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: primaryColor,
       title: const AppName(),
       centerTitle: true,
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pop(context),
         icon: const Icon(Icons.chevron_left),
         tooltip: S.current.backToPreviousPage,
       ),
     );
   }
 
-  Widget _buildSocialList() {
-    const spacing = SizedBox(height: 10);
-
+  static const spacing = SizedBox(height: 10);
+  Widget _buildSocialList(BuildContext context) {
     return Column(
       children: [
         // Facebook
-        SocialButton(
-          title: '${S.current.continueWith} Facebook',
-          buttonColor: Colors.blue,
-          leading: SocialIcon(
-            label: '${S.current.continueWith} Facebook',
-            imageUrl: 'assets/auth/icons/facebook_icon.svg',
-            size: 20,
-            iconColor: Colors.white,
-            iconData: Icons.facebook,
-          ),
-        ),
-        spacing,
+        // SocialButton(
+        //   title: '${S.current.continueWith} Facebook',
+        //   buttonColor: Colors.blue,
+        //   leading: SocialIcon(
+        //     label: '${S.current.continueWith} Facebook',
+        //     imageUrl: 'assets/auth/icons/facebook_icon.svg',
+        //     size: 20,
+        //     iconColor: Colors.white,
+        //     iconData: Icons.facebook,
+        //   ),
+        // ),
+        // spacing,
         // Google
         SocialButton(
+          onTap: () => _continueWithAccount(context, googleProviderName),
           title: '${S.current.continueWith} Google',
           textColor: Colors.black,
           leading: SocialIcon(
@@ -122,6 +136,7 @@ class AuthMethodPage extends StatelessWidget {
         spacing,
         // Email
         SocialButton(
+          onTap: () => _continueWithAccount(context, emailProviderName),
           title: '${S.current.continueWith} Email',
           buttonColor: Colors.black,
           leading: SocialIcon(
@@ -132,19 +147,20 @@ class AuthMethodPage extends StatelessWidget {
             iconData: Icons.email_outlined,
           ),
         ),
-        spacing,
+        // spacing,
         // Phone
-        SocialButton(
-          title: '${S.current.continueWith} Phone',
-          buttonColor: const Color.fromRGBO(5, 164, 5, 1),
-          leading: SocialIcon(
-            label: '${S.current.continueWith} Phone',
-            imageUrl: 'assets/auth/icons/phone_icon.svg',
-            size: 20,
-            iconColor: Colors.white,
-            iconData: Icons.phone,
-          ),
-        ),
+        // SocialButton(
+        //   onTap: () => _continueWithAccount(context, phoneProviderName),
+        //   title: '${S.current.continueWith} Phone',
+        //   buttonColor: const Color.fromRGBO(5, 164, 5, 1),
+        //   leading: SocialIcon(
+        //     label: '${S.current.continueWith} Phone',
+        //     imageUrl: 'assets/auth/icons/phone_icon.svg',
+        //     size: 20,
+        //     iconColor: Colors.white,
+        //     iconData: Icons.phone,
+        //   ),
+        // ),
       ],
     );
   }
@@ -158,7 +174,7 @@ class AuthMethodPage extends StatelessWidget {
     return RichText(
       overflow: defaultTextOverflow,
       maxLines: 3,
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.left,
       text: TextSpan(children: <TextSpan>[
         TextSpan(
           text: S.current.agreementText,
@@ -183,5 +199,40 @@ class AuthMethodPage extends StatelessWidget {
         ),
       ]),
     );
+  }
+
+  void _continueWithAccount(BuildContext context, String providerName) {
+    switch (providerName) {
+      case googleProviderName:
+        context.read<LoginCubit>().logInWithGoogle();
+        break;
+      case emailProviderName:
+        Navigator.push(
+          context,
+          PageTransition(
+            child: BlocProvider(
+              create: (context) => getIt.get<LoginCubit>(),
+              child: BlocProvider.value(
+                value: context.read<SignUpCubit>(),
+                child: const ContinueWithEmailPage(),
+              ),
+            ),
+            type: PageTransitionType.leftToRight,
+          ),
+        );
+        break;
+      case phoneProviderName:
+        Navigator.push(
+          context,
+          PageTransition(
+            child: BlocProvider.value(
+              value: context.read<SignUpCubit>(),
+              child: const ContinueWithPhonePage(),
+            ),
+            type: PageTransitionType.leftToRight,
+          ),
+        );
+        break;
+    }
   }
 }

@@ -276,9 +276,13 @@
     "bookingNow": "Đặt ngay",
     "signIn": "Đăng nhập",
     "signUp": "Đăng ký",
+    "logout": "Log out",
+    "invalidEmail": "Email không hợp lệ",
     "emailAnnouncement": "Chúng tôi sẽ sử dụng tài khoản email của bạn để đăng nhập. Nếu chưa có tài khoản thì chúng tôi sẽ tạo mới dựa trên email đang được sử dụng",
     "forgotPassword": "Quên mật khảu",
     "password": "Mật khẩu",
+    "confirmedPassword": "Xác nhận mật khẩu",
+    "isNotSamePassword": "Mật khẩu xác nhận không trùng khớp",
     "enterPasswordRequirement": "Vui lòng nhập mật khẩu của bạn",
     "passwordRequirement": "Mật khẩu phải có ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt",
     "phoneSearchHintText": "Nhập tên hoặc mã quốc gia để tìm kiếm quốc gia của bạn",
@@ -376,5 +380,8 @@
     "howYourFeeling": "Hôm nay bạn đang nghĩ gì?",
     "createPost": "Tạo bài viết",
     "whatYouThinkAboutThisPost": "Bạn nghĩ sao về bài post này?",
-    "postNoLoginText": "Đăng nhập để chia sẻ những khoảnh khắc của riêng bạn"
+    "postNoLoginText": "Đăng nhập để chia sẻ những khoảnh khắc của riêng bạn",
+    "loginToReview": "Đăng nhập để đánh giá",
+    "loginToComment": "Đăng nhập để bình luận",
+    "authenticateFailed": "Đăng nhập hoặc đăng ký không thành công"
 }

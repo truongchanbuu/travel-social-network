@@ -92,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "allPhotos":
             MessageLookupByLibrary.simpleMessage("Tất cả các hình ảnh"),
         "and": MessageLookupByLibrary.simpleMessage("và"),
+        "authenticateFailed": MessageLookupByLibrary.simpleMessage(
+            "Đăng nhập hoặc đăng ký không thành công"),
         "backToPreviousPage":
             MessageLookupByLibrary.simpleMessage("Trở về trang trước"),
         "bookingNow": MessageLookupByLibrary.simpleMessage("Đặt ngay"),
@@ -123,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "clear": MessageLookupByLibrary.simpleMessage("Xóa"),
         "comment": m3,
         "commentLabel": MessageLookupByLibrary.simpleMessage("Bình luận"),
+        "confirmedPassword":
+            MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
         "contactServiceProvider": MessageLookupByLibrary.simpleMessage(
             "Liên hệ nhà cung cấp dịch vụ"),
         "continueLabel": MessageLookupByLibrary.simpleMessage("Tiếp tục"),
@@ -225,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Điểm đến không hợp lệ! Hãy chọn hoặc thêm 1 địa chỉ hợp lệ"),
         "invalidDurationError": MessageLookupByLibrary.simpleMessage(
             "Khoảng thời gian không hợp lệ"),
+        "invalidEmail":
+            MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
         "invalidForm": MessageLookupByLibrary.simpleMessage(
             "Form chưa hợp lệ! Đừng bỏ sót bất kỳ thông tin nào!"),
         "invalidImageFileType": MessageLookupByLibrary.simpleMessage(
@@ -232,6 +238,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Cho phép"),
+        "isNotSamePassword": MessageLookupByLibrary.simpleMessage(
+            "Mật khẩu xác nhận không trùng khớp"),
         "itinerary": MessageLookupByLibrary.simpleMessage("lịch trình"),
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "leave": MessageLookupByLibrary.simpleMessage("Rời đi"),
@@ -242,6 +250,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingImageText": m12,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Thông tin địa danh"),
+        "loginToComment":
+            MessageLookupByLibrary.simpleMessage("Đăng nhập để bình luận"),
+        "loginToReview":
+            MessageLookupByLibrary.simpleMessage("Đăng nhập để đánh giá"),
+        "logout": MessageLookupByLibrary.simpleMessage("Log out"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
             "Không thể thực hiện cuộc gọi"),
         "manageYourAccount":

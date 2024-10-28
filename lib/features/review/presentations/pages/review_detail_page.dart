@@ -2,15 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../auth/domain/entities/user.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
+import '../../../user/presentations/bloc/user_cubit.dart';
+import '../../../user/presentations/widgets/user_avatar.dart';
 import '../../domain/entities/review.dart';
 import '../bloc/review_bloc.dart';
 import '../widgets/review_item.dart';
 
 class ReviewDetailPage extends StatefulWidget {
   final String reviewId;
-  const ReviewDetailPage({super.key, required this.reviewId});
+  final UserEntity reviewUser;
+
+  const ReviewDetailPage({
+    super.key,
+    required this.reviewId,
+    required this.reviewUser,
+  });
 
   @override
   State<ReviewDetailPage> createState() => _ReviewDetailPageState();
@@ -41,11 +50,16 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
                 child: SizedBox(
                   width: double.infinity,
                   height: reviewBoxHeight,
-                  child: ReviewItem(
-                    review: review,
-                    isLimited: false,
-                    imageSize: reviewItemDetailImageSize,
-                    clickable: false,
+                  child: BlocProvider.value(
+                    value: context.read<UserCubit>()..getUser(review.userId),
+                    child: ReviewItem(
+                      key: ValueKey(
+                          'review_${review.userId}_${review.reviewId}'),
+                      review: review,
+                      isLimited: false,
+                      imageSize: reviewItemDetailImageSize,
+                      clickable: false,
+                    ),
                   ),
                 ),
               ),
@@ -59,11 +73,21 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
   }
 
   AppBar _buildAppBar() => defaultWhiteAppBar(
-        // TODO: CHANGE TO USERNAME LATER
-        title: ListTile(
-          leading: const CircleAvatar(),
-          title: Text(review.userId,
-              style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Row(
+          children: [
+            UserAvatar(user: widget.reviewUser),
+            const SizedBox(width: 5),
+            Text(
+              widget.reviewUser.username ??
+                  widget.reviewUser.email ??
+                  'Unknown',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                overflow: defaultTextOverflow,
+              ),
+            ),
+          ],
         ),
       );
 }

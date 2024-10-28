@@ -12,9 +12,8 @@ AppBar defaultWhiteAppBar({
   return AppBar(
     iconTheme: const IconThemeData(color: Colors.black),
     backgroundColor: Colors.white,
-    leading: BackButton(
-      onPressed: onBack,
-    ),
+    titleSpacing: 0,
+    leading: BackButton(onPressed: onBack),
     actions: actions,
     title: (titleText != null)
         ? Text(

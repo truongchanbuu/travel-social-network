@@ -146,9 +146,9 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       ReviewEntity review, String fieldName, dynamic value) {
     switch (fieldName) {
       case ReviewEntity.ratingFieldName:
-        return review.copyWith(rating: value as double);
+        return review.copyWith(rating: value);
       case ReviewEntity.contentFieldName:
-        return review.copyWith(content: value as String);
+        return review.copyWith(content: value.toString());
       default:
         return review;
     }
