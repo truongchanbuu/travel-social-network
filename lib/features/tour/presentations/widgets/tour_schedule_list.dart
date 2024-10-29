@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/tour_schedule.dart';
@@ -65,7 +66,7 @@ class _TourScheduleListState extends State<TourScheduleList> {
             TourScheduleIconText(
               title: schedule.activities.first.time,
               iconData: Icons.location_on,
-              textColor: primaryColor,
+              textColor: AppTheme.primaryColor,
             ),
             const SizedBox(height: 5),
             Text(

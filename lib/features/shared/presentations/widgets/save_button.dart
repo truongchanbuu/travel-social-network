@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 
 class SaveButton extends StatelessWidget {
   final Color btnColor;
   final VoidCallback? onTap;
-  const SaveButton({super.key, this.btnColor = primaryColor, this.onTap});
+
+  const SaveButton({
+    super.key,
+    this.btnColor = AppTheme.primaryColor,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

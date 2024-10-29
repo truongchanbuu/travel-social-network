@@ -6,7 +6,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/formatters/quill_content_formatter.dart';
 
-class QuillContent extends StatelessWidget {
+class QuillContent extends StatefulWidget {
   final bool isScrollable;
   final bool isVisible;
   final String content;
@@ -26,12 +26,37 @@ class QuillContent extends StatelessWidget {
     this.padding,
   });
 
+  @override
+  State<QuillContent> createState() => _QuillContentState();
+}
+
+class _QuillContentState extends State<QuillContent> {
+  late final QuillController _quillController;
+  late final FocusNode _focusNode;
+
+  @override
+  void dispose() {
+    _quillController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void initQuillController() {
+    String validatedInput =
+        QuillContentFormatter.checkAndConvertQuillFormat(widget.content);
+    final document = Document.fromJson(jsonDecode(validatedInput));
+    _quillController = QuillController(
+      document: document,
+      selection: TextSelection.collapsed(offset: document.toDelta().length),
+      readOnly: widget.readOnly,
+    );
+  }
+
   DefaultTextBlockStyle createDefaultTextBlockStyle(double fontSize) {
     return DefaultTextBlockStyle(
       TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,
-        color: Colors.black,
       ),
       const HorizontalSpacing(0, 0),
       const VerticalSpacing(5, 5),
@@ -40,50 +65,48 @@ class QuillContent extends StatelessWidget {
     );
   }
 
-  static const _paragraphStyle = DefaultTextBlockStyle(
-    TextStyle(fontSize: 14, color: Colors.black),
-    HorizontalSpacing.zero,
-    VerticalSpacing(5, 5),
-    VerticalSpacing(10, 10),
-    null,
-  );
+  @override
+  void initState() {
+    super.initState();
+    initQuillController();
+
+    _focusNode = FocusNode(canRequestFocus: false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    String validatedInput =
-        QuillContentFormatter.checkAndConvertQuillFormat(content);
-
-    final document = Document.fromJson(jsonDecode(validatedInput));
+    final paragraphStyle = DefaultTextBlockStyle(
+      TextStyle(fontSize: 14, color: DefaultTextStyle.of(context).style.color),
+      HorizontalSpacing.zero,
+      const VerticalSpacing(5, 5),
+      const VerticalSpacing(10, 10),
+      null,
+    );
 
     return Stack(
       children: [
         Container(
-          height: height,
+          height: widget.height,
           decoration: BoxDecoration(
             borderRadius: defaultFieldBorderRadius,
-            border: border,
+            border: widget.border,
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: QuillEditor(
-            focusNode: FocusNode(canRequestFocus: false),
+            focusNode: _focusNode,
             scrollController: ScrollController(),
-            controller: QuillController(
-              document: document,
-              selection:
-                  TextSelection.collapsed(offset: document.toDelta().length),
-              readOnly: readOnly,
-            ),
+            controller: _quillController,
             configurations: QuillEditorConfigurations(
-              maxHeight: height,
+              maxHeight: widget.height,
               autoFocus: false,
               enableInteractiveSelection: false,
-              expands: isScrollable,
-              padding: padding ?? EdgeInsets.zero,
-              scrollable: isScrollable,
+              expands: widget.isScrollable,
+              padding: widget.padding ?? EdgeInsets.zero,
+              scrollable: widget.isScrollable,
               showCursor: false,
               customStyles: DefaultStyles(
-                paragraph: _paragraphStyle,
+                paragraph: paragraphStyle,
                 h1: createDefaultTextBlockStyle(19),
                 h2: createDefaultTextBlockStyle(18),
                 h3: createDefaultTextBlockStyle(17),
@@ -94,7 +117,7 @@ class QuillContent extends StatelessWidget {
             ),
           ),
         ),
-        if (!isVisible)
+        if (!widget.isVisible)
           Positioned(
             bottom: 0,
             left: 0,
@@ -105,10 +128,12 @@ class QuillContent extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.white.withOpacity(0.0),
-                    Colors.white.withOpacity(0.8),
-                  ],
+                  colors: Theme.of(context).brightness == Brightness.dark
+                      ? [Colors.black38, Colors.black26]
+                      : [
+                          Colors.white.withOpacity(0.0),
+                          Colors.white.withOpacity(0.8),
+                        ],
                 ),
               ),
             ),

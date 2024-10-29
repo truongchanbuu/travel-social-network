@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/limit_image_gridview.dart';
@@ -14,7 +15,8 @@ class PostContent extends StatelessWidget {
 
   const PostContent({super.key, required this.post});
 
-  static const TextStyle expandTextStyle = TextStyle(color: primaryColor);
+  static const TextStyle expandTextStyle =
+      TextStyle(color: AppTheme.primaryColor);
 
   @override
   Widget build(BuildContext context) {

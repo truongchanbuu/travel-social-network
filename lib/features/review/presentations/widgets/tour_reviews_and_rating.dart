@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:travel_social_network/features/auth/presentations/bloc/auth_bloc.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
@@ -58,7 +59,7 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
             Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: primaryColor,
+                color: AppTheme.primaryColor,
               ),
               padding: const EdgeInsets.all(8),
               child: Text(
@@ -77,7 +78,7 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
                 Text(
                   ClassificationUtils.classificationRating(widget.rating),
                   style: const TextStyle(
-                    color: primaryColor,
+                    color: AppTheme.primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -101,14 +102,14 @@ class _TourReviewsAndRatingState extends State<TourReviewsAndRating> {
         ElevatedButton(
           onPressed: user.isLoggedIn ? () => _createReview(user.id) : null,
           style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
+            backgroundColor: AppTheme.primaryColor,
             minimumSize: minBtnSize,
             shape: bottomSheetShape,
           ),
           child: Text(
             user.isLoggedIn ? S.current.reviews(1) : S.current.loginToReview,
             style: TextStyle(
-              color: user.isLoggedIn ? Colors.white : primaryColor,
+              color: user.isLoggedIn ? Colors.white : AppTheme.primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -17,6 +17,7 @@ class IconWithText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(5),
         onTap: onTap,
@@ -24,7 +25,6 @@ class IconWithText extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Center(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(iconData),
                 const SizedBox(height: 8),

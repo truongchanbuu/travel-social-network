@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
@@ -64,7 +65,7 @@ class _PostFooterActionsState extends State<PostFooterActions> {
                     : CommunityMaterialIcons.thumb_up_outline,
                 title: 'Like',
                 onTap: () => _onLike(user.id),
-                iconColor: _isLiked ? primaryColor : null,
+                iconColor: _isLiked ? AppTheme.primaryColor : null,
               ),
             ),
             Expanded(

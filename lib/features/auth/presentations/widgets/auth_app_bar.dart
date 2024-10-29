@@ -11,10 +11,8 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.chevron_left),
         tooltip: S.current.backToPreviousPage,
-        color: Colors.black,
         onPressed: () => Navigator.pop(context),
       ),
-      backgroundColor: Colors.white,
     );
   }
 

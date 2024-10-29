@@ -22,9 +22,9 @@ class HomePageHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                S.current.helloUser(username),
+                S.current.helloUser(username != 'Unknown' ? username : ''),
                 style: const TextStyle(
-                  fontSize: 10,
+                  fontSize: 12,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),

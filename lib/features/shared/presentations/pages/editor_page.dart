@@ -106,6 +106,7 @@ class _EditorPageState extends State<EditorPage> {
   }
 
   AppBar _buildAppBar(BuildContext context) => defaultWhiteAppBar(
+        context: context,
         onBack: () => _backToCreateTourPage(context),
         actions: [SaveButton(onTap: _saveDescription)],
         titleText: S.current.editPage,

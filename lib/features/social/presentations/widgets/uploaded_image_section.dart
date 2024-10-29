@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/pages/add_image_page.dart';
 import '../../../shared/presentations/widgets/limit_image_gridview.dart';
@@ -31,13 +31,13 @@ class UploadedImageSection extends StatelessWidget {
             children: [
               const Icon(
                 Icons.add_photo_alternate_outlined,
-                color: primaryColor,
+                color: AppTheme.primaryColor,
               ),
               const SizedBox(width: 10),
               Text(
                 S.current.addImageLabel,
                 style: const TextStyle(
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),

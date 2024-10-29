@@ -73,6 +73,7 @@ class _ReviewDetailPageState extends State<ReviewDetailPage> {
   }
 
   AppBar _buildAppBar() => defaultWhiteAppBar(
+        context: context,
         title: Row(
           children: [
             UserAvatar(user: widget.reviewUser),

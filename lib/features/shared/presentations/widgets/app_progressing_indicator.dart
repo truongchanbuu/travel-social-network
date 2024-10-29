@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 
 class AppProgressingIndicator extends StatelessWidget {
@@ -11,7 +12,7 @@ class AppProgressingIndicator extends StatelessWidget {
   const AppProgressingIndicator({
     super.key,
     this.size = 50,
-    this.color = primaryColor,
+    this.color = AppTheme.primaryColor,
     this.text,
   });
 

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
@@ -92,7 +93,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
             return _buildActionButton(
               title: '${S.current.viewAll} ${S.current.tickets}',
               backgroundColor: Colors.white,
-              textColor: primaryColor,
+              textColor: AppTheme.primaryColor,
               onPressed: tickets.isNotEmpty ? _viewAllCreatedTickets : null,
             );
           },
@@ -105,7 +106,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     void Function()? onPressed,
     required String title,
     Color textColor = Colors.white,
-    Color backgroundColor = primaryColor,
+    Color backgroundColor = AppTheme.primaryColor,
   }) =>
       ElevatedButton(
         onPressed: onPressed,
@@ -187,7 +188,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       minimumDate: DateTime.now(),
       endDate: DateTime.now().add(const Duration(days: maximumDay)),
       maximumDate: DateTime.now().add(const Duration(days: maximumDay)),
-      options: const BoardDateTimeOptions(activeColor: primaryColor),
+      options: const BoardDateTimeOptions(activeColor: AppTheme.primaryColor),
     );
 
     if (data != null && context.mounted) {

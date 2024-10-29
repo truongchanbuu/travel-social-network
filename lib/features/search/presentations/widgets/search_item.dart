@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 
 class SearchItem extends StatelessWidget {
   final String title;
@@ -19,7 +19,7 @@ class SearchItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: borderRadius,
-          border: Border.all(color: primaryColor),
+          border: Border.all(color: AppTheme.primaryColor),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),

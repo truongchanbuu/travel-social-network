@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../cores/constants/storage_key.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../cores/utils/cached_client.dart';
 import '../../../user/domain/repositories/user_repository.dart';
@@ -26,7 +27,6 @@ class AuthRepositoryImpl implements AuthRepository {
     required this.userRepository,
   });
 
-  static const userCacheKey = '__usercache_key__';
   bool isWeb = kIsWeb;
 
   @override
@@ -36,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
             ? UserModel.fromEntity(UserEntity.empty)
             : UserModel.fromEntity(firebaseUser.toUser);
         cache
-            .setString(userCacheKey, jsonEncode(user.toJson()))
+            .setString(StorageKeys.appUserCachedKey, jsonEncode(user.toJson()))
             .catchError((error) => log("Failed to cached user: $error"));
         return user;
       });
@@ -44,7 +44,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserModel> get currentUser async {
     try {
-      final data = await cache.getString(userCacheKey);
+      final data = cache.getString(StorageKeys.appUserCachedKey);
       if (data == null) return UserModel.fromEntity(UserEntity.empty);
       return UserModel.fromJson(jsonDecode(data));
     } catch (error) {
@@ -54,8 +54,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<DataState<void>> logInWithEmailAndPassword(
-      {required String email, required String password}) async {
+  Future<DataState<void>> logInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: email,

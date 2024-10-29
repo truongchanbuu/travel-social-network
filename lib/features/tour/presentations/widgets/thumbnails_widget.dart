@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/pages/media_view_page.dart';
@@ -119,7 +120,7 @@ class _ThumbnailsWidgetState extends State<ThumbnailsWidget> {
                           color:
                               (Theme.of(context).brightness == Brightness.dark
                                       ? Colors.white
-                                      : primaryColor)
+                                      : AppTheme.primaryColor)
                                   .withOpacity(
                                       _currentIndex == entry.key ? 1 : 0.4),
                         ),

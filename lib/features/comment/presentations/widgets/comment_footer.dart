@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/comment.dart';
@@ -38,7 +38,7 @@ class _CommentFooterState extends State<CommentFooter> {
           child: Text(
             S.current.like,
             style: actionTextStyle.copyWith(
-              color: _isLiked ? primaryColor : null,
+              color: _isLiked ? AppTheme.primaryColor : null,
             ),
           ),
         ),

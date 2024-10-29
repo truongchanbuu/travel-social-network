@@ -1,6 +1,7 @@
 import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/recent_search.dart';
@@ -55,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
         icon: const Icon(Icons.close),
-        color: primaryColor,
+        color: AppTheme.primaryColor,
         tooltip: S.current.backToPreviousPage,
       ),
       automaticallyImplyLeading: true,
@@ -71,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
           child: Text(
             S.current.search,
             style: const TextStyle(
-              color: primaryColor,
+              color: AppTheme.primaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
@@ -95,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
                 onTap: () {},
                 child: Text(
                   S.current.clear,
-                  style: const TextStyle(color: primaryColor),
+                  style: const TextStyle(color: AppTheme.primaryColor),
                 ),
               ),
             ),

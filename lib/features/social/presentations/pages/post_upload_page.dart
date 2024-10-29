@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
@@ -66,30 +66,33 @@ class _PostUploadPageState extends State<PostUploadPage> {
   }
 
   AppBar _buildAppBar(BuildContext context, PostState state, String userId) =>
-      defaultWhiteAppBar(titleText: S.current.createPost, actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: ElevatedButton(
-            onPressed: state is ContentUpdated &&
-                    (state.images.isNotEmpty || state.content.isNotEmpty)
-                ? () => _onPost(context, userId)
-                : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: primaryColor,
-              shape: const ContinuousRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(3)),
+      defaultWhiteAppBar(
+          context: context,
+          titleText: S.current.createPost,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: ElevatedButton(
+                onPressed: state is ContentUpdated &&
+                        (state.images.isNotEmpty || state.content.isNotEmpty)
+                    ? () => _onPost(context, userId)
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppTheme.primaryColor,
+                  shape: const ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                  ),
+                ),
+                child: Text(
+                  S.current.post,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-            child: Text(
-              S.current.post,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        )
-      ]);
+            )
+          ]);
 
   Widget _buildBody(BuildContext context, PostState state) {
     if (state is ContentUpdated) {

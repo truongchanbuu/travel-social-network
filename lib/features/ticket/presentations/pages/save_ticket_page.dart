@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
@@ -97,7 +98,7 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
             vertical: 5,
           ),
           child: Text(
-            '${S.current.selectedDate}s'.toUpperCase(),
+            S.current.selectedDate.toUpperCase(),
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -154,6 +155,7 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
   }
 
   AppBar _buildAppBar(BuildContext ctx) => defaultWhiteAppBar(
+        context: ctx,
         onBack: () => _backToPrevious(ctx),
         actions: [
           SaveButton(
@@ -227,7 +229,7 @@ class _SaveTicketPageState extends State<SaveTicketPage> {
             child: Text(
               S.current.continueLabel,
               style: const TextStyle(
-                color: primaryColor,
+                color: AppTheme.primaryColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

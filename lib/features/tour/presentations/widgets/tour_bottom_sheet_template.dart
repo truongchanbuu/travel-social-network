@@ -27,7 +27,6 @@ class TourBottomSheetTemplate extends StatelessWidget {
             child: Text(
               title,
               style: const TextStyle(
-                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),

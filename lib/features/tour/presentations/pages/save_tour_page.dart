@@ -4,6 +4,8 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../cores/utils/context_extension.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
@@ -65,7 +67,8 @@ class _SaveTourPageState extends State<SaveTourPage> {
     final user = context.select((AuthBloc authBloc) => authBloc.state.user);
     return SafeArea(
       child: Scaffold(
-        appBar: defaultWhiteAppBar(onBack: () => _backToPrevious(context)),
+        appBar: defaultWhiteAppBar(
+            context: context, onBack: () => _backToPrevious(context)),
         body: BlocConsumer<TourBloc, TourState>(
           builder: (context, state) {
             if (state is TourActionLoading ||
@@ -144,10 +147,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
         contentPadding: EdgeInsets.zero,
         title: Text(
           title,
-          style: const TextStyle(
-            color: blackTextColor,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.bold),
           textDirection: defaultTextDirection,
           overflow: defaultTextOverflow,
         ),
@@ -181,7 +181,9 @@ class _SaveTourPageState extends State<SaveTourPage> {
                       spreadRadius: 1,
                     )
                   ],
-                  color: Colors.white,
+                  color: context.isDarkMode
+                      ? AppTheme.secondaryColor
+                      : AppTheme.secondaryColorDark,
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 margin: padding20,
@@ -214,7 +216,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
     return ElevatedButton(
       onPressed: () => _createTour(userId),
       style: ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
+        backgroundColor: AppTheme.primaryColor,
         minimumSize: minBtnSize,
         shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(5)),

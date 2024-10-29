@@ -7,16 +7,6 @@ import '../../injection_container.dart';
 const String appName = 'Traveround';
 const String currentVersion = '1.0.0+1';
 
-// Color
-const Color primaryColor = Colors.blueAccent;
-const Color secondaryColor = Colors.white;
-const Color textButtonColor = Colors.white;
-Color scaffoldBackgroundColor = Colors.grey.shade200;
-const Color backGroundExpansionItemColor = Colors.white;
-const Color subtitleTicketDetailColor = Colors.amber;
-const Color currencyTextColor = Colors.orange;
-const Color blackTextColor = Colors.black;
-
 // Border Radius
 const Color defaultFieldBorderColor = Colors.black54;
 const BorderRadius defaultFieldBorderRadius =

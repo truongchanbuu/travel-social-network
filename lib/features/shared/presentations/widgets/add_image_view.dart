@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../pages/add_image_page.dart';
@@ -51,12 +52,12 @@ class _AddImageViewState extends State<AddImageView> {
               const Icon(
                 Icons.add,
                 size: 30,
-                color: primaryColor,
+                color: AppTheme.primaryColor,
               ),
               Text(
                 S.current.addImageLabel,
                 style: const TextStyle(
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                 ),

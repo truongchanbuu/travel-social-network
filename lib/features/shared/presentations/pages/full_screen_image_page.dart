@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/app_cached_image.dart';
@@ -75,8 +76,9 @@ class _FullScreenImagePageState extends State<FullScreenImagePage> {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               border: Border.all(
-                color:
-                    _currentIndex == index ? primaryColor : Colors.transparent,
+                color: _currentIndex == index
+                    ? AppTheme.primaryColor
+                    : Colors.transparent,
                 width: 5,
               ),
             ),

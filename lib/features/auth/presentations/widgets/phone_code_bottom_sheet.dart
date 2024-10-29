@@ -1,6 +1,7 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/constants/country_codes.dart';
 import '../../../../cores/constants/types.dart';
@@ -23,7 +24,7 @@ class PhoneCodeBottomSheet extends StatelessWidget {
             margin:
                 const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
             child: TextField(
-              cursorColor: primaryColor,
+              cursorColor: AppTheme.primaryColor,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(999),

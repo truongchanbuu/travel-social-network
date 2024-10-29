@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/confirm_deletion_dialog.dart';
@@ -51,7 +52,11 @@ class _AddImagePageState extends State<AddImagePage> {
           builder: (context, imageFile) =>
               DefaultDraggableItemWidget(imageFile: imageFile),
           addMoreButton: const DefaultAddMoreWidget(
-              icon: Icon(Icons.add, color: primaryColor)),
+            icon: Icon(
+              Icons.add,
+              color: AppTheme.primaryColor,
+            ),
+          ),
           initialWidget: DefaultInitialWidget(
             centerWidget: Column(
               mainAxisSize: MainAxisSize.min,
@@ -59,14 +64,14 @@ class _AddImagePageState extends State<AddImagePage> {
                 const Icon(
                   Icons.image_search,
                   size: 40,
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     S.current.addImageLabel,
                     style: const TextStyle(
-                      color: primaryColor,
+                      color: AppTheme.primaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),

@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel_social_network/cores/resources/data_state.dart';
 
+import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../domain/repositories/user_repository.dart';

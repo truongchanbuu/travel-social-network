@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../config/themes/app_theme.dart';
 import '../../../../../cores/constants/constants.dart';
 
 class HomepageSectionHeading extends StatelessWidget {
@@ -12,12 +13,11 @@ class HomepageSectionHeading extends StatelessWidget {
     required this.padding,
   });
 
+  static const double underlineOffset = 2;
+  static const double underlineThickness = 5;
+  static const double borderRadius = 10;
   @override
   Widget build(BuildContext context) {
-    const double underlineOffset = 2;
-    const double underlineThickness = 5;
-    const double borderRadius = 10;
-
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: padding),
       sliver: SliverToBoxAdapter(
@@ -26,14 +26,15 @@ class HomepageSectionHeading extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.only(
-                  bottom: underlineOffset + underlineThickness),
+                top: 10,
+                bottom: underlineOffset + underlineThickness,
+              ),
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
                   Text(
                     title,
                     style: const TextStyle(
-                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -45,7 +46,7 @@ class HomepageSectionHeading extends StatelessWidget {
                     child: Container(
                       height: underlineThickness,
                       decoration: BoxDecoration(
-                        color: primaryColor,
+                        color: AppTheme.primaryColor,
                         borderRadius: BorderRadius.circular(borderRadius),
                       ),
                     ),

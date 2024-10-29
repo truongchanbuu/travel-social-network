@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/utils/context_extension.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 
 class SocialButton extends StatelessWidget {
@@ -40,7 +42,10 @@ class SocialButton extends StatelessWidget {
               ),
             ),
             titleTextStyle: TextStyle(
-              color: textColor ?? Colors.white,
+              color: textColor ??
+                  (context.isDarkMode
+                      ? AppTheme.blackTextColor
+                      : AppTheme.whiteTextColor),
               fontWeight: FontWeight.bold,
               letterSpacing: 1.2,
             ),

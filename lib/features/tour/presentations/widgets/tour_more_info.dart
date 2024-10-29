@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import 'additional_tour_info_bottom_sheet.dart';
@@ -22,7 +23,7 @@ class TourMoreInfo extends StatelessWidget {
           title: Text(S.current.contactServiceProvider),
           trailing: const Icon(
             Icons.chevron_right,
-            color: primaryColor,
+            color: AppTheme.primaryColor,
           ),
         ),
         ListTile(
@@ -39,7 +40,7 @@ class TourMoreInfo extends StatelessWidget {
           title: Text(S.current.additionalInformation),
           trailing: const Icon(
             Icons.chevron_right,
-            color: primaryColor,
+            color: AppTheme.primaryColor,
           ),
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 
 class ItemCounter extends StatefulWidget {
   final int initialValue;
@@ -90,7 +90,7 @@ class _ItemCounterState extends State<ItemCounter> {
         child: Icon(
           icon,
           size: 16,
-          color: onPressed == null ? Colors.grey : primaryColor,
+          color: onPressed == null ? Colors.grey : AppTheme.primaryColor,
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../config/themes/app_theme.dart';
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../injection_container.dart';
@@ -26,7 +27,7 @@ class _HomePageFloatingActionButtonState
     return FloatingActionButton(
       key: _fabKey,
       onPressed: _navigateToCreateTourPage,
-      backgroundColor: primaryColor,
+      backgroundColor: AppTheme.primaryColor,
       shape: const CircleBorder(),
       tooltip: S.current.createTour,
       child: const Icon(

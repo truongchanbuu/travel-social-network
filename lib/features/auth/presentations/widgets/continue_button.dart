@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
@@ -12,7 +13,7 @@ class ContinueButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(20),
-        backgroundColor: primaryColor,
+        backgroundColor: AppTheme.primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
@@ -24,7 +25,7 @@ class ContinueButton extends StatelessWidget {
           Text(
             S.current.next,
             style: const TextStyle(
-              color: textButtonColor,
+              color: AppTheme.textButtonColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),

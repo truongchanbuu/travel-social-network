@@ -1,7 +1,7 @@
 import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 
 class SearchBox extends StatelessWidget {
   final double elevation;
@@ -45,7 +45,7 @@ class SearchBox extends StatelessWidget {
           autofocus: autofocus,
           controller: controller,
           enabled: enabled,
-          cursorColor: primaryColor,
+          cursorColor: AppTheme.primaryColor,
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
           hintTexts: hintTexts,
@@ -56,9 +56,9 @@ class SearchBox extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: fillColor,
             filled: fillColor != null,
-            focusColor: primaryColor,
+            focusColor: AppTheme.primaryColor,
             focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: primaryColor),
+              borderSide: BorderSide(color: AppTheme.primaryColor),
             ),
             border: OutlineInputBorder(
               borderRadius: borderRadius,

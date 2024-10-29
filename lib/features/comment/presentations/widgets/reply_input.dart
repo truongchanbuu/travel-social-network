@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../domain/entities/comment.dart';
 import '../bloc/comment_bloc.dart';
@@ -46,7 +47,7 @@ class _ReplyInputState extends State<ReplyInput> {
         textDirection: defaultTextDirection,
         style: const TextStyle(fontSize: 14),
         textInputAction: TextInputAction.send,
-        cursorColor: primaryColor,
+        cursorColor: AppTheme.primaryColor,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
@@ -54,17 +55,17 @@ class _ReplyInputState extends State<ReplyInput> {
             borderRadius: BorderRadius.all(Radius.circular(5)),
             borderSide: BorderSide(color: Colors.black12, width: 0.5),
           ),
-          focusColor: primaryColor,
+          focusColor: AppTheme.primaryColor,
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            borderSide: BorderSide(color: primaryColor, width: 0.5),
+            borderSide: BorderSide(color: AppTheme.primaryColor, width: 0.5),
           ),
           suffixIcon: GestureDetector(
             onTap: _isAllowed ? () => _replyComment(widget.comment) : null,
             child: Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Icon(Icons.send,
-                    color: _isAllowed ? primaryColor : Colors.grey)),
+                    color: _isAllowed ? AppTheme.primaryColor : Colors.grey)),
           ),
           contentPadding: const EdgeInsets.all(10),
         ),

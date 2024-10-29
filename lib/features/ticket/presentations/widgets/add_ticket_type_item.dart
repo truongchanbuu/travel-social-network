@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/currency_utils.dart';
+import '../../../../cores/utils/currency_helper.dart';
 import '../../../shared/presentations/widgets/item_counter.dart';
 import '../../domain/entities/ticket_type.dart';
 
@@ -37,9 +38,9 @@ class AddTicketTypeItem extends StatelessWidget {
               ),
             ),
             Text(
-              CurrencyUtils.formatCurrency(ticket.ticketPrice),
+              CurrencyHelper.formatCurrency(ticket.ticketPrice),
               style: const TextStyle(
-                color: currencyTextColor,
+                color: AppTheme.currencyTextColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 
 class DetailHeadingText extends StatelessWidget {
@@ -28,7 +29,7 @@ class DetailHeadingText extends StatelessWidget {
             if (leadingIcon != null)
               Icon(
                 leadingIcon,
-                color: primaryColor,
+                color: AppTheme.primaryColor,
               ),
             Expanded(
               child: Padding(
@@ -36,11 +37,11 @@ class DetailHeadingText extends StatelessWidget {
                 child: Text(
                   title,
                   style: const TextStyle(
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                   overflow: defaultTextOverflow,
+                  textDirection: defaultTextDirection,
                 ),
               ),
             ),

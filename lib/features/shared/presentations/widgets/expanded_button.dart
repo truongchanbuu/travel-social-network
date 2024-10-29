@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 
 class ExpandedButton extends StatelessWidget {
   final bool isExpanded;
@@ -19,7 +19,7 @@ class ExpandedButton extends StatelessWidget {
       onPressed: onPressed,
       tooltip: isExpanded ? 'Show less' : 'Show more',
       style: const ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(primaryColor),
+        backgroundColor: WidgetStatePropertyAll(AppTheme.primaryColor),
       ),
       icon: isExpanded
           ? const Icon(

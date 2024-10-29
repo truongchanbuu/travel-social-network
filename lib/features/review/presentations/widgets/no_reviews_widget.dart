@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
@@ -52,7 +53,7 @@ class NoReviewsWidget extends StatelessWidget {
                     ? S.current.commentLabel
                     : S.current.loginToReview,
                 style: const TextStyle(
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

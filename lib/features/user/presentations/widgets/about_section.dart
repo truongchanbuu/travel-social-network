@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../cores/utils/context_extension.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -12,17 +14,25 @@ import '../../../tour/presentations/pages/your_tours_page.dart';
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
 
+  static const authenticatedIconAmount = 4;
+  static const unauthenticatedIconAmount = 3;
+  static const eachItemPadding = 10;
+
   @override
   Widget build(BuildContext context) {
     final UserEntity user =
         context.select((AuthBloc authBloc) => authBloc.state.user);
 
     final screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth = (screenWidth / (user.isLoggedIn ? 4 : 3) - 10);
+    double itemWidth = (screenWidth /
+            (user.isLoggedIn
+                ? authenticatedIconAmount
+                : unauthenticatedIconAmount) -
+        eachItemPadding);
 
     return Container(
       width: double.infinity,
-      color: Colors.white,
+      color: context.isDarkMode ? Colors.white : AppTheme.sectionColorDark,
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Wrap(
         alignment: WrapAlignment.start,

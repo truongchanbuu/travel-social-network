@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 
 class DateTimeItem extends StatefulWidget {
   final String date;
@@ -36,7 +36,7 @@ class _DateTimeItemState extends State<DateTimeItem> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(999)),
-          color: _isHover || isSelected ? primaryColor : Colors.white,
+          color: _isHover || isSelected ? AppTheme.primaryColor : Colors.white,
           boxShadow: [
             BoxShadow(
               spreadRadius: 1,
@@ -52,7 +52,9 @@ class _DateTimeItemState extends State<DateTimeItem> {
             Text(
               widget.date,
               style: TextStyle(
-                color: _isHover || isSelected ? Colors.white : primaryColor,
+                color: _isHover || isSelected
+                    ? Colors.white
+                    : AppTheme.primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),

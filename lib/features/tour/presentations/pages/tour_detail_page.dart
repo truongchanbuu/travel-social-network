@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
@@ -137,7 +138,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
               trailing: Text(
                 S.current.viewAll,
                 style: const TextStyle(
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -210,7 +211,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
                 child: Text(
                   '${S.current.viewAll} ${S.current.tickets}',
                   style: const TextStyle(
-                    color: primaryColor,
+                    color: AppTheme.primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -237,7 +238,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
                 child: Text(
                   '${S.current.see} ${S.current.detail} ${S.current.tourItinerary}',
                   style: const TextStyle(
-                    color: primaryColor,
+                    color: AppTheme.primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -265,7 +266,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
                   borderRadius: BorderRadius.all(Radius.circular(3)),
                   side: BorderSide(width: 0.5, color: Colors.grey),
                 ),
-                backgroundColor: primaryColor,
+                backgroundColor: AppTheme.primaryColor,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

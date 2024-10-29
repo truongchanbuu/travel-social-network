@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
+import '../../../../cores/utils/context_extension.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
-import '../../../setting/presentation/widgets/setting_icon.dart';
+import '../../../setting/presentations/widgets/setting_icon.dart';
 import '../../../user/presentations/widgets/about_section.dart';
 import '../../domain/entities/user.dart';
 import '../bloc/auth_bloc.dart';
@@ -26,10 +28,10 @@ class HeroAuthPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: scaffoldBackgroundColor,
+        backgroundColor: context.isDarkMode
+            ? AppTheme.scaffoldBackgroundColor
+            : AppTheme.primaryColorDark,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          actionsIconTheme: const IconThemeData(color: Colors.black),
           actions: const <Widget>[SettingIcon()],
         ),
         body: Padding(
@@ -53,7 +55,7 @@ class HeroAuthPage extends StatelessWidget {
   static const SizedBox infoSpacing = SizedBox(height: 15);
   Widget _buildInfoSection(BuildContext context, bool isLoggedIn) {
     return Container(
-      color: Colors.white,
+      color: context.isDarkMode ? Colors.white : AppTheme.sectionColorDark,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -61,27 +63,12 @@ class HeroAuthPage extends StatelessWidget {
           children: [
             const HeroImage(),
             infoSpacing,
-            _buildPromotionText(),
+            const _PromotionText(),
             infoSpacing,
             if (!isLoggedIn) _buildAuthButton(context),
           ],
         ),
       ),
-    );
-  }
-
-  Text _buildPromotionText() {
-    return Text(
-      S.current.exclusiveOffers,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
-      maxLines: 3,
-      overflow: defaultTextOverflow,
-      semanticsLabel: S.current.exclusiveOffers,
-      textAlign: TextAlign.center,
-      textDirection: defaultTextDirection,
     );
   }
 
@@ -91,7 +78,7 @@ class HeroAuthPage extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => _navToSignUpPage(context),
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
+          backgroundColor: AppTheme.primaryColor,
           padding: const EdgeInsets.all(20),
           alignment: Alignment.center,
           shape: RoundedRectangleBorder(
@@ -129,10 +116,7 @@ class _LogOutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () => context.read<AuthBloc>().add(LogoutRequest()),
-        style: ElevatedButton.styleFrom(
-          minimumSize: minBtnSize,
-          backgroundColor: Colors.white,
-        ),
+        style: ElevatedButton.styleFrom(minimumSize: minBtnSize),
         child: Text(
           S.current.logout,
           style: const TextStyle(
@@ -140,5 +124,24 @@ class _LogOutButton extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ));
+  }
+}
+
+class _PromotionText extends StatelessWidget {
+  const _PromotionText();
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      S.current.exclusiveOffers,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+      maxLines: 3,
+      overflow: defaultTextOverflow,
+      semanticsLabel: S.current.exclusiveOffers,
+      textAlign: TextAlign.center,
+      textDirection: defaultTextDirection,
+    );
   }
 }

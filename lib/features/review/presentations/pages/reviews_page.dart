@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
@@ -77,7 +78,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
   Widget _buildRating() => Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: primaryColor.withOpacity(0.1),
+          color: AppTheme.primaryColor.withOpacity(0.1),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         padding: const EdgeInsets.all(10),
@@ -92,7 +93,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
                 text:
                     '${tour.rating} ${ClassificationUtils.classificationRating(tour.rating)}',
                 style: const TextStyle(
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -111,6 +112,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
       );
 
   AppBar _buildAppBar() => defaultWhiteAppBar(
+        context: context,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -141,7 +143,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
   FloatingActionButton _reviewFAB(String userId) {
     return FloatingActionButton(
       onPressed: () => _reviewTour(userId),
-      backgroundColor: primaryColor,
+      backgroundColor: AppTheme.primaryColor,
       shape: const CircleBorder(),
       child: const Icon(Icons.rate_review_sharp, color: Colors.white),
     );

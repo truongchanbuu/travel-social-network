@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_social_network/cores/constants/popular_destination.dart';
 
 import '../../../../../cores/constants/constants.dart';
+import '../../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../../search/presentations/pages/search_page.dart';
 import '../../../../search/presentations/widgets/search_box.dart';
 import 'home_page_header.dart';
@@ -11,13 +13,15 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser =
+        context.select((AuthBloc authBloc) => authBloc.state.user);
+
     return SliverLayoutBuilder(
       builder: (context, constraints) {
         final appBarHeight =
             _calculateAppBarHeight(constraints.crossAxisExtent);
         return SliverAppBar(
           pinned: true,
-          backgroundColor: Colors.white,
           expandedHeight: appBarHeight,
           collapsedHeight: kToolbarHeight + 30,
           flexibleSpace: FlexibleSpaceBar(
@@ -25,7 +29,10 @@ class HomeAppBar extends StatelessWidget {
             centerTitle: true,
             collapseMode: CollapseMode.pin,
             expandedTitleScale: 1,
-            background: _buildBackground(),
+            background: _buildBackground(
+              context,
+              currentUser.username ?? currentUser.email ?? 'Unknown',
+            ),
           ),
         );
       },
@@ -45,22 +52,28 @@ class HomeAppBar extends StatelessWidget {
     );
   }
 
-  Widget _buildBackground() {
+  Widget _buildBackground(BuildContext context, String nameToDisplay) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue, Colors.lightBlue, Colors.white],
+          colors: Theme.of(context).brightness == Brightness.dark
+              ? [
+                  Colors.blueGrey.shade900,
+                  Colors.blueGrey.shade700,
+                  Colors.black38
+                ]
+              : [Colors.blue, Colors.lightBlue, Colors.white],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
       width: double.infinity,
-      child: const Padding(
-        padding: EdgeInsets.all(defaultPadding),
+      child: Padding(
+        padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            SizedBox(height: defaultPadding),
-            HomePageHeader(username: 'Buu Truong'),
+            const SizedBox(height: defaultPadding),
+            HomePageHeader(username: nameToDisplay),
           ],
         ),
       ),

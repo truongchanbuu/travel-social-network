@@ -2,7 +2,7 @@ import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 
@@ -151,7 +151,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
           ],
           border: isSameDate
               ? Border.all(
-                  color: primaryColor,
+                  color: AppTheme.primaryColor,
                   width: borderWidth,
                 )
               : Border.all(
@@ -164,13 +164,13 @@ class _AvailableDateListState extends State<AvailableDateList> {
             Text(
               DateTimeUtils.getWeekdays(date),
               style: TextStyle(
-                color: isSameDate ? primaryColor : Colors.black,
+                color: isSameDate ? AppTheme.primaryColor : Colors.black,
               ),
             ),
             Text(
               DateTimeUtils.formatDayAndMonth(date),
               style: TextStyle(
-                color: isSameDate ? primaryColor : Colors.black,
+                color: isSameDate ? AppTheme.primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -195,7 +195,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
         initialDate: widget.selectedDate,
         minimumDate: nearestDate,
         maximumDate: furthestDate,
-        options: const BoardDateTimeOptions(activeColor: primaryColor),
+        options: const BoardDateTimeOptions(activeColor: AppTheme.primaryColor),
         pickerType: DateTimePickerType.date,
       );
 

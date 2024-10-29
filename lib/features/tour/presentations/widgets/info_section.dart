@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../review/presentations/bloc/review_bloc.dart';
@@ -26,7 +27,9 @@ class InfoSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: defaultPadding, vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : AppTheme.secondaryColor,
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             boxShadow: [detailSectionBoxShadow],
           ),
@@ -40,7 +43,6 @@ class InfoSection extends StatelessWidget {
                   child: Text(
                     state.tour.tourName,
                     style: const TextStyle(
-                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -82,7 +84,7 @@ class InfoSection extends StatelessWidget {
                   bottomLeft: Radius.circular(ratingBorderRadius),
                   bottomRight: Radius.circular(ratingBorderRadius),
                 ),
-                color: primaryColor,
+                color: AppTheme.primaryColor,
               ),
               padding: const EdgeInsetsDirectional.all(6),
               child: Text(
@@ -125,7 +127,7 @@ class InfoSection extends StatelessWidget {
 
   static const Icon trailing = Icon(
     Icons.chevron_right,
-    color: primaryColor,
+    color: AppTheme.primaryColor,
   );
 
   Widget _buildBriefInfo(BuildContext context, TourEntity tour) {
@@ -134,7 +136,7 @@ class InfoSection extends StatelessWidget {
         ListTile(
           leading: const Icon(
             Icons.access_time_outlined,
-            color: primaryColor,
+            color: AppTheme.primaryColor,
           ),
           contentPadding: EdgeInsets.zero,
           titleAlignment: ListTileTitleAlignment.center,
@@ -144,7 +146,7 @@ class InfoSection extends StatelessWidget {
                 TextSpan(
                   text: S.current.duration,
                   style: const TextStyle(
-                    color: primaryColor,
+                    color: AppTheme.primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -158,7 +160,7 @@ class InfoSection extends StatelessWidget {
           onTap: () => _showTourDetailLocation(context, tour.destination),
           leading: const Icon(
             Icons.location_on,
-            color: primaryColor,
+            color: AppTheme.primaryColor,
           ),
           trailing: trailing,
           contentPadding: EdgeInsets.zero,

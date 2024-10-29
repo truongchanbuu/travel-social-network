@@ -526,11 +526,11 @@ class S {
     );
   }
 
-  /// `Bright Theme`
-  String get brightTheme {
+  /// `Light Theme`
+  String get lightTheme {
     return Intl.message(
-      'Bright Theme',
-      name: 'brightTheme',
+      'Light Theme',
+      name: 'lightTheme',
       desc: '',
       args: [],
     );
@@ -726,6 +726,16 @@ class S {
     );
   }
 
+  /// `Vietnamese`
+  String get vietnameseLangChoice {
+    return Intl.message(
+      'Vietnamese',
+      name: 'vietnameseLangChoice',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Country/Region`
   String get countryRegion {
     return Intl.message(
@@ -751,16 +761,6 @@ class S {
     return Intl.message(
       'Currency',
       name: 'currency',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Pound`
-  String get currencyChoice {
-    return Intl.message(
-      'Pound',
-      name: 'currencyChoice',
       desc: '',
       args: [],
     );
@@ -1563,10 +1563,10 @@ class S {
     );
   }
 
-  /// `selected date`
+  /// `selected dates`
   String get selectedDate {
     return Intl.message(
-      'selected date',
+      'selected dates',
       name: 'selectedDate',
       desc: '',
       args: [],

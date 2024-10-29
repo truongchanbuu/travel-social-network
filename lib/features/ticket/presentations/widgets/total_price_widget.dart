@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/currency_utils.dart';
+import '../../../../cores/utils/currency_helper.dart';
 import '../../../../generated/l10n.dart';
 
 class TotalPriceWidget extends StatefulWidget {
@@ -78,9 +79,9 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                CurrencyUtils.formatCurrency(widget.totalPrice),
+                CurrencyHelper.formatCurrency(widget.totalPrice),
                 style: const TextStyle(
-                  color: currencyTextColor,
+                  color: AppTheme.currencyTextColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -109,7 +110,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
                     style: textStyle,
                   ),
                   Text(
-                    CurrencyUtils.formatCurrency(
+                    CurrencyHelper.formatCurrency(
                       ticket['price'] * ticket['quantity'],
                     ),
                     style: textStyle,
@@ -133,7 +134,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
+            backgroundColor: AppTheme.primaryColor,
             minimumSize: minBtnSize,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(5)),

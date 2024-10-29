@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 
 class DateSectionButton extends StatefulWidget {
   final VoidCallback? onTap;
@@ -12,7 +12,7 @@ class DateSectionButton extends StatefulWidget {
     super.key,
     required this.title,
     required this.icon,
-    this.textColor = primaryColor,
+    this.textColor = AppTheme.primaryColor,
     this.onTap,
   });
 

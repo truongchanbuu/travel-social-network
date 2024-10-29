@@ -5,6 +5,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:travel_social_network/features/shared/presentations/widgets/app_progressing_indicator.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/form_utils.dart';
 import '../../../../cores/utils/image_utils.dart';
@@ -59,7 +60,8 @@ class _SaveReviewPageState extends State<SaveReviewPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultWhiteAppBar(titleText: S.current.reviews(0)),
+        appBar: defaultWhiteAppBar(
+            context: context, titleText: S.current.reviews(0)),
         body: BlocConsumer<ReviewBloc, ReviewState>(
           listener: (context, state) {
             if (state is ReviewActionFailure) {
@@ -154,7 +156,7 @@ class _SaveReviewPageState extends State<SaveReviewPage> {
                             ? () => _submitReview(review!)
                             : null,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryColor,
+                          backgroundColor: AppTheme.primaryColor,
                           minimumSize: minBtnSize,
                           shape: bottomSheetShape,
                         ),

@@ -17,14 +17,17 @@ class _BadgeNotificationState extends State<BadgeNotification> {
     return Badge(
       isLabelVisible: widget.badges != 0,
       label: Text(widget.badges.toString()),
+      textColor: Colors.white,
       largeSize: 20,
       alignment: FractionalOffset.topRight,
       child: GestureDetector(
         onTap: () {},
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.white,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.black
+                : Colors.white,
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(Icons.notifications_outlined),

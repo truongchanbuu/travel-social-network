@@ -23,7 +23,8 @@ class _YourToursPageState extends State<YourToursPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultWhiteAppBar(titleText: S.current.myTour),
+        appBar:
+            defaultWhiteAppBar(context: context, titleText: S.current.myTour),
         body: BlocBuilder<TourBloc, TourState>(
           builder: (context, state) {
             if (state is TourActionLoading) {

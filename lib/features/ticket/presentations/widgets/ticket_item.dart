@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_social_network/injection_container.dart';
 
 import '../../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/currency_utils.dart';
+import '../../../../config/themes/app_theme.dart';
+import '../../../../cores/utils/currency_helper.dart';
 import '../../../../generated/l10n.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
@@ -56,7 +57,7 @@ class TicketItem extends StatelessWidget {
             Text(
               '${S.current.see} ${S.current.detail}',
               style: const TextStyle(
-                color: primaryColor,
+                color: AppTheme.primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
@@ -68,9 +69,9 @@ class TicketItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  CurrencyUtils.formatCurrency(ticket.ticketPrice),
+                  CurrencyHelper.formatCurrency(ticket.ticketPrice),
                   style: const TextStyle(
-                    color: currencyTextColor,
+                    color: AppTheme.currencyTextColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -96,7 +97,7 @@ class TicketItem extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(3)),
         ),
         elevation: 5,
-        backgroundColor: primaryColor,
+        backgroundColor: AppTheme.primaryColor,
         padding: const EdgeInsets.symmetric(
           vertical: 15,
           horizontal: 30,

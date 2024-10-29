@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../cores/utils/context_extension.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../bloc/tour_bloc.dart';
@@ -31,14 +32,12 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    Color titleColor = widget.titleColor;
-
     return BlocBuilder<TourBloc, TourState>(
       builder: (context, state) {
         if (state is TourLoaded) {
           return SliverAppBar(
             pinned: true,
-            backgroundColor: Colors.white,
+            backgroundColor: context.isDarkMode ? Colors.white : Colors.black,
             expandedHeight: widget.expandedHeight,
             automaticallyImplyLeading: true,
             leadingWidth: 50,
@@ -48,7 +47,10 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                 margin: const EdgeInsets.only(left: 5),
                 decoration:
                     widget.titleColor == Colors.white ? buttonOverlay : null,
-                child: Icon(Icons.arrow_back, color: widget.titleColor),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: context.isDarkMode ? widget.titleColor : Colors.white,
+                ),
               ),
             ),
             titleSpacing: 0,
@@ -65,7 +67,9 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                         child: Text(
                           state.tour.tourName,
                           style: TextStyle(
-                            color: widget.titleColor,
+                            color: context.isDarkMode
+                                ? widget.titleColor
+                                : Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -86,7 +90,11 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                       padding: const EdgeInsets.all(10),
                       child: Icon(
                         _isFavorite ? Icons.favorite : Icons.favorite_outline,
-                        color: _isFavorite ? Colors.pink : titleColor,
+                        color: _isFavorite
+                            ? Colors.pink
+                            : context.isDarkMode
+                                ? widget.titleColor
+                                : Colors.white,
                       ),
                     ),
                   ),
@@ -101,7 +109,9 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                       padding: const EdgeInsets.all(10),
                       child: Icon(
                         Icons.share,
-                        color: titleColor,
+                        color: context.isDarkMode
+                            ? widget.titleColor
+                            : Colors.white,
                       ),
                     ),
                   ),
@@ -110,7 +120,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
             ),
             flexibleSpace: FlexibleSpaceBar(
               background: IgnorePointer(
-                ignoring: titleColor != Colors.white,
+                ignoring: widget.titleColor != Colors.white,
                 child: ThumbnailsWidget(imageUrls: state.tour.imageUrls),
               ),
             ),

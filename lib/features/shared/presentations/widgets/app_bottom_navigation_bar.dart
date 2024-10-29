@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
@@ -37,7 +38,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      selectedItemColor: primaryColor,
+      selectedItemColor: AppTheme.primaryColor,
       elevation: 20,
       currentIndex: _currentTabIndex,
       items: icons,

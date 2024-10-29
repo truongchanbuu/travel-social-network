@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/utils/date_time_utils.dart';
@@ -200,7 +201,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
                 TextSpan(
                   text: S.current.seeHere,
                   style: const TextStyle(
-                    color: primaryColor,
+                    color: AppTheme.primaryColor,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),

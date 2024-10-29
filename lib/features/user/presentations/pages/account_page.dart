@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../widgets/account_brief_info.dart';
 import '../widgets/about_section.dart';
 
@@ -12,7 +12,7 @@ class AccountPage extends StatelessWidget {
     const SizedBox spacing = SizedBox(height: 10);
 
     return Scaffold(
-      backgroundColor: scaffoldBackgroundColor,
+      backgroundColor: AppTheme.scaffoldBackgroundColor,
       body: ListView(
         children: const [
           AccountBriefInfo(),

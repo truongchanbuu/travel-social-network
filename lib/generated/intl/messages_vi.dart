@@ -97,7 +97,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "backToPreviousPage":
             MessageLookupByLibrary.simpleMessage("Trở về trang trước"),
         "bookingNow": MessageLookupByLibrary.simpleMessage("Đặt ngay"),
-        "brightTheme": MessageLookupByLibrary.simpleMessage("Nền sáng"),
         "buyTicket": MessageLookupByLibrary.simpleMessage("Đặt vé"),
         "cacheKeyWithId": m1,
         "cacheKeyWithoutId": m2,
@@ -144,7 +143,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "createTourPageTitle":
             MessageLookupByLibrary.simpleMessage("Tạo chuyến đi mới"),
         "currency": MessageLookupByLibrary.simpleMessage("Tiền tệ"),
-        "currencyChoice": MessageLookupByLibrary.simpleMessage("Bảng Anh"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Nền tối"),
         "dataStateFailure": MessageLookupByLibrary.simpleMessage(
             "Đã có lỗi xảy ra! Hãy thử lại sau!"),
@@ -194,7 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorImage":
             MessageLookupByLibrary.simpleMessage("Failed to load image"),
         "eveningText": MessageLookupByLibrary.simpleMessage(
-            "Chiều đến rồi! Cùng nhau thưởng thức những món ngon mới lạ cho tại một nhà hàng sang trọng nào!"),
+            "Hãy cùng thưởng thức những món ngon tại những địa điểm tuyệt vời!"),
         "exclusiveOffers": MessageLookupByLibrary.simpleMessage(
             "Ưu đãi đặc biệt dành cho bạn - chỉ với một bước đơn giản!"),
         "favorite": MessageLookupByLibrary.simpleMessage("Yêu thích"),
@@ -244,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "leave": MessageLookupByLibrary.simpleMessage("Rời đi"),
         "lengthLimitError": m11,
+        "lightTheme": MessageLookupByLibrary.simpleMessage("Nền sáng"),
         "like": MessageLookupByLibrary.simpleMessage("Thích"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Liên kết email"),
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
@@ -412,6 +411,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Màn hình hiện tại không được hỗ trợ"),
         "userProfile": MessageLookupByLibrary.simpleMessage("Hồ sơ người dùng"),
         "version": MessageLookupByLibrary.simpleMessage("Phiên bản"),
+        "vietnameseLangChoice":
+            MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "viewAll": MessageLookupByLibrary.simpleMessage("Xem tất cả"),
         "voucherCanBeUsedOn":
             MessageLookupByLibrary.simpleMessage("Vé có hiệu lực vào"),

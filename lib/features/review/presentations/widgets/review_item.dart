@@ -80,7 +80,6 @@ class _ReviewItemState extends State<ReviewItem> {
                   spreadRadius: 3,
                 ),
               ],
-              color: Colors.white,
             ),
             child: Column(
               children: [
@@ -105,7 +104,6 @@ class _ReviewItemState extends State<ReviewItem> {
                                       userToDisplay.email ??
                                       'Unknown',
                                   style: const TextStyle(
-                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   textDirection: defaultTextDirection,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 
 class TourScheduleIconText extends StatelessWidget {
@@ -15,7 +16,7 @@ class TourScheduleIconText extends StatelessWidget {
     this.textFontSize = 14,
     this.iconSize,
     required this.iconData,
-    this.iconColor = primaryColor,
+    this.iconColor = AppTheme.primaryColor,
     this.textColor = Colors.black,
   });
 

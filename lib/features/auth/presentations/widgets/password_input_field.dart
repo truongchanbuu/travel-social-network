@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../bloc/login/login_cubit.dart';
@@ -40,7 +41,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           color: displayError != null
               ? Colors.red
               : isProgressing
-                  ? primaryColor
+                  ? AppTheme.primaryColor
                   : null,
         ),
         suffixIcon: IconButton(
@@ -50,7 +51,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             color: displayError != null
                 ? Colors.red
                 : isProgressing
-                    ? primaryColor
+                    ? AppTheme.primaryColor
                     : null,
           ),
         ),
@@ -60,10 +61,10 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           borderRadius: defaultFieldBorderRadius,
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
+          borderSide: BorderSide(color: AppTheme.primaryColor),
         ),
-        floatingLabelStyle:
-            TextStyle(color: displayError != null ? Colors.red : primaryColor),
+        floatingLabelStyle: TextStyle(
+            color: displayError != null ? Colors.red : AppTheme.primaryColor),
         labelStyle: TextStyle(color: displayError != null ? Colors.red : null),
         counterText: '',
         errorMaxLines: 2,
@@ -71,7 +72,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
       ),
       obscureText: _isHidden,
       textDirection: defaultTextDirection,
-      cursorColor: primaryColor,
+      cursorColor: AppTheme.primaryColor,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.send,
       validator: _validatePassword,
@@ -85,7 +86,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
     }
 
     RegExp passwordRegExp =
-        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{8,}$');
 
     if (!passwordRegExp.hasMatch(password!)) {
       return S.current.passwordRequirement;

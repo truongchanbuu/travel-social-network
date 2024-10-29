@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
@@ -43,46 +44,44 @@ class AuthMethodPage extends StatelessWidget {
             }
 
             return SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const HeroImage(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const HeroImage(),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    '${S.current.signIn} / ${S.current.signUp}',
+                    semanticsLabel: '${S.current.signIn} / ${S.current.signUp}',
+                    overflow: defaultTextOverflow,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      '${S.current.signIn} / ${S.current.signUp}',
-                      semanticsLabel:
-                          '${S.current.signIn} / ${S.current.signUp}',
-                      overflow: defaultTextOverflow,
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                  ),
+                  const SizedBox(height: 5),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.discount_outlined,
+                        color: descColor,
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.discount_outlined,
-                          color: descColor,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          S.current.promotionText,
-                          overflow: defaultTextOverflow,
-                          style: const TextStyle(color: descColor),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    _buildSocialList(context),
-                    const SizedBox(height: 30),
-                    _buildConditionAndPolicyConfirmation(),
-                  ],
-                ),
+                      const SizedBox(width: 5),
+                      Text(
+                        S.current.promotionText,
+                        overflow: defaultTextOverflow,
+                        style: const TextStyle(color: descColor),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 30),
+                  _buildSocialList(context),
+                  const SizedBox(height: 30),
+                  _buildConditionAndPolicyConfirmation(context),
+                ],
               ),
             );
           },
@@ -93,7 +92,7 @@ class AuthMethodPage extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: primaryColor,
+      backgroundColor: AppTheme.primaryColor,
       title: const AppName(),
       centerTitle: true,
       leading: IconButton(
@@ -125,7 +124,6 @@ class AuthMethodPage extends StatelessWidget {
         SocialButton(
           onTap: () => _continueWithAccount(context, googleProviderName),
           title: '${S.current.continueWith} Google',
-          textColor: Colors.black,
           leading: SocialIcon(
             label: '${S.current.continueWith} Google',
             imageUrl: 'assets/auth/icons/google_icon.svg',
@@ -138,6 +136,7 @@ class AuthMethodPage extends StatelessWidget {
         SocialButton(
           onTap: () => _continueWithAccount(context, emailProviderName),
           title: '${S.current.continueWith} Email',
+          textColor: Colors.white,
           buttonColor: Colors.black,
           leading: SocialIcon(
             label: '${S.current.continueWith} Email',
@@ -165,33 +164,39 @@ class AuthMethodPage extends StatelessWidget {
     );
   }
 
-  Widget _buildConditionAndPolicyConfirmation() {
-    const TextStyle emphasizedText = TextStyle(
-      color: Colors.blue,
-      fontWeight: FontWeight.bold,
-    );
+  static const TextStyle emphasizedTextStyle = TextStyle(
+    color: Colors.blue,
+    fontWeight: FontWeight.bold,
+  );
+  Widget _buildConditionAndPolicyConfirmation(BuildContext context) {
+    final defaultTextStyle = DefaultTextStyle.of(context).style;
 
     return RichText(
       overflow: defaultTextOverflow,
       maxLines: 3,
-      textAlign: TextAlign.left,
+      textAlign: TextAlign.center,
       text: TextSpan(children: <TextSpan>[
         TextSpan(
           text: S.current.agreementText,
           semanticsLabel: S.current.agreementText,
+          style: defaultTextStyle,
         ),
         TextSpan(
           text: S.current.termsOfService,
-          style: emphasizedText,
+          style: emphasizedTextStyle,
           semanticsLabel: S.current.termsOfService,
           recognizer: TapGestureRecognizer()
             ..onTap =
                 () => debugPrint('Ready to navigate to Term of Service page'),
         ),
-        TextSpan(text: ' ${S.current.and} ', semanticsLabel: S.current.and),
+        TextSpan(
+          text: ' ${S.current.and} ',
+          style: defaultTextStyle,
+          semanticsLabel: S.current.and,
+        ),
         TextSpan(
           text: S.current.privacyPolicy,
-          style: emphasizedText,
+          style: emphasizedTextStyle,
           semanticsLabel: S.current.privacyPolicy,
           recognizer: TapGestureRecognizer()
             ..onTap =

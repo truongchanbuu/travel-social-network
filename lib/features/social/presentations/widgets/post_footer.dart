@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_social_network/features/comment/domain/entities/comment.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../comment/presentations/bloc/comment_bloc.dart';
@@ -35,7 +36,7 @@ class PostFooter extends StatelessWidget {
 
                   return Row(
                     children: [
-                      const Icon(Icons.thumb_up, color: primaryColor),
+                      const Icon(Icons.thumb_up, color: AppTheme.primaryColor),
                       const SizedBox(width: 8),
                       Text(numCompactFormatter
                           .format(builtPost.likedUsers.length)),

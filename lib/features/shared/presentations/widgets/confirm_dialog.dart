@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 
 class ConfirmDialog extends StatelessWidget {
@@ -38,7 +38,7 @@ class ConfirmDialog extends StatelessWidget {
           child: Text(
             softActionText ?? S.current.stay,
             style: const TextStyle(
-              color: primaryColor,
+              color: AppTheme.primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),

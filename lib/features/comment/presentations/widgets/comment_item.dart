@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -103,8 +103,8 @@ class _CommentItemState extends State<CommentItem> {
             style: const TextStyle(fontSize: 14),
             trimCollapsedText: ' ${S.current.showMore}',
             trimExpandedText: ' ${S.current.showLess}',
-            moreStyle: const TextStyle(color: primaryColor),
-            lessStyle: const TextStyle(color: primaryColor),
+            moreStyle: const TextStyle(color: AppTheme.primaryColor),
+            lessStyle: const TextStyle(color: AppTheme.primaryColor),
             trimLines: 2,
             trimMode: TrimMode.Line,
           )
@@ -137,7 +137,7 @@ class _CommentItemState extends State<CommentItem> {
         children: [
           const Icon(
             Icons.thumb_up,
-            color: primaryColor,
+            color: AppTheme.primaryColor,
             size: 15,
           ),
           const SizedBox(width: 5),

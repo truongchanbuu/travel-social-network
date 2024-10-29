@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../shared/presentations/widgets/app_name_logo.dart';
@@ -57,7 +58,7 @@ class _SocialNetworkPageState extends State<SocialNetworkPage>
 
   Widget _buildBody(BuildContext context, UserEntity user) {
     return RefreshIndicator(
-      color: primaryColor,
+      color: AppTheme.primaryColor,
       onRefresh: () async {
         setState(() {
           _isLoading = true;

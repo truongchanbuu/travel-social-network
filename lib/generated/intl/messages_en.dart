@@ -108,7 +108,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "backToPreviousPage":
             MessageLookupByLibrary.simpleMessage("Back to previous page"),
         "bookingNow": MessageLookupByLibrary.simpleMessage("Booking Now"),
-        "brightTheme": MessageLookupByLibrary.simpleMessage("Bright Theme"),
         "buyTicket": MessageLookupByLibrary.simpleMessage("Buy Ticket"),
         "cacheKeyWithId": m1,
         "cacheKeyWithoutId": m2,
@@ -154,7 +153,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "createTourPageTitle":
             MessageLookupByLibrary.simpleMessage("Create New Tour"),
         "currency": MessageLookupByLibrary.simpleMessage("Currency"),
-        "currencyChoice": MessageLookupByLibrary.simpleMessage("Pound"),
         "darkTheme": MessageLookupByLibrary.simpleMessage("Dark Theme"),
         "dataStateFailure": MessageLookupByLibrary.simpleMessage(
             "Some error occurred! Please try again later!"),
@@ -253,6 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "leave": MessageLookupByLibrary.simpleMessage("Leave"),
         "lengthLimitError": m11,
+        "lightTheme": MessageLookupByLibrary.simpleMessage("Light Theme"),
         "like": MessageLookupByLibrary.simpleMessage("Like"),
         "linkEmail": MessageLookupByLibrary.simpleMessage("Link Email"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
@@ -360,7 +359,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "see": MessageLookupByLibrary.simpleMessage("See"),
         "seeHere": MessageLookupByLibrary.simpleMessage("see here"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
-        "selectedDate": MessageLookupByLibrary.simpleMessage("selected date"),
+        "selectedDate": MessageLookupByLibrary.simpleMessage("selected dates"),
         "semanticPhoneNumberCounterText": MessageLookupByLibrary.simpleMessage(
             "Maximum length of phone number"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
@@ -417,6 +416,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sorry! This device is not supported"),
         "userProfile": MessageLookupByLibrary.simpleMessage("User Profile"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
+        "vietnameseLangChoice":
+            MessageLookupByLibrary.simpleMessage("Vietnamese"),
         "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
         "voucherCanBeUsedOn":
             MessageLookupByLibrary.simpleMessage("Voucher can be used on"),

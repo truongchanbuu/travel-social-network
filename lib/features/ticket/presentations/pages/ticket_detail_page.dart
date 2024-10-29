@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
-import '../../../../cores/utils/currency_utils.dart';
+import '../../../../cores/utils/currency_helper.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
@@ -168,7 +169,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
         child: ElevatedButton(
           onPressed: () => _navigateToAddVisitorPage(context),
           style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
+            backgroundColor: AppTheme.primaryColor,
             padding: const EdgeInsets.all(20),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(3)),
@@ -218,7 +219,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             ),
           ),
           child: Text(
-            CurrencyUtils.formatCurrency(ticket!.ticketPrice),
+            CurrencyHelper.formatCurrency(ticket!.ticketPrice),
             style: const TextStyle(
               color: Colors.deepOrange,
               fontWeight: FontWeight.bold,
@@ -229,7 +230,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       );
 
   ExpansionPanel _buildAboutTicket() => ExpansionPanel(
-        backgroundColor: backGroundExpansionItemColor,
+        backgroundColor: AppTheme.backGroundExpansionItemColor,
         canTapOnHeader: true,
         headerBuilder: (context, isExpanded) =>
             DetailHeadingText(title: S.current.aboutThisTicket),
@@ -243,14 +244,14 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   ExpansionPanel _buildVoucherExpiration() {
     const double fontSize = 14;
     return ExpansionPanel(
-      backgroundColor: backGroundExpansionItemColor,
+      backgroundColor: AppTheme.backGroundExpansionItemColor,
       headerBuilder: (context, isExpanded) =>
           DetailHeadingText(title: S.current.voucherExp),
       canTapOnHeader: true,
       body: ListTile(
         leading: const Icon(
           Icons.calendar_month,
-          color: subtitleTicketDetailColor,
+          color: AppTheme.subtitleTicketDetailColor,
         ),
         title: RichText(
           overflow: defaultTextOverflow,
@@ -259,7 +260,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             TextSpan(
               text: '${S.current.voucherCanBeUsedOn} ',
               style: const TextStyle(
-                color: subtitleTicketDetailColor,
+                color: AppTheme.subtitleTicketDetailColor,
                 fontSize: fontSize,
               ),
             ),
@@ -270,7 +271,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize,
-                color: subtitleTicketDetailColor,
+                color: AppTheme.subtitleTicketDetailColor,
               ),
             ),
           ]),
@@ -281,7 +282,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
   }
 
   ExpansionPanel _buildRedemptionMethod() => ExpansionPanel(
-        backgroundColor: backGroundExpansionItemColor,
+        backgroundColor: AppTheme.backGroundExpansionItemColor,
         canTapOnHeader: true,
         isExpanded: sectionExpandedMap[redemptionKey] ?? true,
         headerBuilder: (context, isExpanded) =>
@@ -297,7 +298,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
               Text(
                 S.current.howToRedeem,
                 style: const TextStyle(
-                  color: subtitleTicketDetailColor,
+                  color: AppTheme.subtitleTicketDetailColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
@@ -322,7 +323,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
     String rescheduleDescription = reschedulePolicy!.policyDescription;
 
     return ExpansionPanel(
-      backgroundColor: backGroundExpansionItemColor,
+      backgroundColor: AppTheme.backGroundExpansionItemColor,
       canTapOnHeader: true,
       headerBuilder: (context, isExpanded) =>
           DetailHeadingText(title: S.current.refundAndReschedule),

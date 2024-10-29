@@ -2,6 +2,7 @@ import 'package:country_code_picker_plus/country_code_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
@@ -41,10 +42,10 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                 alignLeft: true,
                 searchDecoration: InputDecoration(
                   border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: primaryColor),
+                    borderSide: BorderSide(color: AppTheme.primaryColor),
                   ),
                   focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: primaryColor),
+                    borderSide: BorderSide(color: AppTheme.primaryColor),
                   ),
                   hintText: S.current.phoneSearchHintText,
                 ),
@@ -61,14 +62,15 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                     borderRadius: defaultFieldBorderRadius,
                   ),
                   focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: primaryColor),
+                    borderSide: BorderSide(color: AppTheme.primaryColor),
                   ),
-                  floatingLabelStyle: const TextStyle(color: primaryColor),
+                  floatingLabelStyle:
+                      const TextStyle(color: AppTheme.primaryColor),
                   counterText: '',
                 ),
                 maxLength: 15,
                 textDirection: defaultTextDirection,
-                cursorColor: primaryColor,
+                cursorColor: AppTheme.primaryColor,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 keyboardType: TextInputType.phone,
                 textInputAction: TextInputAction.next,

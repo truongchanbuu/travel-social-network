@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 
 class TourDetailLocation extends StatelessWidget {
@@ -76,13 +76,13 @@ class TourDetailLocation extends StatelessWidget {
                   children: [
                     const Icon(
                       Icons.near_me,
-                      color: primaryColor,
+                      color: AppTheme.primaryColor,
                     ),
                     const SizedBox(width: 5),
                     Text(
                       S.current.guideToLocation,
                       style: const TextStyle(
-                        color: primaryColor,
+                        color: AppTheme.primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

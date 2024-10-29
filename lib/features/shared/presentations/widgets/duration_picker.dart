@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../cores/constants/constants.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/form_utils.dart';
 import '../../../../generated/l10n.dart';
 
@@ -129,7 +129,7 @@ class _DurationPickerState extends State<DurationPicker> {
   }
 
   static const btnTxtStyle = TextStyle(
-    color: primaryColor,
+    color: AppTheme.primaryColor,
     fontSize: 16,
   );
 

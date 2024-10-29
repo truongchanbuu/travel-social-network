@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/utils/form_utils.dart';
@@ -133,7 +134,7 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
             ElevatedButton(
               onPressed: () => _acceptPolicy(context, policy),
               style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
+                backgroundColor: AppTheme.primaryColor,
                 shape: const RoundedRectangleBorder(
                     borderRadius: defaultFieldBorderRadius),
                 minimumSize: minBtnSize,

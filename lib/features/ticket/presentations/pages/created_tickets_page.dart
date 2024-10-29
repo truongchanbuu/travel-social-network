@@ -47,6 +47,7 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
     return SafeArea(
       child: Scaffold(
         appBar: defaultWhiteAppBar(
+          context: context,
           titleText: S.current.ticketList,
           onBack: () => Navigator.pop(context, tickets),
         ),

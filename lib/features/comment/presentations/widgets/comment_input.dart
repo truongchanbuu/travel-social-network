@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -90,7 +91,9 @@ class _CommentInputState extends State<CommentInput> {
               : null,
           icon: Icon(
             Icons.send,
-            color: _content?.isNotEmpty ?? false ? primaryColor : Colors.grey,
+            color: _content?.isNotEmpty ?? false
+                ? AppTheme.primaryColor
+                : Colors.grey,
           ),
         )
       ],

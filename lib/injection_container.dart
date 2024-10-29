@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cores/constants/constants.dart';
 import 'cores/utils/cached_client.dart';
@@ -21,6 +22,7 @@ import 'features/policy/presentations/bloc/policy_bloc.dart';
 import 'features/review/data/repositories/review_repository_impl.dart';
 import 'features/review/domain/repositories/review_repository.dart';
 import 'features/review/presentations/bloc/review_bloc.dart';
+import 'features/setting/presentations/cubit/settings_cubit.dart';
 import 'features/shared/data/repositories/image_repository_impl.dart';
 import 'features/shared/domain/repositories/image_repository.dart';
 import 'features/social/data/repositories/post_repository_impl.dart';
@@ -43,7 +45,11 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton<Dio>(() => Dio(BaseOptions(baseUrl: baseUrl)));
 
   // SharedPreference
-  getIt.registerSingleton<CacheClient>(CacheClient());
+  getIt.registerSingleton<SharedPreferencesWithCache>(
+    await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions()),
+  );
+  getIt.registerSingleton<CacheClient>(CacheClient(getIt()));
 
   // Google
   getIt.registerFactory<GoogleSignIn>(() => GoogleSignIn.standard());
@@ -82,6 +88,7 @@ Future<void> initializeDependencies() async {
   getIt.registerFactory<CommentBloc>(() => CommentBloc(getIt()));
 
   // Cubit
+  getIt.registerFactory<SettingsCubit>(() => SettingsCubit(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
   getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));

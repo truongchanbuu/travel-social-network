@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/auth_app_bar.dart';
@@ -56,7 +57,7 @@ class ContinueWithPhonePage extends StatelessWidget {
           child: Text(
             S.current.forgotPassword,
             style: const TextStyle(
-              color: primaryColor,
+              color: AppTheme.primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
@@ -23,22 +24,23 @@ class _CategoryTabBarState extends State<CategoryTabBar>
     _tabController = TabController(length: tabBarItems.length, vsync: this);
   }
 
+  BorderRadius borderRadius = BorderRadius.circular(50);
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius = BorderRadius.circular(50);
-
     return TabBar(
       controller: _tabController,
       isScrollable: true,
       dividerHeight: 0,
       indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
       labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-      labelColor: Colors.white,
+      labelColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.white
+          : Colors.black,
       splashBorderRadius: borderRadius,
       unselectedLabelColor: Colors.black,
       indicatorSize: TabBarIndicatorSize.tab,
       indicator: BoxDecoration(
-        color: primaryColor,
+        color: AppTheme.primaryColor,
         borderRadius: borderRadius,
       ),
       tabs: tabBarItems

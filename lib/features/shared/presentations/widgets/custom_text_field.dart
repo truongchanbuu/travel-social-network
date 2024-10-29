@@ -2,6 +2,7 @@ import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -90,8 +91,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               color: _errorMessage != null
                   ? Colors.red
                   : _isFocusing
-                      ? primaryColor
-                      : Colors.black,
+                      ? AppTheme.primaryColor
+                      : DefaultTextStyle.of(context).style.color,
               fontWeight: FontWeight.bold,
               fontSize: 13,
             ),
@@ -114,7 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   return _errorMessage;
                 },
                 maxLines: widget.maxLines,
-                cursorColor: primaryColor,
+                cursorColor: AppTheme.primaryColor,
                 animationType: widget.animationtype,
                 hintTextStyle: const TextStyle(overflow: TextOverflow.ellipsis),
                 inputFormatters: widget.inputFormatters,
@@ -129,7 +130,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         BorderSide(width: 1, color: defaultFieldBorderColor),
                   ),
                   focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: primaryColor),
+                    borderSide: BorderSide(color: AppTheme.primaryColor),
                   ),
                   disabledBorder: const OutlineInputBorder(
                     borderRadius: defaultFieldBorderRadius,

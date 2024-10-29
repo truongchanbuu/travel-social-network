@@ -1,6 +1,19 @@
 import 'package:intl/intl.dart';
 
-class CurrencyUtils {
+enum SupportCurrencies {
+  usd,
+  jpy,
+  eur,
+  vnd,
+  sgd,
+  krw,
+  cny,
+}
+
+class CurrencyHelper {
+  static List<String> get supportedCurrencies =>
+      SupportCurrencies.values.map((currency) => currency.name).toList();
+
   static String formatCurrency(
     num amount, {
     String? locale,

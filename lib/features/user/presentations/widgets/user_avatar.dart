@@ -10,6 +10,7 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
+      backgroundColor: Colors.orange,
       child: AppCachedImage(
         cacheKey: 'avatar_${user.avatarUrl}',
         imageUrl: user.avatarUrl ?? '',

@@ -1,11 +1,5 @@
 part of 'settings_cubit.dart';
 
-enum LanguageCode { en, vi }
-
-enum TemperatureUnit { celsius, fahrenheit }
-
-enum MeasurementSystem { metric, imperial }
-
 sealed class SettingsState extends Equatable {
   final bool isDarkMode;
   final String language;
@@ -34,13 +28,37 @@ sealed class SettingsState extends Equatable {
 }
 
 final class SettingsInitial extends SettingsState {
-  SettingsInitial({
-    super.isDarkMode = false,
-    required super.measurementSystem,
-    required super.currency,
-    required super.temperatureScale,
-  }) : super(
-          region: Platform.localeName.split('_').last,
-          language: LanguageCode.en.name,
+  SettingsInitial()
+      : super(
+          isDarkMode: SettingHelper.isDarkMode,
+          region: LocaleHelper.getRegion,
+          language: LocaleHelper.getDefaultLanguage(),
+          currency: LocaleHelper.getCurrency(),
+          measurementSystem: LocaleHelper.getDefaultMeasurementSystem(),
+          temperatureScale: LocaleHelper.getDefaultTemperature(),
+        );
+}
+
+final class LanguageChanged extends SettingsState {
+  LanguageChanged(SettingsState current, String language)
+      : super(
+          language: language,
+          isDarkMode: current.isDarkMode,
+          currency: current.currency,
+          temperatureScale: current.temperatureScale,
+          measurementSystem: current.measurementSystem,
+          region: current.region,
+        );
+}
+
+final class ThemeModeChanged extends SettingsState {
+  ThemeModeChanged(SettingsState current, bool isDarkMode)
+      : super(
+          language: current.language,
+          isDarkMode: isDarkMode,
+          currency: current.currency,
+          temperatureScale: current.temperatureScale,
+          measurementSystem: current.measurementSystem,
+          region: current.region,
         );
 }
