@@ -21,6 +21,9 @@ class SocialNetworkUploadField extends StatelessWidget {
         context.select((AuthBloc authBloc) => authBloc.state.user);
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
+      color: context.isDarkMode
+          ? AppTheme.secondaryColorDark
+          : AppTheme.secondaryColor,
       child: Row(
         children: [
           UserAvatar(user: currentUser),
@@ -33,11 +36,7 @@ class SocialNetworkUploadField extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(999)),
                 ),
                 hintText: S.current.howYourFeeling,
-                hintStyle: TextStyle(
-                  color: context.isDarkMode
-                      ? AppTheme.secondaryColorDark
-                      : AppTheme.secondaryColor,
-                ),
+                hintStyle: const TextStyle(color: AppTheme.secondaryColorDark),
               ),
               readOnly: true,
             ),

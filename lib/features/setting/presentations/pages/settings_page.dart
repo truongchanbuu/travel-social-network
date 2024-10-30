@@ -52,20 +52,28 @@ class SettingsPage extends StatelessWidget {
             onSelected: context.read<SettingsCubit>().currencyChanged,
             selected: CurrencyHelper.currentCurrencyUnit,
           ),
-
-          // MultipleChoiceSettingItem(
-          //   title: S.current.countryRegion,
-          //   choice: S.current.countryEnglandRegionChoice,
-          // ),
-
-          // MultipleChoiceSettingItem(
-          //   title: S.current.units,
-          //   choice: S.current.unitsChoice,
-          // ),
-          // MultipleChoiceSettingItem(
-          //   title: S.current.temperatureScale,
-          //   choice: 'Celsius',
-          // ),
+          MultipleChoiceSettingItem<String>(
+            title: S.current.units,
+            choice: context.select((SettingsCubit settings) =>
+                settings.state.measurementSystem.toUpperCase()),
+            selections: MeasurementSystem.values
+                .map((type) => type.name.toUpperCase())
+                .toList(),
+            selected: context.select((SettingsCubit settings) =>
+                settings.state.measurementSystem.toUpperCase()),
+            onSelected: context.read<SettingsCubit>().measurementSystemChanged,
+          ),
+          MultipleChoiceSettingItem<String>(
+            title: S.current.temperatureScale,
+            choice: context.select((SettingsCubit settings) =>
+                settings.state.temperatureScale.toUpperCase()),
+            selections: TemperatureUnit.values
+                .map((unit) => unit.name.toUpperCase())
+                .toList(),
+            onSelected: context.read<SettingsCubit>().temperatureScaleChanged,
+            selected: context.select((SettingsCubit settings) =>
+                settings.state.temperatureScale.toUpperCase()),
+          ),
         ],
       ),
     );

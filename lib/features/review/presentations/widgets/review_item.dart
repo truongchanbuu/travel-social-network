@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:travel_social_network/features/user/presentations/widgets/user_avatar.dart';
 
+import '../../../../features/user/presentations/widgets/user_avatar.dart';
+import '../../../../cores/utils/extensions/context_extension.dart%20';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
@@ -42,15 +43,14 @@ class ReviewItem extends StatefulWidget {
 class _ReviewItemState extends State<ReviewItem> {
   UserEntity? _cachedUser;
 
-  String _getFormattedDateTime(DateTime date) => DateTimeUtils.isToday(date)
-      ? DateTimeUtils.getTimeAgo(date)
-      : DateTimeUtils.formatDayAndMonth(date);
-
   @override
   Widget build(BuildContext context) {
+    String getFormattedDateTime(DateTime date) => DateTimeUtils.isToday(date)
+        ? DateTimeUtils.getTimeAgo(date, context.langCode)
+        : DateTimeUtils.formatDayAndMonth(date);
+
     final currentUser =
         context.select((AuthBloc authBloc) => authBloc.state.user);
-
     return BlocSelector<UserCubit, UserState, UserEntity>(
       selector: (state) {
         if (state.user.id == widget.review.userId) {
@@ -143,7 +143,7 @@ class _ReviewItemState extends State<ReviewItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${S.current.reviewed} ${_getFormattedDateTime(widget.review.updatedAt ?? widget.review.createdAt)}',
+                      '${S.current.reviewed} ${getFormattedDateTime(widget.review.updatedAt ?? widget.review.createdAt)}',
                       style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,

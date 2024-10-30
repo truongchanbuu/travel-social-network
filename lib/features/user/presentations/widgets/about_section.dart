@@ -10,11 +10,12 @@ import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../auth/presentations/widgets/icon_with_text.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../../tour/presentations/pages/your_tours_page.dart';
+import '../pages/account_detail_page.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
 
-  static const authenticatedIconAmount = 4;
+  static const authenticatedIconAmount = 3;
   static const unauthenticatedIconAmount = 3;
   static const eachItemPadding = 10;
 
@@ -59,7 +60,7 @@ class AboutSection extends StatelessWidget {
               text: S.current.termAndCondition,
             ),
           ),
-          if (user.isLoggedIn)
+          if (user.isLoggedIn) ...[
             SizedBox(
               width: itemWidth,
               child: IconWithText(
@@ -68,6 +69,15 @@ class AboutSection extends StatelessWidget {
                 text: S.current.myTour,
               ),
             ),
+            SizedBox(
+              width: itemWidth,
+              child: IconWithText(
+                onTap: () => _manageAccount(context, user),
+                iconData: Icons.manage_accounts_outlined,
+                text: S.current.manageYourAccount,
+              ),
+            ),
+          ]
         ],
       ),
     );
@@ -82,6 +92,15 @@ class AboutSection extends StatelessWidget {
             child: YourToursPage(userId: userId),
           ),
           type: PageTransitionType.leftToRight,
+        ));
+  }
+
+  void _manageAccount(BuildContext context, UserEntity user) {
+    Navigator.push(
+        context,
+        PageTransition(
+          child: AccountDetailPage(user: user),
+          type: PageTransitionType.bottomToTop,
         ));
   }
 }

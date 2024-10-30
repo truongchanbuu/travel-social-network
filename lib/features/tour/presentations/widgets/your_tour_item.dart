@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:travel_social_network/features/shared/presentations/widgets/quill_content.dart';
 import 'package:travel_social_network/features/tour/presentations/pages/save_tour_page.dart';
 
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
@@ -33,16 +34,16 @@ class YourTourItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => _navigateToTourDetail(context),
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
+        decoration: BoxDecoration(
+          boxShadow: const [
             BoxShadow(
               blurRadius: 4,
               spreadRadius: 2,
               color: Colors.black12,
             )
           ],
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          border: context.isDarkMode ? Border.all(color: Colors.grey) : null,
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: ListTile(

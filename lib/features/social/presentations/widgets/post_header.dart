@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -74,7 +75,8 @@ class _PostHeaderState extends State<PostHeader> {
                       ),
                     ),
                     Text(
-                      DateTimeUtils.getTimeAgo(widget.post.createdAt),
+                      DateTimeUtils.getTimeAgo(
+                          widget.post.createdAt, context.langCode),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 12,

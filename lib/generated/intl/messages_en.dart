@@ -107,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Failed to login or signup"),
         "backToPreviousPage":
             MessageLookupByLibrary.simpleMessage("Back to previous page"),
+        "birthDate": MessageLookupByLibrary.simpleMessage("Birthday"),
         "bookingNow": MessageLookupByLibrary.simpleMessage("Booking Now"),
         "buyTicket": MessageLookupByLibrary.simpleMessage("Buy Ticket"),
         "cacheKeyWithId": m1,
@@ -174,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you want to leave without saving?"),
         "discardUnsavedWork":
             MessageLookupByLibrary.simpleMessage("Discard unsaved work"),
+        "displayName": MessageLookupByLibrary.simpleMessage("Display Name"),
         "duplicateLocation":
             MessageLookupByLibrary.simpleMessage("The location cannot be same"),
         "duplicateTicketAlert":
@@ -212,6 +214,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forType": m5,
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
+        "generalInfoAccount":
+            MessageLookupByLibrary.simpleMessage("General Information"),
         "greetingAppMember": m6,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Guide to location"),
@@ -227,6 +231,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "image": MessageLookupByLibrary.simpleMessage("image"),
         "imageAtIndex": m9,
         "imageCollectionText": m10,
+        "imperialMetric":
+            MessageLookupByLibrary.simpleMessage("Imperial Metric"),
         "importantThingsYouShouldKnow": MessageLookupByLibrary.simpleMessage(
             "Important things you should know"),
         "inUseDateError":
@@ -269,6 +275,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Could not make the phone call"),
         "manageYourAccount":
             MessageLookupByLibrary.simpleMessage("Manage your account"),
+        "meterMetric": MessageLookupByLibrary.simpleMessage("Meter Metric"),
         "minute": MessageLookupByLibrary.simpleMessage("minute"),
         "minuteFormatted": m13,
         "minuteUnit":
@@ -411,7 +418,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "transportation":
             MessageLookupByLibrary.simpleMessage("Transportation"),
         "units": MessageLookupByLibrary.simpleMessage("Units"),
-        "unitsChoice": MessageLookupByLibrary.simpleMessage("Meter Metric"),
         "unsupportedImageFormat":
             MessageLookupByLibrary.simpleMessage("Unsupported image format"),
         "unsupportedText": MessageLookupByLibrary.simpleMessage(

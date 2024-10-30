@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../cores/utils/extensions/context_extension.dart%20';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
@@ -10,7 +11,14 @@ import '../bloc/comment_bloc.dart';
 class CommentFooter extends StatefulWidget {
   final CommentEntity comment;
   final String userId;
-  const CommentFooter({super.key, required this.comment, required this.userId});
+  final String commentOwner;
+
+  const CommentFooter({
+    super.key,
+    required this.comment,
+    required this.userId,
+    required this.commentOwner,
+  });
 
   @override
   State<CommentFooter> createState() => _CommentFooterState();
@@ -50,7 +58,7 @@ class _CommentFooterState extends State<CommentFooter> {
         const SizedBox(width: 2),
         const Text(' · ', style: actionTextStyle),
         Text(
-          DateTimeUtils.getTimeAgo(widget.comment.createdAt),
+          DateTimeUtils.getTimeAgo(widget.comment.createdAt, context.langCode),
           style: actionTextStyle,
         ),
       ],
@@ -79,7 +87,7 @@ class _CommentFooterState extends State<CommentFooter> {
               widget.comment.parentCommentId ?? widget.comment.commentId,
           postId: widget.comment.postId,
           userId: widget.userId,
-          commentOwner: widget.comment.userId,
+          commentOwner: widget.commentOwner,
         ));
   }
 }

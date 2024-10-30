@@ -49,7 +49,11 @@ class _CommentItemState extends State<CommentItem> {
               titleAlignment: ListTileTitleAlignment.top,
               leading: UserAvatar(user: userToDisplay),
               title: _buildCommentBody(userToDisplay),
-              subtitle: _buildCommentFooter(context, currentUser.id),
+              subtitle: _buildCommentFooter(
+                context,
+                currentUser.id,
+                userToDisplay.username ?? userToDisplay.email ?? 'Unknown',
+              ),
             ),
             if (_isSomebodyLiked)
               Positioned(right: 30, bottom: 25, child: _buildReactions()),
@@ -119,9 +123,15 @@ class _CommentItemState extends State<CommentItem> {
     );
   }
 
-  Widget _buildCommentFooter(BuildContext context, String userId) => Padding(
+  Widget _buildCommentFooter(
+          BuildContext context, String userId, String commentUser) =>
+      Padding(
         padding: const EdgeInsets.only(top: 5, left: 10),
-        child: CommentFooter(comment: widget.comment, userId: userId),
+        child: CommentFooter(
+          comment: widget.comment,
+          userId: userId,
+          commentOwner: commentUser,
+        ),
       );
 
   Widget _buildReactions() {

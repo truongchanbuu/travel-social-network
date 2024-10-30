@@ -74,3 +74,27 @@ final class CurrencyChanged extends SettingsState {
           region: current.region,
         );
 }
+
+final class MeasurementSystemChanged extends SettingsState {
+  MeasurementSystemChanged(SettingsState current, String measurementSystem)
+      : super(
+          language: current.language,
+          isDarkMode: current.isDarkMode,
+          currency: current.currency,
+          temperatureScale: current.temperatureScale,
+          measurementSystem: measurementSystem,
+          region: current.region,
+        );
+}
+
+final class TemperatureScaleChanged extends SettingsState {
+  TemperatureScaleChanged(SettingsState current, String temperatureScale)
+      : super(
+          language: current.language,
+          isDarkMode: current.isDarkMode,
+          currency: current.currency,
+          temperatureScale: temperatureScale,
+          measurementSystem: current.measurementSystem,
+          region: current.region,
+        );
+}

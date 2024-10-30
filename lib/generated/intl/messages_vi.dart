@@ -96,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Đăng nhập hoặc đăng ký không thành công"),
         "backToPreviousPage":
             MessageLookupByLibrary.simpleMessage("Trở về trang trước"),
+        "birthDate": MessageLookupByLibrary.simpleMessage("Sinh nhật"),
         "bookingNow": MessageLookupByLibrary.simpleMessage("Đặt ngay"),
         "buyTicket": MessageLookupByLibrary.simpleMessage("Đặt vé"),
         "cacheKeyWithId": m1,
@@ -164,6 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bạn vẫn chưa lưu tiến trình chưa được lưu?"),
         "discardUnsavedWork":
             MessageLookupByLibrary.simpleMessage("Đoạn mô tả chưa được lưu"),
+        "displayName": MessageLookupByLibrary.simpleMessage("Tên người dùng"),
         "duplicateLocation":
             MessageLookupByLibrary.simpleMessage("Địa điểm đã bị trùng"),
         "duplicateTicketAlert":
@@ -202,6 +204,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Để biết thông tin chi tiết về vé này"),
         "forType": m5,
         "forgotPassword": MessageLookupByLibrary.simpleMessage("Quên mật khảu"),
+        "generalInfoAccount":
+            MessageLookupByLibrary.simpleMessage("Thông tin tài khoản"),
         "greetingAppMember": m6,
         "guideToLocation":
             MessageLookupByLibrary.simpleMessage("Xem hướng dẫn đường đi"),
@@ -217,6 +221,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "image": MessageLookupByLibrary.simpleMessage("hình ảnh"),
         "imageAtIndex": m9,
         "imageCollectionText": m10,
+        "imperialMetric":
+            MessageLookupByLibrary.simpleMessage("Hệ đơn vị đo lường Anh"),
         "importantThingsYouShouldKnow":
             MessageLookupByLibrary.simpleMessage("Một số điều cần lưu ý"),
         "inUseDateError":
@@ -260,6 +266,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Không thể thực hiện cuộc gọi"),
         "manageYourAccount":
             MessageLookupByLibrary.simpleMessage("Quản lý tài khoản của bạn"),
+        "meterMetric":
+            MessageLookupByLibrary.simpleMessage("Hệ đơn vị đo lường mét"),
         "minute": MessageLookupByLibrary.simpleMessage("phút"),
         "minuteFormatted": m13,
         "minuteUnit": MessageLookupByLibrary.simpleMessage("phút"),
@@ -406,7 +414,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "transportation":
             MessageLookupByLibrary.simpleMessage("Phương tiện di chuyển"),
         "units": MessageLookupByLibrary.simpleMessage("Đơn vị"),
-        "unitsChoice": MessageLookupByLibrary.simpleMessage("Mét theo hệ mét"),
         "unsupportedImageFormat": MessageLookupByLibrary.simpleMessage(
             "Định dạng này không được hỗ trợ"),
         "unsupportedText": MessageLookupByLibrary.simpleMessage(

@@ -33,4 +33,16 @@ class SettingsCubit extends Cubit<SettingsState> {
     await cacheClient.setString(StorageKeys.appCurrencyCachedKey, value);
     emit(CurrencyChanged(state, value));
   }
+
+  Future<void> measurementSystemChanged(String value) async {
+    await cacheClient.setString(
+        StorageKeys.appMeasurementSystemCachedKey, value);
+    emit(MeasurementSystemChanged(state, value));
+  }
+
+  Future<void> temperatureScaleChanged(String value) async {
+    await cacheClient.setString(
+        StorageKeys.appTemperatureScaleCachedKey, value);
+    emit(TemperatureScaleChanged(state, value));
+  }
 }

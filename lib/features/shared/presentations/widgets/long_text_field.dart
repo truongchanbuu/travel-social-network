@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/utils/extensions/context_extension.dart';
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../pages/editor_page.dart';
 import 'custom_text_field.dart';
@@ -65,7 +67,12 @@ class _LongTextFieldState extends State<LongTextField> {
               readOnly: false,
               isVisible: true,
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
-              border: Border.all(width: 1, color: defaultFieldBorderColor),
+              border: Border.all(
+                width: 1,
+                color: context.isDarkMode
+                    ? AppTheme.secondaryColor
+                    : AppTheme.secondaryColorDark,
+              ),
             ),
     );
   }

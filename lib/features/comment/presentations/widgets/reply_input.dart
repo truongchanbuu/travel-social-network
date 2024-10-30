@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../domain/entities/comment.dart';
@@ -49,7 +50,9 @@ class _ReplyInputState extends State<ReplyInput> {
         textInputAction: TextInputAction.send,
         cursorColor: AppTheme.primaryColor,
         decoration: InputDecoration(
-          fillColor: Colors.white,
+          fillColor: context.isDarkMode
+              ? AppTheme.primaryColorDark
+              : AppTheme.secondaryColor,
           filled: true,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -63,9 +66,12 @@ class _ReplyInputState extends State<ReplyInput> {
           suffixIcon: GestureDetector(
             onTap: _isAllowed ? () => _replyComment(widget.comment) : null,
             child: Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Icon(Icons.send,
-                    color: _isAllowed ? AppTheme.primaryColor : Colors.grey)),
+              padding: const EdgeInsets.only(right: 8),
+              child: Icon(
+                Icons.send,
+                color: _isAllowed ? AppTheme.primaryColor : Colors.grey,
+              ),
+            ),
           ),
           contentPadding: const EdgeInsets.all(10),
         ),

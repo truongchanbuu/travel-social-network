@@ -626,6 +626,36 @@ class S {
     );
   }
 
+  /// `General Information`
+  String get generalInfoAccount {
+    return Intl.message(
+      'General Information',
+      name: 'generalInfoAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Display Name`
+  String get displayName {
+    return Intl.message(
+      'Display Name',
+      name: 'displayName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Birthday`
+  String get birthDate {
+    return Intl.message(
+      'Birthday',
+      name: 'birthDate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Link Email`
   String get linkEmail {
     return Intl.message(
@@ -777,10 +807,20 @@ class S {
   }
 
   /// `Meter Metric`
-  String get unitsChoice {
+  String get meterMetric {
     return Intl.message(
       'Meter Metric',
-      name: 'unitsChoice',
+      name: 'meterMetric',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Imperial Metric`
+  String get imperialMetric {
+    return Intl.message(
+      'Imperial Metric',
+      name: 'imperialMetric',
       desc: '',
       args: [],
     );
