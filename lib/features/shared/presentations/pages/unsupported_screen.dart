@@ -13,7 +13,6 @@ class UnsupportedScreen extends StatelessWidget {
         child: Text(
           S.current.unsupportedText,
           style: const TextStyle(
-            color: Colors.grey,
             fontWeight: FontWeight.bold,
             fontSize: 30,
           ),

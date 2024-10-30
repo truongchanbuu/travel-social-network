@@ -64,7 +64,8 @@ class _PostFooterActionsState extends State<PostFooterActions> {
                     ? CommunityMaterialIcons.thumb_up
                     : CommunityMaterialIcons.thumb_up_outline,
                 title: 'Like',
-                onTap: () => _onLike(user.id),
+                onTap:
+                    user.isLoggedIn ? () => _onLike(user.id) : _onLoginAnnounce,
                 iconColor: _isLiked ? AppTheme.primaryColor : null,
               ),
             ),
@@ -79,7 +80,9 @@ class _PostFooterActionsState extends State<PostFooterActions> {
               child: PostFooterItem(
                 icon: CommunityMaterialIcons.share_outline,
                 title: S.current.shareLabel,
-                onTap: () => _onShare(widget.post),
+                onTap: user.isLoggedIn
+                    ? () => _onShare(widget.post)
+                    : _onLoginAnnounce,
               ),
             ),
           ],
@@ -135,6 +138,6 @@ class _PostFooterActionsState extends State<PostFooterActions> {
   }
 
   void _onLoginAnnounce() {
-    showToast(S.current.loginToReview, context: context);
+    showToast(S.current.loginAnnounce, context: context);
   }
 }

@@ -2523,6 +2523,16 @@ class S {
     );
   }
 
+  /// `Please login first`
+  String get loginAnnounce {
+    return Intl.message(
+      'Please login first',
+      name: 'loginAnnounce',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Failed to login or signup`
   String get authenticateFailed {
     return Intl.message(

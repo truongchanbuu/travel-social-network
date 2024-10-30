@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/comment.dart';
 import '../bloc/comment_bloc.dart';
 import 'comment_item.dart';
@@ -64,7 +65,11 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CommentItem(comment: widget.parentComment),
+            BlocProvider.value(
+              value: context.read<UserCubit>()
+                ..getUser(widget.parentComment.userId),
+              child: CommentItem(comment: widget.parentComment),
+            ),
             if (_cachedReplies.isNotEmpty) ...[
               if (_isRepliesShowed)
                 Padding(
@@ -80,8 +85,9 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
             ],
             if (state is ReplyInitialized)
               Padding(
-                  padding: const EdgeInsets.only(left: 65, right: 20),
-                  child: _buildReplyInput(state.comment)),
+                padding: const EdgeInsets.only(left: 65, right: 20),
+                child: _buildReplyInput(state.comment),
+              ),
           ],
         );
       },
@@ -89,7 +95,10 @@ class _CommentWithRepliesState extends State<CommentWithReplies> {
   }
 
   Widget _buildReplyItem(CommentEntity comment) {
-    return CommentItem(key: ValueKey(comment.commentId), comment: comment);
+    return BlocProvider.value(
+      value: context.read<UserCubit>()..getUser(comment.userId),
+      child: CommentItem(key: ValueKey(comment.commentId), comment: comment),
+    );
   }
 
   Widget _buildExpandButton() {

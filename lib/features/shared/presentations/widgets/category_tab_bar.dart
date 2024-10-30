@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../config/themes/app_theme.dart';
-import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 
 class CategoryTabBar extends StatefulWidget {
@@ -33,9 +33,7 @@ class _CategoryTabBarState extends State<CategoryTabBar>
       dividerHeight: 0,
       indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
       labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-      labelColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.white
-          : Colors.black,
+      labelColor: context.isDarkMode ? Colors.white : Colors.black,
       splashBorderRadius: borderRadius,
       unselectedLabelColor: Colors.black,
       indicatorSize: TabBarIndicatorSize.tab,

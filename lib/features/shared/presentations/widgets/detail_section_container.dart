@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 
 class DetailSectionContainer extends StatelessWidget {
   final Widget child;
@@ -24,9 +25,7 @@ class DetailSectionContainer extends StatelessWidget {
                 horizontal: defaultPadding, vertical: 5)
             : null,
         decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.dark
-              ? Colors.black
-              : AppTheme.secondaryColor,
+          color: context.isDarkMode ? Colors.black : AppTheme.secondaryColor,
           boxShadow: [detailSectionBoxShadow],
         ),
         child: child,

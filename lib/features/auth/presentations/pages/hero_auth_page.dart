@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../config/themes/app_theme.dart';
-import '../../../../cores/utils/context_extension.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../setting/presentations/widgets/setting_icon.dart';
@@ -28,7 +28,7 @@ class HeroAuthPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: context.isDarkMode
+        backgroundColor: !context.isDarkMode
             ? AppTheme.scaffoldBackgroundColor
             : AppTheme.primaryColorDark,
         appBar: AppBar(
@@ -55,7 +55,7 @@ class HeroAuthPage extends StatelessWidget {
   static const SizedBox infoSpacing = SizedBox(height: 15);
   Widget _buildInfoSection(BuildContext context, bool isLoggedIn) {
     return Container(
-      color: context.isDarkMode ? Colors.white : AppTheme.sectionColorDark,
+      color: !context.isDarkMode ? Colors.white : AppTheme.sectionColorDark,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

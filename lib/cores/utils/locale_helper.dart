@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 import '../../generated/l10n.dart';
 import '../../injection_container.dart';
-import '../constants/storage_key.dart';
+import '../constants/storage_keys.dart';
 import 'cached_client.dart';
 
 enum LanguageCode { en, vi }
@@ -39,7 +39,7 @@ class LocaleHelper {
 
   static String get getRegion {
     final language = cacheClient.getString(StorageKeys.appLanguageCachedKey);
-    return language ?? Intl.getCurrentLocale().split('_').last;
+    return language ?? Intl.getCurrentLocale().split('_').first;
   }
 
   static String getDefaultTemperature([String? region]) {
@@ -72,10 +72,5 @@ class LocaleHelper {
     return getRegion != LanguageCode.vi.name
         ? LanguageCode.en.name
         : LanguageCode.vi.name;
-  }
-
-  static String getCurrency([String? locale]) {
-    final format = NumberFormat.simpleCurrency(locale: locale);
-    return format.currencySymbol;
   }
 }

@@ -5,7 +5,7 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
-import '../widgets/confirm_deletion_dialog.dart';
+import '../widgets/confirm_dialog.dart';
 import '../widgets/save_button.dart';
 
 class AddImagePage extends StatefulWidget {
@@ -64,14 +64,12 @@ class _AddImagePageState extends State<AddImagePage> {
                 const Icon(
                   Icons.image_search,
                   size: 40,
-                  color: AppTheme.primaryColor,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     S.current.addImageLabel,
                     style: const TextStyle(
-                      color: AppTheme.primaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
@@ -86,7 +84,9 @@ class _AddImagePageState extends State<AddImagePage> {
     );
   }
 
-  void _previousPage() {
+  void _previousPage() async {
+    var navigator = Navigator.of(context);
+
     bool isSaved = false;
     if (_controller.images.isNotEmpty) {
       isSaved = _controller.images.any((img) {
@@ -94,12 +94,21 @@ class _AddImagePageState extends State<AddImagePage> {
       });
 
       if (!isSaved) {
-        confirmDeletion(context);
-        return;
-      }
-    }
+        bool isLeave = await showDialog(
+          context: context,
+          builder: (context) => ConfirmDialog(
+            onOk: () => navigator.pop(true),
+            onCancel: () => navigator.pop(false),
+          ),
+        );
 
-    Navigator.pop(context);
+        if (isLeave) navigator.pop();
+      } else {
+        navigator.pop();
+      }
+    } else {
+      navigator.pop();
+    }
   }
 
   void _saveImages() => Navigator.pop(context, _controller.images.toList());

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../cores/utils/context_extension.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../bloc/tour_bloc.dart';
 import 'thumbnails_widget.dart';
@@ -37,7 +37,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
         if (state is TourLoaded) {
           return SliverAppBar(
             pinned: true,
-            backgroundColor: context.isDarkMode ? Colors.white : Colors.black,
+            backgroundColor: !context.isDarkMode ? Colors.white : Colors.black,
             expandedHeight: widget.expandedHeight,
             automaticallyImplyLeading: true,
             leadingWidth: 50,
@@ -49,7 +49,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                     widget.titleColor == Colors.white ? buttonOverlay : null,
                 child: Icon(
                   Icons.arrow_back,
-                  color: context.isDarkMode ? widget.titleColor : Colors.white,
+                  color: !context.isDarkMode ? widget.titleColor : Colors.white,
                 ),
               ),
             ),
@@ -67,7 +67,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                         child: Text(
                           state.tour.tourName,
                           style: TextStyle(
-                            color: context.isDarkMode
+                            color: !context.isDarkMode
                                 ? widget.titleColor
                                 : Colors.white,
                             fontSize: 16,
@@ -92,7 +92,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                         _isFavorite ? Icons.favorite : Icons.favorite_outline,
                         color: _isFavorite
                             ? Colors.pink
-                            : context.isDarkMode
+                            : !context.isDarkMode
                                 ? widget.titleColor
                                 : Colors.white,
                       ),
@@ -109,7 +109,7 @@ class _TourDetailAppBarState extends State<TourDetailAppBar> {
                       padding: const EdgeInsets.all(10),
                       child: Icon(
                         Icons.share,
-                        color: context.isDarkMode
+                        color: !context.isDarkMode
                             ? widget.titleColor
                             : Colors.white,
                       ),

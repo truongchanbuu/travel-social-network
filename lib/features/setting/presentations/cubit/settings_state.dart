@@ -33,7 +33,7 @@ final class SettingsInitial extends SettingsState {
           isDarkMode: SettingHelper.isDarkMode,
           region: LocaleHelper.getRegion,
           language: LocaleHelper.getDefaultLanguage(),
-          currency: LocaleHelper.getCurrency(),
+          currency: CurrencyHelper.currentCurrencyUnit,
           measurementSystem: LocaleHelper.getDefaultMeasurementSystem(),
           temperatureScale: LocaleHelper.getDefaultTemperature(),
         );
@@ -57,6 +57,18 @@ final class ThemeModeChanged extends SettingsState {
           language: current.language,
           isDarkMode: isDarkMode,
           currency: current.currency,
+          temperatureScale: current.temperatureScale,
+          measurementSystem: current.measurementSystem,
+          region: current.region,
+        );
+}
+
+final class CurrencyChanged extends SettingsState {
+  CurrencyChanged(SettingsState current, String currency)
+      : super(
+          language: current.language,
+          isDarkMode: current.isDarkMode,
+          currency: currency,
           temperatureScale: current.temperatureScale,
           measurementSystem: current.measurementSystem,
           region: current.region,

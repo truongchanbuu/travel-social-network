@@ -249,6 +249,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingImageText": m12,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Thông tin địa danh"),
+        "loginAnnounce":
+            MessageLookupByLibrary.simpleMessage("Vui lòng đăng nhập trước"),
         "loginToComment":
             MessageLookupByLibrary.simpleMessage("Đăng nhập để bình luận"),
         "loginToReview":

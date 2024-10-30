@@ -4,9 +4,9 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../../../cores/utils/context_extension.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -181,9 +181,9 @@ class _SaveTourPageState extends State<SaveTourPage> {
                       spreadRadius: 1,
                     )
                   ],
-                  color: context.isDarkMode
+                  color: !context.isDarkMode
                       ? AppTheme.secondaryColor
-                      : AppTheme.secondaryColorDark,
+                      : AppTheme.primaryColorDark,
                 ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 margin: padding20,

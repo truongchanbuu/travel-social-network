@@ -66,7 +66,6 @@ class _PostHeaderState extends State<PostHeader> {
                             userToDisplay.email ??
                             'Unknown',
                         style: const TextStyle(
-                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),

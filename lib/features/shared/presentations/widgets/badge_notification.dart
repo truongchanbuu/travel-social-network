@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/utils/extensions/context_extension.dart';
+
 class BadgeNotification extends StatefulWidget {
   final int badges;
   const BadgeNotification({
@@ -25,9 +27,7 @@ class _BadgeNotificationState extends State<BadgeNotification> {
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.black
-                : Colors.white,
+            color: context.isDarkMode ? Colors.black : Colors.white,
           ),
           padding: const EdgeInsets.all(10),
           child: const Icon(Icons.notifications_outlined),

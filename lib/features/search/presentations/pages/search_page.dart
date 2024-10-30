@@ -1,5 +1,6 @@
 import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_social_network/cores/utils/extensions/context_extension.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
@@ -35,7 +36,9 @@ class _SearchPageState extends State<SearchPage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.isDarkMode
+          ? AppTheme.primaryColorDark
+          : AppTheme.secondaryColor,
       shape: const Border(
         bottom: BorderSide(width: 0.5, color: Colors.grey),
       ),
@@ -48,7 +51,9 @@ class _SearchPageState extends State<SearchPage> {
         autofocus: true,
         enabled: true,
         radius: 5,
-        fillColor: Colors.white,
+        fillColor: context.isDarkMode
+            ? AppTheme.primaryColorDark
+            : AppTheme.secondaryColor,
         searchIcon: false,
         animationType: Animationtype.typer,
         hintTexts: [S.current.searching],
@@ -82,9 +87,8 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  static const SizedBox spacing = SizedBox(height: 10);
   Widget _buildBody() {
-    const SizedBox spacing = SizedBox(height: 10);
-
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +100,11 @@ class _SearchPageState extends State<SearchPage> {
                 onTap: () {},
                 child: Text(
                   S.current.clear,
-                  style: const TextStyle(color: AppTheme.primaryColor),
+                  style: TextStyle(
+                    color: context.isDarkMode
+                        ? AppTheme.secondaryColor
+                        : AppTheme.primaryColor,
+                  ),
                 ),
               ),
             ),

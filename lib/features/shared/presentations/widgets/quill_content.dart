@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../cores/utils/formatters/quill_content_formatter.dart';
 
 class QuillContent extends StatefulWidget {
@@ -128,7 +129,7 @@ class _QuillContentState extends State<QuillContent> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: Theme.of(context).brightness == Brightness.dark
+                  colors: context.isDarkMode
                       ? [Colors.black38, Colors.black26]
                       : [
                           Colors.white.withOpacity(0.0),

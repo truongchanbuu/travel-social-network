@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/themes/app_theme.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/post.dart';
 import 'post_content.dart';
@@ -16,7 +18,9 @@ class SharePostWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 20),
       padding: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.isDarkMode
+            ? AppTheme.primaryColorDark
+            : AppTheme.secondaryColor,
         boxShadow: const [
           BoxShadow(
             blurRadius: 1,
@@ -25,7 +29,7 @@ class SharePostWidget extends StatelessWidget {
           ),
         ],
         borderRadius: const BorderRadius.all(Radius.circular(5)),
-        border: Border.all(color: Colors.black12, width: 0.5),
+        border: Border.all(color: Colors.grey, width: 0.5),
       ),
       child: BlocProvider.value(
         value: context.read<UserCubit>()..getUser(post.userId),

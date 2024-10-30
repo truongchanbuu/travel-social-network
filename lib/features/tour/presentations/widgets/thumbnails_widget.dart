@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/pages/media_view_page.dart';
 import '../../../shared/presentations/widgets/app_cached_image.dart';
@@ -117,12 +118,11 @@ class _ThumbnailsWidgetState extends State<ThumbnailsWidget> {
                             vertical: 8.0, horizontal: 4.0),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              (Theme.of(context).brightness == Brightness.dark
-                                      ? Colors.white
-                                      : AppTheme.primaryColor)
-                                  .withOpacity(
-                                      _currentIndex == entry.key ? 1 : 0.4),
+                          color: (context.isDarkMode
+                                  ? Colors.white
+                                  : AppTheme.primaryColor)
+                              .withOpacity(
+                                  _currentIndex == entry.key ? 1 : 0.4),
                         ),
                       ),
                     ),

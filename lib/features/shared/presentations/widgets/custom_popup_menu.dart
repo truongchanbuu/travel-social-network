@@ -60,7 +60,6 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
     }
   }
 
-  static const Color menuItemColor = Colors.black54;
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -84,11 +83,8 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
       onTap: () => _menuItemAction(context, item.itemType),
       value: item.itemType,
       child: ListTile(
-        leading: Icon(item.icon, color: menuItemColor),
-        title: Text(
-          item.title,
-          style: const TextStyle(color: menuItemColor),
-        ),
+        leading: Icon(item.icon),
+        title: Text(item.title),
       ),
     );
   }

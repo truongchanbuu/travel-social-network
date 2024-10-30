@@ -258,6 +258,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingImageText": m12,
         "locationInfo":
             MessageLookupByLibrary.simpleMessage("Location Information"),
+        "loginAnnounce":
+            MessageLookupByLibrary.simpleMessage("Please login first"),
         "loginToComment":
             MessageLookupByLibrary.simpleMessage("Login to comment"),
         "loginToReview":

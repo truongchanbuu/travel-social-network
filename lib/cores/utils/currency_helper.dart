@@ -1,5 +1,10 @@
 import 'package:intl/intl.dart';
 
+import '../../injection_container.dart';
+import '../constants/storage_keys.dart';
+import 'cached_client.dart';
+import 'locale_helper.dart';
+
 enum SupportCurrencies {
   usd,
   jpy,
@@ -8,11 +13,41 @@ enum SupportCurrencies {
   sgd,
   krw,
   cny,
+  gbp,
 }
 
 class CurrencyHelper {
-  static List<String> get supportedCurrencies =>
-      SupportCurrencies.values.map((currency) => currency.name).toList();
+  static final _cachedClient = getIt.get<CacheClient>();
+
+  static final Map<String, String> currencyToLocale = {
+    SupportCurrencies.usd.name: 'en',
+    SupportCurrencies.jpy.name: 'ja',
+    SupportCurrencies.eur.name: 'de',
+    SupportCurrencies.vnd.name: 'vi',
+    SupportCurrencies.sgd.name: 'en',
+    SupportCurrencies.krw.name: 'ko',
+    SupportCurrencies.cny.name: 'zh',
+  };
+
+  static String getLocaleFromCurrency(String currency) {
+    return currencyToLocale[currency.toLowerCase()] ?? 'en';
+  }
+
+  static List<String> get supportedCurrencies => SupportCurrencies.values
+      .map((currency) => currency.name.toUpperCase())
+      .toList();
+
+  static String get currentCurrencyUnit =>
+      _cachedClient.getString(StorageKeys.appCurrencyCachedKey) ??
+      getCurrencyBaseOnLocale();
+
+  static String getCurrencyBaseOnLocale([String? locale]) {
+    String currentLocale = LocaleHelper.getRegion;
+    NumberFormat currencyFormatter =
+        NumberFormat.simpleCurrency(locale: currentLocale);
+    return currencyFormatter.currencyName ??
+        SupportCurrencies.usd.name.toUpperCase();
+  }
 
   static String formatCurrency(
     num amount, {

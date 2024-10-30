@@ -86,8 +86,6 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
           child: Scaffold(
             appBar: AppBar(
               leading: BackButton(onPressed: _confirmedToLeave),
-              backgroundColor: Colors.white,
-              iconTheme: const IconThemeData(color: Colors.black),
               title: Text(
                 widget.policyType == PolicyType.refund
                     ? S.current.refundPolicy

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_social_network/cores/constants/popular_destination.dart';
 
 import '../../../../../cores/constants/constants.dart';
+import '../../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../../search/presentations/pages/search_page.dart';
 import '../../../../search/presentations/widgets/search_box.dart';
@@ -56,7 +57,7 @@ class HomeAppBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: Theme.of(context).brightness == Brightness.dark
+          colors: context.isDarkMode
               ? [
                   Colors.blueGrey.shade900,
                   Colors.blueGrey.shade700,

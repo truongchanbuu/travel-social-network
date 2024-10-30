@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../config/themes/app_theme.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -47,7 +48,7 @@ class _CommentItemState extends State<CommentItem> {
             ListTile(
               titleAlignment: ListTileTitleAlignment.top,
               leading: UserAvatar(user: userToDisplay),
-              title: _buildCommentBody(currentUser.id),
+              title: _buildCommentBody(userToDisplay),
               subtitle: _buildCommentFooter(context, currentUser.id),
             ),
             if (_isSomebodyLiked)
@@ -58,18 +59,18 @@ class _CommentItemState extends State<CommentItem> {
     );
   }
 
-  Widget _buildCommentBody(String userId) {
+  Widget _buildCommentBody(UserEntity user) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
+      decoration: BoxDecoration(
+        boxShadow: const [
           BoxShadow(
             blurRadius: 1,
             spreadRadius: 1,
             color: Colors.black12,
           ),
         ],
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        border: Border.all(color: Colors.grey),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       padding: EdgeInsets.only(
           left: 10, right: 5, top: 5, bottom: _isSomebodyLiked ? 15 : 5),
@@ -80,27 +81,32 @@ class _CommentItemState extends State<CommentItem> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                // TODO: CHANGE TO USERNAME
-                widget.comment.userId,
+                user.username ?? user.email ?? 'Unknown',
                 style: const TextStyle(
-                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),
               ),
-              CustomPopupMenu(
-                iconSize: 20,
-                padding: EdgeInsets.zero,
-                hasPrivilege: userId == widget.comment.userId,
-                types: const [PopupMenuItemType.edit, PopupMenuItemType.delete],
-                onDelete: () => _onDeleteComment(context),
-                onEdit: () => _onEditComment(context),
-              )
+              if (user.id == widget.comment.userId)
+                CustomPopupMenu(
+                  iconSize: 20,
+                  padding: EdgeInsets.zero,
+                  hasPrivilege: user.id == widget.comment.userId,
+                  types: const [
+                    PopupMenuItemType.edit,
+                    PopupMenuItemType.delete
+                  ],
+                  onDelete: () => _onDeleteComment(context),
+                  onEdit: () => _onEditComment(context),
+                )
             ],
           ),
           ReadMoreText(
             widget.comment.content,
-            style: const TextStyle(fontSize: 14),
+            style: TextStyle(
+              fontSize: 14,
+              color: DefaultTextStyle.of(context).style.color,
+            ),
             trimCollapsedText: ' ${S.current.showMore}',
             trimExpandedText: ' ${S.current.showLess}',
             moreStyle: const TextStyle(color: AppTheme.primaryColor),
@@ -121,16 +127,17 @@ class _CommentItemState extends State<CommentItem> {
   Widget _buildReactions() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
+      decoration: BoxDecoration(
+        color: context.isDarkMode ? Colors.black87 : AppTheme.secondaryColor,
+        boxShadow: const [
           BoxShadow(
             blurRadius: 1,
             spreadRadius: 1,
             color: Colors.black12,
           )
         ],
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        border: context.isDarkMode ? Border.all(color: Colors.grey) : null,
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

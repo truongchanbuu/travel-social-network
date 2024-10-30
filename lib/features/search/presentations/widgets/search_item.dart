@@ -26,7 +26,6 @@ class SearchItem extends StatelessWidget {
           child: Text(
             title,
             style: const TextStyle(
-              color: Colors.black,
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),

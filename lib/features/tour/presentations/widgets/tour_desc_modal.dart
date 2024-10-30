@@ -25,7 +25,6 @@ class TourDescModal extends StatelessWidget {
               child: Text(
                 S.current.tourDescDetail,
                 style: const TextStyle(
-                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),

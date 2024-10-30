@@ -15,7 +15,6 @@ class SearchTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
         border: Border(bottom: BorderSide(width: 0.5, color: Colors.grey)),
       ),
       padding:
@@ -26,7 +25,6 @@ class SearchTitle extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),

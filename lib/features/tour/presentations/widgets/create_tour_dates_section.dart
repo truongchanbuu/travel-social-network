@@ -188,7 +188,9 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       minimumDate: DateTime.now(),
       endDate: DateTime.now().add(const Duration(days: maximumDay)),
       maximumDate: DateTime.now().add(const Duration(days: maximumDay)),
-      options: const BoardDateTimeOptions(activeColor: AppTheme.primaryColor),
+      options: const BoardDateTimeOptions(
+        activeColor: AppTheme.primaryColor,
+      ),
     );
 
     if (data != null && context.mounted) {

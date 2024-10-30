@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../config/themes/app_theme.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/post.dart';
 import 'post_item.dart';
@@ -22,7 +24,9 @@ class SocialPostList extends StatelessWidget {
     final postItem = posts[index];
 
     return Container(
-      color: Colors.white,
+      color: context.isDarkMode
+          ? AppTheme.primaryColorDark
+          : AppTheme.secondaryColor,
       child: BlocProvider.value(
         value: context.read<UserCubit>()..getUser(postItem.userId),
         child: PostItem(post: postItem),

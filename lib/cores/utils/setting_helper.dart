@@ -1,5 +1,5 @@
 import '../../injection_container.dart';
-import '../constants/storage_key.dart';
+import '../constants/storage_keys.dart';
 import 'cached_client.dart';
 
 class SettingHelper {

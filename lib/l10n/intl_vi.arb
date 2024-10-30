@@ -383,5 +383,6 @@
     "postNoLoginText": "Đăng nhập để chia sẻ những khoảnh khắc của riêng bạn",
     "loginToReview": "Đăng nhập để đánh giá",
     "loginToComment": "Đăng nhập để bình luận",
+    "loginAnnounce": "Vui lòng đăng nhập trước",
     "authenticateFailed": "Đăng nhập hoặc đăng ký không thành công"
 }

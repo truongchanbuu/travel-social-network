@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../review/presentations/bloc/review_bloc.dart';
 import '../../../review/presentations/pages/reviews_page.dart';
@@ -27,9 +28,7 @@ class InfoSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: defaultPadding, vertical: 10),
           decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.black
-                : AppTheme.secondaryColor,
+            color: context.isDarkMode ? Colors.black : AppTheme.secondaryColor,
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             boxShadow: [detailSectionBoxShadow],
           ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../domain/entities/comment.dart';
@@ -30,8 +31,16 @@ class _CommentInputState extends State<CommentInput> {
   }
 
   @override
+  void dispose() {
+    _commentController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final user = context.select((AuthBloc authBloc) => authBloc.state.user);
+    final currentUser =
+        context.select((AuthBloc authBloc) => authBloc.state.user);
     return BlocConsumer<CommentBloc, CommentState>(
       listener: (context, state) {
         if (state is CommentActionSucceed) {
@@ -56,7 +65,7 @@ class _CommentInputState extends State<CommentInput> {
           return const SizedBox.shrink();
         }
 
-        return _buildBody(state, user.id);
+        return _buildBody(state, currentUser.id);
       },
     );
   }
@@ -74,7 +83,9 @@ class _CommentInputState extends State<CommentInput> {
             onChanged: (value) => setState(() => _content = value),
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
+              fillColor: context.isDarkMode
+                  ? AppTheme.primaryColorDark
+                  : AppTheme.secondaryColor,
               contentPadding: const EdgeInsets.all(10),
               hintText:
                   '${S.current.commentLabel} ${S.current.here.toLowerCase()}...',

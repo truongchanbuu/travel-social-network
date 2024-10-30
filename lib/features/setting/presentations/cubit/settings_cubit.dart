@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../cores/constants/storage_key.dart';
+import '../../../../cores/constants/storage_keys.dart';
 import '../../../../cores/utils/cached_client.dart';
+import '../../../../cores/utils/currency_helper.dart';
 import '../../../../cores/utils/locale_helper.dart';
 import '../../../../cores/utils/setting_helper.dart';
 
@@ -26,5 +27,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> themeChanged(bool value) async {
     await cacheClient.setBool(StorageKeys.appThemeCachedKey, value);
     emit(ThemeModeChanged(state, value));
+  }
+
+  Future<void> currencyChanged(String value) async {
+    await cacheClient.setString(StorageKeys.appCurrencyCachedKey, value);
+    emit(CurrencyChanged(state, value));
   }
 }

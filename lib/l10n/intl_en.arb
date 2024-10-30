@@ -385,5 +385,6 @@
     "postNoLoginText": "Please login to share your feeling with everyone",
     "loginToReview": "Login to review",
     "loginToComment": "Login to comment",
+    "loginAnnounce": "Please login first",
     "authenticateFailed": "Failed to login or signup"
 }

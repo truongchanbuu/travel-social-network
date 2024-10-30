@@ -9,12 +9,14 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/enums/ticket_category.dart';
+import '../../../../cores/utils/currency_helper.dart';
 import '../../../../cores/utils/form_utils.dart';
 import '../../../../cores/utils/formatters/number_input_formatter.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../policy/presentations/pages/create_policy_page.dart';
+import '../../../setting/presentations/cubit/settings_cubit.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/custom_text_field.dart';
 import '../../../shared/presentations/widgets/long_text_field.dart';
@@ -42,9 +44,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
   late final TextEditingController _quantityController;
   late final TextEditingController _refundController;
   late final TextEditingController _rescheduleController;
-  final CurrencyTextInputFormatter currencyFormatter =
-      CurrencyTextInputFormatter.currency(
-          maxValue: $1BMaxCurrency, minValue: $0Currency);
+  CurrencyTextInputFormatter? currencyFormatter;
 
   List<DropdownMenuItem<String>> items = [];
   late TicketTypeEntity ticket;
@@ -52,6 +52,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
   @override
   void initState() {
     super.initState();
+
     _formKey = GlobalKey();
     _nameController = TextEditingController();
     _priceController = TextEditingController();
@@ -71,8 +72,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
 
   void _initializeControllers() {
     _nameController.text = ticket.ticketTypeName;
-    _priceController.text =
-        currencyFormatter.formatString(ticket.ticketPrice.toString());
+    _priceController.text = ticket.ticketPrice.toString();
     _quantityController.text =
         NumberFormat.decimalPattern().format(ticket.quantity);
     _refundController.text = ticket.refundPolicyId;
@@ -101,6 +101,13 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
 
   @override
   Widget build(BuildContext context) {
+    currencyFormatter ??= CurrencyTextInputFormatter.simpleCurrency(
+      locale: CurrencyHelper.getLocaleFromCurrency(
+          context.select((SettingsCubit settings) => settings.state.currency)),
+      maxValue: $1BMaxCurrency,
+      minValue: $0Currency,
+    );
+
     return BlocConsumer<TicketBloc, TicketState>(
       listener: (context, state) {
         if (state is TicketFailure) {
@@ -231,6 +238,19 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
   }
 
   Widget _buildInfoGroup(TicketTypeEntity ticket) {
+    if (_priceController.text.isNotEmpty) {
+      _priceController.text =
+          currencyFormatter!.formatString(_priceController.text);
+
+      final formattedValue = currencyFormatter!.getFormattedValue();
+      int offset = currencyFormatter!.getFormattedValue().length;
+      if (formattedValue[0].contains(RegExp(r'^[0-9]'))) {
+        offset = currencyFormatter!.getFormattedValue().length - 2;
+      }
+
+      _priceController.selection = TextSelection.collapsed(offset: offset);
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -240,18 +260,18 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
             validator: _priceValidator,
             onSaved: (value) => _genericOnValue(
                 TicketTypeEntity.ticketPriceFieldName,
-                currencyFormatter.getDouble().toString()),
+                currencyFormatter!.getDouble().toString()),
             onChanged: (value) => _genericOnValue(
                 TicketTypeEntity.ticketPriceFieldName,
-                currencyFormatter.getDouble().toString()),
+                currencyFormatter!.getDouble().toString()),
             label: S.current.price,
             isAnimated: false,
             hintTexts: [
-              currencyFormatter.formatString(ticket.ticketPrice.toString())
+              currencyFormatter!.formatString(ticket.ticketPrice.toString())
             ],
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
-              currencyFormatter
+              currencyFormatter!
             ],
             keyboardType: TextInputType.number,
             textEditingController: _priceController,
@@ -323,7 +343,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
   }
 
   String? _priceValidator(String? price) {
-    num priceNum = currencyFormatter.getDouble();
+    num priceNum = currencyFormatter!.getDouble();
 
     if (priceNum <= 0) {
       return S.current.notAllowedEmpty;
@@ -357,7 +377,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
       ticketTypeId: ticket.ticketTypeId,
       ticketTypeName: _nameController.text,
       tourId: ticket.tourId,
-      ticketPrice: currencyFormatter.getUnformattedValue(),
+      ticketPrice: currencyFormatter!.getUnformattedValue(),
       ticketDescription: ticket.ticketDescription,
       startDate: DateTime.now(),
       endDate: DateTime.now(),

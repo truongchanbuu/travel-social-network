@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../../../cores/utils/context_extension.dart';
 import '../../../../config/themes/app_theme.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -32,7 +32,7 @@ class AboutSection extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      color: context.isDarkMode ? Colors.white : AppTheme.sectionColorDark,
+      color: !context.isDarkMode ? Colors.white : AppTheme.sectionColorDark,
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Wrap(
         alignment: WrapAlignment.start,

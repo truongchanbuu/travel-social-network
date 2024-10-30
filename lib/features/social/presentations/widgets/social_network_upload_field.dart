@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -18,7 +20,6 @@ class SocialNetworkUploadField extends StatelessWidget {
     final currentUser =
         context.select((AuthBloc authBloc) => authBloc.state.user);
     return Container(
-      color: Colors.white,
       padding: const EdgeInsets.all(defaultPadding),
       child: Row(
         children: [
@@ -32,6 +33,11 @@ class SocialNetworkUploadField extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(999)),
                 ),
                 hintText: S.current.howYourFeeling,
+                hintStyle: TextStyle(
+                  color: context.isDarkMode
+                      ? AppTheme.secondaryColorDark
+                      : AppTheme.secondaryColor,
+                ),
               ),
               readOnly: true,
             ),

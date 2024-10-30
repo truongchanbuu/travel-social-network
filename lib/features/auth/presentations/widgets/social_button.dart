@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/utils/context_extension.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 
 class SocialButton extends StatelessWidget {
   final String title;
@@ -43,7 +43,7 @@ class SocialButton extends StatelessWidget {
             ),
             titleTextStyle: TextStyle(
               color: textColor ??
-                  (context.isDarkMode
+                  (!context.isDarkMode
                       ? AppTheme.blackTextColor
                       : AppTheme.whiteTextColor),
               fontWeight: FontWeight.bold,

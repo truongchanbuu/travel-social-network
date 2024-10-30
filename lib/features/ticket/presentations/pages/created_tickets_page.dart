@@ -110,7 +110,6 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
         child: Container(
           margin: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
-            color: Colors.white,
             boxShadow: [
               BoxShadow(
                 blurRadius: 1,

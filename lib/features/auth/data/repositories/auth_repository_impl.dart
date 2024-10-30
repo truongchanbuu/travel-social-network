@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../../cores/constants/storage_key.dart';
+import '../../../../cores/constants/storage_keys.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../cores/utils/cached_client.dart';
 import '../../../user/domain/repositories/user_repository.dart';
