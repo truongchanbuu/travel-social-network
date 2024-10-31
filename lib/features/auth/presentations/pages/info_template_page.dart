@@ -20,7 +20,6 @@ class InfoTemplatePage extends StatelessWidget {
     required this.action,
   });
 
-  // TODO: VERIFY EMAIL
   @override
   Widget build(BuildContext context) {
     return BlocListener<UpdateAccountInfoCubit, UpdateAccountInfoState>(

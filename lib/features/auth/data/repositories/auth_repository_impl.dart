@@ -41,16 +41,49 @@ class AuthRepositoryImpl implements AuthRepository {
         return user;
       });
 
+  // TODO: CHECK LATER
   @override
   UserModel get currentUser {
     try {
-      final data = cache.getString(StorageKeys.appUserCachedKey);
-      if (data == null) return UserModel.fromEntity(UserEntity.empty);
-      return UserModel.fromJson(jsonDecode(data));
+      String? data = cache.getString(StorageKeys.appUserCachedKey);
+
+      if (firebaseAuth.currentUser != null) {
+        UserModel currentFirebaseUser =
+            UserModel.fromEntity(firebaseAuth.currentUser!.toUser);
+
+        if (data == null) {
+          cache
+              .setString(StorageKeys.appUserCachedKey,
+                  jsonEncode(currentFirebaseUser.toJson()))
+              .catchError((error) => log("Failed to cache user: $error"));
+          return currentFirebaseUser;
+        } else {
+          UserModel cachedUser = UserModel.fromJson(jsonDecode(data));
+          if (cachedUser != currentFirebaseUser) {
+            cache
+                .setString(StorageKeys.appUserCachedKey,
+                    jsonEncode(currentFirebaseUser.toJson()))
+                .catchError((error) => log("Failed to cache user: $error"));
+            return currentFirebaseUser;
+          }
+
+          return cachedUser;
+        }
+      }
     } catch (error) {
       log("Failed to get current user: $error");
-      return UserModel.fromEntity(UserEntity.empty);
     }
+
+    return UserModel.fromEntity(UserEntity.empty);
+  }
+
+  @override
+  Future<UserModel> reload() async {
+    await firebaseAuth.currentUser?.reload();
+
+    return UserModel.fromEntity(
+      firebaseAuth.currentUser?.toUser ?? UserEntity.empty,
+    );
   }
 
   @override
@@ -124,6 +157,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<DataState<void>> logOut() async {
     try {
+      cache.remove(StorageKeys.appUserCachedKey);
+
       await Future.wait([
         firebaseAuth.signOut(),
         googleSignIn.signOut(),

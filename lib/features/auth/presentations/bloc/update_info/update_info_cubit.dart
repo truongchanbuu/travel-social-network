@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:travel_social_network/cores/resources/data_state.dart';
 
 import '../../../../user/domain/repositories/user_repository.dart';
 import '../../../data/models/email.dart';
@@ -28,7 +30,9 @@ class UpdateAccountInfoCubit extends Cubit<UpdateAccountInfoState> {
     emit(EmailChanged(current: state, email: email));
   }
 
-  static const timeoutInSecond = 3600;
+  Future<void> passwordChanged(String value) async {}
+
+  static const timeoutInSecond = 15 * 60;
   Future<void> updateAccount() async {
     try {
       if (state is EmailChanged) {
@@ -37,16 +41,21 @@ class UpdateAccountInfoCubit extends Cubit<UpdateAccountInfoState> {
         bool isVerified = await _waitForEmailVerification(
             timeout: const Duration(seconds: timeoutInSecond));
 
-        print("IS VERIFIED: $isVerified");
         if (!isVerified) {
           throw Exception('Email verification timeout');
         }
 
-        await userRepository.updateUserField(state.user.id, {
+        final dataState = await userRepository.updateUserField(state.user.id, {
           UserEntity.emailFieldName: state.user.email,
           UserEntity.isVerifiedFieldName: true,
         });
-        emit(UpdateSucceed(state));
+
+        if (dataState is DataFailure) {
+          log('Update email failed: ${dataState.error?.message}');
+          emit(UpdateFailed(current: state));
+        } else {
+          emit(UpdateSucceed(state, authRepository.currentUser.toEntity()));
+        }
       }
     } on UpdateAccountFailure catch (e) {
       emit(UpdateFailed(current: state, message: e.message));
@@ -69,16 +78,39 @@ class UpdateAccountInfoCubit extends Cubit<UpdateAccountInfoState> {
       },
     );
 
-    userStream = authRepository.user.listen((currentUser) {
-      if (currentUser.isVerified) {
-        timeoutTimer?.cancel();
-        userStream?.cancel();
-
-        if (!completer.isCompleted) {
-          completer.complete(true);
+    userStream = Stream.periodic(
+      const Duration(seconds: 5),
+      (_) => authRepository.currentUser,
+    ).asyncMap(
+      (user) async {
+        print('usr: $user');
+        if (user.toEntity() != UserEntity.empty) {
+          final updated = await authRepository.reload();
+          print("HERE $updated");
+          return updated;
         }
-      }
-    });
+
+        return UserModel.fromEntity(UserEntity.empty);
+      },
+    ).listen(
+      (user) {
+        print('list: $user - is verified ${user.isVerified}');
+        if (user.isVerified) {
+          userStream?.cancel();
+          timeoutTimer?.cancel();
+          if (!completer.isCompleted) {
+            completer.complete(true);
+          }
+        }
+      },
+      onError: (error) {
+        userStream?.cancel();
+        timeoutTimer?.cancel();
+        if (!completer.isCompleted) {
+          completer.complete(false);
+        }
+      },
+    );
 
     return completer.future;
   }

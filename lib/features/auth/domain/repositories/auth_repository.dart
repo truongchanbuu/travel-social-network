@@ -4,6 +4,8 @@ import '../../data/models/user.dart';
 abstract interface class AuthRepository {
   Stream<UserModel> get user;
   UserModel get currentUser;
+  Future<UserModel> reload();
+
   Future<DataState<void>> signUp({
     required String email,
     required String password,

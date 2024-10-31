@@ -23,7 +23,12 @@ final class UpdateInfoInitial extends UpdateAccountInfoState {
 }
 
 final class UpdateSucceed extends UpdateAccountInfoState {
-  UpdateSucceed(UpdateAccountInfoState current)
+  UpdateSucceed(UpdateAccountInfoState current, UserEntity user)
+      : super(user: user, isValid: current.isValid);
+}
+
+final class Updating extends UpdateAccountInfoState {
+  Updating(UpdateAccountInfoState current)
       : super(user: current.user, isValid: current.isValid);
 }
 
