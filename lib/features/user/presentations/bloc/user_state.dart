@@ -25,5 +25,13 @@ final class UserFailed extends UserState {
 }
 
 final class UserLoading extends UserState {
-  const UserLoading({super.user = UserEntity.empty});
+  UserLoading(UserState current) : super(user: current.user);
+}
+
+final class UserAvatarChanged extends UserState {
+  const UserAvatarChanged({required super.user});
+}
+
+final class UserEmailChanged extends UserState {
+  const UserEmailChanged({required super.user});
 }

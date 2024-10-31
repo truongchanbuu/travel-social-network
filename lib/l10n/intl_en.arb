@@ -393,5 +393,7 @@
     "loginToReview": "Login to review",
     "loginToComment": "Login to comment",
     "loginAnnounce": "Please login first",
-    "authenticateFailed": "Failed to login or signup"
+    "authenticateFailed": "Failed to login or signup",
+    "unauthenticated": "Unauthenticated",
+    "reAuthDialog": "Re-authentication Dialog"
 }

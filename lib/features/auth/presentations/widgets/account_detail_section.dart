@@ -22,9 +22,7 @@ class AccountDetailSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        Column(
-          children: items,
-        )
+        Column(children: items)
       ],
     );
   }

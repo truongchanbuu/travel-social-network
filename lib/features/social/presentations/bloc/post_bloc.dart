@@ -195,7 +195,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
         add(UpdateContentEvent(
             content: post.content,
-            images: ImageUtils.converImageUrlToImageFile(post.images)));
+            images: ImageUtils.convertImageUrlToImageFile(post.images)));
       }
     } catch (e) {
       log(e.toString());

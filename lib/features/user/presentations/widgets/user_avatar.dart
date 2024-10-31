@@ -1,7 +1,9 @@
+import 'dart:developer';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../auth/domain/entities/user.dart';
-import '../../../shared/presentations/widgets/app_cached_image.dart';
 
 class UserAvatar extends StatelessWidget {
   final double? radius;
@@ -11,16 +13,19 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: radius,
-      backgroundColor: Colors.orange,
-      child: AppCachedImage(
-        cacheKey: 'avatar_${user.avatarUrl}',
-        imageUrl: user.avatarUrl ?? '',
-        errorImage: Text(
-          _getName(),
-          style: const TextStyle(fontSize: 20),
-        ),
+      backgroundImage: CachedNetworkImageProvider(
+        user.avatarUrl ?? '',
+        cacheKey: '${user.avatarUrl}_${DateTime.now().millisecondsSinceEpoch}',
       ),
+      onBackgroundImageError: (exception, stackTrace) =>
+          log('Failed to load avatar: $exception'),
+      radius: radius,
+      child: (user.avatarUrl?.isEmpty ?? true)
+          ? Text(
+              _getName(),
+              style: const TextStyle(fontSize: 20, color: Colors.white),
+            )
+          : null,
     );
   }
 

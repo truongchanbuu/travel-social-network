@@ -331,6 +331,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rateForUs": MessageLookupByLibrary.simpleMessage("Rate for us"),
         "rateYourExperience":
             MessageLookupByLibrary.simpleMessage("Rate Your Experience"),
+        "reAuthDialog":
+            MessageLookupByLibrary.simpleMessage("Re-authentication Dialog"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "recommendTours":
             MessageLookupByLibrary.simpleMessage("Recommend Tours"),
@@ -417,6 +419,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tourSchedule": MessageLookupByLibrary.simpleMessage("Tour Schedule"),
         "transportation":
             MessageLookupByLibrary.simpleMessage("Transportation"),
+        "unauthenticated":
+            MessageLookupByLibrary.simpleMessage("Unauthenticated"),
         "units": MessageLookupByLibrary.simpleMessage("Units"),
         "unsupportedImageFormat":
             MessageLookupByLibrary.simpleMessage("Unsupported image format"),

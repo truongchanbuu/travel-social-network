@@ -51,6 +51,16 @@ class LogInWithGoogleFailure extends AuthFailure {
   }
 }
 
+class UpdateAccountFailure extends AuthFailure {
+  const UpdateAccountFailure([super.message]);
+
+  factory UpdateAccountFailure.fromCode(String code) {
+    return UpdateAccountFailure(
+      _authErrorMessages[code] ?? 'An unknown exception occurred.',
+    );
+  }
+}
+
 class LogOutFailure extends AuthFailure {
   const LogOutFailure([super.message]);
 }

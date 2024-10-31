@@ -3,7 +3,7 @@ import '../../data/models/user.dart';
 
 abstract interface class AuthRepository {
   Stream<UserModel> get user;
-  Future<UserModel> get currentUser;
+  UserModel get currentUser;
   Future<DataState<void>> signUp({
     required String email,
     required String password,
@@ -15,4 +15,9 @@ abstract interface class AuthRepository {
   });
   Future<DataState<void>> logInWithPhone(String phoneNumber);
   Future<DataState<void>> logOut();
+  Future<DataState<void>> reAuthenticate(
+      {required String email, required String password});
+
+  Future<void> uploadPhotoUrl(String photoUrl);
+  Future<void> updateEmail(String email);
 }

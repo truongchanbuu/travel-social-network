@@ -79,7 +79,7 @@ class _SaveReviewPageState extends State<SaveReviewPage> {
               _rating = state.review.rating;
               _contentController.text = state.review.content;
               images =
-                  ImageUtils.converImageUrlToImageFile(state.review.images);
+                  ImageUtils.convertImageUrlToImageFile(state.review.images);
             } else if (state is ReviewImageLoaded) {
               images = state.images;
             }

@@ -322,6 +322,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Đánh giá về chúng tôi"),
         "rateYourExperience": MessageLookupByLibrary.simpleMessage(
             "Hãy cho chúng tôi biết trải nghiệm của bạn"),
+        "reAuthDialog":
+            MessageLookupByLibrary.simpleMessage("Xác thực danh tính"),
         "recentSearch":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm gần đây"),
         "recommendTours": MessageLookupByLibrary.simpleMessage(
@@ -413,6 +415,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lịch trình chuyến đi"),
         "transportation":
             MessageLookupByLibrary.simpleMessage("Phương tiện di chuyển"),
+        "unauthenticated": MessageLookupByLibrary.simpleMessage(
+            "Người dùng vẫn chưa được xác thực"),
         "units": MessageLookupByLibrary.simpleMessage("Đơn vị"),
         "unsupportedImageFormat": MessageLookupByLibrary.simpleMessage(
             "Định dạng này không được hỗ trợ"),

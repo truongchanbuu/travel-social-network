@@ -12,8 +12,10 @@ class UserModel extends UserEntity {
     super.username,
     super.avatarUrl,
     super.phoneNumber,
+    super.dateOfBirth,
     super.createdAt,
     super.updatedAt,
+    super.isVerified,
   });
 
   UserEntity toEntity() {
@@ -23,8 +25,35 @@ class UserModel extends UserEntity {
       username: username,
       avatarUrl: avatarUrl,
       phoneNumber: phoneNumber,
+      isVerified: isVerified,
       createdAt: createdAt,
+      dateOfBirth: dateOfBirth,
       updatedAt: updatedAt,
+    );
+  }
+
+  @override
+  UserModel copyWith({
+    String? id,
+    String? email,
+    String? username,
+    DateTime? dateOfBirth,
+    String? avatarUrl,
+    String? phoneNumber,
+    bool? isVerified,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      username: username ?? this.username,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      isVerified: isVerified ?? this.isVerified,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -35,28 +64,10 @@ class UserModel extends UserEntity {
       username: entity.username,
       avatarUrl: entity.avatarUrl,
       phoneNumber: entity.phoneNumber,
+      isVerified: entity.isVerified,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
-    );
-  }
-
-  UserModel copyWith({
-    String? id,
-    String? email,
-    String? username,
-    String? avatarUrl,
-    String? phoneNumber,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) {
-    return UserModel(
-      id: id ?? this.id,
-      email: email ?? this.email,
-      username: username ?? this.username,
-      avatarUrl: avatarUrl ?? this.avatarUrl,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
+      dateOfBirth: entity.dateOfBirth,
     );
   }
 

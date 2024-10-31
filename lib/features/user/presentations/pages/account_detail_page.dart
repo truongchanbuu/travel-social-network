@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/date_time_utils.dart';
-import '../../../../cores/utils/extensions/context_extension.dart';
+import '../../../../cores/utils/extensions/context_extension.dart%20';
+import '../../../../cores/utils/extensions/string_extension.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
 import '../../../auth/domain/entities/user.dart';
+import '../../../auth/presentations/bloc/login/login_cubit.dart';
+import '../../../auth/presentations/bloc/update_info/update_info_cubit.dart';
+import '../../../auth/presentations/pages/info_template_page.dart';
 import '../../../auth/presentations/widgets/account_detail_section.dart';
+import '../../../auth/presentations/widgets/re_auth_form.dart';
+import '../bloc/user_cubit.dart';
 import '../widgets/account_section_item.dart';
 import '../widgets/user_avatar.dart';
+
+enum AccountAction {
+  changeEmail,
+  changePassword,
+  changeDisplayName,
+  changeBirthDate,
+}
 
 class AccountDetailPage extends StatelessWidget {
   final UserEntity user;
   const AccountDetailPage({super.key, required this.user});
 
+  static const spacing = SizedBox(height: 20);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,9 +50,11 @@ class AccountDetailPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(child: _buildAvatarSection()),
-                _buildSecuritySection(),
+                Center(child: _buildAvatarSection(context)),
+                _buildSecuritySection(context),
+                spacing,
                 _buildUserGeneralInfo(),
+                spacing,
               ],
             ),
           ),
@@ -44,19 +63,31 @@ class AccountDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAvatarSection() {
-    return Stack(
-      children: [
-        UserAvatar(user: user, radius: 30),
-        Positioned(
-          bottom: -3,
-          right: -3,
-          child: GestureDetector(
-            onTap: () {},
-            child: const Icon(Icons.edit),
+  Widget _buildAvatarSection(BuildContext context) {
+    return GestureDetector(
+      onTap: context.read<UserCubit>().updatePhotoUrl,
+      child: Stack(
+        children: [
+          BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              UserEntity currentUser = user;
+              if (state is UserAvatarChanged && state.user.id == user.id) {
+                currentUser = state.user;
+              }
+
+              return UserAvatar(user: currentUser, radius: 30);
+            },
+            buildWhen: (previous, current) {
+              return current is UserAvatarChanged && current.user.id == user.id;
+            },
           ),
-        ),
-      ],
+          const Positioned(
+            bottom: -3,
+            right: -5,
+            child: Icon(Icons.edit),
+          ),
+        ],
+      ),
     );
   }
 
@@ -64,23 +95,24 @@ class AccountDetailPage extends StatelessWidget {
     fontSize: 13,
     color: Colors.grey,
   );
-  Widget _buildSecuritySection() {
+  Widget _buildSecuritySection(BuildContext context) {
     return AccountDetailSection(
       title: S.current.securityAccount,
       items: [
         AccountSectionItem(
+          onTap: () => _reAuthenticate(context, AccountAction.changeEmail),
           leading: const Icon(Icons.email),
           title: S.current.linkEmail,
-          value: const Text(
-            'a***le.com',
+          value: Text(
+            user.email?.obscure ?? '',
             style: valueTextStyle,
           ),
         ),
         AccountSectionItem(
           leading: const Icon(Icons.phone),
           title: S.current.phoneNumber,
-          value: const Text(
-            '09***699',
+          value: Text(
+            user.phoneNumber?.obscure ?? '',
             style: valueTextStyle,
           ),
         ),
@@ -120,5 +152,51 @@ class AccountDetailPage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _reAuthenticate(BuildContext context, AccountAction action) async {
+    final navigator = Navigator.of(context);
+
+    bool? isReAuthenticated = await showDialog<bool>(
+      context: context,
+      builder: (context) => BlocProvider(
+        create: (context) => getIt.get<LoginCubit>(),
+        child: const Dialog(child: ReAuthForm()),
+      ),
+    );
+
+    String title = '';
+    if (isReAuthenticated ?? false) {
+      switch (action) {
+        case AccountAction.changeEmail:
+          title = 'Email';
+          break;
+        case AccountAction.changePassword:
+          // TODO: Handle this case.
+          break;
+        case AccountAction.changeDisplayName:
+          // TODO: Handle this case.
+          break;
+        case AccountAction.changeBirthDate:
+          // TODO: Handle this case.
+          break;
+      }
+
+
+      navigator.push(PageTransition(
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<LoginCubit>()),
+            BlocProvider(
+                create: (context) => getIt.get<UpdateAccountInfoCubit>()),
+          ],
+          child: InfoTemplatePage(
+            title: title,
+            action: AccountAction.changeEmail,
+          ),
+        ),
+        type: PageTransitionType.leftToRight,
+      ));
+    }
   }
 }

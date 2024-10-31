@@ -55,4 +55,20 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginFailed(state));
     }
   }
+
+  Future<void> reAuthenticate() async {
+    if (!state.isValid) return;
+    emit(LoginInProgressing(state));
+    try {
+      await authRepository.reAuthenticate(
+        email: state.email.value,
+        password: state.password.value,
+      );
+      emit(LoginSucceed(state));
+    } on LogInWithEmailAndPasswordFailure catch (e) {
+      emit(LoginFailed(state, e.message));
+    } catch (_) {
+      emit(LoginFailed(state));
+    }
+  }
 }

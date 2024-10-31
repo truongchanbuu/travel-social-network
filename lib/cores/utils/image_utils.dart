@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path_provider/path_provider.dart';
@@ -65,12 +66,12 @@ class ImageUtils {
     return null;
   }
 
-  static List<ImageFile> converImageUrlToImageFile(List<String> imgUrls) {
+  static List<ImageFile> convertImageUrlToImageFile(List<String> imgUrls) {
     return imgUrls.map((imgUrl) {
       int index = imgUrls.indexOf(imgUrl);
       return ImageFile(
         UniqueKey().toString(),
-        name: 'Review image $index',
+        name: 'img_${index}_$imgUrl',
         path: imgUrl,
         extension: _getFirebaseExtension(imgUrl) ?? 'jpg',
       );
@@ -108,5 +109,10 @@ class ImageUtils {
     }
 
     return false;
+  }
+
+  static Future<XFile?> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    return await picker.pickImage(source: ImageSource.gallery);
   }
 }

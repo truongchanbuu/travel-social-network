@@ -42,7 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
       });
 
   @override
-  Future<UserModel> get currentUser async {
+  UserModel get currentUser {
     try {
       final data = cache.getString(StorageKeys.appUserCachedKey);
       if (data == null) return UserModel.fromEntity(UserEntity.empty);
@@ -136,9 +136,40 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<DataState<void>> reAuthenticate({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+
+      await firebaseAuth.currentUser!.reauthenticateWithCredential(credential);
+
+      return const DataSuccess();
+    } on FirebaseAuthException catch (e) {
+      throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const LogInWithEmailAndPasswordFailure();
+    }
+  }
+
+  @override
   Future<DataState<void>> logInWithPhone(String phoneNumber) {
     // TODO: implement logInWithPhone
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> uploadPhotoUrl(String photoUrl) async {
+    await firebaseAuth.currentUser!.updatePhotoURL(photoUrl);
+  }
+
+  @override
+  Future<void> updateEmail(String email) async {
+    await firebaseAuth.currentUser!.verifyBeforeUpdateEmail(email);
   }
 }
 
@@ -150,6 +181,7 @@ extension on User {
       avatarUrl: photoURL,
       username: displayName,
       phoneNumber: phoneNumber,
+      isVerified: emailVerified,
     );
   }
 }

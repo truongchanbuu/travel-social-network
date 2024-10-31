@@ -2582,6 +2582,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Unauthenticated`
+  String get unauthenticated {
+    return Intl.message(
+      'Unauthenticated',
+      name: 'unauthenticated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Re-authentication Dialog`
+  String get reAuthDialog {
+    return Intl.message(
+      'Re-authentication Dialog',
+      name: 'reAuthDialog',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

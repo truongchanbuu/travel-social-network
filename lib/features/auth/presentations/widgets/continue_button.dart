@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../config/themes/app_theme.dart';
-import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
 
 class ContinueButton extends StatelessWidget {

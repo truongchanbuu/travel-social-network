@@ -391,5 +391,7 @@
     "loginToReview": "Đăng nhập để đánh giá",
     "loginToComment": "Đăng nhập để bình luận",
     "loginAnnounce": "Vui lòng đăng nhập trước",
-    "authenticateFailed": "Đăng nhập hoặc đăng ký không thành công"
+    "authenticateFailed": "Đăng nhập hoặc đăng ký không thành công",
+    "unauthenticated": "Người dùng vẫn chưa được xác thực",
+    "reAuthDialog": "Xác thực danh tính"
 }

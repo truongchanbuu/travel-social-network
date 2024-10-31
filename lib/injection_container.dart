@@ -13,6 +13,7 @@ import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/presentations/bloc/auth_bloc.dart';
 import 'features/auth/presentations/bloc/login/login_cubit.dart';
 import 'features/auth/presentations/bloc/signup/signup_cubit.dart';
+import 'features/auth/presentations/bloc/update_info/update_info_cubit.dart';
 import 'features/comment/data/repositories/comment_repository_impl.dart';
 import 'features/comment/domain/repositories/comment_repository.dart';
 import 'features/comment/presentations/bloc/comment_bloc.dart';
@@ -91,5 +92,11 @@ Future<void> initializeDependencies() async {
   getIt.registerFactory<SettingsCubit>(() => SettingsCubit(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
-  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
+  getIt.registerFactory<UserCubit>(() => UserCubit(
+        authRepository: getIt(),
+        userRepository: getIt(),
+        imageRepository: getIt(),
+      ));
+  getIt.registerFactory<UpdateAccountInfoCubit>(() =>
+      UpdateAccountInfoCubit(authRepository: getIt(), userRepository: getIt()));
 }
