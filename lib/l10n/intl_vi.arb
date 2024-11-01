@@ -79,6 +79,8 @@
     "birthDate": "Sinh nhật",
     "linkEmail": "Liên kết email",
     "phoneNumber": "Số điện thoại",
+    "verifyEmailAnnounce": "Một email đã được gửi để xác thực email mới của bạn",
+    "reLogin": "Vui lòng đăng nhập lại",
     "resetPassword": "Đặt lại mật khẩu",
     "userProfile": "Hồ sơ người dùng",
     "promotionText": "Tận hưởng những đặc quyền của thành viên",

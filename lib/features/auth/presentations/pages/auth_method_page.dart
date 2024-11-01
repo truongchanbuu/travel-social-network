@@ -44,44 +44,47 @@ class AuthMethodPage extends StatelessWidget {
             }
 
             return SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    child: const HeroImage(),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${S.current.signIn} / ${S.current.signUp}',
-                    semanticsLabel: '${S.current.signIn} / ${S.current.signUp}',
-                    overflow: defaultTextOverflow,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: const HeroImage(),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.discount_outlined,
-                        color: descColor,
+                    const SizedBox(height: 10),
+                    Text(
+                      '${S.current.signIn} / ${S.current.signUp}',
+                      semanticsLabel:
+                          '${S.current.signIn} / ${S.current.signUp}',
+                      overflow: defaultTextOverflow,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(width: 5),
-                      Text(
-                        S.current.promotionText,
-                        overflow: defaultTextOverflow,
-                        style: const TextStyle(color: descColor),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  _buildSocialList(context),
-                  const SizedBox(height: 30),
-                  _buildConditionAndPolicyConfirmation(context),
-                ],
+                    ),
+                    const SizedBox(height: 5),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.discount_outlined,
+                          color: descColor,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          S.current.promotionText,
+                          overflow: defaultTextOverflow,
+                          style: const TextStyle(color: descColor),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    _buildSocialList(context),
+                    const SizedBox(height: 30),
+                    _buildConditionAndPolicyConfirmation(context),
+                  ],
+                ),
               ),
             );
           },

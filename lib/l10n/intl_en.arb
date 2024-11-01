@@ -76,6 +76,8 @@
     "displayName": "Display Name",
     "birthDate": "Birthday",
     "linkEmail": "Link Email",
+    "verifyEmailAnnounce": "An email is sent to verify your new email",
+    "reLogin": "Please login your account again",
     "phoneNumber": "Phone Number",
     "resetPassword": "Reset Password",
     "userProfile": "User Profile",

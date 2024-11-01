@@ -2,6 +2,7 @@ part of 'update_info_cubit.dart';
 
 sealed class UpdateAccountInfoState extends Equatable {
   final UserEntity user;
+  final Password password;
   final bool isValid;
   final String? errorMessage;
 
@@ -9,27 +10,33 @@ sealed class UpdateAccountInfoState extends Equatable {
     required this.user,
     this.errorMessage,
     required this.isValid,
+    required this.password,
   });
 
   @override
-  List<Object?> get props => [user, errorMessage, isValid];
+  List<Object?> get props => [user, errorMessage, isValid, password];
 }
 
 final class UpdateInfoInitial extends UpdateAccountInfoState {
   const UpdateInfoInitial({
     required super.user,
     super.isValid = true,
+    super.password = const Password.pure(),
   });
 }
 
 final class UpdateSucceed extends UpdateAccountInfoState {
   UpdateSucceed(UpdateAccountInfoState current, UserEntity user)
-      : super(user: user, isValid: current.isValid);
+      : super(user: user, isValid: current.isValid, password: current.password);
 }
 
 final class Updating extends UpdateAccountInfoState {
   Updating(UpdateAccountInfoState current)
-      : super(user: current.user, isValid: current.isValid);
+      : super(
+          user: current.user,
+          isValid: current.isValid,
+          password: const Password.pure(),
+        );
 }
 
 final class UpdateFailed extends UpdateAccountInfoState {
@@ -38,6 +45,7 @@ final class UpdateFailed extends UpdateAccountInfoState {
           user: current.user,
           isValid: current.isValid,
           errorMessage: message,
+          password: const Password.pure(),
         );
 }
 
@@ -46,5 +54,47 @@ final class EmailChanged extends UpdateAccountInfoState {
       : super(
           user: current.user.copyWith(email: email.value),
           isValid: Formz.validate([email]),
+          password: const Password.pure(),
+        );
+}
+
+final class EmailVerifying extends UpdateAccountInfoState {
+  EmailVerifying(UpdateAccountInfoState current)
+      : super(
+          user: current.user,
+          isValid: current.isValid,
+          password: const Password.pure(),
+        );
+}
+
+final class PasswordChanged extends UpdateAccountInfoState {
+  PasswordChanged({
+    required UpdateAccountInfoState current,
+    required super.password,
+  }) : super(
+          user: current.user,
+          isValid: Formz.validate([password]),
+        );
+}
+
+final class PhoneNumberChanged extends UpdateAccountInfoState {
+  PhoneNumberChanged({
+    required UpdateAccountInfoState current,
+    required Phone phone,
+  }) : super(
+          user: current.user.copyWith(phoneNumber: phone.value),
+          isValid: Formz.validate([phone]),
+          password: const Password.pure(),
+        );
+}
+
+final class DisplayNameChanged extends UpdateAccountInfoState {
+  DisplayNameChanged({
+    required UpdateAccountInfoState current,
+    required String username,
+    super.password = const Password.pure(),
+  }) : super(
+          user: current.user.copyWith(username: username),
+          isValid: username.isNotEmpty,
         );
 }

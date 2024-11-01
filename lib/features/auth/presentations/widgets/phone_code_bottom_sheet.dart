@@ -16,36 +16,32 @@ class PhoneCodeBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: Column(
-        children: [
-          Container(
-            margin:
-                const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-            child: TextField(
-              cursorColor: AppTheme.primaryColor,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(999),
-                ),
-                hintText: S.current.phoneSearchHintText,
-                prefixIcon: const Icon(Icons.search),
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+          child: TextField(
+            cursorColor: AppTheme.primaryColor,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(999),
               ),
-              textAlign: TextAlign.start,
-              textDirection: defaultTextDirection,
+              hintText: S.current.phoneSearchHintText,
+              prefixIcon: const Icon(Icons.search),
             ),
+            textAlign: TextAlign.start,
+            textDirection: defaultTextDirection,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: _buildCountryItem,
-              itemCount: countryCodes.length,
-              itemExtent: 50,
-              semanticChildCount: countryCodes.length,
-            ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: _buildCountryItem,
+            itemCount: countryCodes.length,
+            itemExtent: 50,
+            semanticChildCount: countryCodes.length,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

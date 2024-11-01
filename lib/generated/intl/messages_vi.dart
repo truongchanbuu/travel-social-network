@@ -324,6 +324,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Hãy cho chúng tôi biết trải nghiệm của bạn"),
         "reAuthDialog":
             MessageLookupByLibrary.simpleMessage("Xác thực danh tính"),
+        "reLogin":
+            MessageLookupByLibrary.simpleMessage("Vui lòng đăng nhập lại"),
         "recentSearch":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm gần đây"),
         "recommendTours": MessageLookupByLibrary.simpleMessage(
@@ -423,6 +425,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "unsupportedText": MessageLookupByLibrary.simpleMessage(
             "Màn hình hiện tại không được hỗ trợ"),
         "userProfile": MessageLookupByLibrary.simpleMessage("Hồ sơ người dùng"),
+        "verifyEmailAnnounce": MessageLookupByLibrary.simpleMessage(
+            "Một email đã được gửi để xác thực email mới của bạn"),
         "version": MessageLookupByLibrary.simpleMessage("Phiên bản"),
         "vietnameseLangChoice":
             MessageLookupByLibrary.simpleMessage("Tiếng Việt"),

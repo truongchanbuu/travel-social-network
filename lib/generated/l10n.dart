@@ -666,6 +666,26 @@ class S {
     );
   }
 
+  /// `An email is sent to verify your new email`
+  String get verifyEmailAnnounce {
+    return Intl.message(
+      'An email is sent to verify your new email',
+      name: 'verifyEmailAnnounce',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please login your account again`
+  String get reLogin {
+    return Intl.message(
+      'Please login your account again',
+      name: 'reLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Phone Number`
   String get phoneNumber {
     return Intl.message(

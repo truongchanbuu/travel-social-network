@@ -41,7 +41,6 @@ class AuthRepositoryImpl implements AuthRepository {
         return user;
       });
 
-  // TODO: CHECK LATER
   @override
   UserModel get currentUser {
     try {
@@ -78,12 +77,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserModel> reload() async {
+  Future<void> reload() async {
     await firebaseAuth.currentUser?.reload();
-
-    return UserModel.fromEntity(
-      firebaseAuth.currentUser?.toUser ?? UserEntity.empty,
-    );
   }
 
   @override
@@ -199,12 +194,54 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> uploadPhotoUrl(String photoUrl) async {
-    await firebaseAuth.currentUser!.updatePhotoURL(photoUrl);
+    try {
+      await firebaseAuth.currentUser!.updatePhotoURL(photoUrl);
+    } on FirebaseAuthException catch (e) {
+      throw UpdateAccountFailure.fromCode(e.code);
+    } catch (_) {
+      throw const UpdateAccountFailure();
+    }
   }
 
   @override
   Future<void> updateEmail(String email) async {
-    await firebaseAuth.currentUser!.verifyBeforeUpdateEmail(email);
+    try {
+      await firebaseAuth.currentUser!.verifyBeforeUpdateEmail(email);
+    } on FirebaseAuthException catch (e) {
+      throw UpdateAccountFailure.fromCode(e.code);
+    } catch (_) {
+      throw const UpdateAccountFailure();
+    }
+  }
+
+  @override
+  Future<void> updatePassword(String password) async {
+    try {
+      await firebaseAuth.currentUser!.updatePassword(password);
+    } on FirebaseAuthException catch (e) {
+      throw UpdateAccountFailure.fromCode(e.code);
+    } catch (_) {
+      throw const UpdateAccountFailure();
+    }
+  }
+
+  @override
+  Future<void> updatePhoneNumber(String phoneNumber) async {
+    try {
+      firebaseAuth.verifyPhoneNumber(
+        verificationCompleted: (phoneAuthCredential) async => await firebaseAuth
+            .currentUser!
+            .updatePhoneNumber(phoneAuthCredential),
+        verificationFailed: (error) => throw error,
+        codeSent: (verificationId, forceResendingToken) =>
+            [verificationId, forceResendingToken],
+        codeAutoRetrievalTimeout: (verificationId) => verificationId,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw UpdateAccountFailure.fromCode(e.code);
+    } catch (_) {
+      throw const UpdateAccountFailure();
+    }
   }
 }
 

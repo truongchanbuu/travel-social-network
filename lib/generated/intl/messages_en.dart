@@ -333,6 +333,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rate Your Experience"),
         "reAuthDialog":
             MessageLookupByLibrary.simpleMessage("Re-authentication Dialog"),
+        "reLogin": MessageLookupByLibrary.simpleMessage(
+            "Please login your account again"),
         "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Search"),
         "recommendTours":
             MessageLookupByLibrary.simpleMessage("Recommend Tours"),
@@ -427,6 +429,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "unsupportedText": MessageLookupByLibrary.simpleMessage(
             "Sorry! This device is not supported"),
         "userProfile": MessageLookupByLibrary.simpleMessage("User Profile"),
+        "verifyEmailAnnounce": MessageLookupByLibrary.simpleMessage(
+            "An email is sent to verify your new email"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "vietnameseLangChoice":
             MessageLookupByLibrary.simpleMessage("Vietnamese"),

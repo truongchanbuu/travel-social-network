@@ -11,6 +11,7 @@ abstract class AuthFailure implements Exception {
   static const String invalidCredential = 'invalid-credential';
   static const String invalidVerificationCode = 'invalid-verification-code';
   static const String invalidVerificationId = 'invalid-verification-id';
+  static const String userTokenExpired = 'user-token-expired';
 
   final String? code;
   final String message;

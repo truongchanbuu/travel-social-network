@@ -13,10 +13,28 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<DataState<UserModel>> createUser(UserModel user) async {
     try {
-      await userCollection
-          .doc(user.id)
-          .set(user.copyWith(createdAt: DateTime.now()).toJson());
-      return DataSuccess(data: user);
+      final docRef = userCollection
+          .where(UserEntity.emailFieldName, isEqualTo: user.email)
+          .limit(1);
+
+      final docSnap = await docRef.get();
+      UserModel createdUser;
+
+      if (docSnap.docs.isEmpty) {
+        createdUser = user.copyWith(createdAt: DateTime.now());
+        await userCollection.doc(user.id).set(createdUser.toJson());
+      } else {
+        createdUser = UserModel.fromJson(docSnap.docs.first.data());
+        await updateUser(createdUser.copyWith(
+          isVerified: user.isVerified,
+          avatarUrl: user.avatarUrl,
+          dateOfBirth: user.dateOfBirth,
+          username: user.username,
+          phoneNumber: user.phoneNumber,
+        ));
+      }
+
+      return DataSuccess(data: createdUser);
     } on FirebaseException catch (error) {
       return handleFirebaseException(error);
     } catch (error) {

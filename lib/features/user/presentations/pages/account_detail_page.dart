@@ -23,6 +23,7 @@ enum AccountAction {
   changePassword,
   changeDisplayName,
   changeBirthDate,
+  changePhoneNumber,
 }
 
 class AccountDetailPage extends StatelessWidget {
@@ -53,7 +54,7 @@ class AccountDetailPage extends StatelessWidget {
                 Center(child: _buildAvatarSection(context)),
                 _buildSecuritySection(context),
                 spacing,
-                _buildUserGeneralInfo(),
+                _buildUserGeneralInfo(context),
                 spacing,
               ],
             ),
@@ -108,15 +109,35 @@ class AccountDetailPage extends StatelessWidget {
             style: valueTextStyle,
           ),
         ),
-        AccountSectionItem(
-          leading: const Icon(Icons.phone),
-          title: S.current.phoneNumber,
-          value: Text(
-            user.phoneNumber?.obscure ?? '',
-            style: valueTextStyle,
+        BlocProvider.value(
+          value: context.read<UserCubit>()..getUser(user.id),
+          child: BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              UserEntity currentUser = user;
+              if (state is UserLoaded && state.user.id == user.id) {
+                currentUser = state.user;
+              }
+
+              return AccountSectionItem(
+                onTap: () =>
+                    _reAuthenticate(context, AccountAction.changePhoneNumber),
+                leading: const Icon(Icons.phone),
+                title: S.current.phoneNumber,
+                value: Text(
+                  currentUser.phoneNumber?.obscure ?? '',
+                  style: valueTextStyle,
+                ),
+              );
+            },
+            buildWhen: (previous, current) {
+              return current is UserLoaded &&
+                  current.user.id == user.id &&
+                  current.user.phoneNumber != user.phoneNumber;
+            },
           ),
         ),
         AccountSectionItem(
+          onTap: () => _reAuthenticate(context, AccountAction.changePassword),
           leading: const Icon(Icons.password),
           title: S.current.resetPassword,
           value: const Text(
@@ -128,26 +149,62 @@ class AccountDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildUserGeneralInfo() {
+  Widget _buildUserGeneralInfo(BuildContext context) {
     return AccountDetailSection(
       title: S.current.generalInfoAccount,
       items: [
-        AccountSectionItem(
-          leading: const Icon(Icons.person_2),
-          title: S.current.displayName,
-          value: Text(
-            user.username ?? '',
-            style: valueTextStyle,
+        BlocProvider.value(
+          value: context.read<UserCubit>()..getUser(user.id),
+          child: BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              UserEntity currentUser = user;
+              if (state is UserLoaded && state.user.id == user.id) {
+                currentUser = state.user;
+              }
+
+              return AccountSectionItem(
+                onTap: () =>
+                    _reAuthenticate(context, AccountAction.changeDisplayName),
+                leading: const Icon(Icons.person_2),
+                title: S.current.displayName,
+                value: Text(
+                  currentUser.username ?? '',
+                  style: valueTextStyle,
+                ),
+              );
+            },
+            buildWhen: (previous, current) {
+              return current is UserLoaded &&
+                  current.user.id == user.id &&
+                  current.user.username != user.username;
+            },
           ),
         ),
-        AccountSectionItem(
-          leading: const Icon(Icons.date_range),
-          title: S.current.birthDate,
-          value: Text(
-            user.dateOfBirth != null
-                ? DateTimeUtils.formatFullDate(user.dateOfBirth!)
-                : '',
-            style: valueTextStyle,
+        BlocProvider.value(
+          value: context.read<UserCubit>()..getUser(user.id),
+          child: BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              UserEntity currentUser = user;
+              if (state is UserLoaded && state.user.id == user.id) {
+                currentUser = state.user;
+              }
+
+              return AccountSectionItem(
+                leading: const Icon(Icons.date_range),
+                title: S.current.birthDate,
+                value: Text(
+                  user.dateOfBirth != null
+                      ? DateTimeUtils.formatFullDate(user.dateOfBirth!)
+                      : '',
+                  style: valueTextStyle,
+                ),
+              );
+            },
+            buildWhen: (previous, current) {
+              return current is UserLoaded &&
+                  current.user.id == user.id &&
+                  current.user.dateOfBirth != user.dateOfBirth;
+            },
           ),
         ),
       ],
@@ -172,31 +229,32 @@ class AccountDetailPage extends StatelessWidget {
           title = 'Email';
           break;
         case AccountAction.changePassword:
-          // TODO: Handle this case.
+          title = S.current.password;
           break;
         case AccountAction.changeDisplayName:
-          // TODO: Handle this case.
+          title = S.current.displayName;
           break;
         case AccountAction.changeBirthDate:
           // TODO: Handle this case.
           break;
+        case AccountAction.changePhoneNumber:
+          title = S.current.phoneNumber;
+          break;
       }
 
-
-      navigator.push(PageTransition(
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => getIt.get<LoginCubit>()),
-            BlocProvider(
-                create: (context) => getIt.get<UpdateAccountInfoCubit>()),
-          ],
-          child: InfoTemplatePage(
-            title: title,
-            action: AccountAction.changeEmail,
+      navigator.push(
+        PageTransition(
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt.get<LoginCubit>()),
+              BlocProvider(
+                  create: (context) => getIt.get<UpdateAccountInfoCubit>()),
+            ],
+            child: InfoTemplatePage(title: title, action: action),
           ),
+          type: PageTransitionType.leftToRight,
         ),
-        type: PageTransitionType.leftToRight,
-      ));
+      );
     }
   }
 }
