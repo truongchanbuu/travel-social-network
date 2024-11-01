@@ -289,6 +289,7 @@
     "signUp": "Sign up",
     "logout": "Log out",
     "invalidEmail": "Invalid email",
+    "invalidInput": "Invalid input field",
     "emailAnnouncement": "We are going to sign in with your email or create a new account if you don't have one",
     "forgotPassword": "Forgot Password",
     "password": "Password",

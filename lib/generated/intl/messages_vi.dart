@@ -239,6 +239,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Form chưa hợp lệ! Đừng bỏ sót bất kỳ thông tin nào!"),
         "invalidImageFileType": MessageLookupByLibrary.simpleMessage(
             "File này hiện không phải là hình ảnh! Vui lòng chọn file khác"),
+        "invalidInput":
+            MessageLookupByLibrary.simpleMessage("Trường không hợp lệ"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Số điện thoại không hợp lệ"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Cho phép"),

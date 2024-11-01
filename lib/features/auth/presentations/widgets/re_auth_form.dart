@@ -11,7 +11,7 @@ import 'password_input_field.dart';
 class ReAuthForm extends StatelessWidget {
   const ReAuthForm({super.key});
 
-  static const spacing = SizedBox(height: 10);
+  static const _spacing = SizedBox(height: 10);
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
@@ -36,11 +36,11 @@ class ReAuthForm extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            spacing,
+            _spacing,
             const EmailInput(),
-            spacing,
+            _spacing,
             const PasswordInputField(),
-            spacing,
+            _spacing,
             ContinueButton(
               onTap: context.select(
                       (LoginCubit loginCubit) => loginCubit.state.isValid)

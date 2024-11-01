@@ -1853,6 +1853,16 @@ class S {
     );
   }
 
+  /// `Invalid input field`
+  String get invalidInput {
+    return Intl.message(
+      'Invalid input field',
+      name: 'invalidInput',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `We are going to sign in with your email or create a new account if you don't have one`
   String get emailAnnouncement {
     return Intl.message(

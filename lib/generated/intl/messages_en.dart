@@ -248,6 +248,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Invalid Form! Do not empty any fields or necessary information"),
         "invalidImageFileType": MessageLookupByLibrary.simpleMessage(
             "Invalid file type. Only images are allowed"),
+        "invalidInput":
+            MessageLookupByLibrary.simpleMessage("Invalid input field"),
         "invalidPhoneNumberError":
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "isAllow": MessageLookupByLibrary.simpleMessage("Is Allow"),

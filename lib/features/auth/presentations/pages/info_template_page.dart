@@ -12,6 +12,26 @@ import '../../../user/presentations/pages/account_detail_page.dart';
 import '../bloc/update_info/update_info_cubit.dart';
 import '../widgets/continue_button.dart';
 
+class InputFieldConfig {
+  final IconData icon;
+  final String labelText;
+  final String? hintText;
+  final TextInputType keyboardType;
+  final bool isPassword;
+  final List<TextInputFormatter>? formatters;
+  final void Function(String) onChanged;
+
+  const InputFieldConfig({
+    required this.icon,
+    required this.labelText,
+    this.hintText,
+    required this.keyboardType,
+    this.isPassword = false,
+    this.formatters,
+    required this.onChanged,
+  });
+}
+
 class InfoTemplatePage extends StatelessWidget {
   final String title;
   final AccountAction action;
@@ -25,19 +45,7 @@ class InfoTemplatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<UpdateAccountInfoCubit, UpdateAccountInfoState>(
-      listener: (context, state) {
-        if (state is UpdateSucceed && !state.user.isLoggedIn) {
-          showToast(S.current.reLogin);
-        } else if (state is UpdateSucceed) {
-          showToast(S.current.success, context: context);
-          context.read<UserCubit>().getUser(state.user.id);
-          Navigator.pop(context);
-        } else if (state is UpdateFailed) {
-          showToast(state.errorMessage, context: context);
-        } else if (state is EmailVerifying) {
-          showToast(S.current.verifyEmailAnnounce, context: context);
-        }
-      },
+      listener: _handleStateChanges,
       child: SafeArea(
         child: Scaffold(
           appBar: defaultWhiteAppBar(context: context, titleText: title),
@@ -45,21 +53,11 @@ class InfoTemplatePage extends StatelessWidget {
             children: [
               Expanded(
                 child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [_buildActionWidget()],
-                    ),
-                  ),
+                  padding: const EdgeInsets.all(20),
+                  child: _buildInputField(context),
                 ),
               ),
-              ContinueButton(
-                onTap: context.select((UpdateAccountInfoCubit cubit) =>
-                        (cubit.isUserChanged || _isPasswordChanged(cubit)) &&
-                        cubit.state.isValid)
-                    ? () => _executeAction(context)
-                    : null,
-              ),
+              _buildContinueButton(context),
             ],
           ),
         ),
@@ -67,247 +65,181 @@ class InfoTemplatePage extends StatelessWidget {
     );
   }
 
-  Widget _buildActionWidget() {
-    switch (action) {
-      case AccountAction.changeEmail:
-        return const _EmailInput();
-      case AccountAction.changePassword:
-        return const _PasswordInput();
-      case AccountAction.changeDisplayName:
-        return const _DisplayNameInput();
-      case AccountAction.changeBirthDate:
-        return Container();
-      case AccountAction.changePhoneNumber:
-        return const _PhoneInput();
+  void _handleStateChanges(BuildContext context, UpdateAccountInfoState state) {
+    if (state is UpdateSucceed) {
+      _handleUpdateSuccess(context, state);
+    } else if (state is UpdateFailed) {
+      showToast(state.errorMessage, context: context);
+    } else if (state is EmailVerifying) {
+      showToast(S.current.verifyEmailAnnounce, context: context);
     }
   }
 
-  void _executeAction(BuildContext context) {
-    context.read<UpdateAccountInfoCubit>().updateAccount();
+  void _handleUpdateSuccess(BuildContext context, UpdateSucceed state) {
+    if (!state.user.isLoggedIn) {
+      showToast(S.current.reLogin);
+      return;
+    }
+    showToast(S.current.success, context: context);
+    context.read<UserCubit>().getUser(state.user.id);
+    Navigator.pop(context);
   }
 
-  bool _isPasswordChanged(UpdateAccountInfoCubit cubit) =>
-      cubit.state is PasswordChanged && cubit.state.password.isValid;
-}
+  Widget _buildInputField(BuildContext context) {
+    final cubit = context.read<UpdateAccountInfoCubit>();
 
-class _EmailInput extends StatelessWidget {
-  const _EmailInput();
-
-  @override
-  Widget build(BuildContext context) {
-    final isValid =
-        context.select((UpdateAccountInfoCubit cubit) => cubit.state.isValid);
-    final isProgressing = context
-        .select((UpdateAccountInfoCubit cubit) => cubit.state is EmailChanged);
-
-    return TextField(
-      onChanged: context.read<UpdateAccountInfoCubit>().emailChanged,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.person,
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: defaultFieldBorderRadius,
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppTheme.primaryColor),
-        ),
-        hintText: 'abc@example.com',
+    final configs = {
+      AccountAction.changeEmail: InputFieldConfig(
+        icon: Icons.person,
         labelText: 'Email',
-        floatingLabelStyle:
-            TextStyle(color: !isValid ? Colors.red : AppTheme.primaryColor),
-        labelStyle: TextStyle(color: !isValid ? Colors.red : null),
-        errorText: !isValid ? S.current.invalidEmail : null,
+        hintText: 'abc@example.com',
+        keyboardType: TextInputType.emailAddress,
+        onChanged: cubit.emailChanged,
       ),
-      cursorColor: AppTheme.primaryColor,
-      textDirection: defaultTextDirection,
-      keyboardType: TextInputType.emailAddress,
-      textInputAction: TextInputAction.next,
+      AccountAction.changePassword: InputFieldConfig(
+        icon: Icons.lock,
+        labelText: S.current.password,
+        keyboardType: TextInputType.visiblePassword,
+        isPassword: true,
+        onChanged: cubit.passwordChanged,
+      ),
+      AccountAction.changePhoneNumber: InputFieldConfig(
+        icon: Icons.phone,
+        labelText: S.current.phoneNumber,
+        keyboardType: TextInputType.phone,
+        formatters: [
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(10),
+        ],
+        onChanged: cubit.phoneNumberChanged,
+      ),
+      AccountAction.changeDisplayName: InputFieldConfig(
+        icon: Icons.person,
+        labelText: S.current.displayName,
+        hintText: S.current.displayName,
+        keyboardType: TextInputType.name,
+        onChanged: cubit.displayNameChanged,
+      ),
+    };
+
+    final config = configs[action];
+    if (config == null) return Container();
+
+    return CustomInputField(config: config);
+  }
+
+  Widget _buildContinueButton(BuildContext context) {
+    return ContinueButton(
+      onTap: context.select((UpdateAccountInfoCubit cubit) {
+        final isChanged = cubit.isUserChanged ||
+            (cubit.state is PasswordChanged && cubit.state.password.isValid);
+        return isChanged && cubit.state.isValid
+            ? () => cubit.updateAccount()
+            : null;
+      }),
     );
   }
 }
 
-class _PasswordInput extends StatefulWidget {
-  const _PasswordInput();
+class CustomInputField extends StatefulWidget {
+  final InputFieldConfig config;
+
+  const CustomInputField({
+    super.key,
+    required this.config,
+  });
 
   @override
-  State<_PasswordInput> createState() => _PasswordInputState();
+  State<CustomInputField> createState() => _CustomInputFieldState();
 }
 
-class _PasswordInputState extends State<_PasswordInput> {
-  late final TextEditingController textEditingController;
-
+class _CustomInputFieldState extends State<CustomInputField> {
+  late final FocusNode _focusNode;
+  late final TextEditingController _controller;
   bool _isHidden = true;
 
   @override
   void initState() {
     super.initState();
-    textEditingController = TextEditingController();
+    _controller = TextEditingController();
+    _focusNode = FocusNode()..requestFocus();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isValid =
-        context.select((UpdateAccountInfoCubit cubit) => cubit.state.isValid);
-    final isProgressing = context.select(
-        (UpdateAccountInfoCubit cubit) => cubit.state is PasswordChanged);
-    return TextField(
-      controller: textEditingController,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.lock,
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        suffixIcon: IconButton(
-          onPressed: () => setState(() => _isHidden = !_isHidden),
-          icon: Icon(
-            _isHidden ? Icons.visibility : Icons.visibility_off,
-            color: !isValid
-                ? Colors.red
-                : isProgressing
-                    ? AppTheme.primaryColor
-                    : null,
-          ),
-        ),
-        labelText: S.current.password,
-        semanticCounterText: S.current.passwordRequirement,
-        border: const OutlineInputBorder(
-          borderRadius: defaultFieldBorderRadius,
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppTheme.primaryColor),
-        ),
-        floatingLabelStyle: TextStyle(
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        labelStyle: TextStyle(
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        counterText: '',
-        errorMaxLines: 2,
-        errorText: !isValid ? S.current.passwordRequirement : null,
-      ),
-      obscureText: _isHidden,
-      textDirection: defaultTextDirection,
-      cursorColor: AppTheme.primaryColor,
-      keyboardType: TextInputType.visiblePassword,
-      textInputAction: TextInputAction.send,
-      onChanged: context.read<UpdateAccountInfoCubit>().passwordChanged,
+    return BlocBuilder<UpdateAccountInfoCubit, UpdateAccountInfoState>(
+      builder: (context, state) {
+        final isValid = state.isValid;
+        final isProgressing = state is EmailChanged ||
+            state is PasswordChanged ||
+            state is PhoneNumberChanged ||
+            state is DisplayNameChanged;
+
+        return TextField(
+          focusNode: _focusNode,
+          controller: _controller,
+          onChanged: widget.config.onChanged,
+          decoration: _buildInputDecoration(isValid, isProgressing),
+          obscureText: widget.config.isPassword && _isHidden,
+          keyboardType: widget.config.keyboardType,
+          textDirection: defaultTextDirection,
+          cursorColor: AppTheme.primaryColor,
+          inputFormatters: widget.config.formatters,
+          textInputAction: TextInputAction.next,
+        );
+      },
     );
   }
-}
 
-class _PhoneInput extends StatelessWidget {
-  const _PhoneInput();
+  InputDecoration _buildInputDecoration(bool isValid, bool isProgressing) {
+    final color = !isValid
+        ? Colors.red
+        : isProgressing
+            ? AppTheme.primaryColor
+            : null;
 
-  static const maxPhoneNum = 10;
-  @override
-  Widget build(BuildContext context) {
-    final isValid =
-        context.select((UpdateAccountInfoCubit cubit) => cubit.state.isValid);
-    final isProgressing = context.select(
-        (UpdateAccountInfoCubit cubit) => cubit.state is PhoneNumberChanged);
-
-    return TextField(
-      onChanged: context.read<UpdateAccountInfoCubit>().phoneNumberChanged,
-      cursorColor: AppTheme.primaryColor,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.phone,
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        border:
-            const OutlineInputBorder(borderRadius: defaultFieldBorderRadius),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppTheme.primaryColor),
-        ),
-        labelStyle: TextStyle(
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        floatingLabelStyle: TextStyle(
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        hintText: S.current.phoneSearchHintText,
-        errorText: isValid ? null : S.current.invalidPhoneNumberError,
+    return InputDecoration(
+      prefixIcon: Icon(widget.config.icon, color: color),
+      suffixIcon: widget.config.isPassword
+          ? IconButton(
+              onPressed: () => setState(() => _isHidden = !_isHidden),
+              icon: Icon(
+                _isHidden ? Icons.visibility : Icons.visibility_off,
+                color: color,
+              ),
+            )
+          : null,
+      border: const OutlineInputBorder(
+        borderRadius: defaultFieldBorderRadius,
       ),
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-        LengthLimitingTextInputFormatter(maxPhoneNum),
-      ],
-      keyboardType: TextInputType.phone,
-      textAlign: TextAlign.start,
-      textDirection: defaultTextDirection,
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: AppTheme.primaryColor),
+      ),
+      labelText: widget.config.labelText,
+      hintText: widget.config.hintText,
+      floatingLabelStyle: TextStyle(color: color),
+      labelStyle: TextStyle(color: color),
+      errorText: !isValid ? _getErrorText() : null,
+      errorMaxLines: 2,
     );
   }
-}
 
-class _DisplayNameInput extends StatelessWidget {
-  const _DisplayNameInput();
+  String _getErrorText() {
+    if (widget.config.isPassword) return S.current.passwordRequirement;
+    if (widget.config.keyboardType == TextInputType.emailAddress) {
+      return S.current.invalidEmail;
+    }
+    if (widget.config.keyboardType == TextInputType.phone) {
+      return S.current.invalidPhoneNumberError;
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    final isValid =
-        context.select((UpdateAccountInfoCubit cubit) => cubit.state.isValid);
-    final isProgressing = context.select(
-        (UpdateAccountInfoCubit cubit) => cubit.state is DisplayNameChanged);
-
-    return TextField(
-      onChanged: context.read<UpdateAccountInfoCubit>().displayNameChanged,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.person,
-          color: !isValid
-              ? Colors.red
-              : isProgressing
-                  ? AppTheme.primaryColor
-                  : null,
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: defaultFieldBorderRadius,
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppTheme.primaryColor),
-        ),
-        hintText: S.current.displayName,
-        labelText: S.current.displayName,
-        floatingLabelStyle:
-            TextStyle(color: !isValid ? Colors.red : AppTheme.primaryColor),
-        labelStyle: TextStyle(color: !isValid ? Colors.red : null),
-        errorText: !isValid ? S.current.invalidEmail : null,
-      ),
-      cursorColor: AppTheme.primaryColor,
-      textDirection: defaultTextDirection,
-      keyboardType: TextInputType.name,
-      textInputAction: TextInputAction.next,
-    );
+    return S.current.invalidInput;
   }
 }
