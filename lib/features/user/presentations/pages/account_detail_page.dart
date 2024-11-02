@@ -231,14 +231,17 @@ class AccountDetailPage extends StatelessWidget {
             current.user.id == user.id &&
             current.user.dateOfBirth != user.dateOfBirth,
         builder: (context, state) {
+          final currentUser = (state is UserLoaded && state.user.id == user.id)
+              ? state.user
+              : user;
           return AccountSectionItem(
             onTap: () =>
                 _reAuthenticate(context, AccountAction.changeBirthDate),
             leading: const Icon(Icons.date_range),
             title: S.current.birthDate,
             value: Text(
-              user.dateOfBirth != null
-                  ? DateTimeUtils.formatFullDate(user.dateOfBirth!)
+              currentUser.dateOfBirth != null
+                  ? DateTimeUtils.formatFullDate(currentUser.dateOfBirth!)
                   : '',
               style: _valueTextStyle,
             ),

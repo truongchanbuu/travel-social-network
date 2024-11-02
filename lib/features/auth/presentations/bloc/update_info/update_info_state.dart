@@ -98,3 +98,28 @@ final class DisplayNameChanged extends UpdateAccountInfoState {
           isValid: username.isNotEmpty,
         );
 }
+
+final class BirthDateChanged extends UpdateAccountInfoState {
+  BirthDateChanged({
+    required UpdateAccountInfoState current,
+    required DateTime? dateOfBirth,
+    super.password = const Password.pure(),
+  }) : super(
+          user: current.user.copyWith(dateOfBirth: dateOfBirth),
+          isValid: _validateBirthDate(dateOfBirth),
+        );
+
+  static bool _validateBirthDate(DateTime? dateOfBirth) {
+    if (dateOfBirth == null) return false;
+
+    final currentDate = DateTime.now();
+    final age = currentDate.year - dateOfBirth.year;
+    final isBirthdayPassedThisYear = (currentDate.month > dateOfBirth.month) ||
+        (currentDate.month == dateOfBirth.month &&
+            currentDate.day >= dateOfBirth.day);
+
+    final actualAge = isBirthdayPassedThisYear ? age : age - 1;
+
+    return actualAge >= 18 && actualAge <= 130;
+  }
+}

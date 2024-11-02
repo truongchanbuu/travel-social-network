@@ -5,7 +5,10 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../cores/utils/formatters/datetime_input_formatter.dart';
 import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/date_time_text_field.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../../user/presentations/pages/account_detail_page.dart';
@@ -13,22 +16,30 @@ import '../bloc/update_info/update_info_cubit.dart';
 import '../widgets/continue_button.dart';
 
 class InputFieldConfig {
-  final IconData icon;
+  final String? initialVale;
+  final IconData? icon;
+  final IconData? suffixIcon;
   final String labelText;
   final String? hintText;
   final TextInputType keyboardType;
   final bool isPassword;
   final List<TextInputFormatter>? formatters;
-  final void Function(String) onChanged;
+  final void Function(String value) onChanged;
+  final VoidCallback? onSuffixTap;
+  final TextEditingController? controller;
 
   const InputFieldConfig({
-    required this.icon,
+    this.initialVale,
+    this.icon,
     required this.labelText,
     this.hintText,
     required this.keyboardType,
     this.isPassword = false,
     this.formatters,
     required this.onChanged,
+    this.suffixIcon,
+    this.onSuffixTap,
+    this.controller,
   });
 }
 
@@ -120,12 +131,23 @@ class InfoTemplatePage extends StatelessWidget {
         keyboardType: TextInputType.name,
         onChanged: cubit.displayNameChanged,
       ),
+      AccountAction.changeBirthDate: InputFieldConfig(
+        suffixIcon: Icons.date_range,
+        keyboardType: TextInputType.datetime,
+        formatters: [DateTimeInputFormatter()],
+        labelText: S.current.birthDate,
+        hintText: S.current.birthDate,
+        onChanged: (value) =>
+            cubit.birthDateChanged(DateTimeUtils.dateTimeFromString(value)),
+      ),
     };
 
     final config = configs[action];
     if (config == null) return Container();
 
-    return CustomInputField(config: config);
+    return action == AccountAction.changeBirthDate
+        ? DateTimeTextField(config: config)
+        : CustomInputField(config: config);
   }
 
   Widget _buildContinueButton(BuildContext context) {
@@ -133,6 +155,7 @@ class InfoTemplatePage extends StatelessWidget {
       onTap: context.select((UpdateAccountInfoCubit cubit) {
         final isChanged = cubit.isUserChanged ||
             (cubit.state is PasswordChanged && cubit.state.password.isValid);
+
         return isChanged && cubit.state.isValid
             ? () => cubit.updateAccount()
             : null;
@@ -143,11 +166,7 @@ class InfoTemplatePage extends StatelessWidget {
 
 class CustomInputField extends StatefulWidget {
   final InputFieldConfig config;
-
-  const CustomInputField({
-    super.key,
-    required this.config,
-  });
+  const CustomInputField({super.key, required this.config});
 
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
@@ -161,7 +180,8 @@ class _CustomInputFieldState extends State<CustomInputField> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _controller = widget.config.controller ??
+        TextEditingController(text: widget.config.initialVale);
     _focusNode = FocusNode()..requestFocus();
   }
 
@@ -180,7 +200,8 @@ class _CustomInputFieldState extends State<CustomInputField> {
         final isProgressing = state is EmailChanged ||
             state is PasswordChanged ||
             state is PhoneNumberChanged ||
-            state is DisplayNameChanged;
+            state is DisplayNameChanged ||
+            state is BirthDateChanged;
 
         return TextField(
           focusNode: _focusNode,
@@ -206,7 +227,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
             : null;
 
     return InputDecoration(
-      prefixIcon: Icon(widget.config.icon, color: color),
+      prefixIcon: widget.config.icon != null
+          ? Icon(widget.config.icon, color: color)
+          : null,
       suffixIcon: widget.config.isPassword
           ? IconButton(
               onPressed: () => setState(() => _isHidden = !_isHidden),
@@ -215,7 +238,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
                 color: color,
               ),
             )
-          : null,
+          : IconButton(
+              onPressed: widget.config.onSuffixTap,
+              icon: Icon(
+                widget.config.suffixIcon,
+                color: color,
+              ),
+            ),
       border: const OutlineInputBorder(
         borderRadius: defaultFieldBorderRadius,
       ),

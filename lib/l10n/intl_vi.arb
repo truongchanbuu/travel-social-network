@@ -285,7 +285,7 @@
     "bookingNow": "Đặt ngay",
     "signIn": "Đăng nhập",
     "signUp": "Đăng ký",
-    "logout": "Log out",
+    "logout": "Đăng xuất",
     "invalidEmail": "Email không hợp lệ",
     "invalidInput": "Trường không hợp lệ",
     "emailAnnouncement": "Chúng tôi sẽ sử dụng tài khoản email của bạn để đăng nhập. Nếu chưa có tài khoản thì chúng tôi sẽ tạo mới dựa trên email đang được sử dụng",

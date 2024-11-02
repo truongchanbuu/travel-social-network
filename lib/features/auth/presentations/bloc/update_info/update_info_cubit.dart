@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:travel_social_network/cores/resources/data_state.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../../user/domain/repositories/user_repository.dart';
 import '../../../data/models/email.dart';
 import '../../../data/models/password.dart';
@@ -47,20 +48,30 @@ class UpdateAccountInfoCubit extends Cubit<UpdateAccountInfoState> {
     emit(DisplayNameChanged(current: state, username: value));
   }
 
+  void birthDateChanged(DateTime? value) {
+    emit(BirthDateChanged(current: state, dateOfBirth: value));
+  }
+
   static const timeoutInSecond = 15 * 60;
   Future<void> updateAccount() async {
     try {
-      if (state is EmailChanged) {
-        await _updateEmail();
-      } else if (state is PasswordChanged) {
-        await _updatePassword();
-      } else if (state is PhoneNumberChanged) {
-        await _updatePhone();
-      } else if (state is DisplayNameChanged) {
-        await _updateDisplayName();
-      }
+      if (state.isValid) {
+        if (state is EmailChanged) {
+          await _updateEmail();
+        } else if (state is PasswordChanged) {
+          await _updatePassword();
+        } else if (state is PhoneNumberChanged) {
+          await _updatePhone();
+        } else if (state is DisplayNameChanged) {
+          await _updateDisplayName();
+        } else if (state is BirthDateChanged) {
+          await _updateBirthDate();
+        }
 
-      emit(UpdateSucceed(state, authRepository.currentUser));
+        emit(UpdateSucceed(state, authRepository.currentUser));
+      } else {
+        emit(UpdateFailed(current: state, message: S.current.invalidInput));
+      }
     } on UpdateAccountFailure catch (e) {
       emit(UpdateFailed(current: state, message: e.message));
     } catch (e) {
@@ -107,6 +118,12 @@ class UpdateAccountInfoCubit extends Cubit<UpdateAccountInfoState> {
   Future<void> _updateDisplayName() async {
     await userRepository.updateUserField(
         state.user.id, {UserEntity.usernameFieldName: state.user.username});
+  }
+
+  Future<void> _updateBirthDate() async {
+    await userRepository.updateUserField(state.user.id, {
+      UserEntity.dateOfBirthFieldName: state.user.dateOfBirth?.toIso8601String()
+    });
   }
 
   Future<bool> _waitForEmailVerification({required Duration timeout}) async {

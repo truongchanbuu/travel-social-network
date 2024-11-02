@@ -66,6 +66,9 @@ class _CommentItemState extends State<CommentItem> {
   Widget _buildCommentBody(UserEntity user) {
     return Container(
       decoration: BoxDecoration(
+        color: context.isDarkMode
+            ? AppTheme.primaryColorDark
+            : AppTheme.secondaryColor,
         boxShadow: const [
           BoxShadow(
             blurRadius: 1,

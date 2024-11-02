@@ -263,7 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Đăng nhập để bình luận"),
         "loginToReview":
             MessageLookupByLibrary.simpleMessage("Đăng nhập để đánh giá"),
-        "logout": MessageLookupByLibrary.simpleMessage("Log out"),
+        "logout": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "makeCallFailure": MessageLookupByLibrary.simpleMessage(
             "Không thể thực hiện cuộc gọi"),
         "manageYourAccount":

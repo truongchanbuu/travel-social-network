@@ -57,6 +57,7 @@ class UserEntity extends Equatable {
         email,
         username,
         avatarUrl,
+        dateOfBirth,
         phoneNumber,
         isVerified,
         createdAt,

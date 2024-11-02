@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:intl/intl.dart';
 
-import '../constants/constants.dart';
-
 class DateTimeUtils {
+  static const String defaultDateFormat = 'HH:mm dd/MM/yyyy';
+
   static DateTime now = DateTime.now();
 
   static bool isToday(DateTime date) =>
@@ -15,6 +15,29 @@ class DateTimeUtils {
 
   static bool isSameDateTimeWithoutSecond(DateTime d1, DateTime d2) =>
       isSameDate(d1, d2) && d1.hour == d2.hour && d1.minute == d2.minute;
+
+  static int getDaysInMonth(int year, int month) {
+    if (month == 2) {
+      return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) ? 29 : 28;
+    }
+
+    const List<int> daysInMonth = [
+      31,
+      28,
+      31,
+      30,
+      31,
+      30,
+      31,
+      31,
+      30,
+      31,
+      30,
+      31
+    ];
+
+    return daysInMonth[month - 1];
+  }
 
   static String getThePeriodOfTheDay() {
     final int hour = now.hour;
@@ -54,6 +77,15 @@ class DateTimeUtils {
         : vietnameseFormat.format(date);
   }
 
+  static DateTime? dateTimeFromString(String value,
+      [String formatPattern = 'dd/MM/yyyy']) {
+    try {
+      return DateFormat(formatPattern).parse(value);
+    } catch (e) {
+      return null;
+    }
+  }
+
   static String getWeekdays(DateTime date, [String languageCode = 'en']) {
     DateFormat formatter = DateFormat(DateFormat.ABBR_WEEKDAY);
     return formatter.format(date);
@@ -87,7 +119,9 @@ class DateTimeUtils {
     return DateTime.tryParse(dateTimeString)?.toLocal();
   }
 
-  static String dateTimeToString(DateTime dateTime) {
-    return dateTime.toIso8601String();
+  static String dateTimeToString(DateTime? dateTime,
+      [String formatterPattern = 'dd/MM/yyyy']) {
+    if (dateTime == null) return '';
+    return DateFormat(formatterPattern).format(dateTime);
   }
 }
