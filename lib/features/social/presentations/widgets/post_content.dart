@@ -11,10 +11,23 @@ import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
 import 'share_post_widget.dart';
 
-class PostContent extends StatelessWidget {
+class PostContent extends StatefulWidget {
   final PostEntity post;
 
   const PostContent({super.key, required this.post});
+
+  @override
+  State<PostContent> createState() => _PostContentState();
+}
+
+class _PostContentState extends State<PostContent> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.post.refPostId != null) {
+      context.read<PostBloc>().add(GetPostByIdEvent(widget.post.refPostId!));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +35,12 @@ class PostContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (post.content.isNotEmpty)
+        if (widget.post.content.isNotEmpty)
           Flexible(child: _buildTextContent(context)),
-        if (post.images.isNotEmpty)
+        if (widget.post.images.isNotEmpty)
           Flexible(child: _buildImagesWidget(context)),
-        if (post.refPostId != null) Flexible(child: _buildRefPost(context)),
+        if (widget.post.refPostId != null)
+          Flexible(child: _buildRefPost(context)),
       ],
     );
   }
@@ -40,7 +54,7 @@ class PostContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 10, top: 5),
       child: ReadMoreText(
-        post.content,
+        widget.post.content,
         trimLines: 3,
         trimMode: TrimMode.Line,
         trimExpandedText: S.current.showLess,
@@ -55,26 +69,24 @@ class PostContent extends StatelessWidget {
   Widget _buildImagesWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 10),
-      child: LimitImageGridView(images: post.images),
+      child: LimitImageGridView(images: widget.post.images),
     );
   }
 
   Widget _buildRefPost(BuildContext context) {
-    return BlocProvider.value(
-      value: context.read<PostBloc>()..add(GetPostByIdEvent(post.refPostId!)),
-      child: BlocBuilder<PostBloc, PostState>(
-        buildWhen: (previous, current) =>
-            current is PostReceived &&
-            current.post.postId == post.refPostId &&
-            current.post.sharedBy.contains(post.postId),
-        builder: (context, state) {
-          if (state is PostReceived && state.post.postId == post.refPostId) {
-            return SharePostWidget(post: state.post);
-          }
+    return BlocBuilder<PostBloc, PostState>(
+      buildWhen: (previous, current) =>
+          current is PostReceived &&
+          current.post.postId == widget.post.refPostId &&
+          current.post.sharedBy.contains(widget.post.postId),
+      builder: (context, state) {
+        if (state is PostReceived &&
+            state.post.postId == widget.post.refPostId) {
+          return SharePostWidget(post: widget.post);
+        }
 
-          return const SizedBox.shrink();
-        },
-      ),
+        return const SizedBox.shrink();
+      },
     );
   }
 }

@@ -22,7 +22,7 @@ class SocialNetworkUploadField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       color: context.isDarkMode
-          ? AppTheme.secondaryColorDark
+          ? AppTheme.primaryColorDark
           : AppTheme.secondaryColor,
       child: Row(
         children: [

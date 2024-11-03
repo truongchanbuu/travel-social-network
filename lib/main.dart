@@ -1,15 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
 import 'cores/constants/constants.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/presentations/bloc/auth_bloc.dart';
+import 'features/comment/presentations/bloc/comment_bloc.dart';
 import 'features/setting/presentations/cubit/settings_cubit.dart';
+import 'features/shared/presentations/pages/home/container_page_with_bottom_nav.dart';
+import 'features/social/presentations/bloc/post_bloc.dart';
+import 'features/tour/presentations/bloc/tour_bloc.dart';
 import 'features/user/presentations/bloc/user_cubit.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -57,9 +59,15 @@ class AppView extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: FlowBuilder<AuthStatus>(
-        state: context.select((AuthBloc bloc) => bloc.state.status),
-        onGeneratePages: onGeneratePages,
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => getIt.get<TourBloc>()),
+          BlocProvider(
+            create: (context) => getIt.get<PostBloc>()..add(GetPostsEvent()),
+          ),
+          BlocProvider(create: (context) => getIt.get<CommentBloc>()),
+        ],
+        child: const ContainerPageWithBottomNav(),
       ),
     );
   }

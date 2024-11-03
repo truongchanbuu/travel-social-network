@@ -47,30 +47,6 @@ var routes = GoRouter(routes: [
 List<Page<dynamic>> onGeneratePages(
     AuthStatus state, List<Page<dynamic>> pages) {
   return [
-    if (state == AuthStatus.unauthenticated)
-      MaterialPage(
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => getIt.get<TourBloc>()),
-            BlocProvider(
-              create: (context) => getIt.get<PostBloc>()..add(GetPostsEvent()),
-            ),
-            BlocProvider(create: (context) => getIt.get<CommentBloc>()),
-          ],
-          child: const ContainerPageWithBottomNav(),
-        ),
-      ),
-    MaterialPage(
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => getIt.get<TourBloc>()),
-          BlocProvider(
-            create: (context) => getIt.get<PostBloc>()..add(GetPostsEvent()),
-          ),
-          BlocProvider(create: (context) => getIt.get<CommentBloc>()),
-        ],
-        child: const ContainerPageWithBottomNav(),
-      ),
-    ),
+
   ];
 }

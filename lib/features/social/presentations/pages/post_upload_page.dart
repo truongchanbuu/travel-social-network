@@ -5,7 +5,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
-import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';
@@ -40,8 +39,14 @@ class _PostUploadPageState extends State<PostUploadPage> {
   @override
   Widget build(BuildContext context) {
     final user = context.select((AuthBloc authBloc) => authBloc.state.user);
+
     return SafeArea(
       child: BlocConsumer<PostBloc, PostState>(
+        listenWhen: (previous, current) {
+          return current is PostActionSucceed ||
+              current is PostActionFailed ||
+              current is PostReceived;
+        },
         listener: (context, state) {
           if (state is PostActionSucceed) {
             showToast(S.current.success, context: context);
@@ -52,11 +57,20 @@ class _PostUploadPageState extends State<PostUploadPage> {
             post = state.post;
           }
         },
+        buildWhen: (previous, current) {
+          if (current is PostActionLoading) {
+            return previous is! PostActionLoading;
+          }
+
+          if (current is PostActionLoading) {
+            return true;
+          }
+
+          return current is ContentUpdated;
+        },
         builder: (context, state) => Scaffold(
           appBar: _buildAppBar(context, state, user.id),
-          body: state is PostActionLoading
-              ? const AppProgressingIndicator()
-              : _buildBody(context, state),
+          body: _buildBody(context, state),
           bottomNavigationBar: PostUploadToolbar(
             images: state is ContentUpdated ? state.images : [],
           ),
@@ -98,7 +112,6 @@ class _PostUploadPageState extends State<PostUploadPage> {
     if (state is ContentUpdated) {
       _controller.text = state.content;
     }
-
     return SingleChildScrollView(
       child: Column(
         children: [

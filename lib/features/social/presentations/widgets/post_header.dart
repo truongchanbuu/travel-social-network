@@ -38,7 +38,8 @@ class _PostHeaderState extends State<PostHeader> {
         context.select((AuthBloc authBloc) => authBloc.state.user);
     return BlocSelector<UserCubit, UserState, UserEntity>(
       selector: (state) {
-        if (state.user.id == widget.post.userId) {
+        if (state.user != UserEntity.empty &&
+            state.user.id == widget.post.userId) {
           _cachedUser = state.user;
           return state.user;
         }
