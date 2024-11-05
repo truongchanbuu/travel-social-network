@@ -56,8 +56,6 @@ class ImageUtils {
 
       if (dataState is DataSuccess) {
         return dataState.data!;
-      } else {
-        return null;
       }
     } catch (e) {
       log(e.toString());

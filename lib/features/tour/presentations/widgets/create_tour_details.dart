@@ -25,6 +25,7 @@ class CreateTourDetailsState extends State<CreateTourDetails> {
   late final TextEditingController _tourNameController;
   late final TextEditingController _tourDepartureController;
   late final TextEditingController _tourDestController;
+
   late TourEntity tour;
 
   @override

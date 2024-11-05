@@ -101,7 +101,9 @@ class _ToursGridViewState extends State<ToursGridView> {
   }
 
   Widget _buildImage(TourEntity tour) => AppCachedImage(
-        imageUrl: tour.imageUrls[Random().nextInt(tour.imageUrls.length)],
+        imageUrl: tour.imageUrls.isNotEmpty
+            ? tour.imageUrls[Random().nextInt(tour.imageUrls.length)]
+            : '',
         cacheKey: tour.tourId,
         loadingSemanticLabel: S.current.loadingImageText(tours.indexOf(tour)),
         errorSemanticLabel: S.current.errorImage,

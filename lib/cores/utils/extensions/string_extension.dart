@@ -22,4 +22,12 @@ extension StringExtension on String {
 
     return obscured;
   }
+
+  String get toUpperCaseFirstLetter {
+    if (isEmpty) {
+      return this;
+    }
+
+    return this[0].toUpperCase() + substring(1).toLowerCase();
+  }
 }

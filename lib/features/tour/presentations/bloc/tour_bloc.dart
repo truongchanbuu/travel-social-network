@@ -71,10 +71,13 @@ class TourBloc extends Bloc<TourEvent, TourState> {
         final Tour tour = Tour.fromEntity(
           event.tour.copyWith(
             imageUrls: imgUrls,
-            tourId: 'TOUR-${const Uuid().v4()}',
+            tourId: event.tour.tourId.isEmpty
+                ? 'TOUR-${const Uuid().v4()}'
+                : event.tour.tourId,
             createdBy: event.createdBy,
           ),
         );
+
         final dataState = await tourRepository.createTour(tour);
 
         if (dataState is DataFailure) {
@@ -127,6 +130,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
 
   Future<void> _onGetTourImages(GetTourImagesEvent event, emit) async {
     try {
+      emit(TourActionLoading());
       final images =
           await ImageUtils.getFolderImages('$basePath/${event.tourId}');
 

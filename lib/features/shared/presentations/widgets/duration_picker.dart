@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../config/themes/app_theme.dart';
+import '../../../../cores/utils/extensions/string_extension.dart';
 import '../../../../cores/utils/form_utils.dart';
 import '../../../../generated/l10n.dart';
 
@@ -14,12 +15,12 @@ class DurationPicker extends StatefulWidget {
 }
 
 class _DurationPickerState extends State<DurationPicker> {
-  static String yearLabel = S.current.year.toUpperCase();
-  static String monthLabel = S.current.month.toUpperCase();
-  static String weekLabel = S.current.week.toUpperCase();
-  static String dayLabel = S.current.day.toUpperCase();
-  static String hourLabel = S.current.hour.toUpperCase();
-  static String minLabel = S.current.minute.toUpperCase();
+  static String yearLabel = S.current.year;
+  static String monthLabel = S.current.month;
+  static String weekLabel = S.current.week;
+  static String dayLabel = S.current.day;
+  static String hourLabel = S.current.hour;
+  static String minLabel = S.current.minute;
 
   final Map<String, int> _durationValues = {
     yearLabel: 0,
@@ -45,22 +46,22 @@ class _DurationPickerState extends State<DurationPicker> {
 
     final parts = durationString.split(', ');
     for (final part in parts) {
-      final match = RegExp(r'(\d+)\s+(\w+)').firstMatch(part);
+      final match = RegExp(r'(\d+)\s*([a-zA-ZÀ-ỹ]+)').firstMatch(part.trim());
       if (match != null) {
         final value = int.parse(match.group(1)!);
-        final unit = match.group(2)!.toLowerCase();
+        final unit = match.group(2) ?? '';
 
-        if (unit.startsWith('year')) {
+        if (unit.startsWith(yearLabel)) {
           _durationValues[yearLabel] = value;
-        } else if (unit.startsWith('month')) {
+        } else if (unit.startsWith(monthLabel)) {
           _durationValues[monthLabel] = value;
-        } else if (unit.startsWith('week')) {
+        } else if (unit.startsWith(weekLabel)) {
           _durationValues[weekLabel] = value;
-        } else if (unit.startsWith('day')) {
+        } else if (unit.startsWith(dayLabel)) {
           _durationValues[dayLabel] = value;
-        } else if (unit.startsWith('hour')) {
+        } else if (unit.startsWith(hourLabel)) {
           _durationValues[hourLabel] = value;
-        } else if (unit.startsWith('minute')) {
+        } else if (unit.startsWith(minLabel)) {
           _durationValues[minLabel] = value;
         }
       }
@@ -145,7 +146,7 @@ class _DurationPickerState extends State<DurationPicker> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 children: [
-                  Expanded(child: Text('${entry.key}:')),
+                  Expanded(child: Text('${entry.key.toUpperCaseFirstLetter}:')),
                   const SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(

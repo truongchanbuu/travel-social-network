@@ -10,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../cores/utils/duration_helper.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
@@ -42,6 +43,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
   bool _isExpanded = false;
   int minLines = 2;
   late int maxLines;
+  Duration? tourDuration;
 
   List<String> dates = [];
   List<String> selectedDates = [];
@@ -60,46 +62,53 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ExtendedWrap(
-          maxLines: maxLines,
-          minLines: minLines,
-          overflowWidget: _buildOverflowWidget(),
-          runSpacing: 10,
-          spacing: 10,
-          textDirection: defaultTextDirection,
-          children: List.generate(dates.length, (index) {
-            return _buildDateTimeItem(dates[index], index);
-          }),
-        ),
-        const SizedBox(height: 20),
-        _buildActionButton(
-          onPressed:
-              selectedDates.isNotEmpty ? _navigateToCreateTicketPage : null,
-          title: S.current.createTicket,
-        ),
-        const SizedBox(height: 20),
-        BlocBuilder<TicketBloc, TicketState>(
-          builder: (context, state) {
-            print(state);
-            if (state is ListOfTicketsLoaded) {
-              tickets = state.tickets;
-              context.read<TourBloc>().add(UpdateTourFieldEvent(
-                  TourEntity.ticketIdsFieldName,
-                  tickets.map((ticket) => ticket.ticketTypeId).toList()));
-            }
+    return BlocListener<TourBloc, TourState>(
+      listener: (context, state) {
+        if (state is TourLoaded && state.tour.duration.isNotEmpty) {
+          tourDuration =
+              DurationHelper.getDurationFromString(state.tour.duration);
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ExtendedWrap(
+            maxLines: maxLines,
+            minLines: minLines,
+            overflowWidget: _buildOverflowWidget(),
+            runSpacing: 10,
+            spacing: 10,
+            textDirection: defaultTextDirection,
+            children: List.generate(dates.length, (index) {
+              return _buildDateTimeItem(dates[index], index);
+            }),
+          ),
+          const SizedBox(height: 20),
+          _buildActionButton(
+            onPressed:
+                selectedDates.isNotEmpty ? _navigateToCreateTicketPage : null,
+            title: S.current.createTicket,
+          ),
+          const SizedBox(height: 20),
+          BlocBuilder<TicketBloc, TicketState>(
+            builder: (context, state) {
+              if (state is ListOfTicketsLoaded) {
+                tickets = state.tickets;
+                context.read<TourBloc>().add(UpdateTourFieldEvent(
+                    TourEntity.ticketIdsFieldName,
+                    tickets.map((ticket) => ticket.ticketTypeId).toList()));
+              }
 
-            return _buildActionButton(
-              title: '${S.current.viewAll} ${S.current.tickets}',
-              backgroundColor: Colors.white,
-              textColor: AppTheme.primaryColor,
-              onPressed: tickets.isNotEmpty ? _viewAllCreatedTickets : null,
-            );
-          },
-        ),
-      ],
+              return _buildActionButton(
+                title: '${S.current.viewAll} ${S.current.tickets}',
+                backgroundColor: Colors.white,
+                textColor: AppTheme.primaryColor,
+                onPressed: tickets.isNotEmpty ? _viewAllCreatedTickets : null,
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -187,7 +196,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       pickerType: DateTimePickerType.datetime,
       useSafeArea: true,
       minimumDate: DateTime.now(),
-      endDate: DateTime.now().add(const Duration(days: maximumDay)),
+      endDate:
+          DateTime.now().add(tourDuration ?? const Duration(days: maximumDay)),
       maximumDate: DateTime.now().add(const Duration(days: maximumDay)),
       options: const BoardDateTimeOptions(
         activeColor: AppTheme.primaryColor,
