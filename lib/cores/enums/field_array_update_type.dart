@@ -1,0 +1,4 @@
+enum FieldArrayUpdateTypes {
+  union,
+  remove,
+}

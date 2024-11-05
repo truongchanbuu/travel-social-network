@@ -10,8 +10,9 @@ import '../../data/models/post_toolbar_item.dart';
 import '../bloc/post_bloc.dart';
 
 class PostUploadToolbar extends StatelessWidget {
+  final String content;
   final List<ImageFile>? images;
-  const PostUploadToolbar({super.key, this.images});
+  const PostUploadToolbar({super.key, this.images, this.content = ''});
 
   static const IconData imageIconData = Icons.image;
   static const IconData checkInIconData = Icons.location_on;
@@ -85,8 +86,7 @@ class PostUploadToolbar extends StatelessWidget {
           type: PageTransitionType.leftToRight,
         ));
 
-    postBloc
-        .add(UpdateContentEvent(images: data, content: postBloc.state.content));
+    postBloc.add(UpdateContentEvent(images: data, content: content));
   }
 
   void _onBottomSheet(BuildContext ctx) {

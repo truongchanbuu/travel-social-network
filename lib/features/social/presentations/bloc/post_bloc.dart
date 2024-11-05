@@ -31,66 +31,63 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   }
 
   void _onContentUpdated(UpdateContentEvent event, Emitter<PostState> emit) {
-    emit(ContentUpdated(content: event.content.trim(), images: event.images));
+    emit(ContentUpdated(content: event.content, images: event.images));
   }
 
   Future<void> _onSavePost(SavePostEvent event, Emitter<PostState> emit) async {
-    if (state is ContentUpdated) {
-      String content = state.content;
-      List<ImageFile> images = state.images;
-      emit(PostActionLoading());
-      try {
-        List<String> imageUrls = [];
-        Post post;
+    emit(PostActionLoading());
+    try {
+      List<String> imageUrls = [];
+      Post post;
 
-        if (event.post == null) {
-          post = Post(
-            postId: 'POST-${const Uuid().v4()}',
-            likedUsers: const [],
-            content: content,
-            images: imageUrls,
-            userId: event.userId,
-            createdAt: DateTime.now(),
-            sharedBy: const [],
-            refPostId: event.sharedPostId,
-          );
-        } else {
-          post = Post.fromEntity(event.post!.copyWith(
-            content: content,
-            updatedAt: DateTime.now(),
+      if (event.post == null) {
+        post = Post(
+          postId: 'POST-${const Uuid().v4()}',
+          likedUsers: const [],
+          content: event.content,
+          images: imageUrls,
+          userId: event.userId,
+          createdAt: DateTime.now(),
+          sharedBy: const [],
+          refPostId: event.sharedPostId,
+        );
+      } else {
+        post = Post.fromEntity(event.post!.copyWith(
+          content: event.content,
+          updatedAt: DateTime.now(),
+        ));
+      }
+
+      print(event.images);
+      for (var img in event.images) {
+        String? imgUrl = await ImageUtils.uploadImage(
+            img, '$basePath/${post.postId}/${img.name}');
+
+        if (imgUrl?.isNotEmpty ?? false) {
+          imageUrls.add(imgUrl!);
+        }
+      }
+
+      post = Post.fromEntity(post.copyWith(images: imageUrls));
+      final dataState = await postRepository.createPost(post);
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(PostActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(PostActionSucceed(dataState.data!.toEntity()));
+        if (event.sharedPostId != null) {
+          add(UpdatePostEvent(
+            event.sharedPostId!,
+            {
+              PostEntity.sharedByFieldName: [post.postId]
+            },
           ));
         }
-
-        for (var img in images) {
-          String? imgUrl = await ImageUtils.uploadImage(
-              img, '$basePath/${post.postId}/${img.name}');
-
-          if (imgUrl?.isNotEmpty ?? false) {
-            imageUrls.add(imgUrl!);
-          }
-        }
-
-        post = Post.fromEntity(post.copyWith(images: imageUrls));
-        final dataState = await postRepository.createPost(post);
-
-        if (dataState is DataFailure) {
-          log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
-          emit(PostActionFailed(S.current.dataStateFailure));
-        } else {
-          emit(PostActionSucceed(dataState.data!.toEntity()));
-          if (event.sharedPostId != null) {
-            add(UpdatePostEvent(
-              event.sharedPostId!,
-              {
-                PostEntity.sharedByFieldName: [post.postId]
-              },
-            ));
-          }
-        }
-      } catch (e) {
-        log(e.toString());
-        emit(PostActionFailed(S.current.dataStateFailure));
       }
+    } catch (e) {
+      log(e.toString());
+      emit(PostActionFailed(S.current.dataStateFailure));
     }
   }
 
@@ -173,7 +170,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         PostEntity post = dataState.data!.toEntity();
-        emit(PostReceived(post));
+        emit(PostReceived(state, post));
       }
     } catch (e) {
       log(e.toString());
@@ -191,7 +188,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         PostEntity post = dataState.data!.toEntity();
-        emit(PostReceived(post));
+        emit(PostReceived(state, post));
 
         add(UpdateContentEvent(
             content: post.content,

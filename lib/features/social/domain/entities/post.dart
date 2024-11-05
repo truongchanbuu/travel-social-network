@@ -52,6 +52,7 @@ class PostEntity extends Equatable {
         postId,
         content,
         images,
+        userId,
         likedUsers,
         createdAt,
         updatedAt,
@@ -62,6 +63,7 @@ class PostEntity extends Equatable {
   static const postIdFieldName = "postId";
   static const contentFieldName = "content";
   static const imagesFieldName = "images";
+  static const userIdFieldName = "userId";
   static const likedUsersFieldName = "likedUsers";
   static const createdAtFieldName = "createdAt";
   static const updatedAtFieldName = "updatedAt";

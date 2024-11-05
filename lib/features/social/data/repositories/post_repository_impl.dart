@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/enums/field_array_update_type.dart';
 import '../../../../cores/resources/data_state.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/post.dart';
@@ -47,6 +48,25 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<DataState<void>> deletePostById(String postId) async {
     try {
+      final docRef = await postCollection.doc(postId).get();
+
+      final Post currentPost = Post.fromJson(docRef.data()!);
+      if (currentPost.sharedBy.isNotEmpty) {
+        for (var childPostId in currentPost.sharedBy) {
+          updatePost(childPostId, {PostEntity.refPostIdFieldName: ""});
+        }
+      }
+
+      if (currentPost.refPostId?.isNotEmpty ?? false) {
+        updatePost(
+          currentPost.refPostId!,
+          {
+            PostEntity.sharedByFieldName: [postId]
+          },
+          FieldArrayUpdateTypes.remove,
+        );
+      }
+
       await postCollection.doc(postId).delete();
       return const DataSuccess();
     } on FirebaseException catch (e) {
@@ -76,15 +96,19 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
-  Future<DataState<Post>> updatePost(
-      String postId, Map<String, dynamic> data) async {
+  Future<DataState<Post>> updatePost(String postId, Map<String, dynamic> data,
+      [FieldArrayUpdateTypes updateType = FieldArrayUpdateTypes.union]) async {
     try {
       final docRef = postCollection.doc(postId);
 
       final Map<String, dynamic> updateData = {};
       data.forEach((key, value) {
         if (value is List && value.isNotEmpty) {
-          updateData[key] = FieldValue.arrayUnion(value);
+          if (updateType == FieldArrayUpdateTypes.union) {
+            updateData[key] = FieldValue.arrayUnion(value);
+          } else if (updateType == FieldArrayUpdateTypes.remove) {
+            updateData[key] = FieldValue.arrayRemove(value);
+          }
         } else {
           updateData[key] = value;
         }

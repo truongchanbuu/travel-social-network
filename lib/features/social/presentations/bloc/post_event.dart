@@ -19,16 +19,20 @@ final class UpdateContentEvent extends PostEvent {
 final class SavePostEvent extends PostEvent {
   final PostEntity? post;
   final String userId;
+  final String content;
+  final List<ImageFile> images;
   final String? sharedPostId;
 
   const SavePostEvent({
+    required this.content,
+    required this.images,
     required this.userId,
     this.post,
     this.sharedPostId,
   });
 
   @override
-  List<Object?> get props => [userId, post, sharedPostId];
+  List<Object?> get props => [userId, post, sharedPostId, content, images];
 }
 
 final class GetPostsEvent extends PostEvent {}

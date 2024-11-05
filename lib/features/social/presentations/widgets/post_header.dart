@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/constants/constants.dart';
-import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../shared/presentations/widgets/custom_popup_menu.dart';
@@ -32,22 +32,23 @@ class PostHeader extends StatefulWidget {
 class _PostHeaderState extends State<PostHeader> {
   UserEntity? _cachedUser;
 
+  bool _shouldBuild(UserState previous, UserState current) {
+    if (current.user.id == widget.post.userId && _cachedUser != current.user) {
+      _cachedUser = current.user;
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentUser =
         context.select((AuthBloc authBloc) => authBloc.state.user);
-    return BlocSelector<UserCubit, UserState, UserEntity>(
-      selector: (state) {
-        if (state.user != UserEntity.empty &&
-            state.user.id == widget.post.userId) {
-          _cachedUser = state.user;
-          return state.user;
-        }
 
-        return _cachedUser ?? UserEntity.empty;
-      },
-      builder: (context, user) {
-        final userToDisplay = _cachedUser ?? user;
+    return BlocBuilder<UserCubit, UserState>(
+      buildWhen: _shouldBuild,
+      builder: (context, state) {
+        final userToDisplay = _cachedUser ?? UserEntity.empty;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

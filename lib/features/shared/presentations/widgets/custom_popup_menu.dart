@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/menu_item.dart';
 
-class CustomPopupMenu extends StatefulWidget {
+class CustomPopupMenu extends StatelessWidget {
   final EdgeInsets? padding;
   final double? iconSize;
   final VoidCallback? onDelete;
@@ -23,82 +23,65 @@ class CustomPopupMenu extends StatefulWidget {
     this.types = const <PopupMenuItemType>[],
   });
 
-  @override
-  State<CustomPopupMenu> createState() => _CustomPopupMenuState();
-}
-
-class _CustomPopupMenuState extends State<CustomPopupMenu> {
-  List<MenuItem> menuItems = [];
-  @override
-  void initState() {
-    super.initState();
-
-    menuItems = [
-      if (widget.hasPrivilege) ...[
+  List<MenuItem> _buildMenuItems() {
+    final baseItems = [
+      if (hasPrivilege) ...[
         MenuItem(
           itemType: PopupMenuItemType.edit,
           title: S.current.edit,
           icon: Icons.edit,
+          onTap: onEdit,
         ),
         MenuItem(
           itemType: PopupMenuItemType.delete,
           title: S.current.delete,
           icon: Icons.delete,
+          onTap: onDelete,
         ),
       ],
       MenuItem(
         itemType: PopupMenuItemType.chat,
         title: S.current.chat,
         icon: Icons.chat,
+        onTap: onChat,
       ),
     ];
 
-    if (widget.types.isNotEmpty) {
-      menuItems = menuItems
-          .where((item) => widget.types.contains(item.itemType))
-          .toList();
-    }
+    return types.isEmpty
+        ? baseItems
+        : baseItems.where((item) => types.contains(item.itemType)).toList();
+  }
+
+  PopupMenuItem _buildMenuItem(MenuItem item) {
+    return PopupMenuItem(
+      onTap: item.onTap,
+      value: item.itemType,
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        leading: Icon(item.icon, size: 20),
+        title: Text(item.title),
+        dense: true,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final menuItems = _buildMenuItems();
+
     return PopupMenuButton(
       menuPadding: EdgeInsets.zero,
-      itemBuilder: (context) =>
-          menuItems.map((item) => _buildMenuItem(context, item)).toList(),
+      itemBuilder: (_) => menuItems.map(_buildMenuItem).toList(),
       tooltip: S.current.moreAction,
+      padding: EdgeInsets.zero,
       child: Padding(
-        padding: widget.padding ?? const EdgeInsets.only(right: 10),
+        padding: padding ?? const EdgeInsets.only(right: 10),
         child: Icon(
           Icons.more_horiz,
           color: Colors.grey,
-          size: widget.iconSize,
+          size: iconSize,
         ),
       ),
     );
-  }
-
-  PopupMenuItem _buildMenuItem(BuildContext context, MenuItem item) {
-    return PopupMenuItem(
-      onTap: () => _menuItemAction(context, item.itemType),
-      value: item.itemType,
-      child: ListTile(
-        leading: Icon(item.icon),
-        title: Text(item.title),
-      ),
-    );
-  }
-
-  void _menuItemAction(BuildContext context, PopupMenuItemType type) {
-    switch (type) {
-      case PopupMenuItemType.delete:
-        widget.onDelete?.call();
-        break;
-      case PopupMenuItemType.edit:
-        widget.onEdit?.call();
-        break;
-      case PopupMenuItemType.chat:
-      // TODO: Handle this case.
-    }
   }
 }

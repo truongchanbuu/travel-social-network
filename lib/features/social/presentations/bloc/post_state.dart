@@ -52,8 +52,12 @@ final class PostDeleted extends PostState {}
 
 final class PostReceived extends PostState {
   final PostEntity post;
-  const PostReceived(this.post);
+  PostReceived(PostState current, this.post)
+      : super(
+          content: current.content,
+          images: current.images,
+        );
 
   @override
-  List<Object?> get props => [post];
+  List<Object?> get props => [post, content, images];
 }

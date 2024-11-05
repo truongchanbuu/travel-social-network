@@ -31,17 +31,15 @@ class UserAvatar extends StatelessWidget {
       backgroundImage: CachedNetworkImageProvider(
         avatarUrl,
         cacheKey: (user.avatarUrl?.isNotEmpty ?? false)
-            ? '${user.avatarUrl}_${user.avatarUrl}_${DateTime.now().millisecondsSinceEpoch}'
-            : user.email ?? user.id,
+            ? '${user.avatarUrl}_${user.avatarUrl}'
+            : (user.email?.isNotEmpty ?? false)
+                ? user.email
+                : (user.id.isNotEmpty ? user.id : avatarUrl),
       ),
       backgroundColor: Colors.white,
       onBackgroundImageError: (exception, stackTrace) =>
           dev.log('Failed to load avatar: $exception'),
       radius: radius,
     );
-  }
-
-  String _getName() {
-    return (user.username ?? user.email ?? 'Unknown')[0];
   }
 }

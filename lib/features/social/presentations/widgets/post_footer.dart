@@ -68,7 +68,11 @@ class PostFooter extends StatelessWidget {
                       const SizedBox(width: 5),
                       BlocBuilder<PostBloc, PostState>(
                         builder: (context, state) {
-                          if (state is PostActionSucceed) {
+                          if (state is PostActionSucceed &&
+                              _isPostChange(state.post)) {
+                            builtPost = state.post;
+                          } else if (state is PostReceived &&
+                              _isPostChange(state.post)) {
                             builtPost = state.post;
                           }
 
@@ -93,5 +97,9 @@ class PostFooter extends StatelessWidget {
 
   int _getCurrentPostComment(List<CommentEntity> comments) {
     return comments.where((cmt) => cmt.postId == post.postId).length;
+  }
+
+  bool _isPostChange(PostEntity statePost) {
+    return statePost.postId == post.postId && statePost != post;
   }
 }

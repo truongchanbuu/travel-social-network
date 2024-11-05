@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/constants/constants.dart';
+
 class PostFooterItem extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -21,15 +23,17 @@ class PostFooterItem extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: 20, color: iconColor),
-              const SizedBox(width: 8),
+              const SizedBox(width: 3),
               Text(
                 title,
-                style: const TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 14),
+                overflow: defaultTextOverflow,
+                textDirection: defaultTextDirection,
               ),
             ],
           ),

@@ -1,10 +1,8 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../../injection_container.dart';
 import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../../shared/presentations/widgets/confirm_deletion_dialog.dart';
 import '../../domain/entities/post.dart';
@@ -62,10 +60,9 @@ class PostItem extends StatelessWidget {
     var data = await Navigator.push(
       context,
       PageTransition(
-        child: BlocProvider(
-          create: (context) =>
-              getIt.get<PostBloc>()..add(EditPostProgressEvent(post.postId)),
-          child: const PostUploadPage(),
+        child: BlocProvider.value(
+          value: postBloc..add(EditPostProgressEvent(post.postId)),
+          child: PostUploadPage(savedPost: post),
         ),
         type: PageTransitionType.leftToRight,
       ),
@@ -83,14 +80,6 @@ class PostItem extends StatelessWidget {
   }
 
   bool _isPostChanged(PostReceived current) {
-    return current.post.postId == post.postId &&
-        (current.post.refPostId != post.refPostId ||
-            current.post.content != post.content ||
-            !const DeepCollectionEquality.unordered()
-                .equals(current.post.sharedBy, post.sharedBy) ||
-            !const DeepCollectionEquality.unordered()
-                .equals(current.post.images, post.images) ||
-            !const DeepCollectionEquality.unordered()
-                .equals(current.post.likedUsers, post.likedUsers));
+    return current.post.postId == post.postId && current.post != post;
   }
 }

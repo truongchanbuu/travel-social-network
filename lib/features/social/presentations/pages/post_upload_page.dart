@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../generated/l10n.dart';
@@ -13,8 +14,9 @@ import '../widgets/share_post_widget.dart';
 import '../widgets/uploaded_image_section.dart';
 
 class PostUploadPage extends StatefulWidget {
+  final PostEntity? savedPost;
   final PostEntity? sharedPost;
-  const PostUploadPage({super.key, this.sharedPost});
+  const PostUploadPage({super.key, this.sharedPost, this.savedPost});
 
   @override
   State<PostUploadPage> createState() => _PostUploadPageState();
@@ -23,6 +25,7 @@ class PostUploadPage extends StatefulWidget {
 class _PostUploadPageState extends State<PostUploadPage> {
   late final TextEditingController _controller;
   PostEntity? post;
+  List<ImageFile> images = [];
 
   @override
   void initState() {
@@ -42,11 +45,6 @@ class _PostUploadPageState extends State<PostUploadPage> {
 
     return SafeArea(
       child: BlocConsumer<PostBloc, PostState>(
-        listenWhen: (previous, current) {
-          return current is PostActionSucceed ||
-              current is PostActionFailed ||
-              current is PostReceived;
-        },
         listener: (context, state) {
           if (state is PostActionSucceed) {
             showToast(S.current.success, context: context);
@@ -55,26 +53,27 @@ class _PostUploadPageState extends State<PostUploadPage> {
             showToast(state.message, context: context);
           } else if (state is PostReceived) {
             post = state.post;
+          } else if (state is ContentUpdated) {
+            _controller.text = state.content;
+            images = state.images;
           }
         },
         buildWhen: (previous, current) {
-          if (current is PostActionLoading) {
-            return previous is! PostActionLoading;
-          }
-
-          if (current is PostActionLoading) {
-            return true;
-          }
-
-          return current is ContentUpdated;
+          return (current is PostReceived &&
+                  current.post.postId == post?.postId &&
+                  current.post != post) ||
+              current is ContentUpdated;
         },
-        builder: (context, state) => Scaffold(
-          appBar: _buildAppBar(context, state, user.id),
-          body: _buildBody(context, state),
-          bottomNavigationBar: PostUploadToolbar(
-            images: state is ContentUpdated ? state.images : [],
-          ),
-        ),
+        builder: (context, state) {
+          return Scaffold(
+            appBar: _buildAppBar(context, state, user.id),
+            body: _buildBody(context, state),
+            bottomNavigationBar: PostUploadToolbar(
+              content: state is ContentUpdated ? state.content : '',
+              images: state is ContentUpdated ? state.images : [],
+            ),
+          );
+        },
       ),
     );
   }
@@ -109,9 +108,6 @@ class _PostUploadPageState extends State<PostUploadPage> {
           ]);
 
   Widget _buildBody(BuildContext context, PostState state) {
-    if (state is ContentUpdated) {
-      _controller.text = state.content;
-    }
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -147,7 +143,9 @@ class _PostUploadPageState extends State<PostUploadPage> {
   void _onPost(BuildContext context, String userId) {
     context.read<PostBloc>().add(SavePostEvent(
           userId: userId,
-          post: post,
+          post: widget.savedPost,
+          content: _controller.text,
+          images: images,
           sharedPostId: widget.sharedPost?.postId,
         ));
   }
