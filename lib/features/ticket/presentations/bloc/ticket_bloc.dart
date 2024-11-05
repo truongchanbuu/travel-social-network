@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel_social_network/features/ticket/domain/entities/ticket_type.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../cores/enums/ticket_category.dart';
@@ -12,6 +11,7 @@ import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../cores/utils/enum_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/models/ticket_type.dart';
+import '../../domain/entities/ticket_type.dart';
 import '../../domain/repositories/ticket_repository.dart';
 
 part 'ticket_event.dart';

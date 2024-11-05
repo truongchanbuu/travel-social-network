@@ -76,9 +76,6 @@ dependencies:
   equatable: ^2.0.5
   collection: ^1.18.0
 
-  # App Info
-  package_info_plus: ^8.0.2
-
   # DateTime
   get_time_ago: ^2.0.0
 

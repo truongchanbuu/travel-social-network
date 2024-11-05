@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:travel_social_network/features/shared/presentations/widgets/custom_text_field.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../shared/presentations/widgets/custom_text_field.dart';
 
 class DurationTextField extends StatefulWidget {
   final void Function(String duration) onDurationChange;

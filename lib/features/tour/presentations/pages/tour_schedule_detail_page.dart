@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/utils/enum_utils.dart';
 
+import '../../../../cores/utils/enum_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../domain/entities/tour_activity.dart';
 import '../../domain/entities/tour_schedule.dart';

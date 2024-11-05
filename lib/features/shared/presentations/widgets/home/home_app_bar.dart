@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel_social_network/cores/constants/popular_destination.dart';
 
 import '../../../../../cores/constants/constants.dart';
+import '../../../../../cores/constants/popular_destination.dart';
 import '../../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../../search/presentations/pages/search_page.dart';

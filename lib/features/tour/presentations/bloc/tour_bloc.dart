@@ -53,6 +53,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
   Future<void> _onCreateTour(
       CreateTourEvent event, Emitter<TourState> emit) async {
     try {
+      emit(TourActionLoading());
       List<String> imgUrls = [];
 
       for (var img in event.images) {

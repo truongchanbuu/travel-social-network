@@ -90,6 +90,11 @@ class _CreatePolicyPageState extends State<CreatePolicyPage> {
                 widget.policyType == PolicyType.refund
                     ? S.current.refundPolicy
                     : S.current.reschedulePolicy,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
               ),
             ),
             body: _buildBody(state),

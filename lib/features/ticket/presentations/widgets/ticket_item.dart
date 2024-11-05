@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel_social_network/injection_container.dart';
 
 import '../../../../../cores/constants/constants.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/currency_helper.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../domain/entities/ticket_type.dart';

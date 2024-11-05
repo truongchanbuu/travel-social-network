@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:travel_social_network/features/shared/presentations/widgets/quill_content.dart';
-import 'package:travel_social_network/features/tour/presentations/pages/save_tour_page.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
+import '../../../shared/presentations/widgets/quill_content.dart';
 import '../../../ticket/presentations/bloc/ticket_bloc.dart';
 import '../../domain/entities/tour.dart';
 import '../bloc/tour_bloc.dart';
+import '../pages/save_tour_page.dart';
 
 class YourTourItem extends StatelessWidget {
   final TourEntity tour;
@@ -35,6 +36,9 @@ class YourTourItem extends StatelessWidget {
       onTap: () => _navigateToTourDetail(context),
       child: Container(
         decoration: BoxDecoration(
+          color: context.isDarkMode
+              ? AppTheme.primaryColorDark
+              : AppTheme.secondaryColor,
           boxShadow: const [
             BoxShadow(
               blurRadius: 4,

@@ -27,67 +27,74 @@ class AuthMethodPage extends StatelessWidget {
   static const Color descColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(context),
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxWidth < 200) {
-              return Center(
-                child: Text(
-                  S.current.unsupportedText,
-                  textAlign: TextAlign.left,
-                  overflow: defaultTextOverflow,
-                  semanticsLabel: S.current.unsupportedText,
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state is LoginSucceed) {
+          Navigator.popUntil(context, ModalRoute.withName('/'));
+        }
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: _buildAppBar(context),
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth < 200) {
+                return Center(
+                  child: Text(
+                    S.current.unsupportedText,
+                    textAlign: TextAlign.left,
+                    overflow: defaultTextOverflow,
+                    semanticsLabel: S.current.unsupportedText,
+                  ),
+                );
+              }
+
+              return SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: const HeroImage(),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        '${S.current.signIn} / ${S.current.signUp}',
+                        semanticsLabel:
+                            '${S.current.signIn} / ${S.current.signUp}',
+                        overflow: defaultTextOverflow,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.discount_outlined,
+                            color: descColor,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            S.current.promotionText,
+                            overflow: defaultTextOverflow,
+                            style: const TextStyle(color: descColor),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      _buildSocialList(context),
+                      const SizedBox(height: 30),
+                      _buildConditionAndPolicyConfirmation(context),
+                    ],
+                  ),
                 ),
               );
-            }
-
-            return SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const HeroImage(),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      '${S.current.signIn} / ${S.current.signUp}',
-                      semanticsLabel:
-                          '${S.current.signIn} / ${S.current.signUp}',
-                      overflow: defaultTextOverflow,
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.discount_outlined,
-                          color: descColor,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          S.current.promotionText,
-                          overflow: defaultTextOverflow,
-                          style: const TextStyle(color: descColor),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    _buildSocialList(context),
-                    const SizedBox(height: 30),
-                    _buildConditionAndPolicyConfirmation(context),
-                  ],
-                ),
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

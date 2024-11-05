@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:travel_social_network/features/auth/presentations/bloc/auth_bloc.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/classification_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
 import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/review.dart';

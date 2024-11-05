@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:travel_social_network/cores/resources/data_state.dart';
 
+import '../../../../../cores/resources/data_state.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../user/domain/repositories/user_repository.dart';
 import '../../../data/models/email.dart';

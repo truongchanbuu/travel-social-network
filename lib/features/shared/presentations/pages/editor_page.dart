@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
-import 'package:travel_social_network/features/shared/presentations/widgets/confirm_dialog.dart';
-import 'package:travel_social_network/features/shared/presentations/widgets/default_white_appbar.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/formatters/quill_content_formatter.dart';
 import '../../../../generated/l10n.dart';
+import '../widgets/confirm_dialog.dart';
+import '../widgets/default_white_appbar.dart';
 import '../widgets/save_button.dart';
 
 class EditorPage extends StatefulWidget {

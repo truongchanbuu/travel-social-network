@@ -82,7 +82,7 @@ class _PostContentState extends State<PostContent> {
       builder: (context, state) {
         if (state is PostReceived &&
             state.post.postId == widget.post.refPostId) {
-          return SharePostWidget(post: widget.post);
+          return SharePostWidget(post: state.post);
         }
 
         return const SizedBox.shrink();

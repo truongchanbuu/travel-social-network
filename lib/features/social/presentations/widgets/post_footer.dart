@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:travel_social_network/features/comment/domain/entities/comment.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';
+import '../../../comment/domain/entities/comment.dart';
 import '../../../comment/presentations/bloc/comment_bloc.dart';
 import '../../domain/entities/post.dart';
 import '../bloc/post_bloc.dart';

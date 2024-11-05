@@ -1,7 +1,7 @@
 import 'package:animated_hint_textfield/animated_hint_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/utils/extensions/context_extension.dart';
 
+import '../../../../cores/utils/extensions/context_extension.dart%20';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../generated/l10n.dart';

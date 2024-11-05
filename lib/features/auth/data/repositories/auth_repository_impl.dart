@@ -109,6 +109,8 @@ class AuthRepositoryImpl implements AuthRepository {
         final userCredential =
             await firebaseAuth.signInWithPopup(googleProvider);
         credential = userCredential.credential!;
+        userRepository
+            .createUser(UserModel.fromEntity(userCredential.user!.toUser));
       } else {
         final googleUser = await googleSignIn.signIn();
         final googleAuth = await googleUser!.authentication;
@@ -116,6 +118,7 @@ class AuthRepositoryImpl implements AuthRepository {
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
+        userRepository.createUser(UserModel.fromEntity(googleUser.toUser));
       }
 
       await firebaseAuth.signInWithCredential(credential);
@@ -254,6 +257,18 @@ extension on User {
       username: displayName,
       phoneNumber: phoneNumber,
       isVerified: emailVerified,
+    );
+  }
+}
+
+extension on GoogleSignInAccount {
+  UserEntity get toUser {
+    return UserEntity(
+      id: id,
+      email: email,
+      avatarUrl: photoUrl,
+      username: displayName,
+      isVerified: true,
     );
   }
 }

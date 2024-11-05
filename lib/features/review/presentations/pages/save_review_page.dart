@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
-import 'package:travel_social_network/features/shared/presentations/widgets/app_progressing_indicator.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
@@ -11,6 +10,7 @@ import '../../../../cores/utils/form_utils.dart';
 import '../../../../cores/utils/image_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../shared/presentations/widgets/add_image_view.dart';
+import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
 import '../../../shared/presentations/widgets/custom_text_field.dart';
 import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../domain/entities/review.dart';

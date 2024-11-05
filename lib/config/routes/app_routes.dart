@@ -46,7 +46,5 @@ var routes = GoRouter(routes: [
 
 List<Page<dynamic>> onGeneratePages(
     AuthStatus state, List<Page<dynamic>> pages) {
-  return [
-
-  ];
+  return [];
 }

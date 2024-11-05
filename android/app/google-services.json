@@ -7,50 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:572145211961:android:1414c4cbd9904d6f8e4be8",
-        "android_client_info": {
-          "package_name": "com.buutruong.socialtravelapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "572145211961-92nsacbegmvnae8f03kshnv4mls77brj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.buutruong.socialtravelapp",
-            "certificate_hash": "2beacb5d38638db7163d6b03028ffb2985a04d23"
-          }
-        },
-        {
-          "client_id": "572145211961-otkbic7qopa7lgk6q9ods3g8k0ds52hp.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDuhg_2G1Kzjx7jI5eic3EV63hV0hQEX5w"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "572145211961-otkbic7qopa7lgk6q9ods3g8k0ds52hp.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "572145211961-26hto7t5e8ieq187idgistujsr59tdb8.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.travelSocialNetwork"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:572145211961:android:af6308da0baa947b8e4be8",
         "android_client_info": {
           "package_name": "com.buutruong.travelsocialapp"
@@ -58,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "572145211961-otkbic7qopa7lgk6q9ods3g8k0ds52hp.apps.googleusercontent.com",
+          "client_id": "572145211961-g1qgqdgcjkgl8arhg8aimahep6sc9s7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.buutruong.travelsocialapp",
+            "certificate_hash": "2beacb5d38638db7163d6b03028ffb2985a04d23"
+          }
+        },
+        {
+          "client_id": "572145211961-l6k1se23ig55ria7reini6qr8u790555.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -71,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "572145211961-otkbic7qopa7lgk6q9ods3g8k0ds52hp.apps.googleusercontent.com",
+              "client_id": "572145211961-l6k1se23ig55ria7reini6qr8u790555.apps.googleusercontent.com",
               "client_type": 3
             },
             {

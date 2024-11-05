@@ -27,9 +27,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) =>
-              getIt.get<AuthBloc>()..add(AuthUserSubscriptionRequest()),
-        ),
+            create: (_) =>
+                getIt.get<AuthBloc>()..add(AuthUserSubscriptionRequest())),
         BlocProvider(create: (_) => getIt.get<UserCubit>()),
         BlocProvider(create: (_) => getIt.get<SettingsCubit>()),
       ],

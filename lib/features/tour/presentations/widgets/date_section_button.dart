@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_social_network/cores/utils/extensions/context_extension.dart';
 
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../config/themes/app_theme.dart';
 
 class DateSectionButton extends StatefulWidget {

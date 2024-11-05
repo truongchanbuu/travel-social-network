@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '572145211961',
     projectId: 'travel-social-network-ad4b0',
     storageBucket: 'travel-social-network-ad4b0.appspot.com',
-    androidClientId: '572145211961-92nsacbegmvnae8f03kshnv4mls77brj.apps.googleusercontent.com',
+    androidClientId: '572145211961-g1qgqdgcjkgl8arhg8aimahep6sc9s7a.apps.googleusercontent.com',
     iosClientId: '572145211961-26hto7t5e8ieq187idgistujsr59tdb8.apps.googleusercontent.com',
     iosBundleId: 'com.example.travelSocialNetwork',
   );
@@ -75,7 +75,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '572145211961',
     projectId: 'travel-social-network-ad4b0',
     storageBucket: 'travel-social-network-ad4b0.appspot.com',
-    androidClientId: '572145211961-92nsacbegmvnae8f03kshnv4mls77brj.apps.googleusercontent.com',
+    androidClientId: '572145211961-g1qgqdgcjkgl8arhg8aimahep6sc9s7a.apps.googleusercontent.com',
     iosClientId: '572145211961-26hto7t5e8ieq187idgistujsr59tdb8.apps.googleusercontent.com',
     iosBundleId: 'com.example.travelSocialNetwork',
   );
@@ -89,5 +89,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'travel-social-network-ad4b0.appspot.com',
     measurementId: 'G-381MCXYQ19',
   );
-
 }

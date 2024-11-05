@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travel_social_network/features/review/presentations/widgets/review_item.dart';
 
 import '../../../../cores/constants/constants.dart';
 import '../../../user/presentations/bloc/user_cubit.dart';
 import '../../domain/entities/review.dart';
+import 'review_item.dart';
 
 class ReviewList extends StatelessWidget {
   final List<ReviewEntity> reviews;
