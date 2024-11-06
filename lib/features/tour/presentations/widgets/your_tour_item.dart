@@ -107,13 +107,18 @@ class YourTourItem extends StatelessWidget {
   }
 
   void _navigateToTourDetail(BuildContext context) {
-    Navigator.of(context).push(PageTransition(
-      child: MultiBlocProvider(providers: [
-        BlocProvider(create: (context) => getIt.get<TourBloc>()),
-        BlocProvider(create: (context) => getIt.get<TicketBloc>()),
-        BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
-      ], child: SaveTourPage(tour: tour)),
-      type: PageTransitionType.leftToRight,
-    ));
+    Navigator.of(context).push(
+      PageTransition(
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<TourBloc>()),
+            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+            BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+          ],
+          child: SaveTourPage(tour: tour),
+        ),
+        type: PageTransitionType.leftToRight,
+      ),
+    );
   }
 }

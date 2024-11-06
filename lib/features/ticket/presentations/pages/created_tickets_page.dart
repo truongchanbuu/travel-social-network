@@ -173,7 +173,7 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
     );
 
     if (data is TicketTypeEntity) {
-      final updatedTicket = tickets.firstWhereOrNull(
+      final TicketTypeEntity? updatedTicket = tickets.firstWhereOrNull(
           (ticket) => ticket.ticketTypeId == data.ticketTypeId);
 
       if (updatedTicket != data) {

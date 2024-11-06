@@ -25,6 +25,7 @@ import '../bloc/tour_bloc.dart';
 import 'date_section_button.dart';
 import 'date_time_item.dart';
 
+// TODO: SELECTED DATES AND DATES UI NEED UPDATING AFTER DELETE
 class CreateTourDatesSection extends StatefulWidget {
   final String? duration;
   final String tourId;
@@ -89,9 +90,16 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
                       .where((date) => !dates.contains(date))
                       .toList(),
                 );
-                selectedDates.addAll(state.tickets.map((ticket) =>
-                    DateTimeUtils.formatDateRange(
-                        ticket.startDate, ticket.endDate)));
+
+                selectedDates.addAll(
+                  state.tickets
+                      .map(
+                        (ticket) => DateTimeUtils.formatDateRange(
+                            ticket.startDate, ticket.endDate),
+                      )
+                      .where((date) => !selectedDates.contains(date))
+                      .toList(),
+                );
               }
 
               return ExtendedWrap(
@@ -106,8 +114,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
                 }),
               );
             },
-            buildWhen: (previous, current) =>
-                current is ListOfTicketsLoaded && current.tickets != tickets,
+            buildWhen: (previous, current) => current is ListOfTicketsLoaded,
           ),
           const SizedBox(height: 20),
           _buildActionButton(
@@ -276,7 +283,9 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       setState(() {
         for (var date in selectedDates) {
           context.read<TicketBloc>().add(DeleteTourTicketByDateEvent(
-              tourId: widget.tourId, rangeDate: date));
+                tourId: widget.tourId,
+                rangeDate: date,
+              ));
           dates.remove(date);
         }
         selectedDates.clear();

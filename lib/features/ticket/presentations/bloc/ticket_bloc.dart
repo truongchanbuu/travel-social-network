@@ -275,7 +275,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
         if (tickets.isNotEmpty) {
           final desiredTickets = tickets
               .where((ticket) =>
-                  ticket.startDate == startDate && ticket.endDate == endDate)
+                  DateTimeUtils.isSameDate(ticket.startDate, startDate) &&
+                  DateTimeUtils.isSameDate(ticket.endDate, endDate))
               .toList();
 
           for (var ticket in desiredTickets) {

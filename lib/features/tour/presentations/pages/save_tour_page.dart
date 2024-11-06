@@ -65,34 +65,35 @@ class _SaveTourPageState extends State<SaveTourPage> {
   @override
   Widget build(BuildContext context) {
     final user = context.select((AuthBloc authBloc) => authBloc.state.user);
-    return SafeArea(
-      child: Scaffold(
-        appBar: defaultWhiteAppBar(
-            context: context, onBack: () => _backToPrevious(context)),
-        body: BlocConsumer<TourBloc, TourState>(
-          builder: (context, state) {
-            if (state is TourActionLoading ||
-                (state is TourInitial && widget.tour == null)) {
-              return const AppProgressingIndicator();
-            } else if (state is TourLoaded) {
-              tour = state.tour;
-            } else if (state is TourImagesLoaded) {
-              images = state.images;
-            }
+    return BlocConsumer<TourBloc, TourState>(
+      builder: (context, state) {
+        if (state is TourLoaded) {
+          tour = state.tour;
+        } else if (state is TourImagesLoaded) {
+          images = state.images;
+        }
 
-            return _buildBody();
-          },
-          listener: (context, state) {
-            if (state is TourActionFailed) {
-              showToast(state.message,
-                  position: StyledToastPosition.center, context: context);
-            } else if (state is TourActionSuccess) {
-              _navigateToYourToursPage(user.id);
-            }
-          },
-        ),
-        bottomNavigationBar: _buildSaveTourButton(user.id),
-      ),
+        return SafeArea(
+          child: Scaffold(
+            appBar: defaultWhiteAppBar(
+                context: context, onBack: () => _backToPrevious(context)),
+            body: state is TourLoaded || widget.tour != null
+                ? _buildBody()
+                : const AppProgressingIndicator(),
+            bottomNavigationBar: state is TourActionLoading
+                ? const AppProgressingIndicator()
+                : _buildSaveTourButton(user.id),
+          ),
+        );
+      },
+      listener: (context, state) {
+        if (state is TourActionFailed) {
+          showToast(state.message,
+              position: StyledToastPosition.center, context: context);
+        } else if (state is TourActionSuccess) {
+          _navigateToYourToursPage(user.id);
+        }
+      },
     );
   }
 
