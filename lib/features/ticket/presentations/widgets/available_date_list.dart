@@ -136,7 +136,7 @@ class _AvailableDateListState extends State<AvailableDateList> {
     const double borderWidth = 1;
 
     return GestureDetector(
-      key: ValueKey(date.toString()),
+      // key: ValueKey(date.toString()),
       onTap: () => widget.onSelectDate(date),
       child: Container(
         decoration: BoxDecoration(

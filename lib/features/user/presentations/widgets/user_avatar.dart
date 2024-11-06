@@ -21,6 +21,7 @@ class UserAvatar extends StatelessWidget {
     '47fdb19b335136327329015cb8f2c53f',
   ];
 
+  static const double _defaultRadius = 18;
   @override
   Widget build(BuildContext context) {
     final randomCatUrl = randomCats[Random().nextInt(randomCats.length)];
@@ -28,18 +29,22 @@ class UserAvatar extends StatelessWidget {
         'https://robohash.org/$randomCatUrl?set=set4&bgset=&size=400x400';
 
     return CircleAvatar(
-      backgroundImage: CachedNetworkImageProvider(
-        avatarUrl,
-        cacheKey: (user.avatarUrl?.isNotEmpty ?? false)
-            ? '${user.avatarUrl}_${user.avatarUrl}'
-            : (user.email?.isNotEmpty ?? false)
-                ? user.email
-                : (user.id.isNotEmpty ? user.id : avatarUrl),
+      backgroundColor: Colors.black,
+      radius: (radius ?? _defaultRadius) + 1,
+      child: CircleAvatar(
+        backgroundImage: CachedNetworkImageProvider(
+          avatarUrl,
+          cacheKey: (user.avatarUrl?.isNotEmpty ?? false)
+              ? '${user.avatarUrl}_${user.avatarUrl}'
+              : (user.email?.isNotEmpty ?? false)
+                  ? user.email
+                  : (user.id.isNotEmpty ? user.id : avatarUrl),
+        ),
+        backgroundColor: Colors.white,
+        onBackgroundImageError: (exception, stackTrace) =>
+            dev.log('Failed to load avatar: $exception'),
+        radius: (radius ?? _defaultRadius),
       ),
-      backgroundColor: Colors.white,
-      onBackgroundImageError: (exception, stackTrace) =>
-          dev.log('Failed to load avatar: $exception'),
-      radius: radius,
     );
   }
 }

@@ -26,6 +26,7 @@ import 'date_section_button.dart';
 import 'date_time_item.dart';
 
 class CreateTourDatesSection extends StatefulWidget {
+  final String? duration;
   final String tourId;
   final void Function(List<String> dates)? onSelectedDates;
 
@@ -33,6 +34,7 @@ class CreateTourDatesSection extends StatefulWidget {
     super.key,
     this.onSelectedDates,
     required this.tourId,
+    this.duration,
   });
 
   @override
@@ -58,6 +60,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     }
 
     maxLines = minLines + 1;
+    tourDuration = DurationHelper.getDurationFromString(widget.duration);
   }
 
   @override
@@ -69,19 +72,42 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
               DurationHelper.getDurationFromString(state.tour.duration);
         }
       },
+      listenWhen: (previous, current) =>
+          current is TourLoaded && current.tour.duration.isNotEmpty,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ExtendedWrap(
-            maxLines: maxLines,
-            minLines: minLines,
-            overflowWidget: _buildOverflowWidget(),
-            runSpacing: 10,
-            spacing: 10,
-            textDirection: defaultTextDirection,
-            children: List.generate(dates.length, (index) {
-              return _buildDateTimeItem(dates[index], index);
-            }),
+          BlocBuilder<TicketBloc, TicketState>(
+            builder: (context, state) {
+              if (state is ListOfTicketsLoaded) {
+                dates.addAll(
+                  state.tickets
+                      .map(
+                        (ticket) => DateTimeUtils.formatDateRange(
+                            ticket.startDate, ticket.endDate),
+                      )
+                      .where((date) => !dates.contains(date))
+                      .toList(),
+                );
+                selectedDates.addAll(state.tickets.map((ticket) =>
+                    DateTimeUtils.formatDateRange(
+                        ticket.startDate, ticket.endDate)));
+              }
+
+              return ExtendedWrap(
+                maxLines: maxLines,
+                minLines: minLines,
+                overflowWidget: _buildOverflowWidget(),
+                runSpacing: 10,
+                spacing: 10,
+                textDirection: defaultTextDirection,
+                children: List.generate(dates.length, (index) {
+                  return _buildDateTimeItem(dates[index], index);
+                }),
+              );
+            },
+            buildWhen: (previous, current) =>
+                current is ListOfTicketsLoaded && current.tickets != tickets,
           ),
           const SizedBox(height: 20),
           _buildActionButton(
@@ -91,6 +117,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
           ),
           const SizedBox(height: 20),
           BlocBuilder<TicketBloc, TicketState>(
+            buildWhen: (previous, current) =>
+                current is ListOfTicketsLoaded && current.tickets != tickets,
             builder: (context, state) {
               if (state is ListOfTicketsLoaded) {
                 tickets = state.tickets;
@@ -103,7 +131,10 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
                 title: '${S.current.viewAll} ${S.current.tickets}',
                 backgroundColor: Colors.white,
                 textColor: AppTheme.primaryColor,
-                onPressed: tickets.isNotEmpty ? _viewAllCreatedTickets : null,
+                onPressed:
+                    state is ListOfTicketsLoaded && state.tickets.isNotEmpty
+                        ? _viewAllCreatedTickets
+                        : null,
               );
             },
           ),

@@ -115,7 +115,10 @@ class _SaveTourPageState extends State<SaveTourPage> {
         expansionKey: datesKey,
         header: _buildHeadingText(S.current.tourDatesLabel,
             leading: const Icon(Icons.calendar_month)),
-        body: CreateTourDatesSection(tourId: tour.tourId),
+        body: CreateTourDatesSection(
+          tourId: tour.tourId,
+          duration: tour.duration,
+        ),
       );
 
   ExpansionPanel _buildImageSelection() => _buildTemplateExpansionPanel(
@@ -234,7 +237,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
 
   void _createTour(String userId) {
     bool isValid = (_tourDetailKey.currentState?.validateForm() ?? false) &&
-        images.isNotEmpty &&
+        tour.imageUrls.isNotEmpty &&
         tour.ticketIds.isNotEmpty;
 
     if (!isValid) {

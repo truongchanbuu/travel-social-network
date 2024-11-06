@@ -4,6 +4,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../review/domain/entities/review.dart';
@@ -200,7 +201,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: TextButton(
-                onPressed: () => _showAllTickets(context),
+                onPressed: _showAllTickets,
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey.withOpacity(0.2),
                   shape: const RoundedRectangleBorder(
@@ -299,7 +300,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
           }
 
           tickets = ticketState.tickets;
-          availableDates = tickets.map((ticket) => ticket.startDate).toList();
+          availableDates = _getDepartureDate();
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,7 +330,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
 
   List<TicketTypeEntity> _getTicketsByDate() {
     if (selectedDate == null) return tickets;
-    return tickets.where((t) => t.startDate == selectedDate).toList();
+    return tickets
+        .where((t) => DateTimeUtils.isSameDate(t.startDate, selectedDate!))
+        .toList();
   }
 
   void _showReviewDetailPage() {
@@ -337,8 +340,9 @@ class _TourDetailPageState extends State<TourDetailPage> {
       context,
       MaterialPageRoute(
         builder: (context) => BlocProvider(
-            create: (context) => getIt.get<ReviewBloc>(),
-            child: ReviewsPage(tour: tour)),
+          create: (context) => getIt.get<ReviewBloc>(),
+          child: ReviewsPage(tour: tour),
+        ),
       ),
     );
   }
@@ -353,7 +357,7 @@ class _TourDetailPageState extends State<TourDetailPage> {
     );
   }
 
-  void _showAllTickets(BuildContext context) {
+  void _showAllTickets() {
     showModalBottomSheet(
       useSafeArea: true,
       isScrollControlled: true,
@@ -379,4 +383,17 @@ class _TourDetailPageState extends State<TourDetailPage> {
           children: [QuillContent(content: tour.tourSchedule!)],
         ),
       );
+
+  List<DateTime> _getDepartureDate() {
+    return tickets
+        .map(
+          (ticket) => DateTime(
+            ticket.startDate.year,
+            ticket.startDate.month,
+            ticket.startDate.day,
+          ),
+        )
+        .toSet()
+        .toList();
+  }
 }

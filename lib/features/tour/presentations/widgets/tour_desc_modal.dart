@@ -17,8 +17,9 @@ class TourDescModal extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: const BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
+              border: Border(
+                bottom: BorderSide(color: Colors.grey, width: 0.5),
+              ),
             ),
             padding: const EdgeInsets.all(10.0),
             child: Center(

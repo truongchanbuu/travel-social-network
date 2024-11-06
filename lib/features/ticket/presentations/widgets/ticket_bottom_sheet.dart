@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../tour/presentations/widgets/tour_bottom_sheet_template.dart';
 import '../../domain/entities/ticket_type.dart';
@@ -59,7 +60,8 @@ class _TicketBottomSheetState extends State<TicketBottomSheet> {
                 ticketsByDate = selectedDate == null
                     ? widget.tickets
                     : widget.tickets
-                        .where((t) => t.startDate == selectedDate)
+                        .where((t) => DateTimeUtils.isSameDate(
+                            t.startDate, selectedDate!))
                         .toList();
               });
             },

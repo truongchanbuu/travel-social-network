@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../cores/utils/extensions/context_extension.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
@@ -109,15 +111,18 @@ class _CreatedTicketsPageState extends State<CreatedTicketsPage> {
         onTap: () => _updateTicket(tickets[index]),
         child: Container(
           margin: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-            boxShadow: [
+          decoration: BoxDecoration(
+            color: context.isDarkMode
+                ? AppTheme.primaryColorDark
+                : AppTheme.secondaryColor,
+            boxShadow: const [
               BoxShadow(
                 blurRadius: 1,
                 spreadRadius: 1,
                 color: Colors.black12,
               )
             ],
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
           child: TicketBriefInfo(
             ticketName: tickets[index].ticketTypeName,
