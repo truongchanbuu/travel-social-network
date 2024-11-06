@@ -20,7 +20,7 @@ final class TicketFailure extends TicketState {
 }
 
 final class TicketLoaded extends TicketState {
-  final TicketType ticket;
+  final TicketTypeEntity ticket;
   const TicketLoaded(this.ticket);
 
   @override

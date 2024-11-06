@@ -128,7 +128,7 @@ class CreateTicketSectionState extends State<CreateTicketSection> {
     if (widget.ticket == null && state is! TicketLoaded) {
       return AppProgressingIndicator(text: S.current.loading);
     } else if (state is TicketLoaded) {
-      ticket = state.ticket.toEntity();
+      ticket = state.ticket;
       _initializeControllers();
     }
 

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../cores/enums/ticket_category.dart';
 import '../../domain/entities/ticket.dart';
 
 part 'ticket.g.dart';
@@ -8,10 +9,12 @@ part 'ticket.g.dart';
 class Ticket extends TicketEntity {
   const Ticket({
     required super.ticketId,
+    required super.category,
     required super.tourId,
     required super.ticketTypeId,
     required super.customerId,
     required super.purchasedDate,
+    required super.quantity,
     required super.ticketPrice,
     required super.discount,
   });
@@ -23,6 +26,8 @@ class Ticket extends TicketEntity {
     String? customerId,
     DateTime? purchasedDate,
     num? ticketPrice,
+    int? quantity,
+    TicketCategory? category,
     double? discount,
   }) {
     return Ticket(
@@ -33,6 +38,8 @@ class Ticket extends TicketEntity {
       purchasedDate: purchasedDate ?? this.purchasedDate,
       ticketPrice: ticketPrice ?? this.ticketPrice,
       discount: discount ?? this.discount,
+      category: category ?? this.category,
+      quantity: quantity ?? this.quantity,
     );
   }
 
@@ -44,7 +51,9 @@ class Ticket extends TicketEntity {
       customerId: customerId,
       purchasedDate: purchasedDate,
       ticketPrice: ticketPrice,
+      quantity: quantity,
       discount: discount,
+      category: category,
     );
   }
 
@@ -57,64 +66,12 @@ class Ticket extends TicketEntity {
       purchasedDate: entity.purchasedDate,
       ticketPrice: entity.ticketPrice,
       discount: entity.discount,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      "ticketId": ticketId,
-      "tourId": tourId,
-      "ticketTypeId": ticketTypeId,
-      "customerId": customerId,
-      "purchasedDate": purchasedDate.toUtc().toIso8601String(),
-      "ticketPrice": ticketPrice,
-      "discount": discount,
-    };
-  }
-
-  factory Ticket.fromMap(Map<String, dynamic> map) {
-    return Ticket(
-      ticketId: map["ticketId"],
-      tourId: map["tourId"],
-      ticketTypeId: map["ticketTypeId"],
-      customerId: map["customerId"],
-      purchasedDate: DateTime.parse(map["purchasedDate"]).toLocal(),
-      ticketPrice: map["ticketPrice"],
-      discount: map["discount"]?.toDouble(),
+      quantity: entity.quantity,
+      category: entity.category,
     );
   }
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
 
   Map<String, dynamic> toJson() => _$TicketToJson(this);
-
-  @override
-  String toString() {
-    return "Ticket(ticketId: $ticketId, tourId: $tourId, ticketTypeId: $ticketTypeId, customerId: $customerId, purchasedDate: $purchasedDate, ticketPrice: $ticketPrice, discount: $discount)";
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Ticket &&
-        other.ticketId == ticketId &&
-        other.tourId == tourId &&
-        other.ticketTypeId == ticketTypeId &&
-        other.customerId == customerId &&
-        other.purchasedDate == purchasedDate &&
-        other.ticketPrice == ticketPrice &&
-        other.discount == discount;
-  }
-
-  @override
-  int get hashCode {
-    return ticketId.hashCode ^
-        tourId.hashCode ^
-        ticketTypeId.hashCode ^
-        customerId.hashCode ^
-        purchasedDate.hashCode ^
-        ticketPrice.hashCode ^
-        discount.hashCode;
-  }
 }

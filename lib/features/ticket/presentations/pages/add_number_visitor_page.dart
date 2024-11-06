@@ -1,7 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
@@ -9,11 +11,14 @@ import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/utils/date_time_utils.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
+import '../../../auth/presentations/bloc/auth_bloc.dart';
 import '../../../policy/domain/entities/policy.dart';
 import '../../../policy/presentations/bloc/policy_bloc.dart';
 import '../../../shared/presentations/widgets/app_progressing_indicator.dart';
+import '../../../shared/presentations/widgets/default_white_appbar.dart';
 import '../../../shared/presentations/widgets/detail_heading_text.dart';
 import '../../../tour/presentations/bloc/tour_bloc.dart';
+import '../../domain/entities/ticket.dart';
 import '../../domain/entities/ticket_type.dart';
 import '../bloc/ticket_bloc.dart';
 import '../widgets/add_ticket_type_item.dart';
@@ -45,6 +50,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
 
   List<DateTime> availableDates = [];
   List<TicketTypeEntity> ticketsTypeOnDate = [];
+  List<TicketEntity> selectedTickets = [];
 
   num totalPrice = 0;
 
@@ -52,18 +58,13 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
   void initState() {
     super.initState();
     context.read<TicketBloc>().add(GetTicketByIdEvent(widget.ticketId));
-    // tour = generateSampleTours().where((t) => t.tourId == ticket.tourId).first;
-
-    // ticketsTypeOnDate = tour.tickets
-    //     .where((t) =>
-    //         t.ticketTypeId == widget.ticketId &&
-    //         selectedDate != null &&
-    //         DateTimeUtils.isSameDate(selectedDate!, t.startDate))
-    //     .toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    final currentUser =
+        context.select((AuthBloc authBloc) => authBloc.state.user);
+
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
@@ -75,7 +76,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
             }
 
             if (ticketState is TicketLoaded) {
-              ticket = ticketState.ticket.toEntity();
+              ticket = ticketState.ticket;
               context
                   .read<TicketBloc>()
                   .add(GetAllTicketsByTourId(ticket.tourId));
@@ -96,7 +97,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
                         _buildTicketBriefInfo(ticket),
                         if (ticketState is ListOfTicketsLoaded) ...[
                           _buildSelectedDateSection(ticketState),
-                          _buildTicketTypeList(ticketState)
+                          _buildTicketTypeList(ticketState, currentUser.id)
                         ] else
                           const AppProgressingIndicator(),
                         BlocConsumer<PolicyBloc, PolicyState>(
@@ -138,7 +139,10 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
   }
 
   Widget _buildBookingButton() {
-    return TotalPriceWidget(totalPrice: totalPrice);
+    return TotalPriceWidget(
+      totalPrice: totalPrice,
+      tickets: selectedTickets,
+    );
   }
 
   Widget _buildImportantInfo(
@@ -239,7 +243,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
         ),
       );
 
-  Widget _buildTicketTypeList(ListOfTicketsLoaded ticketState) {
+  Widget _buildTicketTypeList(ListOfTicketsLoaded ticketState, String userId) {
     ticketsTypeOnDate = ticketState.tickets
         .where((ticket) =>
             selectedDate != null &&
@@ -258,8 +262,11 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
         horizontalSpacing: 10,
         verticalSpacing: 0,
         itemBuilder: (context, index) => AddTicketTypeItem(
-          ticket: ticket,
-          onChange: (value) => debugPrint(value.toString()),
+          ticket: ticketsTypeOnDate[index],
+          onChange: (value) => setState(() {
+            totalPrice = value * ticketsTypeOnDate[index].ticketPrice;
+            _updateSelectedTickets(ticketsTypeOnDate[index], value, userId);
+          }),
         ),
       ),
     );
@@ -316,15 +323,9 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
     );
   }
 
-  AppBar _buildAppBar() => AppBar(
-        title: Text(
-          S.current.addVisitorNumber,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
+  AppBar _buildAppBar() => defaultWhiteAppBar(
+        context: context,
+        titleText: S.current.addVisitorNumber,
         centerTitle: true,
       );
 
@@ -347,4 +348,32 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
           ),
         ),
       );
+
+  void _updateSelectedTickets(
+    TicketTypeEntity ticket,
+    int quantity,
+    String userId,
+  ) {
+    final existingTicket = selectedTickets
+        .firstWhereOrNull((t) => ticket.ticketTypeId == t.ticketTypeId);
+
+    if (existingTicket != null && existingTicket.quantity != quantity) {
+      selectedTickets.remove(existingTicket);
+      selectedTickets.add(existingTicket.copyWith(quantity: quantity));
+    } else {
+      selectedTickets.add(
+        TicketEntity(
+          ticketId: const Uuid().v4(),
+          category: ticket.category,
+          tourId: ticket.tourId,
+          quantity: quantity,
+          ticketTypeId: ticket.ticketTypeId,
+          customerId: userId,
+          purchasedDate: DateTime.now(),
+          ticketPrice: ticket.ticketPrice,
+          discount: 0,
+        ),
+      );
+    }
+  }
 }

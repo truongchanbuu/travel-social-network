@@ -151,9 +151,9 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
 
   void _onUpdateTicketField(event, emit) {
     if (state is TicketLoaded) {
-      final TicketType currentTicket = (state as TicketLoaded).ticket;
-      final TicketType updatedTicket =
-          _updateTicketField(currentTicket, event.field, event.value);
+      final TicketTypeEntity currentTicket = (state as TicketLoaded).ticket;
+      final TicketTypeEntity updatedTicket = _updateTicketField(
+          TicketType.fromEntity(currentTicket), event.field, event.value);
       emit(TicketLoaded(updatedTicket));
     }
   }
@@ -209,7 +209,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       invalidTickets: duplicatedTickets,
     ));
 
-    emit(TicketLoaded(TicketType.fromEntity(event.ticket)));
+    emit(TicketLoaded(event.ticket));
   }
 
   TicketTypeEntity _createTicketForDate(TicketTypeEntity ticket, String date) {

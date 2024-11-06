@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
+import '../../../../cores/utils/extensions/string_extension.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/currency_helper.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/ticket.dart';
 
 class TotalPriceWidget extends StatefulWidget {
+  final List<TicketEntity> tickets;
   final num totalPrice;
   final bool canTap;
 
@@ -14,6 +17,7 @@ class TotalPriceWidget extends StatefulWidget {
     super.key,
     required this.totalPrice,
     this.canTap = true,
+    required this.tickets,
   });
 
   @override
@@ -22,12 +26,6 @@ class TotalPriceWidget extends StatefulWidget {
 
 class _TotalPriceWidgetState extends State<TotalPriceWidget> {
   bool _isPopUp = false;
-  final List<Map<String, dynamic>> purchasedTickets = [
-    {'category': 'Adult', 'quantity': 1, 'price': 50.00},
-    {'category': 'Child', 'quantity': 2, 'price': 30.00},
-    {'category': 'VIP', 'quantity': 1, 'price': 100.00},
-    {'category': 'FREE', 'quantity': 10, 'price': 100.00},
-  ];
 
   @override
   void initState() {
@@ -35,7 +33,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
     _isPopUp = !widget.canTap;
   }
 
-  static const TextStyle textStyle = TextStyle(
+  static const TextStyle _textStyle = TextStyle(
     color: Colors.grey,
     fontSize: 12,
   );
@@ -99,21 +97,21 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
         padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: purchasedTickets.map((ticket) {
+          children: widget.tickets.map((ticket) {
             return Padding(
               padding: const EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${ticket['category']} (${ticket['quantity']}x)',
-                    style: textStyle,
+                    '${ticket.category.name.toUpperCaseFirstLetter} (${ticket.quantity}x)',
+                    style: _textStyle,
                   ),
                   Text(
                     CurrencyHelper.formatCurrency(
-                      ticket['price'] * ticket['quantity'],
+                      ticket.ticketPrice * ticket.quantity,
                     ),
-                    style: textStyle,
+                    style: _textStyle,
                   ),
                 ],
               ),
@@ -160,6 +158,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
       builder: (context) => TotalPriceWidget(
         totalPrice: widget.totalPrice,
         canTap: false,
+        tickets: widget.tickets,
       ),
     );
   }

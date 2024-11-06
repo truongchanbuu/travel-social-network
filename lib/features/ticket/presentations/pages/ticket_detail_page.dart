@@ -97,7 +97,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
             if (state is TicketActionLoading || state is TicketInitial) {
               return const AppProgressingIndicator();
             } else if (state is TicketLoaded) {
-              ticket = state.ticket.toEntity();
+              ticket = state.ticket;
 
               context
                   .read<PolicyBloc>()
@@ -396,8 +396,12 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
     navigator.push(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
-          create: (context) => getIt.get<TicketBloc>(),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => getIt.get<TicketBloc>()),
+            BlocProvider(create: (context) => getIt.get<PolicyBloc>()),
+          ],
           child: AddNumberVisitorPage(
             ticketId: ticket!.ticketTypeId,
             selectedDate: selectedDate,
