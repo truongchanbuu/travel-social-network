@@ -32,7 +32,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
   }
 
   void _onInitialNewTour(event, emit) {
-    emit(const TourLoaded(TourEntity.empty));
+    emit(TourLoaded(TourEntity.withId));
   }
 
   Future<void> _onGetTourById(GetTourByIdEvent event, emit) async {

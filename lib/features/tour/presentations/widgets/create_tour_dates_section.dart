@@ -338,7 +338,7 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
         setState(() => selectedDates = data);
       } else if (data is List<TicketTypeEntity>) {
         _updateLocalTickets(data);
-        ticketBloc.add(UpdateListOfTicketsEvent(tickets));
+        ticketBloc.add(UpdateListOfTicketsEvent(data));
       }
     }
   }

@@ -238,7 +238,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
 
   void _createTour(String userId) {
     bool isValid = (_tourDetailKey.currentState?.validateForm() ?? false) &&
-        tour.imageUrls.isNotEmpty &&
+        images.isNotEmpty &&
         tour.ticketIds.isNotEmpty;
 
     if (!isValid) {
@@ -254,7 +254,7 @@ class _SaveTourPageState extends State<SaveTourPage> {
   }
 
   void _backToPrevious(BuildContext ctx) {
-    if (tour == TourEntity.empty) {
+    if (tour == widget.tour) {
       Navigator.pop(ctx);
       return;
     }

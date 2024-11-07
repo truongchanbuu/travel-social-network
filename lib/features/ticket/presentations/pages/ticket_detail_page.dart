@@ -7,6 +7,7 @@ import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/utils/currency_helper.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../cores/utils/formatters/quill_content_formatter.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../policy/domain/entities/policy.dart';
@@ -317,10 +318,12 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
   ExpansionPanel _buildPolicies() {
     bool canRefund = refundPolicy!.isAllowed;
-    String refundDescription = refundPolicy!.policyDescription;
+    String refundDescription = QuillContentFormatter.convertToPlainText(
+        refundPolicy!.policyDescription);
 
     bool canRescheduled = reschedulePolicy!.isAllowed;
-    String rescheduleDescription = reschedulePolicy!.policyDescription;
+    String rescheduleDescription = QuillContentFormatter.convertToPlainText(
+        reschedulePolicy!.policyDescription);
 
     return ExpansionPanel(
       backgroundColor: AppTheme.backGroundExpansionItemColor,

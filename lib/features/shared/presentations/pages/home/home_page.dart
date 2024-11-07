@@ -48,7 +48,10 @@ class _HomePageState extends State<HomePage> {
               tours = state.tours;
             }
 
-            return _buildBody();
+            return RefreshIndicator(
+                child: _buildBody(),
+                onRefresh: () async =>
+                    context.read<TourBloc>().add(GetTopRatingToursEvent()));
           },
         ),
       ),

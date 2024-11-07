@@ -9,6 +9,7 @@ import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/enums/policy_type.dart';
 import '../../../../cores/utils/date_time_utils.dart';
+import '../../../../cores/utils/formatters/quill_content_formatter.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../injection_container.dart';
 import '../../../auth/presentations/bloc/auth_bloc.dart';
@@ -233,7 +234,7 @@ class _AddNumberVisitorPageState extends State<AddNumberVisitorPage> {
             Icon(icon),
             const SizedBox(width: 10),
             Text(
-              message,
+              QuillContentFormatter.convertToPlainText(message),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
