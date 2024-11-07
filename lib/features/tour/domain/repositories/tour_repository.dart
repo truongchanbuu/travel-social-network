@@ -7,4 +7,5 @@ abstract interface class TourRepository {
   Future<DataState<Tour>> getTourById(String tourId);
   Future<DataState<List<Tour>>> getTourByUserId(String userId);
   Future<DataState<Tour>> updateTour(String tourId, Map<String, dynamic> data);
+  Future<DataState<Tour>> deleteTour(String tourId);
 }

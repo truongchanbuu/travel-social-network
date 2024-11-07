@@ -68,3 +68,11 @@ final class UpdateTourRatingEvent extends TourEvent {
   @override
   List<Object> get props => [tourId, rating];
 }
+
+final class DeleteTourEvent extends TourEvent {
+  final String tourId;
+  const DeleteTourEvent(this.tourId);
+
+  @override
+  List<Object> get props => [tourId];
+}

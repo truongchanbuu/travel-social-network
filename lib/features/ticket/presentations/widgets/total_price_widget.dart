@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cores/utils/extensions/string_extension.dart';
 import '../../../../config/themes/app_theme.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/currency_helper.dart';
 import '../../../../generated/l10n.dart';
+import '../../../setting/presentations/cubit/settings_cubit.dart';
 import '../../domain/entities/ticket.dart';
 
 class TotalPriceWidget extends StatefulWidget {
@@ -43,7 +45,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _buildTotalPrice(),
+        _buildTotalPrice(context),
         if (_isPopUp) ...[
           _buildSelectedTicketDetailList(),
           const SizedBox(height: 10),
@@ -53,7 +55,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
     );
   }
 
-  Widget _buildTotalPrice() => ListTile(
+  Widget _buildTotalPrice(BuildContext context) => ListTile(
         onTap: widget.canTap ? () => _showTotalPriceBottomSheet(context) : null,
         titleAlignment: ListTileTitleAlignment.center,
         title: Text(
@@ -77,7 +79,7 @@ class _TotalPriceWidgetState extends State<TotalPriceWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                CurrencyHelper.formatCurrency(widget.totalPrice),
+                CurrencyHelper.formatCurrency(widget.totalPrice, locale: context.select((SettingsCubit settings) => settings.currentLocale.toString())),
                 style: const TextStyle(
                   color: AppTheme.currencyTextColor,
                   fontWeight: FontWeight.bold,

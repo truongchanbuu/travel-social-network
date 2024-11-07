@@ -30,7 +30,7 @@ class IconWithText extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   text,
-                  maxLines: 2,
+                  maxLines: 3,
                   textAlign: TextAlign.center,
                   textDirection: defaultTextDirection,
                   overflow: defaultTextOverflow,

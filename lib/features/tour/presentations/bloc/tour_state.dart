@@ -50,3 +50,5 @@ final class TourImagesLoaded extends TourState {
   @override
   List<Object> get props => [images];
 }
+
+final class TourDeleted extends TourState {}

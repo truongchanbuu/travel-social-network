@@ -51,6 +51,7 @@ class YourTourItem extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: ListTile(
+          trailing: const Icon(Icons.delete),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,

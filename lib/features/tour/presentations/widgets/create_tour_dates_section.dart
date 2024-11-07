@@ -139,7 +139,8 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
                 backgroundColor: Colors.white,
                 textColor: AppTheme.primaryColor,
                 onPressed:
-                    state is ListOfTicketsLoaded && state.tickets.isNotEmpty
+                    state is ListOfTicketsLoaded && state.tickets.isNotEmpty ||
+                            tickets.isNotEmpty
                         ? _viewAllCreatedTickets
                         : null,
               );
@@ -229,13 +230,25 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
       );
 
   void _addDate(BuildContext context) async {
+    if (tourDuration == null || tourDuration == Duration.zero) {
+      showToast(S.current.invalidDurationError, context: context);
+      return;
+    }
+
+    final startDate = DateTime.now();
+    final endDate = startDate.add(tourDuration!);
     var data = await showBoardDateTimeMultiPicker(
       context: context,
       pickerType: DateTimePickerType.datetime,
       useSafeArea: true,
+      onChanged: (result) {
+        if (result.end.difference(result.start) != tourDuration!) {
+          showToast(S.current.invalidDurationError, context: context);
+        }
+      },
+      startDate: startDate,
+      endDate: endDate,
       minimumDate: DateTime.now(),
-      endDate:
-          DateTime.now().add(tourDuration ?? const Duration(days: maximumDay)),
       maximumDate: DateTime.now().add(const Duration(days: maximumDay)),
       options: const BoardDateTimeOptions(
         activeColor: AppTheme.primaryColor,
@@ -243,6 +256,11 @@ class _CreateTourDatesSectionState extends State<CreateTourDatesSection> {
     );
 
     if (data != null && context.mounted) {
+      if (data.end.difference(data.start) != tourDuration!) {
+        showToast(S.current.invalidDurationError, context: context);
+        return;
+      }
+
       String formatted = DateTimeUtils.formatDateRange(data.start, data.end);
 
       bool isIncluded = dates.any((d) => d == formatted);

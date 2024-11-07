@@ -28,6 +28,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     on<GetTopRatingToursEvent>(_onGetTopRatingTours);
     on<UpdateTourRatingEvent>(_onUpdateTourRating);
     on<GetToursByUserIdEvent>(_onGetUserTours);
+    on<DeleteTourEvent>(_onDeleteTour);
   }
 
   void _onInitialNewTour(event, emit) {
@@ -195,6 +196,23 @@ class TourBloc extends Bloc<TourEvent, TourState> {
           ListOfToursLoaded(
               dataState.data?.map((tour) => tour.toEntity()).toList() ?? []),
         );
+      }
+    } catch (e) {
+      log(e.toString());
+      emit(TourActionFailed(S.current.dataStateFailure));
+    }
+  }
+
+  Future<void> _onDeleteTour(
+      DeleteTourEvent event, Emitter<TourState> emit) async {
+    try {
+      final dataState = await tourRepository.deleteTour(event.tourId);
+
+      if (dataState is DataFailure) {
+        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        emit(TourActionFailed(S.current.dataStateFailure));
+      } else {
+        emit(TourDeleted());
       }
     } catch (e) {
       log(e.toString());

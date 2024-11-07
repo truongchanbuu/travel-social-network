@@ -117,4 +117,24 @@ class TourRepositoryImpl implements TourRepository {
       return defaultDataFailure(e.toString());
     }
   }
+
+  @override
+  Future<DataState<Tour>> deleteTour(String tourId) async {
+    try {
+      final docRef = tourCollection.doc(tourId);
+      final docSnap = await docRef.get();
+
+      if (!docSnap.exists) {
+        return defaultDataFailure(S.current.notFound);
+      }
+
+      await docRef.delete();
+
+      return DataSuccess(data: Tour.fromJson(docSnap.data()!));
+    } on FirebaseException catch (e) {
+      return handleFirebaseException(e);
+    } catch (e) {
+      return defaultDataFailure(e.toString());
+    }
+  }
 }
