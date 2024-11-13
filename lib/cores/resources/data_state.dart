@@ -41,7 +41,7 @@ DataFailure<T> defaultDataFailure<T>(String errorMessage,
     {RequestOptions? reqOpts}) {
   return DataFailure<T>(
     error: DioException(
-      message: 'There is something happened',
+      message: 'There is something happened $errorMessage',
       requestOptions: reqOpts ?? RequestOptions(),
       error: errorMessage,
     ),

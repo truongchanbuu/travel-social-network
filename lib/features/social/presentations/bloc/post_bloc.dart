@@ -72,7 +72,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final dataState = await postRepository.createPost(post);
 
       if (dataState is DataFailure) {
-        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        log('ERROR OCCURRED: ${dataState.error}');
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         emit(PostActionSucceed(dataState.data!.toEntity()));
@@ -97,8 +97,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     try {
       final dataState = await postRepository.getPosts();
       if (dataState is DataFailure) {
-        log(dataState.error?.message ??
-            'Get all posts failed: ${dataState.error}');
+        log('Get all posts failed: ${dataState.error}');
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         emit(ListOfPostReceived(
@@ -116,7 +115,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     try {
       final dataState = await postRepository.deletePostById(event.postId);
       if (dataState is DataFailure) {
-        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        log('ERROR OCCURRED: ${dataState.error}');
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         emit(PostDeleted());
@@ -133,7 +132,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final dataState =
           await postRepository.updatePost(event.postId, event.data);
       if (dataState is DataFailure) {
-        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        log('ERROR OCCURRED: ${dataState.error}');
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         emit(PostActionSucceed(dataState.data!));
@@ -149,7 +148,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final dataState =
           await postRepository.updatePost(event.postId, event.data);
       if (dataState is DataFailure) {
-        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        log('ERROR OCCURRED: ${dataState.error}');
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         emit(PostActionSucceed(dataState.data!));
@@ -164,13 +163,15 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       GetPostByIdEvent event, Emitter<PostState> emit) async {
     emit(PostActionLoading());
     try {
-      final dataState = await postRepository.getPostById(event.postId);
-      if (dataState is DataFailure) {
-        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
-        emit(PostActionFailed(S.current.dataStateFailure));
-      } else {
-        PostEntity post = dataState.data!.toEntity();
-        emit(PostReceived(state, post));
+      if (event.postId.isNotEmpty) {
+        final dataState = await postRepository.getPostById(event.postId);
+        if (dataState is DataFailure) {
+          log('ERROR OCCURRED: ${dataState.error}');
+          emit(PostActionFailed(S.current.dataStateFailure));
+        } else {
+          PostEntity post = dataState.data!.toEntity();
+          emit(PostReceived(state, post));
+        }
       }
     } catch (e) {
       log(e.toString());
@@ -184,7 +185,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     try {
       final dataState = await postRepository.getPostById(event.postId);
       if (dataState is DataFailure) {
-        log(dataState.error?.message ?? 'ERROR OCCURRED: ${dataState.error}');
+        log('ERROR OCCURRED: ${dataState.error}');
         emit(PostActionFailed(S.current.dataStateFailure));
       } else {
         PostEntity post = dataState.data!.toEntity();
