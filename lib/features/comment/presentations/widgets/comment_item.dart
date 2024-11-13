@@ -48,7 +48,7 @@ class _CommentItemState extends State<CommentItem> {
             ListTile(
               titleAlignment: ListTileTitleAlignment.top,
               leading: UserAvatar(user: userToDisplay),
-              title: _buildCommentBody(userToDisplay),
+              title: _buildCommentBody(userToDisplay, currentUser.id),
               subtitle: _buildCommentFooter(
                 context,
                 currentUser.id,
@@ -63,7 +63,7 @@ class _CommentItemState extends State<CommentItem> {
     );
   }
 
-  Widget _buildCommentBody(UserEntity user) {
+  Widget _buildCommentBody(UserEntity user, String currentUserId) {
     return Container(
       decoration: BoxDecoration(
         color: context.isDarkMode
@@ -94,7 +94,7 @@ class _CommentItemState extends State<CommentItem> {
                   fontSize: 14,
                 ),
               ),
-              if (user.id == widget.comment.userId)
+              if (currentUserId == widget.comment.userId)
                 CustomPopupMenu(
                   iconSize: 20,
                   padding: EdgeInsets.zero,

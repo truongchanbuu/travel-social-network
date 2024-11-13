@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/themes/app_theme.dart';
 import '../../../../features/user/presentations/widgets/user_avatar.dart';
 import '../../../../cores/utils/extensions/context_extension.dart%20';
 import '../../../../cores/constants/constants.dart';
@@ -71,6 +72,9 @@ class _ReviewItemState extends State<ReviewItem> {
             width: reviewBoxSize,
             padding: const EdgeInsets.all(defaultPadding),
             decoration: BoxDecoration(
+              color: context.isDarkMode
+                  ? AppTheme.primaryColorDark
+                  : AppTheme.secondaryColor,
               border: Border.all(width: 0.5, color: Colors.grey),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               boxShadow: [
